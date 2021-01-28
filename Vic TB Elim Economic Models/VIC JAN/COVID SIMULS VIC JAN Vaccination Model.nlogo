@@ -52,10 +52,10 @@ globals [
   casesinperiod28
   casesinperiod14
   casesinperiod7
-  resetDate;; days after today that the policy is reviewed
+  resetDate ;; days after today that the policy is reviewed
   cashposition
-  Objfunction;; seeks to minimise the damage - totalinfection * stage * currentInfections
-  decisionDate;; a date (ticks) when policy decsions were made
+  Objfunction ;; seeks to minimise the damage - totalinfection * stage * currentInfections
+  decisionDate ;; a date (ticks) when policy decsions were made
   prior0
   prior1
   prior2
@@ -124,94 +124,94 @@ globals [
 
 breed [ simuls simul ]
 breed [ resources resource ]
-breed [ medresources medresource ];; people living in the city
+breed [ medresources medresource ] ;; people living in the city
 breed [ packages package ]
 
 directed-link-breed [red-links red-link]
 
 simuls-own [
-  timenow;; the number of days since initial infection
-  health;; baseline health of the individual
-  inICU;; whether the person is in ICU or not
-  anxiety;; person's level of anxiety aboutt he pandemic
-  sensitivity;; person's sensitivity to news about the pandemic
-  R;; the estimated RNaught of individuals
-  income;; people's income from wage / salary
-  expenditure;; people's expenditure
-  reserves;; cash reserves available to the person
-  agerange;; the age of the person in deciles
-  contacts;; the number of contacts the person has made in the model
-  IncubationPd;; the incubation perios of the illness ascribed to the person
-  DailyRisk;; the risk of death of the person per day based on their agerange
-  RiskofDeath;; the overall risk of deth for the person if they contract the illness based on their age
-  Pace;; the speed that pthe person moves around the environment
-  PersonalTrust;; the level of trust the person has in the Government
-  WFHCap;; capacity of the person to work from home
-  RequireICU;; a measure of whether the person needs ICU or not
-  NewV;; the calculation of the association the person has between the their experiences in the world and their experiences of the illness - used in R-W implementation
-  saliencyMessage;; saliency of the information coming to the person about COVID 19
-  saliencyExperience;; The saliency of the person's experiences in the world
-  vMax;; the maximum association the person can make between COVID-19 and their experience of the world
-  vMin;; the minimum association the person can '' '' '' '' '' ''' '' '' ''' '' '' '' '' '' ''' '' ' ''
-  CareAttitude;; the extent to which the person cares about protecting themselves and others from Covid
-  SelfCapacity;; The capacity of the person to care about protecting themselves and others form COVID
-  newAssociationstrength;; a variable that is used in the calculation and carry-forward of NewV as above
-  ownIllnessPeriod;; unique illness period associated with the individual
-  ownIncubationPeriod;; unique incubation pd for the person - related to IncubationPd so can probably be cleaned up - IncubationPd is a legacy var as previously all incubation periods were identical
-  ownComplianceWithIsolation;; unique variable associated with compliance to Isocation of cases if infected
-  asymptom;; whether the person is asymptomatic or not
-  personalVirulence;; the infectivity of the person
-  tracked;; whether the person has been tracked by the health system
-  Asymptomaticflag;; indicator identifying Asymptomatic cases
-  EssentialWorker;; Variable used to determine whether the person is classified as an essential worker or not
-  EssentialWorkerFlag;; indicator of whether the person is an essentialworker or not
-  Own_WFH_Capacity;; Ability of the person to work from home
-  hunted;; has the person been traced using the phoneApp
-  haveApp;; for use in deterimining if the person has downloaded the app
-  wearsMask;; for use in determining if the person wears a face mask
-  householdUnit;; the id of the household the person belongs to
-  studentFlag;; identifies if the person is a student or not
-  wearingMask;; identifies if the person is wearing a mask or not
-  currentVirulence;; current virulence of the person on the day of their infection
-  Imported;; identifies imported cases
-  adultsInHousehold;; counts how many adults in a household for peole under 70
-  homeLocation;; this is where these people live
-  ownMaskEfficacy;; the efficacy of the person's own mask
-  reported;; has the person's case been reported yet
-  detectable;; Is the infected person detectable likelihood
-  unDetectedFlag;; Indicates whether they are detected or not.
-  returntoschool;; a random number between 0 and 100 that determines whether the person will return to school (assuming they are a student) at time x
-  isolating;; is the person currently isolating?
-  vaccinated;; is the person vaccinated?
-  vacc_Effective;; is this effective in this person?
-  IDTime;; days into infection the person is identified as a case
+  timenow ;; the number of days since initial infection
+  health ;; baseline health of the individual
+  inICU ;; whether the person is in ICU or not
+  anxiety ;; person's level of anxiety aboutt he pandemic
+  sensitivity ;; person's sensitivity to news about the pandemic
+  R ;; the estimated RNaught of individuals
+  income ;; people's income from wage / salary
+  expenditure ;; people's expenditure
+  reserves ;; cash reserves available to the person
+  agerange ;; the age of the person in deciles
+  contacts ;; the number of contacts the person has made in the model
+  IncubationPd ;; the incubation perios of the illness ascribed to the person
+  DailyRisk ;; the risk of death of the person per day based on their agerange
+  RiskofDeath ;; the overall risk of deth for the person if they contract the illness based on their age
+  Pace ;; the speed that pthe person moves around the environment
+  PersonalTrust ;; the level of trust the person has in the Government
+  WFHCap ;; capacity of the person to work from home
+  RequireICU ;; a measure of whether the person needs ICU or not
+  NewV ;; the calculation of the association the person has between the their experiences in the world and their experiences of the illness - used in R-W implementation
+  saliencyMessage ;; saliency of the information coming to the person about COVID 19
+  saliencyExperience ;; The saliency of the person's experiences in the world
+  vMax ;; the maximum association the person can make between COVID-19 and their experience of the world
+  vMin ;; the minimum association the person can '' '' '' '' '' ''' '' '' ''' '' '' '' '' '' ''' '' ' ''
+  CareAttitude ;; the extent to which the person cares about protecting themselves and others from Covid
+  SelfCapacity ;; The capacity of the person to care about protecting themselves and others form COVID
+  newAssociationstrength ;; a variable that is used in the calculation and carry-forward of NewV as above
+  ownIllnessPeriod ;; unique illness period associated with the individual
+  ownIncubationPeriod ;; unique incubation pd for the person - related to IncubationPd so can probably be cleaned up - IncubationPd is a legacy var as previously all incubation periods were identical
+  ownComplianceWithIsolation ;; unique variable associated with compliance to Isocation of cases if infected
+  asymptom ;; whether the person is asymptomatic or not
+  personalVirulence ;; the infectivity of the person
+  tracked ;; whether the person has been tracked by the health system
+  Asymptomaticflag ;; indicator identifying Asymptomatic cases
+  EssentialWorker ;; Variable used to determine whether the person is classified as an essential worker or not
+  EssentialWorkerFlag ;; indicator of whether the person is an essentialworker or not
+  Own_WFH_Capacity ;; Ability of the person to work from home
+  hunted ;; has the person been traced using the phoneApp
+  haveApp ;; for use in deterimining if the person has downloaded the app
+  wearsMask ;; for use in determining if the person wears a face mask
+  householdUnit ;; the id of the household the person belongs to
+  studentFlag ;; identifies if the person is a student or not
+  wearingMask ;; identifies if the person is wearing a mask or not
+  currentVirulence ;; current virulence of the person on the day of their infection
+  Imported ;; identifies imported cases
+  adultsInHousehold ;; counts how many adults in a household for peole under 70
+  homeLocation ;; this is where these people live
+  ownMaskEfficacy ;; the efficacy of the person's own mask
+  reported ;; has the person's case been reported yet
+  detectable ;; Is the infected person detectable likelihood
+  unDetectedFlag ;; Indicates whether they are detected or not.
+  returntoschool ;; a random number between 0 and 100 that determines whether the person will return to school (assuming they are a student) at time x
+  isolating ;; is the person currently isolating?
+  vaccinated ;; is the person vaccinated?
+  vacc_Effective ;; is this effective in this person?
+  IDTime ;; days into infection the person is identified as a case
 
-  contacts7;; contacts from seven days ago
+  contacts7 ;; contacts from seven days ago
   contacts6
   contacts5
   contacts4
   contacts3
   contacts2
-  contacts1;; contacts from today
+  contacts1 ;; contacts from today
 ]
 
 
 Packages-own [
-  value;; stimulus value
+  value ;; stimulus value
 ]
 
 
 patches-own [
-  utilisation;; indicator of whether any people are located on that patch of the environment or not
-  destination;; indicator of whether this location is a place that people might gather
+  utilisation ;; indicator of whether any people are located on that patch of the environment or not
+  destination ;; indicator of whether this location is a place that people might gather
 ]
 
 medresources-own [
-  capacity;; bed capacity of hospital system
+  capacity ;; bed capacity of hospital system
 ]
 
 resources-own [
-  volume;; resources avaialable in resource pile
+  volume ;; resources avaialable in resource pile
 ]
 
 to setupRandomSeed
@@ -233,10 +233,10 @@ to setup
   profiler:start
 
   rngs:init
-  ;; random-seed 100;; for use in setting random nuber generator seeds
+  ;; random-seed 100 ;; for use in setting random nuber generator seeds
 
   clear-all
-  ;;import-drawing "Background1.png";; imports MSD image
+  ;;import-drawing "Background1.png" ;; imports MSD image
 
   ;; illness period estimation using ln transform
   set Illness_Periodvariance se_Illnesspd
@@ -323,15 +323,15 @@ to setup
       set personalVirulence random-normal Global_Transmissability 10
       set haveApp random 100
 
-      set wearsMask random 100;; resethealth resetincome calculateincomeperday calculateexpenditureperday resettrust
-      set detectable random 100;; identifies whether the person is detectable or not
+      set wearsMask random 100 ;; resethealth resetincome calculateincomeperday calculateexpenditureperday resettrust
+      set detectable random 100 ;; identifies whether the person is detectable or not
       set returntoschool random 100
-      set ownIllnessPeriod ( exp random-normal M S );; log transform of illness period
-      set ownIncubationPeriod ( exp random-normal Minc Sinc );;; log transform of incubation period
+      set ownIllnessPeriod ( exp random-normal M S ) ;; log transform of illness period
+      set ownIncubationPeriod ( exp random-normal Minc Sinc ) ;;; log transform of incubation period
 
-      ;;set ownComplianceWithIsolation ( exp random-normal Mcomp SComp );; log transform of compliance with isolation
+      ;;set ownComplianceWithIsolation ( exp random-normal Mcomp SComp ) ;; log transform of compliance with isolation
 
-      rngs:init;; replacing previous log transform with beta distribution
+      rngs:init ;; replacing previous log transform with beta distribution
       let stream_id random-float 999
       let seed random-float 999
       rngs:set-seed stream_id seed
@@ -340,7 +340,7 @@ to setup
       set ownComplianceWithIsolation complianceDist
       let maskWearEfficacy rngs:rnd-beta stream_id 24.3 8.08
 
-      set ownMaskEfficacy maskWearEfficacy * Mask_Efficacy_Discount;; assigning mask efficacy to individuals around a distribution with median 75% or 75% x 1/3 if 33 as per request based on Burnett Institute #s
+      set ownMaskEfficacy maskWearEfficacy * Mask_Efficacy_Discount ;; assigning mask efficacy to individuals around a distribution with median 75% or 75% x 1/3 if 33 as per request based on Burnett Institute #s
 
       set asymptom random 100
       set essentialWorker random 100
@@ -352,7 +352,7 @@ to setup
       iterateAsymptomAge
       resetPersonalVirulence
       assignApptoEssential
-      assigndetectablestatus;; identifies people unlikely to be found
+      assigndetectablestatus ;; identifies people unlikely to be found
 
       ;set pta random-float ((Proportion_time_avoid - (Proportion_Time_Avoid * .2)) + random-float (Proportion_time_avoid + (1 - Proportion_time_avoid) * .2))
       ;set ppa random-float ((Proportion_People_avoid - (Proportion_People_Avoid * .2)) + random-float (Proportion_People_avoid + (1 - Proportion_People_avoid) * .2))
@@ -394,12 +394,12 @@ to setup
       set xcor 0
       set ycor 0
       set color red
-      set timenow int ownIllnessperiod - 1;; sould be 'ownincubationperiod' for new outbreaks
+      set timenow int ownIllnessperiod - 1 ;; sould be 'ownincubationperiod' for new outbreaks
     ]
   ]
 
   ;; assigns death risks for people based on their age-range
-  set five int ( Population * .126 );; insert age range proportions here
+  set five int ( Population * .126 ) ;; insert age range proportions here
   set fifteen int ( Population * .121 )
   set twentyfive int ( Population * .145 )
   set thirtyfive int ( Population * .145 )
@@ -410,7 +410,7 @@ to setup
   set eightyfive int ( Population * .032 )
   set ninetyfive int ( Population * .008 )
 
-  matchages;; assigns risk to age ranges (see below)
+  matchages ;; assigns risk to age ranges (see below)
 
   ;; spend CalculateIncomePerday
   ask simuls [
@@ -419,12 +419,12 @@ to setup
     setdeathrisk
   ]
 
-  set contact_radius 0;; sets contact radius of people
-  set days 0; used to count days since events - currently redundant
+  set contact_radius 0 ;; sets contact radius of people
+  set days 0 ; used to count days since events - currently redundant
   set Quarantine false
-  set eliminationDate 0; used to identify the date of elimination where no current, unrecovered cases exist
-  set Proportion_People_Avoid PPA;; used to set the proportion of people who are socially distancing
-  set Proportion_Time_Avoid PTA;; used to set the proportion of time that people who are socially distancing are socially distancing (e.g., 85% of people 85% of the time)
+  set eliminationDate 0 ; used to identify the date of elimination where no current, unrecovered cases exist
+  set Proportion_People_Avoid PPA ;; used to set the proportion of people who are socially distancing
+  set Proportion_Time_Avoid PTA ;; used to set the proportion of time that people who are socially distancing are socially distancing (e.g., 85% of people 85% of the time)
   set spatial_distance false
   set case_isolation false
 
@@ -468,7 +468,7 @@ to setup
   ]
   ;; allocates children and teenagers to a household where there are adults at least 20 years older than them and there are not more than 2 adults in the house
 
-  resetHouseholdUnit;; iterates this process
+  resetHouseholdUnit ;; iterates this process
   ask simuls [
     resetlandingSimul
   ]
@@ -486,13 +486,13 @@ to setup
     ]
   ]
 
-  ;;set tracking false;; ensures this is set to false each time the model starts
-  ;;set link_switch false;; ensures this is set to false each timme the model starts
-  ;;set schoolspolicy false;; ensures that the schools settings don't begin before the policy trigger starts
-  ;;set maskPolicy false;; that the mask policy doesn't begin before the policy trigger starts
-  ;;set assignAppEss false;; that the assigning the App to EssentialWorkers doesn't begin before the policy trigger starts
+  ;;set tracking false ;; ensures this is set to false each time the model starts
+  ;;set link_switch false ;; ensures this is set to false each timme the model starts
+  ;;set schoolspolicy false ;; ensures that the schools settings don't begin before the policy trigger starts
+  ;;set maskPolicy false ;; that the mask policy doesn't begin before the policy trigger starts
+  ;;set assignAppEss false ;; that the assigning the App to EssentialWorkers doesn't begin before the policy trigger starts
   reset-ticks
-  setupstages;; setting up for the MJA runs
+  setupstages ;; setting up for the MJA runs
 end
 
 to matchages
@@ -614,7 +614,8 @@ to calculatedailyrisk
   set dailyrisk ( riskofDeath / Illness_period )
 end
 
-to resetPersonalVirulence;; ensures that personalVirulence is within bounds
+to resetPersonalVirulence
+  ;; ensures that personalVirulence is within bounds
   if personalVirulence > 100 [
     set personalVirulence random-normal global_Transmissability 10
   ]
@@ -1106,7 +1107,8 @@ to superSpread
 end
 
 to recover
-  ;; if you are not dead at the end of your illness period, then you become recovered and turn yellow and don;t need hospital resources, anymore
+  ;; if you are not dead at the end of your illness period, then you become recovered and turn yellow and 
+  ;; don't need hospital resources, anymore
   if timenow > ownillnessperiod and color != black [
     set color yellow
     set timenow 0
@@ -1228,7 +1230,8 @@ to GlobalTreat
 end
 
 to treat
-  ;; keeps people within the bunds of the hospital patches and overrides any other movement so they can;t interact with susceptible people
+  ;; keeps people within the bunds of the hospital patches and overrides any other movement so they can't
+  ;; interact with susceptible people
   if inICU = 1 and color = red [
     move-to one-of patches with [ pcolor = white]
   ]
@@ -1285,13 +1288,13 @@ to Cruiseship
       ;; resethealth resetincome calculateincomeperday calculateexpenditureperday
 
       set income random-exponential Mean_Individual_Income
-      set ownIllnessPeriod ( exp random-normal M S );; log transform of illness period
-      set ownIncubationPeriod ( exp random-normal Minc Sinc );;; log transform of incubation period
+      set ownIllnessPeriod ( exp random-normal M S ) ;; log transform of illness period
+      set ownIncubationPeriod ( exp random-normal Minc Sinc ) ;;; log transform of incubation period
 
-      set detectable random 100;;;; identifies whether the person is detectable or not
+      set detectable random 100 ;;;; identifies whether the person is detectable or not
       set returntoschool random 100
 
-      rngs:init;; replacing previous log transform with beta distribution
+      rngs:init ;; replacing previous log transform with beta distribution
       let stream_id random-float 999
       let seed random-float 999
       rngs:set-seed stream_id seed
@@ -1470,16 +1473,16 @@ to scaleup
       set size 2
       set shape "dot"
       set color 85
-      set detectable random 100;;;; identifies whether the person is detectable or not
+      set detectable random 100 ;; identifies whether the person is detectable or not
       set timenow 0
       set InICU 0
       set anxiety 0
       set sensitivity random-float 1
       set imported 0
       set R 0
-      set ownIllnessPeriod ( exp random-normal M S );; log transform of illness period
+      set ownIllnessPeriod ( exp random-normal M S ) ;; log transform of illness period
 
-      set ownIncubationPeriod ( exp random-normal Minc Sinc );; log transform of compliance with isolation
+      set ownIncubationPeriod ( exp random-normal Minc Sinc ) ;; log transform of compliance with isolation
 
       set income ([ income ] of one-of other simuls ) move-to one-of patches with [ pcolor = black ]
       resetlandingSimul
@@ -1488,7 +1491,7 @@ to scaleup
       set ageRange ([ageRange ] of one-of simuls)
       set requireICU random 100
 
-      rngs:init;; replacing previous log transform with beta distribution
+      rngs:init ;; replacing previous log transform with beta distribution
       let stream_id random-float 999
       let seed random-float 999
       rngs:set-seed stream_id seed
@@ -1510,24 +1513,24 @@ to scaleup
       set WFHCap random 100
 
       set ageRange ([ageRange ] of one-of simuls)
-      set imported 0;; resethealth
+      set imported 0 ;; resethealth
 
       set timenow 0
       set InICU 0
       set anxiety 0
       set sensitivity random-float 1
       set R 0
-      set ownIllnessPeriod ( exp random-normal M S );; log transform of illness period
+      set ownIllnessPeriod ( exp random-normal M S ) ;; log transform of illness period
 
-      set ownIncubationPeriod ( exp random-normal Minc Sinc );; log transform of compliance with isolation
+      set ownIncubationPeriod ( exp random-normal Minc Sinc ) ;; log transform of compliance with isolation
 
       set income ([income ] of one-of other simuls)
-      move-to one-of patches with [ pcolor = black ];; resetincome calculateincomeperday calculateexpenditureperday
+      move-to one-of patches with [ pcolor = black ] ;; resetincome calculateincomeperday calculateexpenditureperday
       resetlandingSimul
       set riskofdeath [ riskOfDeath ] of one-of simuls with [ agerange = ([ agerange ] of myself )]
       set requireICU random 100
 
-      rngs:init;; replacing previous log transform with beta distribution
+      rngs:init ;; replacing previous log transform with beta distribution
       let stream_id random-float 999
       let seed random-float 999
       rngs:set-seed stream_id seed
@@ -1591,7 +1594,7 @@ To Unlock
   ]
 end
 
-to CountInfected;; global infection count
+to CountInfected ;; global infection count
 
   set numberinfected cumulativeInfected
 
@@ -1716,7 +1719,7 @@ to calculateEliminationDate
 end
 
 
-;;;;;;;;;;;;;; *****TRACKING AND TRACING FUNCTIONS*********;;;;;;;;;
+;;;;;;;;;;;;;; *****TRACKING AND TRACING FUNCTIONS********* ;;;;;;;;;
 
 
 to traceme
@@ -1795,13 +1798,13 @@ to hunt
 end
 
 
-;;;;;;;;;;;;*********END OF TTI FUNCTIONS*******;;;;;;;;;;;;;
+;;;;;;;;;;;;*********END OF TTI FUNCTIONS******* ;;;;;;;;;;;;;
 
 
 to calculateCarefactor
   ;; not currently implemented so can ignore
 
-  ;; experience can be fear;; we can analyse who got infected - vulnerable communities
+  ;; experience can be fear ;; we can analyse who got infected - vulnerable communities
   set newv ( ( saliencyMessage * SaliencyExperience ) * (( vmax - initialassociationstrength ) * ( Careattitude * selfCapacity )))
 
   if newv > vmax [
@@ -1827,7 +1830,7 @@ to calculateCarefactor
   ]
 end
 
-to calculatePotentialContacts;; counts the number of people tracked from infected people
+to calculatePotentialContacts ;; counts the number of people tracked from infected people
   if Scalephase = 0 [
     set PotentialContacts ( count links )
   ]

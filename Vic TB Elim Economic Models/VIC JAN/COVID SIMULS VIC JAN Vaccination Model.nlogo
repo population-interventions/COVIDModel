@@ -153,7 +153,7 @@ to setupRandomSeed
   ;; The draw for this run is the top entry of the file and apply the random seed.
   set drawNumber first first drawList
   set drawRandomSeed last first drawList
-  random-seed drawRandomSeed
+  random-seed RAND_SEED
   show drawList
   show drawNumber
   show drawRandomSeed
@@ -2388,7 +2388,7 @@ Superspreaders
 Superspreaders
 0
 100
-10.0
+9.946463994984988
 1
 1
 NIL
@@ -2458,7 +2458,7 @@ Proportion_People_Avoid
 Proportion_People_Avoid
 0
 100
-85.0
+84.0
 .5
 1
 NIL
@@ -2473,7 +2473,7 @@ Proportion_Time_Avoid
 Proportion_Time_Avoid
 0
 100
-85.0
+84.0
 .5
 1
 NIL
@@ -2842,7 +2842,7 @@ Contact_Radius
 Contact_Radius
 0
 180
--45.0
+0.0
 1
 1
 NIL
@@ -3041,7 +3041,7 @@ INPUTBOX
 609
 284
 ppa
-85.0
+84.0
 1
 0
 Number
@@ -3052,7 +3052,7 @@ INPUTBOX
 700
 285
 pta
-85.0
+84.0
 1
 0
 Number
@@ -3469,7 +3469,7 @@ AsymptomaticPercentage
 AsymptomaticPercentage
 0
 100
-33.70984742562481
+34.64533499995429
 1
 1
 NIL
@@ -3521,7 +3521,7 @@ Essential_Workers
 Essential_Workers
 0
 100
-30.0
+27.754431700289764
 1
 1
 NIL
@@ -3566,7 +3566,7 @@ App_Uptake
 App_Uptake
 0
 100
-30.0
+32.511021824120945
 1
 1
 NIL
@@ -4006,7 +4006,7 @@ Asymptomatic_Trans
 Asymptomatic_Trans
 0
 1
-0.35844673433467694
+0.2582628863782269
 .01
 1
 NIL
@@ -4126,7 +4126,7 @@ CHOOSER
 Stage
 Stage
 0 1 2 3 3.3 3.4 3.5 3.9 4
-0
+1
 
 PLOT
 2378
@@ -4639,7 +4639,7 @@ Vaccine_Efficacy
 Vaccine_Efficacy
 0
 100
-63.0
+70.0
 1
 1
 NIL
@@ -4711,6 +4711,21 @@ Vaccine_Type
 Vaccine_Type
 "AstraZeneca" "Moderna" "Pfizer/BioNTech" "Other"
 0
+
+SLIDER
+1712
+35
+1885
+69
+RAND_SEED
+RAND_SEED
+0
+1000000
+1234.0
+1
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?
@@ -16877,7 +16892,7 @@ set stage BaseStage</setup>
       <value value="1"/>
     </enumeratedValueSet>
   </experiment>
-  <experiment name="Test" repetitions="3" runMetricsEveryStep="true">
+  <experiment name="Test" repetitions="1" runMetricsEveryStep="true">
     <setup>setup
 set asymptomaticPercentage asymptomaticPercentage + random-normal 0 3
 set Asymptomatic_Trans Asymptomatic_Trans + random-normal 0 .06 
@@ -16906,8 +16921,12 @@ set stage BaseStage</setup>
     <metric>CasesinPeriod28</metric>
     <metric>objFunction</metric>
     <metric>meanIDTime</metric>
-    <metric>drawNumber</metric>
-    <metric>drawRandomSeed</metric>
+    <enumeratedValueSet variable="RAND_SEED">
+      <value value="1234"/>
+      <value value="1234"/>
+      <value value="8888"/>
+      <value value="5555"/>
+    </enumeratedValueSet>
     <enumeratedValueSet variable="Age_Isolation">
       <value value="0"/>
     </enumeratedValueSet>

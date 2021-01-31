@@ -148,21 +148,6 @@ resources-own [
   volume ;; resources avaialable in resource pile
 ]
 
-to setupRandomSeed
-  set drawList csv:from-file "draws.csv"
-  ;; The draw for this run is the top entry of the file and apply the random seed.
-  set drawNumber first first drawList
-  set drawRandomSeed last first drawList
-  random-seed RAND_SEED
-  show drawList
-  show drawNumber
-  show drawRandomSeed
-
-  ;; Move the first draw to the bottom of the file, then write the file.
-  set drawList lput first drawList drawList
-  set drawList remove-item 0 drawList
-  csv:to-file "draws.csv" drawList
-end
 
 to matchages
   ask n-of int five simuls [
@@ -1706,7 +1691,7 @@ end
 
 
 to setup
-  setupRandomSeed
+  random-seed RAND_SEED
 
   profiler:start
 
@@ -4716,7 +4701,7 @@ SLIDER
 1712
 35
 1885
-69
+68
 RAND_SEED
 RAND_SEED
 0

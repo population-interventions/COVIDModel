@@ -1,0 +1,40 @@
+;; Functions that are not referenced anywhere else.
+
+to earn
+  ;; people can earn money if they come into contact with other people who have money
+  if ticks > 1 [
+    if agerange < 18 [
+      set reserves reserves
+    ]
+    if agerange >= 70 [
+      set reserves reserves
+    ]
+    ifelse ticks > 0 and AverageFinancialContacts > 0 and color != black and any? other simuls-here
+        with [ reserves > 0 ] and agerange >= 18 and agerange < 70
+    [
+      set reserves reserves + ((income / 365 ) / 5 * (1 / AverageFinancialContacts) - (( expenditure / 365) / 7 ) )
+    ]
+    [
+      ;;; adjust here
+      ifelse WFHCap < random WFH_Capacity and Spatial_Distance = true and AverageFinancialContacts > 0
+          and color != black and any? other simuls-here with [ reserves > 0 ] and agerange >= 18 and agerange < 70
+      [
+        set reserves reserves + ((income / 365 ) / 5 * (1 / AverageFinancialContacts)) - (( expenditure / 365) / 7 )
+      ]
+      [
+        set reserves reserves - (( expenditure / 365) / 7) * .5
+      ]
+    ]
+  ]
+end
+
+to financialstress
+  ;; if simuls have negative financial reserves, this identifies them in the visualisation of the model
+  if reserves <= 0 and agerange > 18 and agerange < 70 [
+    set shape "star"
+  ]
+  ;; reverts back to a dot shape if person has positive cash reserves
+  if reserves > 0 [
+    set shape "dot"
+  ]
+end

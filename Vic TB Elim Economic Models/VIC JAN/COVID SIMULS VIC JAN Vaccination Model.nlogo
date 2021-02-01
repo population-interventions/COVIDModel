@@ -127,12 +127,8 @@ breed [ packages package ]
 
 directed-link-breed [red-links red-link]
 
-__includes["simul.nls"]
 
-
-Packages-own [
-  value ;; stimulus value
-]
+__includes["simul.nls" "setup.nls" "packages.nls" "scale.nls"]
 
 
 patches-own [
@@ -148,174 +144,13 @@ resources-own [
   volume ;; resources avaialable in resource pile
 ]
 
-
-to matchages
-  ask n-of int five simuls [
-    set agerange 5
-  ]
-  ask n-of int fifteen simuls with [ agerange != 5 ] [
-    set agerange 15
-  ]
-  ask n-of int twentyfive simuls with [ agerange > 15 ] [
-    set agerange 25
-  ]
-  ask n-of int thirtyfive simuls with [ agerange > 25 ] [
-    set agerange 35
-  ]
-  ask n-of int fortyfive simuls with [ agerange > 35 ] [
-    set agerange 45
-  ]
-  ask n-of int fiftyfive simuls with [ agerange > 45 ] [
-    set agerange 55
-  ]
-  ask n-of int sixtyfive simuls with [ agerange > 55 ] [
-    set agerange 65
-  ]
-  ask n-of int seventyfive simuls with [ agerange > 65 ] [
-    set agerange 75
-  ]
-  ask n-of int eightyfive simuls with [ agerange > 75 ] [
-    set agerange 85
-  ]
-  ;; remaining people in the model are in their 90's as everying is set an agerange of 95 at initialisation
-  ;; ask n-of int ninetyfive simuls with [ agerange > 85 ] [
-  ;; set agerange 95
-  ;;]
-end
-
-to setdeathrisk
-  ;; risk of death associated with ageranges if they contract COVID-19
-  if agerange = 5 [
-    set riskofDeath 0
-  ]
-  if agerange = 15 [
-    set riskofDeath .002
-  ]
-  if agerange = 25 [
-    set riskofDeath .002
-  ]
-  if agerange = 35 [
-    set riskofDeath .002
-  ]
-  if agerange = 45 [
-    set riskofDeath .004
-  ]
-  if agerange = 55 [
-    set riskofDeath .01
-  ]
-  if agerange = 65 [
-    set riskofDeath .05
-  ]
-  if agerange = 75 [
-    set riskofDeath .05
-  ]
-  if agerange = 85 [
-    set riskofDeath .151
-  ]
-  ;; updated from department of health Report 22 - does not map directly to age deciles here
-  if agerange = 95 [
-    set riskofDeath .151
+to avoidICUs
+  ;; makes sure that simulswho have not been sent to hospital stay outside
+  if [ pcolor ] of patch-here = white and InICU = 0 [
+    move-to min-one-of patches with [ pcolor = black ] [ distance myself ]
   ]
 end
 
-to resetlanding
-  ;; ensures that resources don't start on top of one another in the model
-  if any? other resources-here [
-    set ycor one-of [ -30 -10 10 30 ]
-    resetlanding
-  ]
-end
-
-to iteratetimenow
-  set timenow random int Ownillnessperiod
-  UpdatePersonalVirulence
-  if timenow <= 7 [
-    iteratetimenow
-  ]
-end
-
-to resethouseholdUnit
-  ;; allocates children to households
-  if schoolsPolicy = true [
-    ask simuls with [ agerange > 18 and agerange <= 60 ] [
-      ;; allows for upo 5% of houses to be sharehouses / care facilities, etc.
-      if count simuls with [householdUnit = [ householdUnit ] of myself ] > 2 and 95 > random 100 [
-        set householdUnit random 600
-      ]
-    ]
-    ask simuls with [ agerange > 60 ] [
-      ;; allows for older people in group homes to make up to 7% of housing units
-      if count simuls with [ householdUnit = [ householdUnit ] of myself ] > 2 and 93 < random 100 [
-        set householdUnit [ householdUnit ] of one-of simuls with [ count other simuls with [ householdUnit = [ householdUnit ] of myself ] = 0 ]
-      ]
-    ]
-  ]
-end
-
-to resetlandingSimul
-  ;; now working so home locations are not in green space
-  move-to one-of simuls with [ pcolor = black and householdUnit = [ houseHoldUnit ] of myself ]
-
-  set homeLocation patch-here
-  if 50 > random 100 [
-    move-to one-of patches with [ pcolor = black and utilisation = 0 ]
-  ]
-  ;; iterates / sorts people into households
-end
-
-to calculatedailyrisk
-  ;; estimates risk of death per day for the duration of the period of illness
-  ;; used for stats more than calibrated to real world given most people die late in the illness period
-  set dailyrisk ( riskofDeath / Illness_period )
-end
-
-to resetPersonalVirulence
-  ;; ensures that personalVirulence is within bounds
-  if personalVirulence > 100 [
-    set personalVirulence random-normal global_Transmissability 10
-  ]
-  if personalVirulence < 0 [
-    set personalVirulence random-normal global_Transmissability 10
-  ]
-end
-
-to iterateAsymptomAge
-  if freeWheel = false and PolicyTriggerOn = true and schoolsPolicy = true [
-    ;; places proportion of people under 18 into the asymptomatic category
-    ask n-of ((count simuls with [ agerange < 19 ] ) * AsymptomaticPercentage ) simuls with [ agerange <= 18 ] [
-      set asymptom random asymptomaticPercentage
-    ]
-    ;; takes older people out of the asymptomatic category and puts them in the symptomatic
-    ;; category to keep total percentages of asymptomatic cases consistent with input slider
-    ask n-of ((count simuls with [ agerange < 19 ] ) * AsymptomaticPercentage ) simuls with [ agerange > 18 ] [
-      set asymptom random (asymptomaticPercentage ) + (100 - AsymptomaticPercentage)
-    ]
-  ]
-end
-
-to assignApptoEssential
-  ;; allocates the COVID-Safe app to essential works that can be adjusted using
-  ;; the EWAppUptake slider, which maxes at 1.0 meaning 100% allocation
-  if AssignAppEss = true [
-    ;; assigns the app to a proportion of essential workers determined by EWAppUptake
-    ask n-of ( count simuls with [ essentialWorkerFlag = 1 ] * eWAppUptake ) simuls with [ essentialWorkerFlag = 1 ] [
-      set haveApp (random App_Uptake)
-    ]
-  ]
-end
-
-to setASFlag
-  ;; records an asymptomatic flag for individual people
-  if asymptom <= asymptomaticPercentage [
-    set asymptomaticFlag 1
-  ]
-end
-
-to assigndetectablestatus
-  if asymptomaticFlag = 1 and detectable < Undetected_Proportion [
-    set unDetectedFlag 1
-  ]
-end
 
 to avoid
   ;; these are the circustances under which people will interact
@@ -346,7 +181,9 @@ to avoid
     ;; set at 50 on the input slider. People don't isolate from others in their household unit
     [
       ;; otherwise just move wherever you like
-      set heading heading + contact_Radius fd random pace avoidICUs move-to patch-here
+      set heading heading + contact_Radius fd random pace
+      avoidICUs
+      move-to patch-here
     ])
   ]
 
@@ -420,16 +257,6 @@ to superSpread
     ]
   ]
 end
-
-
-
-to avoidICUs
-  ;; makes sure that simulswho have not been sent to hospital stay outside
-  if [ pcolor ] of patch-here = white and InICU = 0 [
-    move-to min-one-of patches with [ pcolor = black ] [ distance myself ]
-  ]
-end
-
 
 
 ;;;*******************ANXIETY******************::::::::::::::::::
@@ -553,8 +380,6 @@ to CalculateDailyGrowth
 end
 
 
-
-
 to checkutilisation
   ;; records which patches are being occupied by simuls
   ifelse any? simuls-here
@@ -566,179 +391,11 @@ to checkutilisation
   ]
 end
 
-to earn
-  ;; people can earn money if they come into contact with other people who have money
-  if ticks > 1 [
-    if agerange < 18 [
-      set reserves reserves
-    ]
-    if agerange >= 70 [
-      set reserves reserves
-    ]
-    ifelse ticks > 0 and AverageFinancialContacts > 0 and color != black and any? other simuls-here
-        with [ reserves > 0 ] and agerange >= 18 and agerange < 70
-    [
-      set reserves reserves + ((income / 365 ) / 5 * (1 / AverageFinancialContacts) - (( expenditure / 365) / 7 ) )
-    ]
-    [
-      ;;; adjust here
-      ifelse WFHCap < random WFH_Capacity and Spatial_Distance = true and AverageFinancialContacts > 0
-          and color != black and any? other simuls-here with [ reserves > 0 ] and agerange >= 18 and agerange < 70
-      [
-        set reserves reserves + ((income / 365 ) / 5 * (1 / AverageFinancialContacts)) - (( expenditure / 365) / 7 )
-      ]
-      [
-        set reserves reserves - (( expenditure / 365) / 7) * .5
-      ]
-    ]
-  ]
-end
-
-to financialstress
-  ;; if simuls have negative financial reserves, this identifies them in the visualisation of the model
-  if reserves <= 0 and agerange > 18 and agerange < 70 [
-    set shape "star"
-  ]
-  ;; reverts back to a dot shape if person has positive cash reserves
-  if reserves > 0 [
-    set shape "dot"
-  ]
-end
-
-to DeployStimulus
-  ;; deploys stimulus packagees into the environment
-  if mouse-down? and stimulus = true [
-    create-packages 1 [
-      setxy mouse-xcor mouse-ycor
-      set shape "box"
-      set value 0
-      set color orange
-      set size 5
-    ]
-  ]
-end
-
-to absorbshock
-  ;; stimulus packages soak up the debt present in the simuls
-  if any? simuls in-radius 1 with [ shape = "star" ] [
-    set value value - sum [ reserves ] of simuls in-radius 1 with [ shape = "star" ]
-  ]
-end
-
 
 to CalculateAverageContacts
   ;; calculates average contacts for simuls and average financial contacts, which are contacts with people who have positive cash reserves
   if ticks > 0 [
     set AverageContacts mean [ contacts ] of simuls with [ color != black ]
-  ]
-end
-
-to scaleup
-  ;; this function scales up the simulation over 5 phases at base 10 to enable a small and large-scale understanding of dynamics.
-  ;; It enables the fine-grained analysis in early stages that more closely resembles diffusion across a population similar to
-  ;; assumptions in SEIR models but as it scales up, recognises taht there are geographic constraints of movement of populations
-
-  ifelse scale = true and ( count simuls with [ color = red ] ) >= 250 and scalePhase >= 0 and scalePhase < 4 and count simuls * 1000 < Total_Population and days > 0
-  [
-    set scalephase scalephase + 1 ask n-of ( count simuls with [ color = red ] * .9 ) simuls with [ color = red ] [
-      set size 2
-      set shape "dot"
-      set color 85
-      set detectable random 100 ;; identifies whether the person is detectable or not
-      set timenow 0
-      set InICU 0
-      set anxiety 0
-      set sensitivity random-float 1
-      set imported 0
-      set R 0
-      set ownIllnessPeriod ( exp random-normal M S ) ;; log transform of illness period
-
-      set ownIncubationPeriod ( exp random-normal Minc Sinc ) ;; log transform of compliance with isolation
-
-      set income ([ income ] of one-of other simuls ) move-to one-of patches with [ pcolor = black ]
-      resetlandingSimul
-      set riskofdeath .01
-      set WFHCap random 100
-      set ageRange ([ageRange ] of one-of simuls)
-      set requireICU random 100
-
-      rngs:init ;; replacing previous log transform with beta distribution
-      let stream_id random-float 999
-      let seed random-float 999
-      rngs:set-seed stream_id seed
-      let dist rngs:rnd-beta stream_id 450.3 23.7
-
-      set ownComplianceWithIsolation dist
-      let maskWearEfficacy rngs:rnd-beta stream_id 20 11
-
-      set ownMaskEfficacy maskWearEfficacy * 100
-      set returntoschool random 100
-      set detectable random 100
-    ]
-
-
-    ask n-of ( count simuls with [ color = yellow ] * .9 ) simuls with [ color = yellow ] [
-      set size 2
-      set shape "dot"
-      set color 85
-      set WFHCap random 100
-
-      set ageRange ([ageRange ] of one-of simuls)
-      set imported 0 ;; resethealth
-
-      set timenow 0
-      set InICU 0
-      set anxiety 0
-      set sensitivity random-float 1
-      set R 0
-      set ownIllnessPeriod ( exp random-normal M S ) ;; log transform of illness period
-
-      set ownIncubationPeriod ( exp random-normal Minc Sinc ) ;; log transform of compliance with isolation
-
-      set income ([income ] of one-of other simuls)
-      move-to one-of patches with [ pcolor = black ] ;; resetincome calculateincomeperday calculateexpenditureperday
-      resetlandingSimul
-      set riskofdeath [ riskOfDeath ] of one-of simuls with [ agerange = ([ agerange ] of myself )]
-      set requireICU random 100
-
-      rngs:init ;; replacing previous log transform with beta distribution
-      let stream_id random-float 999
-      let seed random-float 999
-      rngs:set-seed stream_id seed
-      let dist rngs:rnd-beta stream_id 450.3 23.7
-
-      set ownComplianceWithIsolation dist
-      let maskWearEfficacy rngs:rnd-beta stream_id 20 11
-
-      set ownMaskEfficacy maskWearEfficacy * 100
-    ]
-
-    set contact_Radius Contact_Radius + (90 / 4)
-    set days 0
-  ]
-  [
-    scaledown
-  ]
-end
-
-to scaledown
-  ;; reverses the procedure above after the peak of the epidemic
-  if scale = true and count simuls with [ color = red ] <= 25 and yellowcount > redcount and days > 0 and scalephase > 0 [
-    ask n-of (count simuls with [ color = red ] * .9 ) simuls with [ color = red ] [
-      hatch 10 move-to one-of patches with [ pcolor = black ]
-    ]
-
-    set contact_Radius Contact_radius - (90 / 4)
-    set scalephase scalephase - 1
-  ]
-end
-
-to scaledownhatch
-  ;; removes excess simuls fromt the scaled-down view
-  if count simuls > Population [
-    ask n-of ( count simuls - Population ) simuls with [ color != red or color != black ] [
-      die
-    ]
   ]
 end
 
@@ -778,99 +435,6 @@ to setCaseFatalityRate
   ]
 end
 
-to countDailyCases
-  ;; sets the day for reporting new cases at 6 (adjustable) days after initial infection, scales up as the population scales
-
-  ;; this now ONLY reports detected cases, not all infections - this flows through to daily cases
-  let casestoday count simuls with [ color = red and unDetectedFlag = 0 and int timenow = int Case_reporting_delay ]
-
-  if Scalephase = 0 [
-    set dailyCases casestoday
-  ]
-  if Scalephase = 1 [
-    set dailyCases casestoday * 10
-  ]
-  if Scalephase = 2 [
-    set dailyCases casestoday * 100
-  ]
-  if Scalephase = 3 [
-    set dailyCases casestoday * 1000
-  ]
-  if Scalephase = 4 [
-    set dailyCases casestoday * 10000
-  ]
-end
-
-to calculatePopulationScale
-  ;; population scaling function
-  if scalephase = 0 [
-    set Scaled_Population ( count simuls )
-  ]
-  if scalephase = 1 [
-    set Scaled_Population ( count simuls ) * 10
-  ]
-  if scalephase = 2 [
-    set Scaled_Population ( count simuls ) * 100
-  ]
-  if scalephase = 3 [
-    set Scaled_Population ( count simuls ) * 1000
-  ]
-  if scalephase = 4 [
-    set Scaled_Population ( count simuls ) * 10000
-  ]
-end
-
-
-to CalculateICUBedsRequired
-  ;; calculates the number of ICU beds required at any time
-  let needsICU count simuls with [ color = red and requireICU = 1 ]
-
-  if scalephase = 0 [
-    set ICUBedsRequired needsICU
-  ]
-  if scalephase = 1 [
-    set ICUBedsRequired needsICU * 10
-  ]
-  if scalephase = 2 [
-    set ICUBedsRequired needsICU * 100]
-  if scalephase = 3 [
-    set ICUBedsRequired needsICU * 1000
-  ]
-  if scalephase = 4 [
-    set ICUBedsRequired needsICU * 10000
-  ]
-end
-
-to calculateScaledBedCapacity
-  ;; scales the number of patches in the environment that represents Australian bed capacity
-  set scaled_Bed_Capacity ( Hospital_Beds_In_Australia / 2500 )
-end
-
-to calculateCurrentInfections
-  ;; calculates the number of infected people in the population
-  let infectedsimuls count simuls with [ color = red ]
-
-  if Scalephase = 0 [
-    set currentInfections infectedsimuls
-  ]
-  if Scalephase = 1 [
-    set currentInfections infectedsimuls * 10
-  ]
-  if Scalephase = 2 [
-    set currentInfections infectedsimuls * 100
-  ]
-  if Scalephase = 3 [
-    set currentInfections infectedsimuls * 1000
-  ]
-  if Scalephase = 4 [
-    set currentInfections infectedsimuls * 10000
-  ]
-end
-
-to movepackages
-  ;; makes stimulus packages drift in the environment
-  set heading heading + 5 - 5 fd .5
-end
 
 to calculateEliminationDate
   ;; records the day that no infected people remain in the environment
@@ -878,7 +442,6 @@ to calculateEliminationDate
     set eliminationDate ticks
   ]
 end
-
 
 
 ;;;;;;;;;;;;*********END OF TTI FUNCTIONS******* ;;;;;;;;;;;;;
@@ -913,23 +476,6 @@ to calculateCarefactor
   ]
 end
 
-to calculatePotentialContacts ;; counts the number of people tracked from infected people
-  if Scalephase = 0 [
-    set PotentialContacts ( count links )
-  ]
-  if Scalephase = 1 [
-    set PotentialContacts ( count links ) * 10
-  ]
-  if Scalephase = 2 [
-    set PotentialContacts ( count links ) * 100
-  ]
-  if Scalephase = 3 [
-    set PotentialContacts ( count links ) * 1000
-  ]
-  if Scalephase = 4 [
-    set PotentialContacts ( count links ) * 10000
-  ]
-end
 
 to countred
   ;; as per code
@@ -957,24 +503,6 @@ to calculateYesterdayInfected
   set cumulativeInfected cumulativeInfected + todayInfected
 end
 
-to calculateScaledPopulation
-  ;; calculates the scaled population for working with smaller environments
-  if scalephase = 0 [
-    set scaledPopulation Total_Population / 10000
-  ]
-  if scalephase = 1 [
-    set scaledPopulation Total_Population / 1000
-  ]
-  if scalephase = 2 [
-    set scaledPopulation Total_Population / 100
-  ]
-  if scalephase = 3 [
-    set scaledPopulation Total_Population / 10
-  ]
-  if scalephase = 4 [
-    set scaledPopulation Total_Population
-  ]
-end
 
 to calculateMeanr
   ifelse any? simuls with [ color = red and timenow = int ownillnessperiod ]
@@ -1080,46 +608,6 @@ to turnOnTracking
       set tracking true
     ]
     set link_switch true
-  ]
-end
-
-to countEWInfections
-  ;; counts infections among Essential workers
-  let EWInfects (count simuls with [ color = red and EssentialWorkerFlag = 1 ] )
-  if Scalephase = 0 [
-    set EWInfections EWInfects
-  ]
-  if Scalephase = 1 [
-    set EWInfections EWInfects * 10
-  ]
-  if Scalephase = 2 [
-    set EWInfections EWInfects * 100
-  ]
-  if Scalephase = 3 [
-    set EWInfections EWInfects * 1000
-  ]
-  if Scalephase = 4 [
-    set EWInfections EWInfects * 10000
-  ]
-end
-
-to countSchoolInfections
-  ;; counts infections among school students
-  let studentInfects ( count simuls with [ color = red and StudentFlag = 1 ] )
-  if Scalephase = 0 [
-    set studentInfections studentInfects
-  ]
-  if Scalephase = 1 [
-    set studentInfections studentInfects * 10
-  ]
-  if Scalephase = 2 [
-    set studentInfections studentInfects * 100
-  ]
-  if Scalephase = 3 [
-    set studentInfections studentInfects * 1000
-  ]
-  if Scalephase = 4 [
-    set studentInfections studentInfects * 10000
   ]
 end
 
@@ -1386,7 +874,7 @@ end
 
 to calculateCasesInLastPeriod
   ;; counts cases in the last 14 days -
-  ;; THIS ONLY COUNTS DETECTED CASES, NOT ALL INFECTIONS - TOADJUST YOU MUST SET ASYMPTOMATIC TO ZERO
+  ;; THIS ONLY COUNTS DETECTED CASES, NOT ALL INFECTIONS - TO ADJUST YOU MUST SET ASYMPTOMATIC TO ZERO
 
   set prior27 prior26
   set prior26 prior25
@@ -1688,278 +1176,6 @@ to go
   ]
   tick
 end
-
-
-to setup
-  random-seed RAND_SEED
-
-  profiler:start
-
-  rngs:init
-  ;; random-seed 100 ;; for use in setting random nuber generator seeds
-
-  clear-all
-  ;;import-drawing "Background1.png" ;; imports MSD image
-
-  ;; illness period estimation using ln transform
-  set Illness_Periodvariance se_Illnesspd
-  set BetaIllnessPd ln (1 + (illness_PeriodVariance / illness_period ^ 2))
-  set M (ln illness_period) - (BetaillnessPd / 2)
-  set S sqrt BetaIllnessPd
-
-  ;; illness period estimation using ln transform
-  set Incubation_Periodvariance se_Incubation
-  set BetaIncubationPd ln (1 + (incubation_PeriodVariance / incubation_period ^ 2))
-  set MInc (ln incubation_period) - (BetaincubationPd / 2)
-  set SInc sqrt BetaIncubationPd
-
-  ask red-links [
-    set color red
-  ]
-  ask patches [
-    set pcolor black
-  ]
-  ;; sets a proportion of interactions outside vs inside
-  ask n-of (count patches * Outside) patches [
-    set pcolor green
-  ]
-  ;; a beta function for testing locating many people in one place at a single time
-  ask n-of 100 patches with [ pcolor = black ] [
-    set destination 1
-  ]
-
-  ;; setting up the hospital
-  ask n-of 1 patches [
-    sprout-medresources 1
-  ]
-  ask medresources [
-    set color white
-    set shape "Health care"
-    set size 5
-    set xcor 20
-    set ycor -20
-  ]
-  calculateScaledBedCapacity
-  ask medresources [
-    ask n-of Scaled_Bed_Capacity patches in-radius 5 [
-      set pcolor white
-    ]
-  ]
-  ask n-of Available_Resources patches [
-    sprout-resources 1
-  ]
-
-  ;; sets up resources that people want to purchase
-  ask resources [
-    set color white
-    set shape "square"
-    set size 5
-    set volume one-of [2.5 5 7.5 10 ]
-    resize
-    set xcor -20
-    set ycor one-of [-30 -10 10 30 ]
-    resetlanding
-  ]
-
-  ;; set up people in the environment and allocates characteristics to them
-  ask n-of Population patches with [ pcolor = black ] [
-    sprout-simuls 1 [
-      set size 2
-      set shape "dot"
-      set color 85
-      set householdUnit random 1000
-      set agerange 95
-      set timenow 0
-      set IncubationPd int ownIncubationPeriod
-      set InICU 0
-      set anxiety 0
-      set sensitivity random-float 1
-      set R 0
-
-      set income random-exponential mean_Individual_Income
-      move-to one-of patches with [ pcolor = black ]
-
-      set riskofdeath .01
-      set personalTrust random-normal 75 10
-      set WFHCap random 100
-      set requireICU random 100
-      set personalVirulence random-normal Global_Transmissability 10
-      set haveApp random 100
-
-      set wearsMask random 100 ;; resethealth resetincome calculateincomeperday calculateexpenditureperday resettrust
-      set detectable random 100 ;; identifies whether the person is detectable or not
-      set returntoschool random 100
-      set ownIllnessPeriod ( exp random-normal M S ) ;; log transform of illness period
-      set ownIncubationPeriod ( exp random-normal Minc Sinc ) ;;; log transform of incubation period
-
-      ;;set ownComplianceWithIsolation ( exp random-normal Mcomp SComp ) ;; log transform of compliance with isolation
-
-      rngs:init ;; replacing previous log transform with beta distribution
-      let stream_id random-float 999
-      let seed random-float 999
-      rngs:set-seed stream_id seed
-      let complianceDist rngs:rnd-beta stream_id 450.3 23.7
-
-      set ownComplianceWithIsolation complianceDist
-      let maskWearEfficacy rngs:rnd-beta stream_id 24.3 8.08
-
-      set ownMaskEfficacy maskWearEfficacy * Mask_Efficacy_Discount ;; assigning mask efficacy to individuals around a distribution with median 75% or 75% x 1/3 if 33 as per request based on Burnett Institute #s
-
-      set asymptom random 100
-      set essentialWorker random 100
-      if agerange >= 18 and agerange < 70 [
-        set essentialWorker random 100
-      ]
-
-      setASFlag
-      iterateAsymptomAge
-      resetPersonalVirulence
-      assignApptoEssential
-      assigndetectablestatus ;; identifies people unlikely to be found
-
-      ;set pta random-float ((Proportion_time_avoid - (Proportion_Time_Avoid * .2)) + random-float (Proportion_time_avoid + (1 - Proportion_time_avoid) * .2))
-      ;set ppa random-float ((Proportion_People_avoid - (Proportion_People_Avoid * .2)) + random-float (Proportion_People_avoid + (1 - Proportion_People_avoid) * .2))
-    ]
-  ]
-
-  ;; set up initial infected people
-  set scalephase InitialScale
-  ;; sets up the initial date for looking at policy-changes
-  set resetdate 7
-
-  ask n-of ( Current_Cases ) simuls [
-    set color red
-    set tracked 1
-    set reported 1
-    set timenow random int OwnIllnessperiod
-    UpdatePersonalVirulence
-    if timenow <= 7 [
-      ;; includes a proportion reported cases in the community at the initialisation step matched to current day data
-      iteratetimenow
-    ]
-  ]
-
-  ;; put a function in here that iterates this
-  ask n-of ((Current_Cases * (AsymptomaticPercentage / 100) * ( Undetected_Proportion / 100 ))) simuls [
-    set color red
-    set asymptomaticFlag 1
-    set undetectedFlag 1
-    set tracked 0
-    set reported 0
-    set timenow random int OwnIllnessperiod
-    UpdatePersonalVirulence
-    if timenow <= 7 [
-      ;; includes a proportion of undetected cases in the community at the initialisation step
-      set timenow random int Ownillnessperiod
-      UpdatePersonalVirulence
-    ]
-  ]
-
-  if count simuls with [ color = red ] <= 1 [
-    ask n-of 1 simuls [
-      set xcor 0
-      set ycor 0
-      set color red
-      set timenow int ownIllnessperiod - 1 ;; sould be 'ownincubationperiod' for new outbreaks
-    ]
-  ]
-
-  ;; assigns death risks for people based on their age-range
-  set five int ( Population * .126 ) ;; insert age range proportions here
-  set fifteen int ( Population * .121 )
-  set twentyfive int ( Population * .145 )
-  set thirtyfive int ( Population * .145 )
-  set fortyfive int ( Population * .129 )
-  set fiftyfive int ( Population * .121 )
-  set sixtyfive int ( Population * .103 )
-  set seventyfive int ( Population * .071 )
-  set eightyfive int ( Population * .032 )
-  set ninetyfive int ( Population * .008 )
-
-  matchages ;; assigns risk to age ranges (see below)
-
-  ;; spend CalculateIncomePerday
-  ask simuls [
-    set health (100 - Agerange + random-normal 0 2)
-    calculateDailyrisk
-    setdeathrisk
-  ]
-
-  set contact_radius 0 ;; sets contact radius of people
-  set days 0 ; used to count days since events - currently redundant
-  set Quarantine false
-  set eliminationDate 0 ; used to identify the date of elimination where no current, unrecovered cases exist
-  set Proportion_People_Avoid PPA ;; used to set the proportion of people who are socially distancing
-  set Proportion_Time_Avoid PTA ;; used to set the proportion of time that people who are socially distancing are socially distancing (e.g., 85% of people 85% of the time)
-  set spatial_distance false
-  set case_isolation false
-
-  ;; setting households up
-  ;; allocates adults to a household unit range
-  ask simuls with [ agerange > 18 and agerange <= 60 ] [
-    if 95 > random 100 [
-      set householdUnit random 600
-    ]
-  ]
-  ;; allocated older adults to household Units that don't include young children or teenagers
-  ask simuls with [ agerange > 60 and agerange <= 80 ] [
-    if 95 > random 100 [
-      set householdUnit random 200 + 600
-    ]
-  ]
-  ;; allocated older adults 80+ to household Units that don't include young children or teenagers
-  ask simuls with [ agerange > 80 ] [
-    if 95 > random 100 [
-      set householdUnit random 300 + 600
-    ]
-  ]
-  ;; allocates up to two adults per household
-  ask simuls with [ agerange > 18 and agerange <= 60 ] [
-    if 95 > random 100 [
-      if count simuls with [ householdUnit = [ householdUnit ] of myself ] > 2 [
-        set householdUnit random 600
-      ]
-    ]
-  ]
-  ;; Identifies students
-  ask simuls with [ agerange = 15 and agerange = 5 and studentFlag != 1 ] [
-    if 95 > random 100 [
-      set householdUnit [ householdUnit ] of one-of simuls with [ householdUnit <= 600 and agerange > ([agerange ] of myself + 20) ]
-    ]
-  ]
-  ask simuls [
-    if agerange < 20 [
-      set studentFlag 1
-    ]
-  ]
-  ;; allocates children and teenagers to a household where there are adults at least 20 years older than them and there are not more than 2 adults in the house
-
-  resetHouseholdUnit ;; iterates this process
-  ask simuls [
-    resetlandingSimul
-  ]
-
-  ;; this ensures that half the people in households with existing infections have also had an infection and prevents a big spike early-on
-  ask simuls [
-    if any? other simuls in-radius 3 with [ color = red ] and Household_Attack > random 100 [
-      set color yellow
-    ]
-  ]
-
-  ask simuls [
-    if agerange = 5 and 60 > random 100 [
-      set AsymptomaticFlag 1
-    ]
-  ]
-
-  ;;set tracking false ;; ensures this is set to false each time the model starts
-  ;;set link_switch false ;; ensures this is set to false each timme the model starts
-  ;;set schoolspolicy false ;; ensures that the schools settings don't begin before the policy trigger starts
-  ;;set maskPolicy false ;; that the mask policy doesn't begin before the policy trigger starts
-  ;;set assignAppEss false ;; that the assigning the App to EssentialWorkers doesn't begin before the policy trigger starts
-  reset-ticks
-  setupstages ;; setting up for the MJA runs
-end
 @#$#@#$#@
 GRAPHICS-WINDOW
 316
@@ -2091,7 +1307,7 @@ Span
 Span
 0
 30
-10.0
+30.0
 1
 1
 NIL
@@ -2373,7 +1589,7 @@ Superspreaders
 Superspreaders
 0
 100
-9.946463994984988
+10.0
 1
 1
 NIL
@@ -2443,7 +1659,7 @@ Proportion_People_Avoid
 Proportion_People_Avoid
 0
 100
-84.0
+24.0
 .5
 1
 NIL
@@ -2458,7 +1674,7 @@ Proportion_Time_Avoid
 Proportion_Time_Avoid
 0
 100
-84.0
+24.0
 .5
 1
 NIL
@@ -3026,7 +2242,7 @@ INPUTBOX
 609
 284
 ppa
-84.0
+23.0
 1
 0
 Number
@@ -3037,7 +2253,7 @@ INPUTBOX
 700
 285
 pta
-84.0
+23.0
 1
 0
 Number
@@ -3506,7 +2722,7 @@ Essential_Workers
 Essential_Workers
 0
 100
-27.754431700289764
+75.0
 1
 1
 NIL
@@ -3551,7 +2767,7 @@ App_Uptake
 App_Uptake
 0
 100
-32.511021824120945
+100.0
 1
 1
 NIL
@@ -3704,7 +2920,7 @@ SWITCH
 416
 SchoolPolicyActive
 SchoolPolicyActive
-1
+0
 1
 -1000
 
@@ -3743,7 +2959,7 @@ ResidualCautionPPA
 ResidualCautionPPA
 0
 100
-68.0
+15.0
 1
 1
 NIL
@@ -3758,7 +2974,7 @@ ResidualCautionPTA
 ResidualCautionPTA
 0
 100
-68.0
+15.0
 1
 1
 NIL

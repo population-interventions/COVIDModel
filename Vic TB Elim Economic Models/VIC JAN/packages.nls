@@ -1,0 +1,30 @@
+
+
+Packages-own [
+  value ;; stimulus value
+]
+
+to DeployStimulus
+  ;; deploys stimulus packagees into the environment
+  if mouse-down? and stimulus = true [
+    create-packages 1 [
+      setxy mouse-xcor mouse-ycor
+      set shape "box"
+      set value 0
+      set color orange
+      set size 5
+    ]
+  ]
+end
+
+to absorbshock
+  ;; stimulus packages soak up the debt present in the simuls
+  if any? simuls in-radius 1 with [ shape = "star" ] [
+    set value value - sum [ reserves ] of simuls in-radius 1 with [ shape = "star" ]
+  ]
+end
+
+to movepackages
+  ;; makes stimulus packages drift in the environment
+  set heading heading + 5 - 5 fd .5
+end

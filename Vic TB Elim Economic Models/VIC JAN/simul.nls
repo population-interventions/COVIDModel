@@ -1,3 +1,6 @@
+;;
+;; Simulants and functions particular to simulants that don't have anywhere else to live.
+;;
 
 simuls-own [
   timenow ;; the number of days since initial infection
@@ -93,6 +96,56 @@ to updatepersonalvirulence
     set currentVirulence ( personalVirulence * ( ( ownIllnessPeriod - timenow ) / ( ownIllnessPeriod - ownIncubationPeriod )))
   ]
 end
+
+to resetlandingSimul
+  ;; now working so home locations are not in green space
+  move-to one-of simuls with [ pcolor = black and householdUnit = [ houseHoldUnit ] of myself ]
+
+  set homeLocation patch-here
+  if 50 > random 100 [
+    move-to one-of patches with [ pcolor = black and utilisation = 0 ]
+  ]
+  ;; iterates / sorts people into households
+end
+
+to iterateAsymptomAge
+  if freeWheel = false and PolicyTriggerOn = true and schoolsPolicy = true [
+    ;; places proportion of people under 18 into the asymptomatic category
+    ask n-of ((count simuls with [ agerange < 19 ] ) * AsymptomaticPercentage ) simuls with [ agerange <= 18 ] [
+      set asymptom random asymptomaticPercentage
+    ]
+    ;; takes older people out of the asymptomatic category and puts them in the symptomatic
+    ;; category to keep total percentages of asymptomatic cases consistent with input slider
+    ask n-of ((count simuls with [ agerange < 19 ] ) * AsymptomaticPercentage ) simuls with [ agerange > 18 ] [
+      set asymptom random (asymptomaticPercentage ) + (100 - AsymptomaticPercentage)
+    ]
+  ]
+end
+
+to assignApptoEssential
+  ;; allocates the COVID-Safe app to essential works that can be adjusted using
+  ;; the EWAppUptake slider, which maxes at 1.0 meaning 100% allocation
+  if AssignAppEss = true [
+    ;; assigns the app to a proportion of essential workers determined by EWAppUptake
+    ask n-of ( count simuls with [ essentialWorkerFlag = 1 ] * eWAppUptake ) simuls with [ essentialWorkerFlag = 1 ] [
+      set haveApp (random App_Uptake)
+    ]
+  ]
+end
+
+to setASFlag
+  ;; records an asymptomatic flag for individual people
+  if asymptom <= asymptomaticPercentage [
+    set asymptomaticFlag 1
+  ]
+end
+
+to assigndetectablestatus
+  if asymptomaticFlag = 1 and detectable < Undetected_Proportion [
+    set unDetectedFlag 1
+  ]
+end
+
 
 ;;*******************************************************************************************************************************
 ;;** Simul Once-A-Tick Functions **

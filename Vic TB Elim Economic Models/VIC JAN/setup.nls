@@ -102,7 +102,8 @@ to resethouseholdUnit
     ask simuls with [ agerange > 60 ] [
       ;; allows for older people in group homes to make up to 7% of housing units
       if count simuls with [ householdUnit = [ householdUnit ] of myself ] > 2 and 93 < random 100 [
-        set householdUnit [ householdUnit ] of one-of simuls with [ count other simuls with [ householdUnit = [ householdUnit ] of myself ] = 0 ]
+        set householdUnit [ householdUnit ] of one-of simuls
+            with [ count other simuls with [ householdUnit = [ householdUnit ] of myself ] = 0 ]
       ]
     ]
   ]
@@ -115,7 +116,7 @@ to calculatedailyrisk
 end
 
 
-to resetPersonalVirulence
+to simul_resetPersonalVirulence
   ;; ensures that personalVirulence is within bounds
   if personalVirulence > 100 [
     set personalVirulence random-normal global_Transmissability 10
@@ -268,9 +269,8 @@ to setup
         set essentialWorker random 100
       ]
 
-      
       simul_iterateAsymptomAge
-      resetPersonalVirulence
+      simul_resetPersonalVirulence
       assignApptoEssential
       simul_assigndetectablestatus ;; identifies people unlikely to be found
 
@@ -363,18 +363,21 @@ to setup
       set householdUnit random 600
     ]
   ]
+
   ;; allocated older adults to household Units that don't include young children or teenagers
   ask simuls with [ agerange > 60 and agerange <= 80 ] [
     if 95 > random 100 [
       set householdUnit random 200 + 600
     ]
   ]
+
   ;; allocated older adults 80+ to household Units that don't include young children or teenagers
   ask simuls with [ agerange > 80 ] [
     if 95 > random 100 [
       set householdUnit random 300 + 600
     ]
   ]
+
   ;; allocates up to two adults per household
   ask simuls with [ agerange > 18 and agerange <= 60 ] [
     if 95 > random 100 [
@@ -383,12 +386,14 @@ to setup
       ]
     ]
   ]
+
   ;; Identifies students
   ask simuls with [ agerange = 15 and agerange = 5 and studentFlag != 1 ] [
     if 95 > random 100 [
       set householdUnit [ householdUnit ] of one-of simuls with [ householdUnit <= 600 and agerange > ([agerange ] of myself + 20) ]
     ]
   ]
+
   ask simuls [
     if agerange < 20 [
       set studentFlag 1

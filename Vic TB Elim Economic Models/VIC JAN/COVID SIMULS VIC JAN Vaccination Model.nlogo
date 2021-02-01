@@ -750,10 +750,10 @@ NIL
 HORIZONTAL
 
 PLOT
-1396
-122
-1918
-387
+1398
+125
+1920
+390
 Susceptible, Infected and Recovered - 000's
 Days from March 10th
 Numbers of people
@@ -877,10 +877,10 @@ quarantine
 -1000
 
 SLIDER
-138
-713
-327
-746
+123
+715
+312
+748
 Available_Resources
 Available_Resources
 0
@@ -966,7 +966,7 @@ Track_and_Trace_Efficiency
 Track_and_Trace_Efficiency
 0
 1
-0.25
+-0.1437775347843281
 .05
 1
 NIL
@@ -1158,10 +1158,10 @@ mean [ R ] of simuls with [ color = red and timenow = int Illness_Period ]
 11
 
 SWITCH
-160
-575
-304
-608
+166
+576
+310
+609
 policytriggeron
 policytriggeron
 0
@@ -1257,10 +1257,10 @@ infectionchange
 11
 
 INPUTBOX
-158
-443
-314
-504
+155
+446
+311
+507
 current_cases
 1.0
 1
@@ -1268,10 +1268,10 @@ current_cases
 Number
 
 INPUTBOX
-158
-508
-314
-569
+155
+511
+311
+572
 total_population
 2.5E7
 1
@@ -1479,7 +1479,7 @@ Contact_Radius
 Contact_Radius
 0
 180
-0.0
+67.5
 1
 1
 NIL
@@ -3246,8 +3246,8 @@ SWITCH
 80
 1524
 113
-Vaccine_Avail
-Vaccine_Avail
+Vaccine_Available
+Vaccine_Available
 0
 1
 -1000
@@ -15174,7 +15174,7 @@ set stage BaseStage</setup>
     <enumeratedValueSet variable="UpperStudentAge">
       <value value="18"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="Vaccine_Avail">
+    <enumeratedValueSet variable="Vaccine_Available">
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="VEffectiveness">
@@ -15537,7 +15537,7 @@ set stage BaseStage</setup>
     <enumeratedValueSet variable="UpperStudentAge">
       <value value="18"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="Vaccine_Avail">
+    <enumeratedValueSet variable="Vaccine_Available">
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="VEffectiveness">
@@ -15900,7 +15900,7 @@ set stage BaseStage</setup>
     <enumeratedValueSet variable="UpperStudentAge">
       <value value="18"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="Vaccine_Avail">
+    <enumeratedValueSet variable="Vaccine_Available">
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Vaccine_Efficacy">

@@ -14,7 +14,7 @@ end
 
 
 to simul_vaccinate_me
-  if vaccine_Avail = true [
+  if Vaccine_Available = true [
     if count simuls with [ VaccPhase = 1 and vaccinated = 0 ] > 0 and vaccine_rate > random-float 1000 and color = 85 and VaccPhase = 1 [
       set shape "person" set vaccinated 1
       if vacc_Effective < Vaccine_Efficacy [

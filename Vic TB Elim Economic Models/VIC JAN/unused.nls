@@ -52,7 +52,7 @@ to seedCases
   ;; cases in the next week - must be updated each day 1_9_2020 =244.02*EXP(-0.09)^G55
   ;; Vic @ 90
   if ticks < seedticks and scalephase = 0 [
-    ask n-of 10 simuls with [ color = 85 ] [
+    ask n-of 10 simuls with [ color = cyan ] [
       set color red
       set timenow int Case_reporting_delay - 1
       set Essentialworker random 100
@@ -60,7 +60,7 @@ to seedCases
     ]
   ]
   if ticks < seedticks and scalephase = 1 [
-    ask n-of 1 simuls with [ color = 85 ] [
+    ask n-of 1 simuls with [ color = cyan ] [
       set color red
       set timenow int Case_reporting_delay - 1
       set Essentialworker random 100
@@ -68,7 +68,7 @@ to seedCases
     ]
   ]
   if ticks < seedticks and scalephase = 2 [
-    ask n-of int .1 simuls with [ color = 85 ] [
+    ask n-of int .1 simuls with [ color = cyan ] [
       set color red
       set timenow int Case_reporting_delay - 1
       set Essentialworker random 100

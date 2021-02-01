@@ -377,13 +377,13 @@ end
 
 to OSCase
   if policytriggeron = true and count simuls with [ color = red and imported = 0 ] > 1 [
-    let totallocal count simuls with [ color != 85 and imported = 0 ]
+    let totallocal count simuls with [ color != cyan and imported = 0 ]
     let totalimported count simuls with [ imported = 1 ]
     let ratio ( totalimported / (totallocal + totalimported) )
 
     ;; contributes additional cases as a result of OS imports prior to lockdown
     if ticks <= triggerday and OS_Import_Switch = true and ratio < OS_Import_Proportion [
-      ask n-of ( count simuls with [ color = red ] * .10 ) simuls with [ color = 85 ] [
+      ask n-of ( count simuls with [ color = red ] * .10 ) simuls with [ color = cyan ] [
         set color red
         set timenow int ownIncubationPeriod - random-normal 1 .5
         set Essentialworker random 100
@@ -393,7 +393,7 @@ to OSCase
 
     ;; creates steady stream of OS cases at beginning of pandemic
     if ticks <= triggerday and OS_Import_Switch = true [
-      ask n-of 1 simuls with [ color = 85 ] [
+      ask n-of 1 simuls with [ color = cyan ] [
         set color red
         set timenow int ownIncubationPeriod - random-normal 1 .5
         set Essentialworker random 100
@@ -403,7 +403,7 @@ to OSCase
 
     ;; contributes additional cases as a result of OS imports after lockdown
     if ticks > triggerday and OS_Import_Switch = true and ratio < OS_Import_Post_Proportion [
-      ask n-of ( count simuls with [ color = red ] * .05 ) simuls with [ color = 85 ] [
+      ask n-of ( count simuls with [ color = red ] * .05 ) simuls with [ color = cyan ] [
         set color red
         set timenow int ownIncubationPeriod - random-normal 1 .5
         set Essentialworker random 100
@@ -418,7 +418,7 @@ to stopfade
   ;; prevents cases from dying out in the eraly stage of the trials when few numbers exist
   if freewheel != true [
     if ticks < Triggerday and count simuls with [ color = red ] < 3 [
-      ask n-of 1 simuls with [ color = 85 ] [
+      ask n-of 1 simuls with [ color = cyan ] [
         set color red
         set timenow int ownIncubationPeriod - 1
         set Essentialworker random 100
@@ -428,8 +428,8 @@ to stopfade
 end
 
 to-report nonesspercentage
-  if count simuls with [ essentialworkerflag != 1 and color != 85 ] > 0 [
-    report (count simuls with [ essentialworkerflag != 1 and color != 85] ) / (count simuls with [ essentialWorkerFlag != 1 ])
+  if count simuls with [ essentialworkerflag != 1 and color != cyan ] > 0 [
+    report (count simuls with [ essentialworkerflag != 1 and color != cyan] ) / (count simuls with [ essentialWorkerFlag != 1 ])
   ]
 end
 
@@ -458,7 +458,7 @@ end
 
 to incursion
   if ticks > 0 and currentinfections = 0 and IncursionRate > random-float 100 [
-    ask one-of simuls with [ color = 85 ] [
+    ask one-of simuls with [ color = cyan ] [
       set color red
     ]
   ]
@@ -473,25 +473,47 @@ end
 to go
   ;; these funtions get called each time-step
   ask simuls [
+    ;; Move either outside or back to home, then potentially catch the infection from whoever is there. Large function.
     simul_move
+    ;; if you are not dead at the end of your illness period, then you become recovered and turn yellow. Don't need hospital resources anymore.
     simul_recover
+    ;; Increment illness time and possibly lose 'health' due to it. It is unclear what health is for.
     simul_settime
+    ;; Possibly die if infected.
     simul_death
+    ;; Move everyone home based on their chance of being compliant with isolation. It is weird that this happens after simul_move, in which people
+    ;; who are out and about can infect each other.
     simul_isolation
+    ;; Recovered people can randomly become infected again.
     simul_reinfect
+    ;; Give people anxiety based on global factors.
     simul_createanxiety
+    ;; Pick up resources, which seems to reduce anxiety?
     simul_gatherreseources
+    ;; Infected people with inICU = 1 are moved to a white patch (hospital?)
     simul_treat
+    ;; Take the rolling average of contacts over the past seven days, only for non-infected people.
     simul_Countcontacts
+    ;; Untracked people have their speed set to the current recommended speed, based on policy.
     simul_respeed
+    ;; Set infected people to always require ICU after their incubation period???
     simul_checkICU
+    ;; Randomly start tracking infected people based on track_and_trace_efficiency. Note that simul_traceme can also be called upon being infected
+    ;; so track_and_trace_efficiency is not exactly the tracking rate per timestep.
     simul_traceme
+    ;; Set EssentialWorkerFlag based on proportion of population that is an essential worker (uses Essential_Workers (0-100) policy param)
     simul_EssentialWorkerID
+    ;; Randomly set app-people to hunted, and set hunted people to tracked.
     simul_hunt
+    ;; enables people to access the support packages (???)
     simul_AccessPackage
+    ;; Set a proprtion of people to wear masks when not home  (uses mask_Wearing (0-100) policy param)
     simul_checkMask
+    ;; creates a triangular distribution of virulence that peaks at the end of the incubation period
     simul_updatepersonalvirulence
+    ;; Set 1/7th of people who are near a destination to move to that destination.
     simul_visitDestination
+    ;;
     simul_HHContactsIso
     simul_vaccinate_me
   ]
@@ -737,7 +759,7 @@ Illness_period
 Illness_period
 0
 25
-20.8
+20.7
 .1
 1
 NIL
@@ -924,7 +946,7 @@ Track_and_Trace_Efficiency
 Track_and_Trace_Efficiency
 0
 1
-0.25
+-0.13214526329821974
 .05
 1
 NIL
@@ -1053,7 +1075,7 @@ Proportion_People_Avoid
 Proportion_People_Avoid
 0
 100
-24.0
+15.0
 .5
 1
 NIL
@@ -1068,7 +1090,7 @@ Proportion_Time_Avoid
 Proportion_Time_Avoid
 0
 100
-24.0
+15.0
 .5
 1
 NIL
@@ -1437,7 +1459,7 @@ Contact_Radius
 Contact_Radius
 0
 180
-0.0
+67.5
 1
 1
 NIL
@@ -1636,7 +1658,7 @@ INPUTBOX
 609
 284
 ppa
-23.0
+15.0
 1
 0
 Number
@@ -1647,7 +1669,7 @@ INPUTBOX
 700
 285
 pta
-23.0
+15.0
 1
 0
 Number

@@ -228,7 +228,7 @@ end
 
 to countblue
   ;; as per code
-  set blueCount count simuls with [ color = 85 ]
+  set blueCount count simuls with [ color = cyan ]
 end
 
 to countyellow

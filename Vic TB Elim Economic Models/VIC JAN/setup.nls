@@ -204,7 +204,7 @@ to setup
     sprout-simuls 1 [
       set size 2
       set shape "dot"
-      set color 85
+      set color cyan
       set householdUnit random 1000
       set agerange 95
       set timenow 0

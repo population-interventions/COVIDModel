@@ -291,15 +291,6 @@ to GlobalTreat
   ]
 end
 
-to PossiblyDie
-  ;; determines whether people die on the basis of poor health (not currently active)
-  if InICU = 0 and Severity_of_illness / Illness_Period > random 100 [
-    set health health - Severity_of_Illness
-  ]
-  if InICU = 1 and Severity_of_illness / Illness_Period > random 100 [
-    set health health - Severity_of_Illness / Treatment_Benefit
-  ]
-end
 
 to TriggerActionIsolation
   ;; sets the date for social isolation and case isolation
@@ -383,7 +374,7 @@ to OSCase
 
     ;; contributes additional cases as a result of OS imports prior to lockdown
     if ticks <= triggerday and OS_Import_Switch = true and ratio < OS_Import_Proportion [
-      ask n-of ( count simuls with [ color = red ] * .10 ) simuls with [ color = 85 ] [
+      ask n-of ( count simuls with [ color = red ] * .10 ) simuls with [ color = cyan ] [
         set color red
         set timenow int ownIncubationPeriod - random-normal 1 .5
         set Essentialworker random 100
@@ -393,7 +384,7 @@ to OSCase
 
     ;; creates steady stream of OS cases at beginning of pandemic
     if ticks <= triggerday and OS_Import_Switch = true [
-      ask n-of 1 simuls with [ color = 85 ] [
+      ask n-of 1 simuls with [ color = cyan ] [
         set color red
         set timenow int ownIncubationPeriod - random-normal 1 .5
         set Essentialworker random 100
@@ -403,7 +394,7 @@ to OSCase
 
     ;; contributes additional cases as a result of OS imports after lockdown
     if ticks > triggerday and OS_Import_Switch = true and ratio < OS_Import_Post_Proportion [
-      ask n-of ( count simuls with [ color = red ] * .05 ) simuls with [ color = 85 ] [
+      ask n-of ( count simuls with [ color = red ] * .05 ) simuls with [ color = cyan ] [
         set color red
         set timenow int ownIncubationPeriod - random-normal 1 .5
         set Essentialworker random 100
@@ -418,7 +409,7 @@ to stopfade
   ;; prevents cases from dying out in the eraly stage of the trials when few numbers exist
   if freewheel != true [
     if ticks < Triggerday and count simuls with [ color = red ] < 3 [
-      ask n-of 1 simuls with [ color = 85 ] [
+      ask n-of 1 simuls with [ color = cyan ] [
         set color red
         set timenow int ownIncubationPeriod - 1
         set Essentialworker random 100
@@ -458,7 +449,7 @@ end
 
 to incursion
   if ticks > 0 and currentinfections = 0 and IncursionRate > random-float 100 [
-    ask one-of simuls with [ color = 85 ] [
+    ask one-of simuls with [ color = cyan ] [
       set color red
     ]
   ]

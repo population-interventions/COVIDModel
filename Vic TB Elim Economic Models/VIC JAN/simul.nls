@@ -110,14 +110,21 @@ to simul_iterateAsymptomAge
   ]
 end
 
-
-
 to simul_assigndetectablestatus
   if asymptomaticFlag = 1 and detectable < Undetected_Proportion [
     set unDetectedFlag 1
   ]
 end
 
+to simul_PossiblyDie
+  ;; determines whether people die on the basis of poor health (not currently active)
+  if InICU = 0 and Severity_of_illness / Illness_Period > random 100 [
+    set health health - Severity_of_Illness
+  ]
+  if InICU = 1 and Severity_of_illness / Illness_Period > random 100 [
+    set health health - Severity_of_Illness / Treatment_Benefit
+  ]
+end
 
 ;;*******************************************************************************************************************************
 ;;** Simul Once-A-Tick Functions **
@@ -127,7 +134,7 @@ to simul_infect
   ;; reduces capacity of asymptomatic people to pass on the virus by Asymptomatic_Trans
   if any? other simuls-here
       with [ color = red and asymptomaticFlag = 1 and ( currentVirulence * Asymptomatic_Trans ) > random 100 and wearingMask = 0 ]
-      and color = 85 [
+      and color = cyan [
     set color red
     set timenow 0
     simul_traceme
@@ -136,7 +143,7 @@ to simul_infect
   ;; people who are symptomatic pass on the virus at the rate of their personal virulence, which is drawn from population means
   if any? other simuls-here
       with [ color = red and asymptomaticFlag = 0 and currentVirulence > random 100 and wearingMask = 0 ]
-      and color = 85 [
+      and color = cyan [
     set color red
     set timenow 0
     simul_traceme
@@ -145,7 +152,7 @@ to simul_infect
   ;; accounts for a % reduction in transfer through mask wearing
   if any? other simuls-here
       with [ color = red and asymptomaticFlag = 1 and ( currentVirulence * Asymptomatic_Trans ) > random 100 and wearingMask = 1 ]
-      and color = 85 and random 100 > ownMaskEfficacy [
+      and color = cyan and random 100 > ownMaskEfficacy [
     set color red
     set timenow 0
     simul_traceme
@@ -154,7 +161,7 @@ to simul_infect
   ;; accounts for a % reduction in transfer through mask wearing
   if any? other simuls-here
       with [ color = red and asymptomaticFlag = 0 and currentVirulence > random 100 and wearingMask = 1 ]
-      and color = 85 and random 100 > ownMaskEfficacy [
+      and color = cyan and random 100 > ownMaskEfficacy [
     set color red
     set timenow 0
     simul_traceme
@@ -162,7 +169,7 @@ to simul_infect
 
   ;; asymptomatic and wearing mask
   if any? other simuls-here
-      with [ color = 85 ] and color = red and Asymptomaticflag = 1 and ( currentVirulence * Asymptomatic_Trans ) > random 100
+      with [ color = cyan ] and color = red and Asymptomaticflag = 1 and ( currentVirulence * Asymptomatic_Trans ) > random 100
       and wearingMask = 1 and random 100 > ownMaskEfficacy [
     set R R + 1
     set GlobalR GlobalR + 1
@@ -170,7 +177,7 @@ to simul_infect
 
   ;; symptomatic and wearing mask
   if any? other simuls-here
-      with [ color = 85 ] and color = red and Asymptomaticflag = 0 and currentVirulence > random 100
+      with [ color = cyan ] and color = red and Asymptomaticflag = 0 and currentVirulence > random 100
       and wearingMask = 1 and random 100 > ownMaskEfficacy [
     set R R + 1
     set GlobalR GlobalR + 1
@@ -178,7 +185,7 @@ to simul_infect
 
   ;; asymptomatic and not wearing mask
   if any? other simuls-here
-      with [ color = 85 ] and color = red and Asymptomaticflag = 1 and ( currentVirulence * Asymptomatic_Trans ) > random 100
+      with [ color = cyan ] and color = red and Asymptomaticflag = 1 and ( currentVirulence * Asymptomatic_Trans ) > random 100
       and wearingMask = 0 [
     set R R + 1
     set GlobalR GlobalR + 1
@@ -186,7 +193,7 @@ to simul_infect
 
   ;; symptomatic and not wearing mask
   if any? other simuls-here
-      with [ color = 85 ] and color = red and Asymptomaticflag = 0 and currentVirulence > random 100
+      with [ color = cyan ] and color = red and Asymptomaticflag = 0 and currentVirulence > random 100
       and wearingMask = 0 [
     set R R + 1
     set GlobalR GlobalR + 1
@@ -213,7 +220,7 @@ to simul_move
       ;; reduces capacity of asymptomatic people to pass on the virus by 1/3
       if any? other simuls-here
           with [ color = red and asymptomaticFlag = 1 and ( currentVirulence * Asymptomatic_Trans ) > random 100 and wearingMask = 0 ]
-          and color = 85 and [pcolor ] of patch-here = black [
+          and color = cyan and [pcolor ] of patch-here = black [
         set color red
         set timenow 0
         simul_traceme
@@ -222,7 +229,7 @@ to simul_move
       ;; people who are symptomatic pass on the virus at the rate of their personal virulence, which is drawn from population means
       if any? other simuls-here
           with [ color = red and asymptomaticFlag = 0 and currentVirulence > random 100 and wearingMask = 0 ]
-          and color = 85 and [ pcolor ] of patch-here = black [
+          and color = cyan and [ pcolor ] of patch-here = black [
         set color red
         set timenow 0
         simul_traceme
@@ -231,7 +238,7 @@ to simul_move
       ;; accounts for a % reduction in transfer through mask wearing
       if any? other simuls-here
           with [ color = red and asymptomaticFlag = 1 and ( currentVirulence * Asymptomatic_Trans ) > random 100 and wearingMask = 1 ]
-          and color = 85 and random 100 > ownMaskEfficacy and [ pcolor ] of patch-here = black [
+          and color = cyan and random 100 > ownMaskEfficacy and [ pcolor ] of patch-here = black [
         set color red
         set timenow 0
         simul_traceme
@@ -240,7 +247,7 @@ to simul_move
       ;; accounts for a % reduction in transfer through mask wearing
       if any? other simuls-here
           with [ color = red and asymptomaticFlag = 0 and currentVirulence > random 100 and wearingMask = 1 ]
-          and color = 85 and random 100 > ownMaskEfficacy and [ pcolor ] of patch-here = black [
+          and color = cyan and random 100 > ownMaskEfficacy and [ pcolor ] of patch-here = black [
         set color red
         set timenow 0
         simul_traceme
@@ -248,7 +255,7 @@ to simul_move
 
       ;; asymptomatic and wearing mask
       if any? other simuls-here
-          with [ color = 85 ] and color = red and Asymptomaticflag = 1 and ( currentVirulence * Asymptomatic_Trans ) > random 100
+          with [ color = cyan ] and color = red and Asymptomaticflag = 1 and ( currentVirulence * Asymptomatic_Trans ) > random 100
           and wearingMask = 1 and random 100 > ownMaskEfficacy and [ pcolor ] of patch-here = black [
         set R R + 1
         set GlobalR GlobalR + 1
@@ -256,7 +263,7 @@ to simul_move
 
       ;; symptomatic and wearing mask
       if any? other simuls-here
-          with [ color = 85 ] and color = red and Asymptomaticflag = 0 and currentVirulence > random 100
+          with [ color = cyan ] and color = red and Asymptomaticflag = 0 and currentVirulence > random 100
           and wearingMask = 1 and random 100 > ownMaskEfficacy and [ pcolor ] of patch-here = black [
         set R R + 1
         set GlobalR GlobalR + 1
@@ -264,7 +271,7 @@ to simul_move
 
       ;; asymptomatic and not wearing mask
       if any? other simuls-here
-          with [ color = 85 ] and color = red and Asymptomaticflag = 1 and ( currentVirulence * Asymptomatic_Trans ) > random 100
+          with [ color = cyan ] and color = red and Asymptomaticflag = 1 and ( currentVirulence * Asymptomatic_Trans ) > random 100
           and wearingMask = 0 and [ pcolor ] of patch-here = black [
         set R R + 1
         set GlobalR GlobalR + 1
@@ -272,7 +279,7 @@ to simul_move
 
       ;; symptomatic and not wearing mask
       if any? other simuls-here
-          with [ color = 85 ] and color = red and Asymptomaticflag = 0 and currentVirulence > random 100
+          with [ color = cyan ] and color = red and Asymptomaticflag = 0 and currentVirulence > random 100
           and wearingMask = 0 and [ pcolor ] of patch-here = black [
         set R R + 1
         set GlobalR GlobalR + 1
@@ -283,7 +290,7 @@ to simul_move
       ;; reduces capacity of asymptomatic people to pass on the virus by 1/3
       if any? other simuls-here
           with [ color = red and asymptomaticFlag = 1 and ( currentVirulence * Asymptomatic_Trans ) > random 100
-          and wearingMask = 0 ] and color = 85 and [ pcolor ] of patch-here = green and outsiderisk < random 100 [
+          and wearingMask = 0 ] and color = cyan and [ pcolor ] of patch-here = green and outsiderisk < random 100 [
         set color red
         set timenow 0
         simul_traceme
@@ -292,7 +299,7 @@ to simul_move
       ;; people who are symptomatic pass on the virus at the rate of their personal virulence, which is drawn from population means
       if any? other simuls-here
           with [ color = red and asymptomaticFlag = 0 and currentVirulence > random 100 and wearingMask = 0 ]
-          and color = 85 and [ pcolor ] of patch-here = green and outsiderisk < random 100 [
+          and color = cyan and [ pcolor ] of patch-here = green and outsiderisk < random 100 [
         set color red
         set timenow 0
         simul_traceme
@@ -301,7 +308,7 @@ to simul_move
       ;; accounts for a % reduction in transfer through mask wearing
       if any? other simuls-here
           with [ color = red and asymptomaticFlag = 1 and ( currentVirulence * Asymptomatic_Trans ) > random 100 and wearingMask = 1 ]
-          and color = 85 and random 100 > ownMaskEfficacy and [ pcolor ] of patch-here = green and outsiderisk < random 100 [
+          and color = cyan and random 100 > ownMaskEfficacy and [ pcolor ] of patch-here = green and outsiderisk < random 100 [
         set color red
         set timenow 0
         simul_traceme
@@ -310,7 +317,7 @@ to simul_move
       ;; accounts for a % reduction in transfer through mask wearing
       if any? other simuls-here
           with [ color = red and asymptomaticFlag = 0 and currentVirulence > random 100 and wearingMask = 1 ]
-          and color = 85 and random 100 > ownMaskEfficacy and [ pcolor ] of patch-here = green and outsiderisk < random 100 [
+          and color = cyan and random 100 > ownMaskEfficacy and [ pcolor ] of patch-here = green and outsiderisk < random 100 [
         set color red
         set timenow 0
         simul_traceme
@@ -318,7 +325,7 @@ to simul_move
 
       ;; asymptomatic and wearing mask
       if any? other simuls-here
-          with [ color = 85 ] and color = red and Asymptomaticflag = 1 and ( currentVirulence * Asymptomatic_Trans ) > random 100
+          with [ color = cyan ] and color = red and Asymptomaticflag = 1 and ( currentVirulence * Asymptomatic_Trans ) > random 100
           and wearingMask = 1 and random 100 > ownMaskEfficacy and [ pcolor ] of patch-here = green and outsiderisk < random 100 [
         set R R + 1
         set GlobalR GlobalR + 1
@@ -326,7 +333,7 @@ to simul_move
 
       ;; symptomatic and wearing mask
       if any? other simuls-here
-          with [ color = 85 ] and color = red and Asymptomaticflag = 0 and currentVirulence > random 100
+          with [ color = cyan ] and color = red and Asymptomaticflag = 0 and currentVirulence > random 100
           and wearingMask = 1 and random 100 > ownMaskEfficacy and [ pcolor ] of patch-here = green and outsiderisk < random 100 [
         set R R + 1
         set GlobalR GlobalR + 1
@@ -334,7 +341,7 @@ to simul_move
 
       ;; asymptomatic and not wearing mask
       if any? other simuls-here
-          with [ color = 85 ] and color = red and Asymptomaticflag = 1 and ( currentVirulence * Asymptomatic_Trans ) > random 100
+          with [ color = cyan ] and color = red and Asymptomaticflag = 1 and ( currentVirulence * Asymptomatic_Trans ) > random 100
           and wearingMask = 0 and [ pcolor ] of patch-here = green and outsiderisk < random 100 [
         set R R + 1
         set GlobalR GlobalR + 1
@@ -342,7 +349,7 @@ to simul_move
 
       ;; symptomatic and not wearing mask
       if any? other simuls-here
-          with [ color = 85 ] and color = red and Asymptomaticflag = 0 and currentVirulence > random 100
+          with [ color = cyan ] and color = red and Asymptomaticflag = 0 and currentVirulence > random 100
           and wearingMask = 0 and [ pcolor ] of patch-here = green and outsiderisk < random 100 [
         set R R + 1
         set GlobalR GlobalR + 1
@@ -390,7 +397,8 @@ to simul_settime
   ;; asks simuls to start counting the days since they became infected and to also possibly die
   ;; dying this way currently not implemented but done at the end of the illness period, instead
   if color = red [
-    set timenow timenow + 1 PossiblyDie
+    set timenow timenow + 1
+    simul_PossiblyDie
   ]
 end
 
@@ -441,7 +449,7 @@ end
 to simul_reinfect
   ;; if you are recovered but suceptible again, you could become reinfected
   if color = yellow and ReinfectionRate > random 100 [
-    set color 85
+    set color cyan
   ]
 end
 
@@ -557,8 +565,8 @@ to simul_visitDestination
 end
 
 to simul_HHContactsIso
-  ifelse isolate = true and color = 85 and any? other simuls
-      with [ householdunit = [ householdunit] of myself and tracked = 1 ]
+  ifelse isolate = true and color = cyan and any? other simuls
+      with [ householdunit = [ householdunit ] of myself and tracked = 1 ]
   [
     move-to homelocation
     set pace 0

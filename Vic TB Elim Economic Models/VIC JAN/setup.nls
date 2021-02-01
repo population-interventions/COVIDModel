@@ -426,4 +426,6 @@ to setup
   ;;set assignAppEss false ;; that the assigning the App to EssentialWorkers doesn't begin before the policy trigger starts
   reset-ticks
   setupstages ;; setting up for the MJA runs
+
+  debug_print_strata
 end

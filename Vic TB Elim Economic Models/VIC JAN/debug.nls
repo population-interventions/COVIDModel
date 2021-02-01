@@ -1,0 +1,14 @@
+
+
+to debug_print_strata
+	print "Age < 18"
+	print count simuls with [ agerange < 18 ]
+	print "18 <= Age < 50"
+	print count simuls with [ agerange >= 18 and agerange < 50 ]
+	print "50 <= Age < 70"
+	print count simuls with [ agerange >= 50 and agerange < 70 ]
+	print "70 <= Age"
+	print count simuls with [ agerange >= 70 ]
+
+
+end

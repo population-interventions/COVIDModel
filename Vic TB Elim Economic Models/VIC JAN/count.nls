@@ -164,6 +164,30 @@ to countSchoolInfections
   ]
 end
 
+to setCaseFatalityRate
+  ;; calculates death rate per infected person over the course of the pandemic
+  if Deathcount > 0 and numberinfected > 0 [
+    set casefatalityrate ( Deathcount / numberInfected )
+  ]
+end
+
+
+to calculateEliminationDate
+  ;; records the day that no infected people remain in the environment
+  if ticks > 1 and count simuls with [ color = red ] = 0 and eliminationDate = 0 [
+    set eliminationDate ticks
+  ]
+end
+
+
+to CalculateAverageContacts
+  ;; calculates average contacts for simuls and average financial contacts, which are contacts with people who have positive 
+  ;; cash reserves (?)
+  if ticks > 0 [
+    set AverageContacts mean [ contacts ] of simuls with [ color != black ]
+  ]
+end
+
 
 to calculateScaledBedCapacity
   ;; scales the number of patches in the environment that represents Australian bed capacity
@@ -328,5 +352,5 @@ end
 
 
 to CalculateMeanIDTime
-  set meanIDTime mean [ IDTime ] of simuls with [ color != 85 ]
+  set meanIDTime mean [ IDTime ] of simuls with [ color != cyan ]
 end

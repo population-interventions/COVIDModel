@@ -150,6 +150,8 @@ end
 to avoid
   ;; these are the circustances under which people will interact
   ask simuls [
+    ;; so, if the social distancing policies are on and you are distancing at this time and you are not part of an age-isolated
+    ;; group and you are not an essentialworker, then if there is anyone near you, move away if you can.
     (ifelse Spatial_Distance = true and (Proportion_People_Avoid + random-normal 0 3) > random 100
         and (Proportion_Time_Avoid + random-normal 0 3) > random 100 and AgeRange > Age_Isolation and EssentialWorkerFlag = 0
     [
@@ -159,9 +161,10 @@ to avoid
         ]
       ]
     ]
-    ;; so, if the social distancing policies are on and you are distancing at this time and you are not part of an age-isolated group
-    ;; and you are not an essentialworker, then if there is anyone near you, move away if you can.
     ;; elseif
+    ;; if you are an essential worker, you can only reduce your
+    ;; contacts when you are not at work assuming 8 hours work, 8 hours rest, 8 hours recreation - rest doesn't count for anyone, hence it is
+    ;; set at 50 on the input slider. People don't isolate from others in their household unit
     Spatial_Distance = true and (Proportion_People_Avoid + random-normal 0 3) > random 100 and (Proportion_Time_Avoid + random-normal 0 3) > random 100
         and AgeRange > Age_Isolation and EssentialWorkerFlag = 1
     [
@@ -171,9 +174,6 @@ to avoid
         ]
       ]
     ]
-    ;; if you are an essential worker, you can only reduce your
-    ;; contacts when you are not at work assuming 8 hours work, 8 hours rest, 8 hours recreation - rest doesn't count for anyone, hence it is
-    ;; set at 50 on the input slider. People don't isolate from others in their household unit
     [
       ;; otherwise just move wherever you like
       set heading heading + contact_Radius fd random pace
@@ -205,6 +205,7 @@ to avoid
     ]
   ]
 end
+
 
 to finished
   if freewheel = true [
@@ -292,16 +293,6 @@ to GlobalTreat
   ]
 end
 
-to PossiblyDie
-  ;; determines whether people die on the basis of poor health (not currently active)
-  if InICU = 0 and Severity_of_illness / Illness_Period > random 100 [
-    set health health - Severity_of_Illness
-  ]
-  if InICU = 1 and Severity_of_illness / Illness_Period > random 100 [
-    set health health - Severity_of_Illness / Treatment_Benefit
-  ]
-end
-
 to TriggerActionIsolation
   ;; sets the date for social isolation and case isolation
   if PolicyTriggerOn = true and Freewheel = false [
@@ -312,7 +303,6 @@ to TriggerActionIsolation
     ]
   ]
 end
-
 
 to checkutilisation
   ;; records which patches are being occupied by simuls
@@ -325,13 +315,6 @@ to checkutilisation
   ]
 end
 
-
-to CalculateAverageContacts
-  ;; calculates average contacts for simuls and average financial contacts, which are contacts with people who have positive cash reserves
-  if ticks > 0 [
-    set AverageContacts mean [ contacts ] of simuls with [ color != black ]
-  ]
-end
 
 to forwardTime
   ;; counts days per tick, likely redundant at present as days are not used for anything right now.
@@ -355,22 +338,6 @@ To Unlock
     set Proportion_Time_Avoid PTA
   ]
 end
-
-to setCaseFatalityRate
-  ;; calculates death rate per infected person over the course of the pandemic
-  if Deathcount > 0 and numberinfected > 0 [
-    set casefatalityrate ( Deathcount / numberInfected )
-  ]
-end
-
-
-to calculateEliminationDate
-  ;; records the day that no infected people remain in the environment
-  if ticks > 1 and count simuls with [ color = red ] = 0 and eliminationDate = 0 [
-    set eliminationDate ticks
-  ]
-end
-
 
 ;;;;;;;;;;;;*********END OF TTI FUNCTIONS******* ;;;;;;;;;;;;;
 
@@ -534,22 +501,36 @@ to go
     movepackages
   ]
 
+  ;; Set a list of policy parameters (span (speed), tracking, mask_wearning etc..) based on current stage and stage reset timers
   setupstages
+  ;; stops the model if the following criteria are met - no more infected people in the simulation and it has run for at least 10 days, only if freewheel = true.
   finished
   ;CruiseShip
+  ;; Send people to ICU if they have been identified
   GlobalTreat
+  ;; Set anxiety factor based on some infected/dead/recovered count, multiplied by media_Exposure
   Globalanxiety
+  ;; Randomly move infected people  who are untracked or unaware they are sick to new areas, based on the Superspreaders parameter, set in Stages.
   SuperSpread
+  ;; set numberinfected cumulativeInfected (???)
   CountInfected
+  ;; Calculate proportional change in real infection count. Updates InfectionChange, TodayInfections and YesterdayInfections
   CalculateDailyGrowth
+  ;; Enable distancing, isolation and quarantine based on triggers
   TriggerActionIsolation
+  ;; Mouse click does something interactive
   DeployStimulus
-  ;;setInitialReserves
+  ;setInitialReserves
+  ;; Set AverageContacts. Doesn't appear to do anything?
   CalculateAverageContacts
+  ;; Check whether to scale up, which occurs when 10% of the agents are infected.
   ScaleUp
+  ;; set days days + 1
   ForwardTime
+  ;; Reverses the initiation of social distancing and isolation policies over time.
   Unlock
 
+  ;; Calculate various metrics, which may be used for policy or may just be output.
   setCaseFatalityRate
   countDailyCases
   calculatePopulationScale
@@ -557,36 +538,72 @@ to go
   calculateScaledBedCapacity
   calculateCurrentInfections
   calculateEliminationDate
+
+  ;; Update tracking links in covid app or similar tracing functions
   assesslinks
+  ;; PotentialContacts metric
   calculatePotentialContacts
+
+  ;; Cache number of infected (red) suceptible (blue (actually cyan)) and recovered (yellow) agents
   countRed
   countBlue
   countYellow
+
+  ;; Randomly remove the excess agents when they exceed the fixed agent population (eg 2500), provided they are not infected or dead.
   scaledownhatch
+
+  ;; Set cumulativeInfected, not yesterdayInfected
   calculateYesterdayInfected
+  ;; Set todayInfected from dailycases
   calculateTodayInfected
+  ;; calculates scaledPopulation for working with smaller environments
   calculateScaledPopulation
+  ;; Average R of infected simulants.
   calculateMeanR
+
+  ;; Randomly set some simulants to be infected, to simulate overseas cases. They have imported = 1.
   OSCase
+  ;; Spontaneously generate a case if ticks < Triggerday and there are fewer than three cases.
   stopFade
-  ;;seedCases
+  ;seedCases
+
+  ;; A massive function that randomly moves agents away to neighbouring patches if Spatial_Distance = True, otherwise avoid ICU. Also
+  ;; makes students avoid some people but not others if schoolsPolicy = true.
   avoid
+
+  ;; ensures that policies are enacted if their master switches are set to true at the time of the policy switch turning on (?)
   turnOnTracking
+  ;; counts infections among Essential workers
   countEWInfections
+  ;; counts infections among school students
   countSchoolInfections
+  ;; stops the model if the following criteria are met - no more infected people in the simulation and it has run for at least 10 days
   finished
+  ;; set meanDaysInfected
   calculateMeanDaysInfected
-  ;;profilerstop
+  ;profilerstop
+
+  ;; set track_and_trace_efficiency based on the number of recent cases.
   traceadjust
+  ;; Reduce ppa and pta usage if complacency = True.
   linearbehdecrease
+  ;; Set lockdown stage and easing date, bases mostly on casesinperiod7
   CovidPolicyTriggers
+  ;; Set casesinperiod7, which is only detected cases. Also sets casesinperiod14 and casesinperiod28.
   calculateCasesInLastPeriod
-  ;;calculateCashPosition
+  ;calculateCashPosition
+
+  ;; Set objFunction. Doesn't appear to do anything.
   calculateObjfunction
+  ;; controls the amount of time that interactions happen outside
   updateoutside
-  ;;updatestudentStatus
+  ;updatestudentStatus
+
+  ;; Randomly turn suceptible agents into infected ones. Percentage chance = IncursionRate.
   incursion
+  ;; Average "days into infection the person is identified as a case" of suceptible agents.
   CalculateMeanIDTime
+  ;; Set Vaccine_Efficacy based on Vaccine_Type
   VaccineBrand
 
   ask patches [

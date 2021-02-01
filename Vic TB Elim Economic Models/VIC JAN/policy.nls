@@ -149,6 +149,62 @@ to do_policy_VIC
 end
 
 ;;;*********************************************************************************************************************
+;;Previous
+;;;*********************************************************************************************************************
+
+to do_policy_previous
+  ;;up
+  if stage = 0 and casesinperiod14 >= zerotoone and ticks = resetdate [
+    set stage 1
+    set resetdate (ticks + JudgeDay1)
+  ]
+  if stage = 1 and casesinperiod14 >= onetotwo and ticks = resetdate [
+    set stage 2
+    set resetdate (ticks + JudgeDay2)
+  ]
+  if stage = 2 and casesinperiod14 >= twotothree and ticks = resetdate [
+    set stage 3.5
+    set resetdate (ticks + JudgeDay3)
+  ]
+  if stage = 3.3 and casesinperiod14 >= threetofour and ticks = resetdate [
+    set stage 4
+    set resetdate (ticks + JudgeDay4)
+  ] ;; these all jump back up to stage 4
+  if stage = 3.4 and casesinperiod14 >= threetofour and ticks = resetdate [
+    set stage 4
+    set resetdate (ticks + JudgeDay4)
+  ] ;; these all jump back up to stage 4
+  if stage = 3.5 and casesinperiod14 >= threetofour and ticks = resetdate [
+    set stage 4
+    set resetdate (ticks + JudgeDay4)
+  ] ;; these all jump back up to stage 4
+
+  ;; down
+  if stage = 4 and ticks = 14 [
+    set stage 3.9
+    set resetdate (ticks + JudgeDay3)
+  ] ; ramps down to 3.9 on September 15th
+  if stage = 4 and ticks > 14 and casesinperiod14 <= fourtothree and ticks = resetdate [
+    set stage 3.5
+    set resetdate (ticks + JudgeDay4)
+  ]
+  if stage <= 3.5 and stage >= 3 and casesinperiod14 < threetotwo [
+    set stage 2
+    set resetdate (ticks + JudgeDay2)
+  ]
+  if stage = 2 and casesinperiod14 <= onetotwo and ticks = resetdate [
+    set stage 1
+    set resetdate (ticks + JudgeDay1 * 2)
+  ]
+  if stage = 1 and casesinperiod14 <= zerotoone and ticks = resetdate [
+    set stage 0
+  ]
+  if ticks > 0 and ticks >= resetdate [
+    set resetdate (ticks + 7)
+  ]
+end
+
+;;;*********************************************************************************************************************
 ;;VIC Jan Section
 ;;;*********************************************************************************************************************
 
@@ -210,60 +266,6 @@ to do_policy_VIC_Jan_Section
 end
 
 ;;;*********************************************************************************************************************
-;;Previous
-;;;*********************************************************************************************************************
-
-to do_policy_previous
-  ;;up
-  if stage = 0 and casesinperiod14 >= zerotoone and ticks = resetdate [
-    set stage 1
-    set resetdate (ticks + JudgeDay1)
-  ]
-  if stage = 1 and casesinperiod14 >= onetotwo and ticks = resetdate [
-    set stage 2
-    set resetdate (ticks + JudgeDay2)
-  ]
-  if stage = 2 and casesinperiod14 >= twotothree and ticks = resetdate [
-    set stage 3.5
-    set resetdate (ticks + JudgeDay3)
-  ]
-  if stage = 3.3 and casesinperiod14 >= threetofour and ticks = resetdate [
-    set stage 4
-    set resetdate (ticks + JudgeDay4)
-  ] ;; these all jump back up to stage 4
-  if stage = 3.4 and casesinperiod14 >= threetofour and ticks = resetdate [
-    set stage 4
-    set resetdate (ticks + JudgeDay4)
-  ] ;; these all jump back up to stage 4
-  if stage = 3.5 and casesinperiod14 >= threetofour and ticks = resetdate [
-    set stage 4
-    set resetdate (ticks + JudgeDay4)
-  ] ;; these all jump back up to stage 4
-
-  ;; down
-  if stage = 4 and ticks = 14 [
-    set stage 3.9
-    set resetdate (ticks + JudgeDay3)
-  ] ; ramps down to 3.9 on September 15th
-  if stage = 4 and ticks > 14 and casesinperiod14 <= fourtothree and ticks = resetdate [
-    set stage 3.5
-    set resetdate (ticks + JudgeDay4)
-  ]
-  if stage <= 3.5 and stage >= 3 and casesinperiod14 < threetotwo [
-    set stage 2
-    set resetdate (ticks + JudgeDay2)
-  ]
-  if stage = 2 and casesinperiod14 <= onetotwo and ticks = resetdate [
-    set stage 1
-    set resetdate (ticks + JudgeDay1 * 2)
-  ]
-  if stage = 1 and casesinperiod14 <= zerotoone and ticks = resetdate [
-    set stage 0
-  ]
-  if ticks > 0 and ticks >= resetdate [
-    set resetdate (ticks + 7)
-  ]
-end
 
 to COVIDPolicyTriggers
   if selfgovern = true [

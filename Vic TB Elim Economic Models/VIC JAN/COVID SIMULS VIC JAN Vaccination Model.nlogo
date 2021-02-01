@@ -125,7 +125,8 @@ __includes[
   "setup.nls"
   "packages.nls"
   "scale.nls"
-  "policyStages.nls"
+  "stages.nls"
+  "policy.nls"
   "trace.nls"
   "resources.nls"
   "count.nls"
@@ -513,8 +514,9 @@ to go
     simul_updatepersonalvirulence
     ;; Set 1/7th of people who are near a destination to move to that destination.
     simul_visitDestination
-    ;;
+    ;; If I am succeptible and a household member is tracked, move home and set pace to 0, set isolated=1. Also track isolated=1 infected people.
     simul_HHContactsIso
+    ;; Randomly vaccinate people according to uptake and stage.
     simul_vaccinate_me
   ]
   ; *current excluded functions for reducing processing resources**
@@ -946,7 +948,7 @@ Track_and_Trace_Efficiency
 Track_and_Trace_Efficiency
 0
 1
--0.13214526329821974
+0.63219
 .05
 1
 NIL
@@ -1459,7 +1461,7 @@ Contact_Radius
 Contact_Radius
 0
 180
-67.5
+0.0
 1
 1
 NIL

@@ -425,6 +425,7 @@ to updateoutside
 end
 
 to incursion
+  ;; randomly asks someone to become infected
   if ticks > 0 and currentinfections = 0 and IncursionRate > random-float 100 [
     ask one-of simuls with [ color = cyan ] [
       set color red
@@ -965,7 +966,7 @@ Track_and_Trace_Efficiency
 Track_and_Trace_Efficiency
 0
 1
-0.63219
+0.25
 .05
 1
 NIL
@@ -1157,10 +1158,10 @@ mean [ R ] of simuls with [ color = red and timenow = int Illness_Period ]
 11
 
 SWITCH
-158
-586
-302
-619
+160
+575
+304
+608
 policytriggeron
 policytriggeron
 0
@@ -1278,10 +1279,10 @@ total_population
 Number
 
 SLIDER
-139
-625
-313
-658
+137
+615
+311
+648
 Triggerday
 Triggerday
 0
@@ -1652,10 +1653,10 @@ count simuls with [ shape = \"star\" ] / count simuls
 12
 
 TEXTBOX
-145
-678
-318
-700
+163
+692
+336
+714
 Day 1 - Dec 21st, 2020
 12
 15.0
@@ -3275,7 +3276,7 @@ Vaccine_Efficacy
 Vaccine_Efficacy
 0
 100
-70.0
+94.0
 1
 1
 NIL
@@ -3346,18 +3347,48 @@ CHOOSER
 Vaccine_Type
 Vaccine_Type
 "AstraZeneca" "Moderna" "Pfizer/BioNTech" "Other"
-0
+1
 
 SLIDER
-1712
-35
-1885
-68
+136
+651
+309
+684
 RAND_SEED
 RAND_SEED
 0
 1000000
-1234.0
+1235.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+1710
+40
+1888
+73
+Inf_Curve_Truncation
+Inf_Curve_Truncation
+0
+1
+0.29
+.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+1158
+49
+1344
+82
+PropWithComorbidity
+PropWithComorbidity
+0
+100
+20.0
 1
 1
 NIL

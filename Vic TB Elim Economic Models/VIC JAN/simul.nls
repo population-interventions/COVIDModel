@@ -60,6 +60,8 @@ simuls-own [
   vaccinated ;; is the person vaccinated?
   vacc_Effective ;; is this effective in this person?
   IDTime ;; days into infection the person is identified as a case
+  VaccPhase ;; phase at which this person would receive vaccine
+  comorbidityState ;; does the person have a comorbidity
 
   contacts7 ;; contacts from seven days ago
   contacts6

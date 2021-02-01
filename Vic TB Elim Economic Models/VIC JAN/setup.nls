@@ -125,6 +125,22 @@ to resetPersonalVirulence
   ]
 end
 
+to setphases
+  if agerange >= 65 or EssentialWorker = 1 or comorbidityState < PropWithComorbidity [
+    set VaccPhase 1
+  ]
+  ;; plus whatever other characteristics you are interested in and the number of phases you want
+  if agerange >= 45 and agerange < 65 [
+    set VaccPhase 2
+  ] 
+  if agerange >= 20 and agerange < 45 [
+    set VaccPhase 3
+  ]
+  if agerange < 20 [
+    set Vaccphase 4
+  ]
+end
+
 ;;*******************************************************************************************************************************
 ;;** Buttons **
 ;;*******************************************************************************************************************************
@@ -221,7 +237,7 @@ to setup
       set personalTrust random-normal 75 10
       set WFHCap random 100
       set requireICU random 100
-      set personalVirulence random-normal Global_Transmissability 10
+      set personalVirulence random-normal Global_Transmissability 2.5
       set haveApp random 100
 
       set wearsMask random 100 ;; resethealth resetincome calculateincomeperday calculateexpenditureperday resettrust
@@ -231,6 +247,9 @@ to setup
       set ownIncubationPeriod ( exp random-normal Minc Sinc ) ;;; log transform of incubation period
 
       ;;set ownComplianceWithIsolation ( exp random-normal Mcomp SComp ) ;; log transform of compliance with isolation
+
+      set VaccPhase 4
+      set comorbidityState random 100
 
       rngs:init ;; replacing previous log transform with beta distribution
       let stream_id random-float 999
@@ -315,6 +334,11 @@ to setup
   set ninetyfive int ( Population * .008 )
 
   matchages ;; assigns risk to age ranges (see below)
+
+  ;; setting up the phase that everyone is in for vaccination
+  ask simuls [
+    setphases
+  ]
 
   ;; spend CalculateIncomePerday
   ask simuls [

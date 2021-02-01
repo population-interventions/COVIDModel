@@ -1,5 +1,6 @@
 
 to VaccineBrand
+  ;; For selection of vaccines
   if Vaccine_Type = "AstraZeneca" [
     set Vaccine_Efficacy 70
   ]
@@ -13,15 +14,36 @@ end
 
 
 to simul_vaccinate_me
-  ;if vaccine_Avail = true and vaccine_rate > random 1000 and vacc_Effective < VEffectiveness and color = cyan and ageRange > 60 and Essentialworkerflag = 1 [
-  ;  set color yellow
-  ;]
-
-  ;; identifies vaccinated people, compresses the incubation and illness period
-  if vaccine_Avail = true and vaccine_rate > random-float 1000 and vacc_Effective < Vaccine_Efficacy and color = cyan [
-    set shape "person"
-    set vaccinated 1
-    set ownincubationperiod ( ownincubationperiod / 5 )
-    set ownillnessperiod (ownillnessperiod / 5 )
+  if vaccine_Avail = true [
+    if count simuls with [ VaccPhase = 1 and vaccinated = 0 ] > 0 and vaccine_rate > random-float 1000 and color = 85 and VaccPhase = 1 [
+      set shape "person" set vaccinated 1
+      if vacc_Effective < Vaccine_Efficacy [
+        set ownincubationperiod ( ownincubationperiod / Inf_Curve_Truncation ) set ownillnessperiod (ownillnessperiod * Inf_Curve_Truncation )
+      ]
+    ]
+    if count simuls with [ VaccPhase < 2 and vaccinated = 0 ] < 10 and count simuls
+        with [ VaccPhase = 2 and vaccinated = 0 ] > 0 and vaccine_rate > random-float 1000 and color = 85 and VaccPhase = 2 [
+      set shape "person" set vaccinated 1
+      if vacc_Effective < Vaccine_Efficacy [
+        set ownincubationperiod ( ownincubationperiod / Inf_Curve_Truncation )
+        set ownillnessperiod (ownillnessperiod * Inf_Curve_Truncation )
+      ]
+    ]
+    if count simuls with [ VaccPhase < 3 and vaccinated = 0 ] < 10 and count simuls
+        with [ VaccPhase = 3 and vaccinated = 0 ] > 0 and vaccine_rate > random-float 1000 and color = 85 and VaccPhase = 3 [
+      set shape "person" set vaccinated 1
+      if vacc_Effective < Vaccine_Efficacy [
+        set ownincubationperiod ( ownincubationperiod / Inf_Curve_Truncation )
+        set ownillnessperiod (ownillnessperiod * Inf_Curve_Truncation )
+      ]
+    ]
+    if count simuls with [ VaccPhase < 4 and vaccinated = 0 ] < 10 and count simuls
+        with [ VaccPhase = 1 and vaccinated = 0 ] > 0 and vaccine_rate > random-float 1000 and color = 85 and VaccPhase = 4 [
+      set shape "person" set vaccinated 1
+      if vacc_Effective < Vaccine_Efficacy [
+        set ownincubationperiod ( ownincubationperiod / Inf_Curve_Truncation )
+        set ownillnessperiod (ownillnessperiod * Inf_Curve_Truncation )
+      ]
+    ]
   ]
 end

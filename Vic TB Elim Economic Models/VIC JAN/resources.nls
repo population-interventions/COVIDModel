@@ -1,0 +1,64 @@
+
+
+breed [ resources resource ]
+breed [ medresources medresource ] ;; people living in the city
+
+
+medresources-own [
+  capacity ;; bed capacity of hospital system
+]
+
+resources-own [
+  volume ;; resources avaialable in resource pile
+]
+
+
+;;*******************************************************************************************************************************
+;;** Medresources Once-A-Tick Functions **
+;;*******************************************************************************************************************************
+
+
+to allocatebed
+  ;; this allow bed capacity to be altered dynamically mid simulation if desired
+  if freewheel = true [
+    ask patches in-radius Bed_Capacity [
+      set pcolor white
+    ]
+  ]
+end
+
+
+;;*******************************************************************************************************************************
+;;** Resources Once-A-Tick Functions **
+;;*******************************************************************************************************************************
+
+
+to deplete
+  if any? simuls in-radius 1 and volume > 0 [
+    ;; deplete resources if simuls are present to take them
+    set volume volume - .1
+  ]
+end
+
+to replenish
+  if volume <= 10 and productionrate > random 100 [
+    ;; re-stocking resources at a rate set by the production rate
+    set volume volume + 1
+  ]
+end
+
+;; Also in setup
+to resize
+  set size volume * 2
+  ifelse volume < 1
+  [
+    set color red
+  ]
+  [
+    set color white
+  ]
+end
+
+to spin
+  set heading heading + 5
+end

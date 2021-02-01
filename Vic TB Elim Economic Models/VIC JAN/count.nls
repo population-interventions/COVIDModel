@@ -1,0 +1,332 @@
+;;*******************************************************************************************************************************
+;;** Counting things, often with scale involved **
+;;*******************************************************************************************************************************
+
+to countDailyCases
+  ;; sets the day for reporting new cases at 6 (adjustable) days after initial infection, scales up as the population scales
+
+  ;; this now ONLY reports detected cases, not all infections - this flows through to daily cases
+  let casestoday count simuls with [ color = red and unDetectedFlag = 0 and int timenow = int Case_reporting_delay ]
+
+  if Scalephase = 0 [
+    set dailyCases casestoday
+  ]
+  if Scalephase = 1 [
+    set dailyCases casestoday * 10
+  ]
+  if Scalephase = 2 [
+    set dailyCases casestoday * 100
+  ]
+  if Scalephase = 3 [
+    set dailyCases casestoday * 1000
+  ]
+  if Scalephase = 4 [
+    set dailyCases casestoday * 10000
+  ]
+end
+
+
+to calculatePopulationScale
+  ;; population scaling function
+  if scalephase = 0 [
+    set Scaled_Population ( count simuls )
+  ]
+  if scalephase = 1 [
+    set Scaled_Population ( count simuls ) * 10
+  ]
+  if scalephase = 2 [
+    set Scaled_Population ( count simuls ) * 100
+  ]
+  if scalephase = 3 [
+    set Scaled_Population ( count simuls ) * 1000
+  ]
+  if scalephase = 4 [
+    set Scaled_Population ( count simuls ) * 10000
+  ]
+end
+
+to calculateScaledPopulation
+  ;; calculates the scaled population for working with smaller environments
+  if scalephase = 0 [
+    set scaledPopulation Total_Population / 10000
+  ]
+  if scalephase = 1 [
+    set scaledPopulation Total_Population / 1000
+  ]
+  if scalephase = 2 [
+    set scaledPopulation Total_Population / 100
+  ]
+  if scalephase = 3 [
+    set scaledPopulation Total_Population / 10
+  ]
+  if scalephase = 4 [
+    set scaledPopulation Total_Population
+  ]
+end
+
+to CalculateICUBedsRequired
+  ;; calculates the number of ICU beds required at any time
+  let needsICU count simuls with [ color = red and requireICU = 1 ]
+
+  if scalephase = 0 [
+    set ICUBedsRequired needsICU
+  ]
+  if scalephase = 1 [
+    set ICUBedsRequired needsICU * 10
+  ]
+  if scalephase = 2 [
+    set ICUBedsRequired needsICU * 100]
+  if scalephase = 3 [
+    set ICUBedsRequired needsICU * 1000
+  ]
+  if scalephase = 4 [
+    set ICUBedsRequired needsICU * 10000
+  ]
+end
+
+to calculateCurrentInfections
+  ;; calculates the number of infected people in the population
+  let infectedsimuls count simuls with [ color = red ]
+
+  if Scalephase = 0 [
+    set currentInfections infectedsimuls
+  ]
+  if Scalephase = 1 [
+    set currentInfections infectedsimuls * 10
+  ]
+  if Scalephase = 2 [
+    set currentInfections infectedsimuls * 100
+  ]
+  if Scalephase = 3 [
+    set currentInfections infectedsimuls * 1000
+  ]
+  if Scalephase = 4 [
+    set currentInfections infectedsimuls * 10000
+  ]
+end
+
+to calculatePotentialContacts ;; counts the number of people tracked from infected people
+  if Scalephase = 0 [
+    set PotentialContacts ( count links )
+  ]
+  if Scalephase = 1 [
+    set PotentialContacts ( count links ) * 10
+  ]
+  if Scalephase = 2 [
+    set PotentialContacts ( count links ) * 100
+  ]
+  if Scalephase = 3 [
+    set PotentialContacts ( count links ) * 1000
+  ]
+  if Scalephase = 4 [
+    set PotentialContacts ( count links ) * 10000
+  ]
+end
+
+
+to countEWInfections
+  ;; counts infections among Essential workers
+  let EWInfects (count simuls with [ color = red and EssentialWorkerFlag = 1 ] )
+  if Scalephase = 0 [
+    set EWInfections EWInfects
+  ]
+  if Scalephase = 1 [
+    set EWInfections EWInfects * 10
+  ]
+  if Scalephase = 2 [
+    set EWInfections EWInfects * 100
+  ]
+  if Scalephase = 3 [
+    set EWInfections EWInfects * 1000
+  ]
+  if Scalephase = 4 [
+    set EWInfections EWInfects * 10000
+  ]
+end
+
+to countSchoolInfections
+  ;; counts infections among school students
+  let studentInfects ( count simuls with [ color = red and StudentFlag = 1 ] )
+  if Scalephase = 0 [
+    set studentInfections studentInfects
+  ]
+  if Scalephase = 1 [
+    set studentInfections studentInfects * 10
+  ]
+  if Scalephase = 2 [
+    set studentInfections studentInfects * 100
+  ]
+  if Scalephase = 3 [
+    set studentInfections studentInfects * 1000
+  ]
+  if Scalephase = 4 [
+    set studentInfections studentInfects * 10000
+  ]
+end
+
+
+to calculateScaledBedCapacity
+  ;; scales the number of patches in the environment that represents Australian bed capacity
+  set scaled_Bed_Capacity ( Hospital_Beds_In_Australia / 2500 )
+end
+
+
+to CalculateDailyGrowth
+  ;; calculated the growth in infectes per day
+  set YesterdayInfections TodayInfections
+
+  ;; this considers ALL cases - not just the reported ones
+  set TodayInfections ( count simuls with [ color = red and timenow = 1 ] )
+  if YesterdayInfections != 0 [
+    set InfectionChange ( TodayInfections / YesterdayInfections )
+  ]
+end
+
+to CountInfected ;; global infection count
+  set numberinfected cumulativeInfected
+end
+
+to calculateCarefactor
+  ;; not currently implemented so can ignore
+
+  ;; experience can be fear ;; we can analyse who got infected - vulnerable communities
+  set newv ( ( saliencyMessage * SaliencyExperience ) * (( vmax - initialassociationstrength ) * ( Careattitude * selfCapacity )))
+
+  if newv > vmax [
+    set newv vmax
+  ]
+  if newv < vmin [
+    set newv vmin
+  ]
+
+  set newAssociationstrength ( initialAssociationstrength + newv )
+  set vmax maxv
+  set vmin minv
+
+  set saliencyMessage PHWarnings
+  set SaliencyExperience Saliency_of_Experience
+  set CareAttitude Care_Attitude
+  set selfCapacity Self_capacity
+  if saliencyMessage > 1 [
+    set saliencymessage 1
+  ]
+  if saliencyExperience > 1 [
+    set saliencyExperience 1
+  ]
+end
+
+to calculateMeanDaysInfected
+  if any? simuls with [ color = red ] [
+    set meanDaysInfected ( mean [ timenow ] of simuls with [ color = red ] )
+  ]
+end
+
+to countred
+  ;; as per code
+  set redCount count simuls with [ color = red ]
+end
+
+to countblue
+  ;; as per code
+  set blueCount count simuls with [ color = 85 ]
+end
+
+to countyellow
+  ;; as per code
+  set yellowcount count simuls with [ color = yellow ]
+end
+
+to calculateTodayInfected
+  ;; calculates the number of people infected and recorded today for use in conjunction with yesterday's estimate for calculation of daily growth (see below)
+  ;; this only considers reported cases - must adjust undetected cases if you want to report all infections
+  set todayInfected dailycases
+end
+
+to calculateYesterdayInfected
+  ;; calculates the number of people infected and recorded today
+  set cumulativeInfected cumulativeInfected + todayInfected
+end
+
+
+to calculateMeanr
+  ifelse any? simuls with [ color = red and timenow = int ownillnessperiod ]
+  [
+    set meanR ( mean [ R ] of simuls with [ color = red and timenow = int ownillnessperiod ])
+  ]
+  [
+    ;; calculates mean Reff for the population
+    set MeanR MeanR
+  ]
+end
+
+
+to calculateCasesInLastPeriod
+  ;; counts cases in the last 14 days -
+  ;; THIS ONLY COUNTS DETECTED CASES, NOT ALL INFECTIONS - TO ADJUST YOU MUST SET ASYMPTOMATIC TO ZERO
+
+  set prior27 prior26
+  set prior26 prior25
+  set prior25 prior24
+  set prior24 prior23
+  set prior23 prior22
+  set prior22 prior21
+  set prior21 prior20
+  set prior20 prior19
+  set prior19 prior18
+  set prior18 prior17
+  set prior17 prior16
+  set prior16 prior15
+  set prior15 prior14
+  set prior14 prior13
+  set prior13 prior12
+  set prior12 prior11
+  set prior11 prior10
+  set prior10 prior9
+  set prior9 prior8
+  set prior8 prior7
+  set prior7 prior6
+  set prior6 prior5
+  set prior5 prior4
+  set prior4 prior3
+  set prior3 prior2
+  set prior2 prior1
+  set prior1 prior0
+  set prior0 dailyCases
+
+  set casesinperiod14 (prior0 + prior1 + prior2 + prior3 + prior4 + prior5 + prior6 + prior7 + prior8 + prior9
+    + prior10 + prior11 + prior12 + prior13 )
+
+  set casesinperiod7 (prior0 + prior1 + prior2 + prior3 + prior4 + prior5 + prior6 )
+
+  set casesinperiod28 (prior0 + prior1 + prior2 + prior3 + prior4 + prior5 + prior6 + prior7 + prior8 + prior9
+    + prior10 + prior11 + prior12 + prior13 + prior14 + prior15 + prior16 + prior17 + prior18 + prior19
+    + prior20 + prior21 + prior22 + prior23 + prior24 + prior25 + prior26 + prior27)
+
+  ;print prior13
+  ;print prior12
+  ;print prior11
+  ;print prior10
+  ;print prior9
+  ;print prior8
+  ;print prior7
+  ;print prior6
+  ;print prior5
+  ;print prior4
+  ;print prior3
+  ;print prior2
+  ;print prior1
+  ;print prior0
+  ;print"****************************************************"
+end
+
+to calculateObjfunction
+  ;; moderate
+  if ticks > 1 and numberinfected != 0 [
+    set objFunction ( log numberInfected 10 ) + 1 * (1 - ( mean [ contacts ] of simuls ) )
+  ]
+end
+
+
+to CalculateMeanIDTime
+  set meanIDTime mean [ IDTime ] of simuls with [ color != 85 ]
+end

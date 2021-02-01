@@ -1,0 +1,27 @@
+
+to VaccineBrand
+  if Vaccine_Type = "AstraZeneca" [
+    set Vaccine_Efficacy 70
+  ]
+  if Vaccine_Type = "Pfizer/BioNTech" [
+    set Vaccine_Efficacy 95
+  ]
+  if Vaccine_Type = "Moderna" [
+    set Vaccine_Efficacy 94
+  ]
+end
+
+
+to simul_vaccinate_me
+  ;if vaccine_Avail = true and vaccine_rate > random 1000 and vacc_Effective < VEffectiveness and color = 85 and ageRange > 60 and Essentialworkerflag = 1 [
+  ;  set color yellow
+  ;]
+
+  ;; identifies vaccinated people, compresses the incubation and illness period
+  if vaccine_Avail = true and vaccine_rate > random-float 1000 and vacc_Effective < Vaccine_Efficacy and color = 85 [
+    set shape "person"
+    set vaccinated 1
+    set ownincubationperiod ( ownincubationperiod / 5 )
+    set ownillnessperiod (ownillnessperiod / 5 )
+  ]
+end

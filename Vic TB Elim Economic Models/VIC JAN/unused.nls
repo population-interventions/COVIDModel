@@ -28,6 +28,13 @@ to earn
   ]
 end
 
+to simul_setASFlag
+  ;; records an asymptomatic flag for individual people
+  if asymptom <= asymptomaticPercentage [
+    set asymptomaticFlag 1
+  ]
+end
+
 to financialstress
   ;; if simuls have negative financial reserves, this identifies them in the visualisation of the model
   if reserves <= 0 and agerange > 18 and agerange < 70 [
@@ -36,5 +43,88 @@ to financialstress
   ;; reverts back to a dot shape if person has positive cash reserves
   if reserves > 0 [
     set shape "dot"
+  ]
+end
+
+
+to seedCases
+  ;; set up to take the pre-intervention growth pre ******August 31th ********* and use it to seed new
+  ;; cases in the next week - must be updated each day 1_9_2020 =244.02*EXP(-0.09)^G55
+  ;; Vic @ 90
+  if ticks < seedticks and scalephase = 0 [
+    ask n-of 10 simuls with [ color = 85 ] [
+      set color red
+      set timenow int Case_reporting_delay - 1
+      set Essentialworker random 100
+      set unDetectedFlag 0
+    ]
+  ]
+  if ticks < seedticks and scalephase = 1 [
+    ask n-of 1 simuls with [ color = 85 ] [
+      set color red
+      set timenow int Case_reporting_delay - 1
+      set Essentialworker random 100
+      set unDetectedFlag 0
+    ]
+  ]
+  if ticks < seedticks and scalephase = 2 [
+    ask n-of int .1 simuls with [ color = 85 ] [
+      set color red
+      set timenow int Case_reporting_delay - 1
+      set Essentialworker random 100
+      set unDetectedFlag 0
+    ]
+  ]
+end
+
+
+to spend
+  ifelse agerange < 18
+  [
+    set reserves reserves
+  ]
+  [
+    ;; allocates cash reserves of average of 3 weeks with tails
+    set reserves (income * random-normal Days_of_Cash_Reserves (Days_of_Cash_Reserves / 5) ) / 365
+  ]
+end
+
+
+to Cruiseship
+  if mouse-down? and cruise = true [
+    ;; lets loose a set of new infected people into the environment
+    create-simuls random 50 [
+      setxy mouse-xcor mouse-ycor
+      set size 2
+      set shape "dot"
+      set color red
+      set agerange one-of [ 0 10 20 30 40 50 60 70 80 90 ]
+
+      set health ( 100 - Agerange )
+      set timenow 0
+      set InICU 0
+      set anxiety 0
+      set sensitivity random-float 1
+      set R 0
+      ;; resethealth resetincome calculateincomeperday calculateexpenditureperday
+
+      set income random-exponential Mean_Individual_Income
+      set ownIllnessPeriod ( exp random-normal M S ) ;; log transform of illness period
+      set ownIncubationPeriod ( exp random-normal Minc Sinc ) ;;; log transform of incubation period
+
+      set detectable random 100 ;;;; identifies whether the person is detectable or not
+      set returntoschool random 100
+
+      rngs:init ;; replacing previous log transform with beta distribution
+      let stream_id random-float 999
+      let seed random-float 999
+      rngs:set-seed stream_id seed
+      let dist rngs:rnd-beta stream_id 450.3 23.7
+
+      set ownComplianceWithIsolation dist
+      let maskWearEfficacy rngs:rnd-beta stream_id 20 11
+
+      set ownMaskEfficacy maskWearEfficacy * 100
+    ]
   ]
 end

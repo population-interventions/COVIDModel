@@ -81,11 +81,11 @@ to resetlanding
 end
 
 
-to iteratetimenow
+to simul_iteratetimenow
   set timenow random int Ownillnessperiod
-  UpdatePersonalVirulence
+  simul_updatepersonalvirulence
   if timenow <= 7 [
-    iteratetimenow
+    simul_iteratetimenow
   ]
 end
 
@@ -250,10 +250,10 @@ to setup
       ]
 
       
-      iterateAsymptomAge
+      simul_iterateAsymptomAge
       resetPersonalVirulence
       assignApptoEssential
-      assigndetectablestatus ;; identifies people unlikely to be found
+      simul_assigndetectablestatus ;; identifies people unlikely to be found
 
       ;set pta random-float ((Proportion_time_avoid - (Proportion_Time_Avoid * .2)) + random-float (Proportion_time_avoid + (1 - Proportion_time_avoid) * .2))
       ;set ppa random-float ((Proportion_People_avoid - (Proportion_People_Avoid * .2)) + random-float (Proportion_People_avoid + (1 - Proportion_People_avoid) * .2))
@@ -270,10 +270,10 @@ to setup
     set tracked 1
     set reported 1
     set timenow random int OwnIllnessperiod
-    UpdatePersonalVirulence
+    simul_updatepersonalvirulence
     if timenow <= 7 [
       ;; includes a proportion reported cases in the community at the initialisation step matched to current day data
-      iteratetimenow
+      simul_iteratetimenow
     ]
   ]
 
@@ -285,11 +285,11 @@ to setup
     set tracked 0
     set reported 0
     set timenow random int OwnIllnessperiod
-    UpdatePersonalVirulence
+    simul_updatepersonalvirulence
     if timenow <= 7 [
       ;; includes a proportion of undetected cases in the community at the initialisation step
       set timenow random int Ownillnessperiod
-      UpdatePersonalVirulence
+      simul_updatepersonalvirulence
     ]
   ]
 
@@ -374,7 +374,7 @@ to setup
 
   resetHouseholdUnit ;; iterates this process
   ask simuls [
-    resetlandingSimul
+    simul_resetlanding
   ]
 
   ;; this ensures that half the people in households with existing infections have also had an infection and prevents a big spike early-on

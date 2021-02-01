@@ -1,0 +1,572 @@
+;; This version of the model has been speifically designed to estimate issues associated with Victoria's second wave of infections, beginning in early July
+;; The intent of the model is for it to be used as a guide for considering differences in potential patterns of infection under various policy futures
+;; As with any model, it's results should be interpreted with caution and placed alongside other evidence when interpreting results
+
+extensions [ rngs profiler csv ]
+
+globals [
+  anxietyFactor
+  NumberInfected
+  InfectionChange
+  TodayInfections
+  YesterdayInfections
+  five
+  fifteen
+  twentyfive
+  thirtyfive
+  fortyfive
+  fiftyfive
+  sixtyfive
+  seventyfive
+  eightyfive
+  ninetyfive
+  InitialReserves
+  AverageContacts
+  AverageFinancialContacts
+  ScalePhase
+  Days
+  GlobalR
+  CaseFatalityRate
+  DeathCount
+  DailyCases
+  Scaled_Population
+  ICUBedsRequired
+  scaled_Bed_Capacity
+  currentInfections
+  eliminationDate
+  PotentialContacts
+  bluecount
+  yellowcount
+  redcount
+  todayInfected
+  cumulativeInfected
+  scaledPopulation
+  MeanR
+  EWInfections
+  StudentInfections
+  meanDaysInfected
+  lasttransday
+  lastPeriod
+  casesinperiod28
+  casesinperiod14
+  casesinperiod7
+  resetDate ;; days after today that the policy is reviewed
+  cashposition
+  Objfunction ;; seeks to minimise the damage - totalinfection * stage * currentInfections
+  decisionDate ;; a date (ticks) when policy decsions were made
+  prior0
+  prior1
+  prior2
+  prior3
+  prior4
+  prior5
+  prior6
+  prior7
+  prior8
+  prior9
+  prior10
+  prior11
+  prior12
+  prior13
+  prior14
+  prior15
+  prior16
+  prior17
+  prior18
+  prior19
+  prior20
+  prior21
+  prior22
+  prior23
+  prior24
+  prior25
+  prior26
+  prior27
+  prior28
+
+  stageHasChanged
+  stageToday
+  stageYesterday
+
+  PrimaryUpper
+  SecondaryLower
+
+  meanIDTime
+
+
+  ;; log transform illness period variables
+  Illness_PeriodVariance
+  M
+  BetaillnessPd
+  S
+
+
+  ;; log transform incubation period variables
+  Incubation_PeriodVariance
+  MInc
+  BetaIncubationPd
+  SInc
+
+  ;; log transform compliance period variables
+  Compliance_PeriodVariance
+  MComp
+  BetaCompliance
+  SComp
+
+  ;; file reading and draw handling
+  drawNumber
+  drawRandomSeed
+  drawList
+
+]
+
+__includes[
+  "simul.nls"
+  "setup.nls"
+  "packages.nls"
+  "scale.nls"
+  "policyStages.nls"
+  "trace.nls"
+  "resources.nls"
+  "count.nls"
+  "vaccine.nls"
+]
+
+
+patches-own [
+  utilisation ;; indicator of whether any people are located on that patch of the environment or not
+  destination ;; indicator of whether this location is a place that people might gather
+]
+
+to avoidICUs
+  ;; makes sure that simulswho have not been sent to hospital stay outside
+  if [ pcolor ] of patch-here = white and InICU = 0 [
+    move-to min-one-of patches with [ pcolor = black ] [ distance myself ]
+  ]
+end
+
+
+to avoid
+  ;; these are the circustances under which people will interact
+  ask simuls [
+    (ifelse Spatial_Distance = true and (Proportion_People_Avoid + random-normal 0 3) > random 100
+        and (Proportion_Time_Avoid + random-normal 0 3) > random 100 and AgeRange > Age_Isolation and EssentialWorkerFlag = 0
+    [
+      if any? other simuls-here with [ householdUnit != [ householdUnit ] of myself ] [
+        if any? neighbors with [ utilisation = 0 ] [
+          move-to one-of neighbors with [ utilisation = 0 ]
+        ]
+      ]
+    ]
+    ;; so, if the social distancing policies are on and you are distancing at this time and you are not part of an age-isolated group
+    ;; and you are not an essentialworker, then if there is anyone near you, move away if you can.
+    ;; elseif
+    Spatial_Distance = true and (Proportion_People_Avoid + random-normal 0 3) > random 100 and (Proportion_Time_Avoid + random-normal 0 3) > random 100
+        and AgeRange > Age_Isolation and EssentialWorkerFlag = 1
+    [
+      if any? other simuls-here with [ householdUnit != [ householdUnit ] of myself ] [
+        if any? neighbors with [ utilisation = 0 ] and Ess_W_Risk_Reduction > random 100 [
+          move-to one-of neighbors with [ utilisation = 0 ]
+        ]
+      ]
+    ]
+    ;; if you are an essential worker, you can only reduce your
+    ;; contacts when you are not at work assuming 8 hours work, 8 hours rest, 8 hours recreation - rest doesn't count for anyone, hence it is
+    ;; set at 50 on the input slider. People don't isolate from others in their household unit
+    [
+      ;; otherwise just move wherever you like
+      set heading heading + contact_Radius fd random pace
+      avoidICUs
+      move-to patch-here
+    ])
+  ]
+
+  if policyTriggerOn = true and freewheel = false and schoolsPolicy = true and ticks >= triggerday + SchoolReturnDate [
+    ask simuls with [ studentFlag = 1 ] [
+      ;; same thing but specifically targets the movement of students if the schools policy is turned on - that is
+      ;; if students are expected to return to school
+      ;; schoolspolicy = true means 'go to school = true
+      ifelse Spatial_Distance = true and Proportion_People_Avoid + random-normal 0 3 > random 100
+          and Proportion_Time_Avoid + random-normal 0 3 > random 100 and AgeRange > Age_Isolation
+      [
+        if any? other simuls-here with [ householdUnit != [ householdUnit ] of myself or studentFlag != 1 ] [
+          ;; students don't isolate from each other or their household unit
+          if any? neighbors with [ utilisation = 0 ] and Ess_W_Risk_Reduction > random 100 [
+            move-to one-of neighbors with [ utilisation = 0 ]
+          ]
+        ]
+      ]
+      ;; if you are a student, you avoid everyone you can except for essential workers (i.e., teachers), other students
+      ;; and people from your own household
+      [
+        move-to one-of simuls with [ essentialworkerflag = 1 or householdUnit = [ householdUnit ] of myself or studentFlag = 1 ]
+      ]
+    ]
+  ]
+end
+
+to finished
+  if freewheel = true [
+    ;; stops the model if the following criteria are met - no more infected people in the simulation and it has run for at least 10 days
+    if ticks > 100 and count simuls with [ color = red ] = 0 [
+      stop
+    ]
+  ]
+end
+
+
+to superSpread
+  if count simuls with [ color = red and tracked = 0 ] > 1 and Case_Isolation = false [
+    if Superspreaders > random 100 [
+      ;; asks some people who are infected and not tracked to move to random new areas,
+      ;;potentially among susceptible people if travel restrictions are not current
+      ask n-of int (count simuls with [ color = red and tracked = 0 ] / Diffusion_Adjustment ) simuls with [ color = red and tracked = 0 ] [
+        fd world-width / 2
+      ]
+
+      ;; same as above but for recovered people to take into account immunity in the population
+      if count simuls with [ color = yellow ] >= Diffusion_Adjustment [
+        ask n-of int ( count simuls with [ color = yellow ] / Diffusion_Adjustment ) Simuls with [ color = yellow ] [
+          fd world-width / 2
+        ]
+      ]
+    ]
+  ]
+
+
+  if count simuls with [ color = red and timenow < ownIncubationPeriod and tracked = 0 ] > Diffusion_Adjustment and Case_Isolation = true [
+    if Superspreaders > random 100 [
+      ;; only moves people who don't know they are sick yet
+      ask n-of int (count simuls with [ color = red and timenow < ownIncubationPeriod and tracked = 0 ] / Diffusion_Adjustment ) simuls
+          with [ color = red and timenow < ownIncubationPeriod and tracked = 0 ] [
+        fd world-width / 2
+      ]
+
+      ;; this ensures that people with immunity also move to new areas, not just infected people
+      if count simuls with [ color = yellow ] >= 1 [
+        ask n-of int (count simuls with [ color = yellow ] / Diffusion_Adjustment) simuls with [ color = yellow ] [
+          fd world-width / 2
+        ]
+      ]
+    ]
+  ]
+end
+
+
+;;;*******************ANXIETY******************::::::::::::::::::
+
+
+to Globalanxiety
+  ;; levels of global anxiety are tied to knowledge of dead and infected
+  ;; people multiplied by media exposure of dead and infected people
+  let anxiouscohort (count simuls with [ color = red ] + count simuls with [ color = black ] - count simuls with [ color = yellow ] ) / Total_Population
+
+  if scalephase = 0 [
+    set anxietyFactor anxiouscohort * media_Exposure
+  ]
+  if scalephase = 1 [
+    set anxietyFactor anxiouscohort * 10 * media_Exposure
+  ]
+  if scalephase = 2 [
+    set anxietyFactor anxiouscohort * 100 * media_Exposure
+  ]
+  if scalephase = 3 [
+    set anxietyFactor anxiouscohort * 1000 * media_Exposure
+  ]
+  if scalephase = 4 [
+    set anxietyFactor anxiouscohort * 10000 * media_Exposure
+  ]
+end
+
+to GlobalTreat
+  ;; send people to quarantine if they have been identified
+  let eligiblesimuls simuls with [ color = red and inICU = 0 and ownIncubationPeriod >= Incubation_Period and asymptom >= AsymptomaticPercentage and tracked = 1 ]
+
+  ;; only symptomatic cases are identified
+  if (count simuls with [ InICU = 1 ]) < (count patches with [ pcolor = white ]) and Quarantine = true and any? eligiblesimuls [
+    ask n-of ( count eligiblesimuls * Track_and_Trace_Efficiency ) eligiblesimuls [
+      move-to one-of patches with [ pcolor = white ]
+      set inICU 1
+    ]
+  ]
+end
+
+to PossiblyDie
+  ;; determines whether people die on the basis of poor health (not currently active)
+  if InICU = 0 and Severity_of_illness / Illness_Period > random 100 [
+    set health health - Severity_of_Illness
+  ]
+  if InICU = 1 and Severity_of_illness / Illness_Period > random 100 [
+    set health health - Severity_of_Illness / Treatment_Benefit
+  ]
+end
+
+to TriggerActionIsolation
+  ;; sets the date for social isolation and case isolation
+  if PolicyTriggerOn = true and Freewheel = false [
+    if ticks >= Triggerday and Freewheel = false [
+      set Spatial_Distance true
+      set Case_Isolation true
+      set Quarantine true
+    ]
+  ]
+end
+
+
+to checkutilisation
+  ;; records which patches are being occupied by simuls
+  ifelse any? simuls-here
+  [
+    set utilisation 1
+  ]
+  [
+    set utilisation 0
+  ]
+end
+
+
+to CalculateAverageContacts
+  ;; calculates average contacts for simuls and average financial contacts, which are contacts with people who have positive cash reserves
+  if ticks > 0 [
+    set AverageContacts mean [ contacts ] of simuls with [ color != black ]
+  ]
+end
+
+to forwardTime
+  ;; counts days per tick, likely redundant at present as days are not used for anything right now.
+  set days days + 1
+end
+
+To Unlock
+  ;; reverses the initiation of social distancing and isolation policies over time. Recognises that the policies are interpreted
+  ;; and adherence is not binary. Adherence to policies is associated with a negative exponential curve linked to the current day
+  ;; and the number of days until the policies are due to be relaxed at which point they are relaxed fully.
+
+  if Complacency = true and PolicyTriggerOn = true and LockDown_Off = true and ticks >= Triggerday
+      and int Proportion_People_Avoid > ResidualCautionPPA [
+    set PPA (PPA - 1 )
+    set Proportion_People_Avoid PPA
+  ]
+
+  if Complacency = true and PolicyTriggerOn = true and LockDown_Off = true and ticks >= Triggerday
+      and int Proportion_Time_Avoid > ResidualCautionPTA [
+    set PTA (PTA - 1 )
+    set Proportion_Time_Avoid PTA
+  ]
+end
+
+to setCaseFatalityRate
+  ;; calculates death rate per infected person over the course of the pandemic
+  if Deathcount > 0 and numberinfected > 0 [
+    set casefatalityrate ( Deathcount / numberInfected )
+  ]
+end
+
+
+to calculateEliminationDate
+  ;; records the day that no infected people remain in the environment
+  if ticks > 1 and count simuls with [ color = red ] = 0 and eliminationDate = 0 [
+    set eliminationDate ticks
+  ]
+end
+
+
+;;;;;;;;;;;;*********END OF TTI FUNCTIONS******* ;;;;;;;;;;;;;
+
+
+
+to OSCase
+  if policytriggeron = true and count simuls with [ color = red and imported = 0 ] > 1 [
+    let totallocal count simuls with [ color != 85 and imported = 0 ]
+    let totalimported count simuls with [ imported = 1 ]
+    let ratio ( totalimported / (totallocal + totalimported) )
+
+    ;; contributes additional cases as a result of OS imports prior to lockdown
+    if ticks <= triggerday and OS_Import_Switch = true and ratio < OS_Import_Proportion [
+      ask n-of ( count simuls with [ color = red ] * .10 ) simuls with [ color = 85 ] [
+        set color red
+        set timenow int ownIncubationPeriod - random-normal 1 .5
+        set Essentialworker random 100
+        set imported 1
+      ]
+    ]
+
+    ;; creates steady stream of OS cases at beginning of pandemic
+    if ticks <= triggerday and OS_Import_Switch = true [
+      ask n-of 1 simuls with [ color = 85 ] [
+        set color red
+        set timenow int ownIncubationPeriod - random-normal 1 .5
+        set Essentialworker random 100
+        set imported 1
+      ]
+    ]
+
+    ;; contributes additional cases as a result of OS imports after lockdown
+    if ticks > triggerday and OS_Import_Switch = true and ratio < OS_Import_Post_Proportion [
+      ask n-of ( count simuls with [ color = red ] * .05 ) simuls with [ color = 85 ] [
+        set color red
+        set timenow int ownIncubationPeriod - random-normal 1 .5
+        set Essentialworker random 100
+        set imported 1
+        set tracked 1
+      ]
+    ]
+  ]
+end
+
+to stopfade
+  ;; prevents cases from dying out in the eraly stage of the trials when few numbers exist
+  if freewheel != true [
+    if ticks < Triggerday and count simuls with [ color = red ] < 3 [
+      ask n-of 1 simuls with [ color = 85 ] [
+        set color red
+        set timenow int ownIncubationPeriod - 1
+        set Essentialworker random 100
+      ]
+    ]
+  ]
+end
+
+to-report nonesspercentage
+  if count simuls with [ essentialworkerflag != 1 and color != 85 ] > 0 [
+    report (count simuls with [ essentialworkerflag != 1 and color != 85] ) / (count simuls with [ essentialWorkerFlag != 1 ])
+  ]
+end
+
+to linearbehdecrease
+  if complacency = true [
+    if ticks > triggerday and ppa > ResidualCautionppa [
+      set ppa (ppa - 1)
+      set pta ( pta - 1)
+    ]
+  ]
+end
+
+to updateoutside
+  ;; controls the amount of time that interactions happen outside
+  if count patches with [ pcolor = green ] < ( Outside * (count patches) ) [
+    ask n-of random 10 patches with [ pcolor = black ] [
+      set pcolor green
+    ]
+  ]
+  if count patches with [ pcolor = green ] > ( Outside * (count patches) ) [
+    ask n-of random 10 patches with [ pcolor = green ] [
+      set pcolor black
+    ]
+  ]
+end
+
+to incursion
+  if ticks > 0 and currentinfections = 0 and IncursionRate > random-float 100 [
+    ask one-of simuls with [ color = 85 ] [
+      set color red
+    ]
+  ]
+end
+
+
+;;*******************************************************************************************************************************
+;;** Buttons **
+;;*******************************************************************************************************************************
+
+
+to go
+  ;; these funtions get called each time-step
+  ask simuls [
+    simul_move
+    simul_recover
+    simul_settime
+    simul_death
+    simul_isolation
+    simul_reinfect
+    simul_createanxiety
+    simul_gatherreseources
+    simul_treat
+    simul_Countcontacts
+    simul_respeed
+    simul_checkICU
+    simul_traceme
+    simul_EssentialWorkerID
+    simul_hunt
+    simul_AccessPackage
+    simul_checkMask
+    simul_updatepersonalvirulence
+    simul_visitDestination
+    simul_HHContactsIso
+    simul_vaccinate_me
+  ]
+  ; *current excluded functions for reducing processing resources**
+  ask medresources [
+    allocatebed
+  ]
+  ask resources [
+    deplete
+    replenish
+    resize
+    spin
+  ]
+  ask packages [
+    absorbshock
+    movepackages
+  ]
+
+  setupstages
+  finished
+  ;CruiseShip
+  GlobalTreat
+  Globalanxiety
+  SuperSpread
+  CountInfected
+  CalculateDailyGrowth
+  TriggerActionIsolation
+  DeployStimulus
+  ;;setInitialReserves
+  CalculateAverageContacts
+  ScaleUp
+  ForwardTime
+  Unlock
+
+  setCaseFatalityRate
+  countDailyCases
+  calculatePopulationScale
+  calculateICUBedsRequired
+  calculateScaledBedCapacity
+  calculateCurrentInfections
+  calculateEliminationDate
+  assesslinks
+  calculatePotentialContacts
+  countRed
+  countBlue
+  countYellow
+  scaledownhatch
+  calculateYesterdayInfected
+  calculateTodayInfected
+  calculateScaledPopulation
+  calculateMeanR
+  OSCase
+  stopFade
+  ;;seedCases
+  avoid
+  turnOnTracking
+  countEWInfections
+  countSchoolInfections
+  finished
+  calculateMeanDaysInfected
+  ;;profilerstop
+  traceadjust
+  linearbehdecrease
+  CovidPolicyTriggers
+  calculateCasesInLastPeriod
+  ;;calculateCashPosition
+  calculateObjfunction
+  updateoutside
+  ;;updatestudentStatus
+  incursion
+  CalculateMeanIDTime
+  VaccineBrand
+
+  ask patches [
+    checkutilisation
+  ]
+  tick
+end

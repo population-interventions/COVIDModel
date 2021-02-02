@@ -52,7 +52,7 @@ to simul_vaccinate_me
       ;; TODO for some reason people use up a vaccine even if they refuse it, but if this wasn't the case then param_vac_uptake
       ;; would mean very little. Figure out what is going on here conceptually.
       set global_vaccineAvailible global_vaccineAvailible - 1
-      if random 100 < param_vac_uptake [
+      if sm_vac_uptake < param_vac_uptake [
         set shape "person"
         set vaccinated 1
         set ownincubationperiod ( ownincubationperiod / 555 )

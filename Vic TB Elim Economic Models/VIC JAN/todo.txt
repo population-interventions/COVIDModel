@@ -1,0 +1,8 @@
+Implement the three underlying causes of transmissability reduction.
+Currently the rate changes are spread around a bit.
+There doesn't seem to be a variable for the height of the triangle.
+
+Figure out whether there should be a non-infective period at the start of covid.
+
+Figure out what is going on with vaccine refusal.
+Make sure someone is not asked to be vaccinated twice.

@@ -49,6 +49,7 @@ simuls-own [
   
   VaccPhase ;; phase at which this person would receive vaccine
   VaccSubPhase ;; subphase at which this person would receive vaccine (1a, 1b etc)
+  sm_vac_uptake ;; Likelyhood of taking a vaccine if offered
   
   Own_WFH_Capacity ;; Ability of the person to work from home
   hunted ;; has the person been traced using the phoneApp

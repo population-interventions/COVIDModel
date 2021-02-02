@@ -114,10 +114,10 @@ end
 to simul_resetPersonalVirulence
   ;; ensures that personalVirulence is within bounds
   if personalVirulence > 100 [
-    set personalVirulence random-normal global_Transmissability 10
+    set personalVirulence random-normal global_Transmissability 2.5
   ]
   if personalVirulence < 0 [
-    set personalVirulence random-normal global_Transmissability 10
+    set personalVirulence random-normal global_Transmissability 2.5
   ]
 end
 
@@ -188,6 +188,7 @@ to createSimulants
       set requireICU random 100
       set personalVirulence random-normal Global_Transmissability 2.5
       set haveApp random 100
+      set sm_vac_uptake random 100
 
       set wearsMask random 100 ;; resethealth resetincome calculateincomeperday calculateexpenditureperday resettrust
       set detectable random 100 ;; identifies whether the person is detectable or not

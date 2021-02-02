@@ -41,8 +41,9 @@ to vaccine_update
     set vaccinePhaseIndex vaccinePhaseIndex + 1
     let phaseData table:get vaccineTable vaccinePhaseIndex
     
-    print count simuls with [VaccPhase = global_vaccinePhase and VaccSubPhase = global_vaccineSubPhase]
-    print count simuls with [VaccPhase = global_vaccinePhase and VaccSubPhase = global_vaccineSubPhase and vaccinated = 0]
+    ;print "Old vaccine total pop and unvaccinated pop"
+    ;print count simuls with [VaccPhase = global_vaccinePhase and VaccSubPhase = global_vaccineSubPhase]
+    ;print count simuls with [VaccPhase = global_vaccinePhase and VaccSubPhase = global_vaccineSubPhase and vaccinated = 0]
     
     set vaccinePhaseEndDay (vaccinePhaseEndDay + item 2 phaseData)
     set global_vaccineAvailible 0
@@ -50,11 +51,12 @@ to vaccine_update
     set global_vaccineSubPhase item 1 phaseData
     set global_vaccinePerDay (item 3 phaseData)/(item 2 phaseData) + 0.00001 ; Floats
     set global_vaccineType item 4 phaseData
-    print "New vaccine phase"
-    print global_vaccinePhase
-    print global_vaccineSubPhase
-    print global_vaccinePerDay
-    print vaccinePhaseEndDay
+    
+    ;print "New vaccine phase"
+    ;print global_vaccinePhase
+    ;print global_vaccineSubPhase
+    ;print global_vaccinePerDay
+    ;print vaccinePhaseEndDay
   ]
   
   set global_vaccineAvailible global_vaccineAvailible + global_vaccinePerDay

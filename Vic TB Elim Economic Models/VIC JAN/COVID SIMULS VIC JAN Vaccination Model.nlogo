@@ -188,10 +188,10 @@ ticks
 30.0
 
 BUTTON
-205
-176
-269
-210
+207
+177
+271
+211
 NIL
 setup
 NIL
@@ -205,10 +205,10 @@ NIL
 1
 
 BUTTON
-169
-220
-233
-254
+171
+221
+235
+255
 Go
 ifelse (count simuls ) = (count simuls with [ color = blue ])  [ stop ] [ Go ]
 T
@@ -222,10 +222,10 @@ NIL
 1
 
 BUTTON
-175
-348
-293
-382
+202
+347
+299
+381
 Trace_Patterns
 ask n-of 50 simuls with [ color != black ] [ pen-down ] 
 NIL
@@ -239,10 +239,10 @@ NIL
 1
 
 BUTTON
-175
-396
-293
-430
+200
+386
+300
+420
 UnTrace
 ask turtles [ pen-up ]
 NIL
@@ -267,10 +267,10 @@ spatial_distance
 -1000
 
 SLIDER
-165
-270
-305
-303
+197
+267
+310
+300
 Population
 Population
 1000
@@ -282,10 +282,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-165
-306
-306
-339
+196
+303
+311
+336
 Span
 Span
 0
@@ -344,10 +344,10 @@ case_isolation
 -1000
 
 BUTTON
-228
-220
-292
-254
+241
+222
+305
+256
 Go Once
 go
 NIL
@@ -424,10 +424,10 @@ quarantine
 -1000
 
 SLIDER
-123
-715
-312
-748
+178
+714
+310
+747
 Available_Resources
 Available_Resources
 0
@@ -513,17 +513,17 @@ Track_and_Trace_Efficiency
 Track_and_Trace_Efficiency
 0
 1
-0.25
+0.30525359855885564
 .05
 1
 NIL
 HORIZONTAL
 
 PLOT
-1159
-381
-1362
-501
+1160
+485
+1363
+605
 Fear & Action
 NIL
 NIL
@@ -572,7 +572,7 @@ Superspreaders
 Superspreaders
 0
 100
-10.0
+4.0
 1
 1
 NIL
@@ -616,10 +616,10 @@ caseFatalityRate * 100
 11
 
 PLOT
-1160
-258
-1350
-378
+1161
+353
+1351
+473
 Case Fatality Rate %
 NIL
 NIL
@@ -705,10 +705,10 @@ mean [ R ] of simuls with [ color = red and timenow = int Illness_Period ]
 11
 
 SWITCH
-166
-576
-310
-609
+183
+570
+308
+603
 policytriggeron
 policytriggeron
 0
@@ -804,10 +804,10 @@ infectionchange
 11
 
 INPUTBOX
-155
-446
-311
-507
+198
+432
+303
+493
 current_cases
 1.0
 1
@@ -815,10 +815,10 @@ current_cases
 Number
 
 INPUTBOX
-155
-511
-311
-572
+195
+499
+304
+560
 total_population
 2.5E7
 1
@@ -826,10 +826,10 @@ total_population
 Number
 
 SLIDER
-137
-615
-311
-648
+182
+610
+308
+643
 Triggerday
 Triggerday
 0
@@ -914,7 +914,7 @@ Incubation_Period
 Incubation_Period
 0
 10
-5.1
+4.8
 .1
 1
 NIL
@@ -1026,7 +1026,7 @@ Contact_Radius
 Contact_Radius
 0
 180
-0.0
+22.5
 1
 1
 NIL
@@ -1200,10 +1200,10 @@ count simuls with [ shape = \"star\" ] / count simuls
 12
 
 TEXTBOX
-163
-692
-336
-714
+180
+690
+353
+712
 Day 1 - Dec 21st, 2020
 12
 15.0
@@ -2715,10 +2715,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-80
-335
-153
-380
+1607
+10
+1680
+55
 Time = 1 
 count simuls with [ timenow = 2 ]
 0
@@ -2876,10 +2876,10 @@ MaxStage
 4
 
 MONITOR
-1533
-33
-1623
-78
+1158
+132
+1248
+177
 Vaccinated %
 ( count simuls with [ shape = \"person\" ] / 2500 )* 100
 2
@@ -2897,10 +2897,10 @@ Vaccine_Type
 1
 
 SLIDER
-136
-651
-309
-684
+182
+648
+308
+681
 RAND_SEED
 RAND_SEED
 0
@@ -2941,11 +2941,22 @@ PropWithComorbidity
 NIL
 HORIZONTAL
 
+MONITOR
+1260
+139
+1350
+184
+Vaccinated
+count simuls with [ shape = \"person\" ]
+17
+1
+11
+
 PLOT
-1149
-131
-1362
-251
+1159
+192
+1359
+342
 Vaccinated
 NIL
 NIL
@@ -2958,6 +2969,91 @@ false
 "" ""
 PENS
 "default" 1.0 0 -16777216 true "" "plot count simuls with [ shape = \"person\" ]"
+
+SLIDER
+5
+266
+180
+299
+param_transmit_scale
+param_transmit_scale
+1
+1.5
+1.5
+0.25
+1
+NIL
+HORIZONTAL
+
+TEXTBOX
+13
+497
+180
+548
+Vaccine rollout and vaccine used per phase set in vaccine.csv.
+14
+0.0
+1
+
+SLIDER
+7
+307
+179
+340
+param_vac_uptake
+param_vac_uptake
+60
+90
+75.0
+15
+1
+NIL
+HORIZONTAL
+
+SLIDER
+6
+348
+180
+381
+param_vac2_morb_eff
+param_vac2_morb_eff
+60
+80
+60.0
+10
+1
+NIL
+HORIZONTAL
+
+SLIDER
+7
+390
+176
+423
+param_vac1_tran_reduct
+param_vac1_tran_reduct
+50
+90
+75.0
+5
+1
+NIL
+HORIZONTAL
+
+SLIDER
+5
+434
+178
+467
+param_vac2_tran_reduct
+param_vac2_tran_reduct
+50
+90
+50.0
+5
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?

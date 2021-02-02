@@ -14,7 +14,6 @@ simuls-own [
   income ;; people's income from wage / salary
   expenditure ;; people's expenditure
   reserves ;; cash reserves available to the person
-  agerange ;; the age of the person in deciles
   contacts ;; the number of contacts the person has made in the model
   IncubationPd ;; the incubation perios of the illness ascribed to the person
   DailyRisk ;; the risk of death of the person per day based on their agerange
@@ -38,8 +37,18 @@ simuls-own [
   personalVirulence ;; the infectivity of the person
   tracked ;; whether the person has been tracked by the health system
   Asymptomaticflag ;; indicator identifying Asymptomatic cases
-  EssentialWorker ;; Variable used to determine whether the person is classified as an essential worker or not
-  EssentialWorkerFlag ;; indicator of whether the person is an essentialworker or not
+  
+  EssentialWorkerPriority ;; Value from 0 - 100 that sets priority of the job. 1 is high, 100 is low.
+  EssentialWorkerFlag ;; indicator of whether the person is considered to be an essential worker under the current lockdown policy.
+  
+  agerange ;; the age of the person
+  atsi
+  comorbidityState ;; does the person have a comorbidity
+  essentialJob ;; Static indicator of whether the agent's job is most essential, which gives it higher EssentialWorkerPriority (ie closer to zero).
+  isWorker
+  VaccPhase ;; phase at which this person would receive vaccine
+  VaccSubPhase ;; subphase at which this person would receive vaccine (1a, 1b etc)
+  
   Own_WFH_Capacity ;; Ability of the person to work from home
   hunted ;; has the person been traced using the phoneApp
   haveApp ;; for use in deterimining if the person has downloaded the app
@@ -60,8 +69,6 @@ simuls-own [
   vaccinated ;; is the person vaccinated?
   vacc_Effective ;; is this effective in this person?
   IDTime ;; days into infection the person is identified as a case
-  VaccPhase ;; phase at which this person would receive vaccine
-  comorbidityState ;; does the person have a comorbidity
 
   contacts7 ;; contacts from seven days ago
   contacts6
@@ -502,7 +509,7 @@ end
 
 to simul_EssentialWorkerID
   ;; identifies essential workers
-  ifelse EssentialWorker < Essential_Workers
+  ifelse EssentialWorkerPriority < Essential_Workers
   [
     set EssentialWorkerFlag 1
   ]

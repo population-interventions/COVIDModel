@@ -93,6 +93,14 @@ globals [
 
   meanIDTime
 
+  popDivisionTable ; Table of population cohort data
+
+  ; Number of agents that are workers and essential workers respectively.
+  totalWorkers
+  totalEssentialWorkers
+  essentialWorkerRange
+  otherWorkerRange
+
 
   ;; log transform illness period variables
   Illness_PeriodVariance
@@ -243,7 +251,7 @@ SWITCH
 168
 spatial_distance
 spatial_distance
-1
+0
 1
 -1000
 
@@ -320,7 +328,7 @@ SWITCH
 205
 case_isolation
 case_isolation
-1
+0
 1
 -1000
 
@@ -400,7 +408,7 @@ SWITCH
 349
 quarantine
 quarantine
-1
+0
 1
 -1000
 
@@ -494,7 +502,7 @@ Track_and_Trace_Efficiency
 Track_and_Trace_Efficiency
 0
 1
--0.1437775347843281
+0.009670457031952573
 .05
 1
 NIL
@@ -1007,7 +1015,7 @@ Contact_Radius
 Contact_Radius
 0
 180
-0.0
+45.0
 1
 1
 NIL

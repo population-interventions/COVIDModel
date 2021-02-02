@@ -11,7 +11,7 @@ to avoid
   ;; these are the circustances under which people will interact
   ask simuls [
     ;; so, if the social distancing policies are on and you are distancing at this time and you are not part of an age-isolated
-    ;; group and you are not an essentialworker, then if there is anyone near you, move away if you can.
+    ;; group and you are not an EssentialWorkerPriority, then if there is anyone near you, move away if you can.
     (ifelse Spatial_Distance = true and (Proportion_People_Avoid + random-normal 0 3) > random 100
         and (Proportion_Time_Avoid + random-normal 0 3) > random 100 and AgeRange > Age_Isolation and EssentialWorkerFlag = 0
     [
@@ -214,7 +214,7 @@ to OSCase
       ask n-of ( count simuls with [ color = red ] * .10 ) simuls with [ color = cyan ] [
         set color red
         set timenow int ownIncubationPeriod - random-normal 1 .5
-        set Essentialworker random 100
+        set EssentialWorkerPriority random 100
         set imported 1
       ]
     ]
@@ -224,7 +224,7 @@ to OSCase
       ask n-of 1 simuls with [ color = cyan ] [
         set color red
         set timenow int ownIncubationPeriod - random-normal 1 .5
-        set Essentialworker random 100
+        set EssentialWorkerPriority random 100
         set imported 1
       ]
     ]
@@ -234,7 +234,7 @@ to OSCase
       ask n-of ( count simuls with [ color = red ] * .05 ) simuls with [ color = cyan ] [
         set color red
         set timenow int ownIncubationPeriod - random-normal 1 .5
-        set Essentialworker random 100
+        set EssentialWorkerPriority random 100
         set imported 1
         set tracked 1
       ]
@@ -249,7 +249,7 @@ to stopfade
       ask n-of 1 simuls with [ color = cyan ] [
         set color red
         set timenow int ownIncubationPeriod - 1
-        set Essentialworker random 100
+        set EssentialWorkerPriority random 100
       ]
     ]
   ]

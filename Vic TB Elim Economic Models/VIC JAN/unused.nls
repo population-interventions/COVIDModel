@@ -70,7 +70,7 @@ to seedCases
     ask n-of 10 simuls with [ color = cyan ] [
       set color red
       set timenow int Case_reporting_delay - 1
-      set Essentialworker random 100
+      set EssentialWorkerPriority random 100
       set unDetectedFlag 0
     ]
   ]
@@ -78,7 +78,7 @@ to seedCases
     ask n-of 1 simuls with [ color = cyan ] [
       set color red
       set timenow int Case_reporting_delay - 1
-      set Essentialworker random 100
+      set EssentialWorkerPriority random 100
       set unDetectedFlag 0
     ]
   ]
@@ -86,7 +86,7 @@ to seedCases
     ask n-of int .1 simuls with [ color = cyan ] [
       set color red
       set timenow int Case_reporting_delay - 1
-      set Essentialworker random 100
+      set EssentialWorkerPriority random 100
       set unDetectedFlag 0
     ]
   ]

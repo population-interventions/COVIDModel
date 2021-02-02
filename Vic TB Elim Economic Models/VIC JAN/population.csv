@@ -1,36 +1,36 @@
-totalAgents,age,atsi,disability,essential,workerCount,phase,subPhase,alreadyVaccinated,comment,,
-3,25,0,0,1,3,1,1,1,Quarantine border,,
-2,35,0,0,1,2,1,1,1,Quarantine border,,
-2,45,0,0,1,2,1,1,1,Quarantine border,,
-22,25,0,0,1,22,1,1,1,Health/aged/disability care,,
-20,35,0,0,1,20,1,1,1,Health/aged/disability care,,
-17,45,0,0,1,17,1,1,1,Health/aged/disability care,,
-36,25,0,0,1,36,1,2,0,Other healthcare,,
-30,35,0,0,1,30,1,2,0,Other healthcare,,
-27,45,0,0,1,27,1,2,0,Other healthcare,,
-8,25,0,0,1,8,1,2,0,Defense/fire/police/etc,,
-6,35,0,0,1,6,1,2,0,Defense/fire/police/etc,,
-5,45,0,0,1,5,1,2,0,Defense/fire/police/etc,,
-16,25,0,0,1,16,2,1,0,Other critical workers,,
-15,35,0,0,1,15,2,1,0,Other critical workers,,
-13,45,0,0,1,13,2,1,0,Other critical workers,,
-180,75,0,0,0,0,1,2,0,70-79,,
-82,85,0,0,0,0,1,2,0,80-89,,
-20,95,0,0,0,0,1,2,0,90+,,
-4,55,1,0,0,0,1,2,0,ATSI 55-60,,
-4,65,1,0,0,4,1,2,0,ATSI 60-69,,
-44,25,0,1,0,44,1,2,0,18-29 with morbidity or disability,,
-44,35,0,1,0,44,1,2,0,30-39 with morbidity or disability,,
-39,45,0,1,0,39,1,2,0,40-49 with morbidity or disability,,
-37,55,0,1,0,37,1,2,0,50-59 with morbidity or disability,,
-31,65,0,1,0,31,1,2,0,60-69 with morbidity or disability,,
-15,25,1,0,0,15,2,1,0,ATSI 18-30,,
-13,35,1,0,0,13,2,1,0,ATSI 31-42,,
-10,45,1,0,0,10,2,1,0,ATSI 43-54,,597
-301,55,0,0,0,301,2,1,0,50-59,,
-256,65,0,0,0,0,2,1,0,60-69,,
-240,25,0,0,0,240,2,2,0,18-30,,
-215,35,0,0,0,215,2,2,0,30-39,,
-191,45,0,0,0,191,2,2,0,40-49,,
-330,5,0,0,0,0,3,1,0,ages 0-10,,
-222,15,0,0,0,0,3,1,0,ages 10-17,,
+totalAgents,age,atsi,disability,essential,workerCount,phase,subPhase,alreadyVaccinated,comment
+3,25,0,0,1,3,1,1,1,Quarantine border
+2,35,0,0,1,2,1,1,1,Quarantine border
+2,45,0,0,1,2,1,1,1,Quarantine border
+22,25,0,0,1,22,1,1,1,Health/aged/disability care
+20,35,0,0,1,20,1,1,1,Health/aged/disability care
+17,45,0,0,1,17,1,1,1,Health/aged/disability care
+36,25,0,0,1,36,1,2,0,Other healthcare
+30,35,0,0,1,30,1,2,0,Other healthcare
+27,45,0,0,1,27,1,2,0,Other healthcare
+8,25,0,0,1,8,1,2,0,Defense/fire/police/etc
+6,35,0,0,1,6,1,2,0,Defense/fire/police/etc
+5,45,0,0,1,5,1,2,0,Defense/fire/police/etc
+16,25,0,0,1,16,2,1,0,Other critical workers
+15,35,0,0,1,15,2,1,0,Other critical workers
+13,45,0,0,1,13,2,1,0,Other critical workers
+180,75,0,0,0,0,1,2,0,70-79
+82,85,0,0,0,0,1,2,0,80-89
+20,95,0,0,0,0,1,2,0,90+
+4,55,1,0,0,0,1,2,0,ATSI 55-60
+4,65,1,0,0,4,1,2,0,ATSI 60-69
+44,25,0,1,0,44,1,2,0,18-29 with morbidity or disability
+44,35,0,1,0,44,1,2,0,30-39 with morbidity or disability
+39,45,0,1,0,39,1,2,0,40-49 with morbidity or disability
+37,55,0,1,0,37,1,2,0,50-59 with morbidity or disability
+31,65,0,1,0,31,1,2,0,60-69 with morbidity or disability
+15,25,1,0,0,15,2,1,0,ATSI 18-30
+13,35,1,0,0,13,2,1,0,ATSI 31-42
+10,45,1,0,0,10,2,1,0,ATSI 43-54
+301,55,0,0,0,301,2,1,0,50-59
+256,65,0,0,0,0,2,1,0,60-69
+240,25,0,0,0,240,2,2,0,18-30
+215,35,0,0,0,215,2,2,0,30-39
+191,45,0,0,0,191,2,2,0,40-49
+330,5,0,0,0,0,3,1,0,ages 0-10
+222,15,0,0,0,0,3,1,0,ages 10-17

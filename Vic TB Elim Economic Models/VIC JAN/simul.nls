@@ -98,20 +98,6 @@ to simul_resetlanding
   ;; iterates / sorts people into households
 end
 
-to simul_iterateAsymptomAge
-  if freeWheel = false and PolicyTriggerOn = true and schoolsPolicy = true [
-    ;; places proportion of people under 18 into the asymptomatic category
-    ask n-of ((count simuls with [ agerange < 19 ] ) * AsymptomaticPercentage ) simuls with [ agerange <= 18 ] [
-      set asymptom random asymptomaticPercentage
-    ]
-    ;; takes older people out of the asymptomatic category and puts them in the symptomatic
-    ;; category to keep total percentages of asymptomatic cases consistent with input slider
-    ask n-of ((count simuls with [ agerange < 19 ] ) * AsymptomaticPercentage ) simuls with [ agerange > 18 ] [
-      set asymptom random (asymptomaticPercentage ) + (100 - AsymptomaticPercentage)
-    ]
-  ]
-end
-
 to simul_assigndetectablestatus
   if asymptomaticFlag = 1 and detectable < Undetected_Proportion [
     set unDetectedFlag 1

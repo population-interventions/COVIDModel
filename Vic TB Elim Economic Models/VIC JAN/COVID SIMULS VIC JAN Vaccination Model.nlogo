@@ -2,7 +2,7 @@
 ;; The intent of the model is for it to be used as a guide for considering differences in potential patterns of infection under various policy futures
 ;; As with any model, it's results should be interpreted with caution and placed alongside other evidence when interpreting results
 
-extensions [ rngs profiler csv ]
+extensions [ rngs profiler csv table ]
 
 globals [
   anxietyFactor
@@ -162,8 +162,8 @@ GRAPHICS-WINDOW
 30
 -40
 40
-0
-0
+1
+1
 1
 ticks
 30.0
@@ -243,7 +243,7 @@ SWITCH
 168
 spatial_distance
 spatial_distance
-0
+1
 1
 -1000
 
@@ -320,7 +320,7 @@ SWITCH
 205
 case_isolation
 case_isolation
-0
+1
 1
 -1000
 
@@ -400,7 +400,7 @@ SWITCH
 349
 quarantine
 quarantine
-0
+1
 1
 -1000
 
@@ -1007,7 +1007,7 @@ Contact_Radius
 Contact_Radius
 0
 180
-67.5
+0.0
 1
 1
 NIL

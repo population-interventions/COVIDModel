@@ -1,5 +1,20 @@
 ;; Functions that are not referenced anywhere else.
 
+;; This code was referenced in setup, but it did not do anything since it was called at a point where agerage=95 for all agents.
+to iterateAsymptomAge
+  if freeWheel = false and PolicyTriggerOn = true and schoolsPolicy = true [
+    ;; places proportion of people under 18 into the asymptomatic category
+    ask n-of ((count simuls with [ agerange < 19 ] ) * AsymptomaticPercentage ) simuls with [ agerange <= 18 ] [
+      set asymptom random asymptomaticPercentage
+    ]
+    ;; takes older people out of the asymptomatic category and puts them in the symptomatic
+    ;; category to keep total percentages of asymptomatic cases consistent with input slider
+    ask n-of ((count simuls with [ agerange < 19 ] ) * AsymptomaticPercentage ) simuls with [ agerange > 18 ] [
+      set asymptom random (asymptomaticPercentage ) + (100 - AsymptomaticPercentage)
+    ]
+  ]
+end
+
 to earn
   ;; people can earn money if they come into contact with other people who have money
   if ticks > 1 [

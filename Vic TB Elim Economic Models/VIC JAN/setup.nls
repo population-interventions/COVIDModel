@@ -2,74 +2,52 @@
 ;; Setup and functions particular to setup that don't have anywhere else to live.
 ;;
 
-to matchages
-  ask n-of int five simuls [
-    set agerange 5
-  ]
-  ask n-of int fifteen simuls with [ agerange != 5 ] [
-    set agerange 15
-  ]
-  ask n-of int twentyfive simuls with [ agerange > 15 ] [
-    set agerange 25
-  ]
-  ask n-of int thirtyfive simuls with [ agerange > 25 ] [
-    set agerange 35
-  ]
-  ask n-of int fortyfive simuls with [ agerange > 35 ] [
-    set agerange 45
-  ]
-  ask n-of int fiftyfive simuls with [ agerange > 45 ] [
-    set agerange 55
-  ]
-  ask n-of int sixtyfive simuls with [ agerange > 55 ] [
-    set agerange 65
-  ]
-  ask n-of int seventyfive simuls with [ agerange > 65 ] [
-    set agerange 75
-  ]
-  ask n-of int eightyfive simuls with [ agerange > 75 ] [
-    set agerange 85
-  ]
-  ;; remaining people in the model are in their 90's as everying is set an agerange of 95 at initialisation
-  ;; ask n-of int ninetyfive simuls with [ agerange > 85 ] [
-  ;; set agerange 95
-  ;;]
-end
-
-
 to setdeathrisk
   ;; risk of death associated with ageranges if they contract COVID-19
-  if agerange = 5 [
+  (ifelse agerange <= 5
+  [
     set riskofDeath 0
   ]
-  if agerange = 15 [
+  agerange <= 15
+  [
     set riskofDeath .002
   ]
-  if agerange = 25 [
+  agerange <= 25
+  [
     set riskofDeath .002
   ]
-  if agerange = 35 [
+  agerange <= 35
+  [
     set riskofDeath .002
   ]
-  if agerange = 45 [
+  agerange <= 45
+  [
     set riskofDeath .004
   ]
-  if agerange = 55 [
+  agerange <= 55
+  [
     set riskofDeath .01
   ]
-  if agerange = 65 [
+  agerange <= 65
+  [
     set riskofDeath .05
   ]
-  if agerange = 75 [
+  agerange <= 75
+  [
     set riskofDeath .05
   ]
-  if agerange = 85 [
+  agerange <= 85
+  [
     set riskofDeath .151
   ]
   ;; updated from department of health Report 22 - does not map directly to age deciles here
-  if agerange = 95 [
+  agerange <= 95
+  [
     set riskofDeath .151
   ]
+  [
+    set riskofDeath .151
+  ])
 end
 
 to resetlanding
@@ -88,7 +66,6 @@ to simul_iteratetimenow
     simul_iteratetimenow
   ]
 end
-
 
 to resethouseholdUnit
   ;; allocates children to households
@@ -142,6 +119,89 @@ to setphases
   ]
 end
 
+to createSimulants
+  let populationFileData remove-item 0 csv:from-file "population.csv"
+  let popDivision table:make
+  let i 0
+  foreach populationFileData [ x -> 
+    table:put popDivision i x
+    set i i + 1
+  ]
+  
+  let pop_index 0
+  let cohort_created 0
+  
+  ;; set up people in the environment and allocates characteristics to them
+  ask n-of Population patches with [ pcolor = black ] [
+    ; Iterate over cohort data to get each set of simul parameters.
+    let cohortData table:get popDivision pop_index
+    set cohort_created cohort_created + 1
+    if cohort_created >= item 0 cohortData [ ; item 0 : count
+      set pop_index pop_index + 1
+      set cohort_created 0
+    ]
+    
+    sprout-simuls 1 [
+      set size 2
+      set shape "dot"
+      set color cyan
+      set householdUnit random 1000
+      set agerange item 1 cohortData ; item 1 : age
+      set timenow 0
+      set IncubationPd int ownIncubationPeriod
+      set InICU 0
+      set anxiety 0
+      set sensitivity random-float 1
+      set R 0
+
+      set income random-exponential mean_Individual_Income
+      move-to one-of patches with [ pcolor = black ]
+
+      set riskofdeath .01
+      set personalTrust random-normal 75 10
+      set WFHCap random 100
+      set requireICU random 100
+      set personalVirulence random-normal Global_Transmissability 2.5
+      set haveApp random 100
+
+      set wearsMask random 100 ;; resethealth resetincome calculateincomeperday calculateexpenditureperday resettrust
+      set detectable random 100 ;; identifies whether the person is detectable or not
+      set returntoschool random 100
+      set ownIllnessPeriod ( exp random-normal M S ) ;; log transform of illness period
+      set ownIncubationPeriod ( exp random-normal Minc Sinc ) ;;; log transform of incubation period
+
+      ;;set ownComplianceWithIsolation ( exp random-normal Mcomp SComp ) ;; log transform of compliance with isolation
+
+      set VaccPhase 4
+      set comorbidityState random 100
+
+      rngs:init ;; replacing previous log transform with beta distribution
+      let stream_id random-float 999
+      let seed random-float 999
+      rngs:set-seed stream_id seed
+      let complianceDist rngs:rnd-beta stream_id 450.3 23.7
+
+      set ownComplianceWithIsolation complianceDist
+      let maskWearEfficacy rngs:rnd-beta stream_id 24.3 8.08
+
+      set ownMaskEfficacy maskWearEfficacy * Mask_Efficacy_Discount ;; assigning mask efficacy to individuals around a distribution with median 75% or 75% x 1/3 if 33 as per request based on Burnett Institute #s
+
+      set asymptom random 100
+      set essentialWorker random 100
+      if agerange >= 18 and agerange < 70 [
+        set essentialWorker random 100
+      ]
+
+      simul_resetPersonalVirulence
+      assignApptoEssential ;; Does essentially nothing at this point as the app is unused.
+      simul_assigndetectablestatus ;; identifies people unlikely to be found
+
+      ;set pta random-float ((Proportion_time_avoid - (Proportion_Time_Avoid * .2)) + random-float (Proportion_time_avoid + (1 - Proportion_time_avoid) * .2))
+      ;set ppa random-float ((Proportion_People_avoid - (Proportion_People_Avoid * .2)) + random-float (Proportion_People_avoid + (1 - Proportion_People_avoid) * .2))
+    ]
+  ]
+end
+
 ;;*******************************************************************************************************************************
 ;;** Buttons **
 ;;*******************************************************************************************************************************
@@ -149,7 +209,7 @@ end
 to setup
   random-seed RAND_SEED ;; Read from a behaviourSpace variable.
 
-  profiler:start
+  ;profiler:start
 
   rngs:init
 
@@ -216,68 +276,7 @@ to setup
     resetlanding
   ]
 
-  ;; set up people in the environment and allocates characteristics to them
-  ask n-of Population patches with [ pcolor = black ] [
-    sprout-simuls 1 [
-      set size 2
-      set shape "dot"
-      set color cyan
-      set householdUnit random 1000
-      set agerange 95
-      set timenow 0
-      set IncubationPd int ownIncubationPeriod
-      set InICU 0
-      set anxiety 0
-      set sensitivity random-float 1
-      set R 0
-
-      set income random-exponential mean_Individual_Income
-      move-to one-of patches with [ pcolor = black ]
-
-      set riskofdeath .01
-      set personalTrust random-normal 75 10
-      set WFHCap random 100
-      set requireICU random 100
-      set personalVirulence random-normal Global_Transmissability 2.5
-      set haveApp random 100
-
-      set wearsMask random 100 ;; resethealth resetincome calculateincomeperday calculateexpenditureperday resettrust
-      set detectable random 100 ;; identifies whether the person is detectable or not
-      set returntoschool random 100
-      set ownIllnessPeriod ( exp random-normal M S ) ;; log transform of illness period
-      set ownIncubationPeriod ( exp random-normal Minc Sinc ) ;;; log transform of incubation period
-
-      ;;set ownComplianceWithIsolation ( exp random-normal Mcomp SComp ) ;; log transform of compliance with isolation
-
-      set VaccPhase 4
-      set comorbidityState random 100
-
-      rngs:init ;; replacing previous log transform with beta distribution
-      let stream_id random-float 999
-      let seed random-float 999
-      rngs:set-seed stream_id seed
-      let complianceDist rngs:rnd-beta stream_id 450.3 23.7
-
-      set ownComplianceWithIsolation complianceDist
-      let maskWearEfficacy rngs:rnd-beta stream_id 24.3 8.08
-
-      set ownMaskEfficacy maskWearEfficacy * Mask_Efficacy_Discount ;; assigning mask efficacy to individuals around a distribution with median 75% or 75% x 1/3 if 33 as per request based on Burnett Institute #s
-
-      set asymptom random 100
-      set essentialWorker random 100
-      if agerange >= 18 and agerange < 70 [
-        set essentialWorker random 100
-      ]
-
-      simul_iterateAsymptomAge
-      simul_resetPersonalVirulence
-      assignApptoEssential
-      simul_assigndetectablestatus ;; identifies people unlikely to be found
-
-      ;set pta random-float ((Proportion_time_avoid - (Proportion_Time_Avoid * .2)) + random-float (Proportion_time_avoid + (1 - Proportion_time_avoid) * .2))
-      ;set ppa random-float ((Proportion_People_avoid - (Proportion_People_Avoid * .2)) + random-float (Proportion_People_avoid + (1 - Proportion_People_avoid) * .2))
-    ]
-  ]
+  createSimulants
 
   ;; set up initial infected people
   set scalephase InitialScale
@@ -320,21 +319,7 @@ to setup
       set timenow int ownIllnessperiod - 1 ;; sould be 'ownincubationperiod' for new outbreaks
     ]
   ]
-
-  ;; assigns death risks for people based on their age-range
-  set five int ( Population * .126 ) ;; insert age range proportions here
-  set fifteen int ( Population * .121 )
-  set twentyfive int ( Population * .145 )
-  set thirtyfive int ( Population * .145 )
-  set fortyfive int ( Population * .129 )
-  set fiftyfive int ( Population * .121 )
-  set sixtyfive int ( Population * .103 )
-  set seventyfive int ( Population * .071 )
-  set eightyfive int ( Population * .032 )
-  set ninetyfive int ( Population * .008 )
-
-  matchages ;; assigns risk to age ranges (see below)
-
+  
   ;; setting up the phase that everyone is in for vaccination
   ask simuls [
     setphases
@@ -427,5 +412,4 @@ to setup
   reset-ticks
   setupstages ;; setting up for the MJA runs
 
-  debug_print_strata
 end

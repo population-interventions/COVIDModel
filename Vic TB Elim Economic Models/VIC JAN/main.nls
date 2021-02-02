@@ -301,6 +301,9 @@ end
 
 to go
   ;; these funtions get called each time-step
+  
+  vaccine_update
+  
   ask simuls [
     ;; Move either outside or back to home, then potentially catch the infection from whoever is there. Large function.
     simul_move
@@ -386,8 +389,6 @@ to go
   CalculateAverageContacts
   ;; Check whether to scale up, which occurs when 10% of the agents are infected.
   ScaleUp
-  ;; set days days + 1
-  ForwardTime
   ;; Reverses the initiation of social distancing and isolation policies over time.
   Unlock
 
@@ -471,5 +472,7 @@ to go
     checkutilisation
   ]
 
+  ;; set days days + 1
+  ForwardTime
   tick
 end

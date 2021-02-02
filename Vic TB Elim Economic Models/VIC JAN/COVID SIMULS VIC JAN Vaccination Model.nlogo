@@ -101,6 +101,16 @@ globals [
   essentialWorkerRange
   otherWorkerRange
 
+  ; Vaccine phase and subphase, as well as internal index and data table.
+  global_vaccinePhase
+  global_vaccineSubPhase
+  global_vaccineAvailible
+  global_vaccineType
+  global_vaccinePerDay
+  vaccinePhaseEndDay
+  vaccinePhaseIndex
+  vaccineTable
+
 
   ;; log transform illness period variables
   Illness_PeriodVariance
@@ -127,6 +137,7 @@ globals [
   drawList
 
 ]
+
 
 __includes[
   "main.nls"
@@ -502,17 +513,17 @@ Track_and_Trace_Efficiency
 Track_and_Trace_Efficiency
 0
 1
-0.009670457031952573
+0.25
 .05
 1
 NIL
 HORIZONTAL
 
 PLOT
-1155
-343
-1360
-493
+1159
+381
+1362
+501
 Fear & Action
 NIL
 NIL
@@ -594,10 +605,10 @@ numberInfected / Total_Population * 100
 14
 
 MONITOR
+1023
+38
 1153
-125
-1283
-170
+83
 Case Fatality Rate %
 caseFatalityRate * 100
 2
@@ -605,10 +616,10 @@ caseFatalityRate * 100
 11
 
 PLOT
-1153
-185
-1353
-335
+1160
+258
+1350
+378
 Case Fatality Rate %
 NIL
 NIL
@@ -1015,7 +1026,7 @@ Contact_Radius
 Contact_Radius
 0
 180
-45.0
+0.0
 1
 1
 NIL
@@ -1321,10 +1332,10 @@ Leave Freewheel to 'on' to manipulate policy on the fly
 1
 
 MONITOR
-1292
-128
-1372
-173
+1365
+28
+1445
+73
 NIL
 count simuls
 17
@@ -2882,7 +2893,7 @@ CHOOSER
 117
 Vaccine_Type
 Vaccine_Type
-"AstraZeneca" "Moderna" "Pfizer/BioNTech" "Other"
+"AstraZeneca" "Moderna" "Pfizer" "Other"
 1
 
 SLIDER
@@ -2929,6 +2940,24 @@ PropWithComorbidity
 1
 NIL
 HORIZONTAL
+
+PLOT
+1149
+131
+1362
+251
+Vaccinated
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+false
+"" ""
+PENS
+"default" 1.0 0 -16777216 true "" "plot count simuls with [ shape = \"person\" ]"
 
 @#$#@#$#@
 ## WHAT IS IT?

@@ -46,6 +46,7 @@ simuls-own [
   comorbidityState ;; does the person have a comorbidity
   essentialJob ;; Static indicator of whether the agent's job is most essential, which gives it higher EssentialWorkerPriority (ie closer to zero).
   isWorker
+  
   VaccPhase ;; phase at which this person would receive vaccine
   VaccSubPhase ;; subphase at which this person would receive vaccine (1a, 1b etc)
   

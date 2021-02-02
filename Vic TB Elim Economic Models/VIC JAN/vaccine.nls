@@ -4,42 +4,69 @@ to VaccineBrand
   if Vaccine_Type = "AstraZeneca" [
     set Vaccine_Efficacy 70
   ]
-  if Vaccine_Type = "Pfizer/BioNTech" [
+  if Vaccine_Type = "Pfizer" [
     set Vaccine_Efficacy 95
   ]
   if Vaccine_Type = "Moderna" [
     set Vaccine_Efficacy 94
   ]
+  if Vaccine_Type = "Other" [
+    set Vaccine_Efficacy 70
+  ]
+end
+
+
+to setup_vaccineData
+  let vaccineFileData remove-item 0 csv:from-file "vaccine.csv"
+  set vaccineTable table:make
+  let i 0
+  foreach vaccineFileData [ x -> 
+    table:put vaccineTable i x
+    set i i + 1
+  ]
+  
+  set vaccinePhaseIndex -1 ; Not yet initialised
+  set vaccinePhaseEndDay 0
+  
+  set global_vaccinePhase 0
+  set global_vaccineSubPhase 0
+  set global_vaccineAvailible 0
+  set global_vaccineType 0
+  set global_vaccinePerDay 0
+end
+
+to vaccine_update
+  ;; Happens at the start of the first 'go', since days = 0
+  if days >= vaccinePhaseEndDay [
+    set vaccinePhaseIndex vaccinePhaseIndex + 1
+    let phaseData table:get vaccineTable vaccinePhaseIndex
+    
+    print count simuls with [VaccPhase = global_vaccinePhase and VaccSubPhase = global_vaccineSubPhase]
+    print count simuls with [VaccPhase = global_vaccinePhase and VaccSubPhase = global_vaccineSubPhase and vaccinated = 0]
+    
+    set vaccinePhaseEndDay (vaccinePhaseEndDay + item 2 phaseData)
+    set global_vaccineAvailible 0
+    set global_vaccinePhase item 0 phaseData
+    set global_vaccineSubPhase item 1 phaseData
+    set global_vaccinePerDay (item 3 phaseData)/(item 2 phaseData) + 0.00001 ; Floats
+    set global_vaccineType item 4 phaseData
+    print "New vaccine phase"
+    print global_vaccinePhase
+    print global_vaccineSubPhase
+    print global_vaccinePerDay
+    print vaccinePhaseEndDay
+  ]
+  
+  set global_vaccineAvailible global_vaccineAvailible + global_vaccinePerDay
 end
 
 
 to simul_vaccinate_me
-  if Vaccine_Available = true [
-    if count simuls with [ VaccPhase = 1 and vaccinated = 0 ] > 0 and vaccine_rate > random-float 1000 and color = 85 and VaccPhase = 1 [
-      set shape "person" set vaccinated 1
-      if vacc_Effective < Vaccine_Efficacy [
-        set ownincubationperiod ( ownincubationperiod / Inf_Curve_Truncation ) set ownillnessperiod (ownillnessperiod * Inf_Curve_Truncation )
-      ]
-    ]
-    if count simuls with [ VaccPhase < 2 and vaccinated = 0 ] < 10 and count simuls
-        with [ VaccPhase = 2 and vaccinated = 0 ] > 0 and vaccine_rate > random-float 1000 and color = 85 and VaccPhase = 2 [
-      set shape "person" set vaccinated 1
-      if vacc_Effective < Vaccine_Efficacy [
-        set ownincubationperiod ( ownincubationperiod / Inf_Curve_Truncation )
-        set ownillnessperiod (ownillnessperiod * Inf_Curve_Truncation )
-      ]
-    ]
-    if count simuls with [ VaccPhase < 3 and vaccinated = 0 ] < 10 and count simuls
-        with [ VaccPhase = 3 and vaccinated = 0 ] > 0 and vaccine_rate > random-float 1000 and color = 85 and VaccPhase = 3 [
-      set shape "person" set vaccinated 1
-      if vacc_Effective < Vaccine_Efficacy [
-        set ownincubationperiod ( ownincubationperiod / Inf_Curve_Truncation )
-        set ownillnessperiod (ownillnessperiod * Inf_Curve_Truncation )
-      ]
-    ]
-    if count simuls with [ VaccPhase < 4 and vaccinated = 0 ] < 10 and count simuls
-        with [ VaccPhase = 1 and vaccinated = 0 ] > 0 and vaccine_rate > random-float 1000 and color = 85 and VaccPhase = 4 [
-      set shape "person" set vaccinated 1
+  if Vaccine_Available = true and global_vaccineAvailible >= 1 [
+    if VaccPhase = global_vaccinePhase and VaccSubPhase = global_vaccineSubPhase and vaccinated = 0 and color = cyan [
+      set global_vaccineAvailible global_vaccineAvailible - 1
+      set shape "person"
+      set vaccinated 1
       if vacc_Effective < Vaccine_Efficacy [
         set ownincubationperiod ( ownincubationperiod / Inf_Curve_Truncation )
         set ownillnessperiod (ownillnessperiod * Inf_Curve_Truncation )

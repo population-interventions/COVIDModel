@@ -84,7 +84,6 @@ to scaleup
     ]
 
     set contact_Radius Contact_Radius + (90 / 4)
-    set days 0
   ]
   [
     scaledown

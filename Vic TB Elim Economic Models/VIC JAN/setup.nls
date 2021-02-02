@@ -241,8 +241,11 @@ to setup
   clear-all
   ;;import-drawing "Background1.png" ;; imports MSD image
 
+  set days 0 ; used to count days
+
   loadPopDivisionTable
   processPopulationWorkerData
+  setup_vaccineData
   
   ;; illness period estimation using ln transform
   set Illness_Periodvariance se_Illnesspd
@@ -355,7 +358,6 @@ to setup
   ]
 
   set contact_radius 0 ;; sets contact radius of people
-  set days 0 ; used to count days since events - currently redundant
   set Quarantine false
   set eliminationDate 0 ; used to identify the date of elimination where no current, unrecovered cases exist
   set Proportion_People_Avoid PPA ;; used to set the proportion of people who are socially distancing

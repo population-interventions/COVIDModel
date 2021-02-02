@@ -321,7 +321,7 @@ to go
     ;; Give people anxiety based on global factors.
     simul_createanxiety
     ;; Pick up resources, which seems to reduce anxiety?
-    simul_gatherreseources
+    ;simul_gatherreseources
     ;; Infected people with inICU = 1 are moved to a white patch (hospital?)
     simul_treat
     ;; Take the rolling average of contacts over the past seven days, only for non-infected people.
@@ -338,7 +338,7 @@ to go
     ;; Randomly set app-people to hunted, and set hunted people to tracked.
     simul_hunt
     ;; enables people to access the support packages (???)
-    simul_AccessPackage
+    ;simul_AccessPackage
     ;; Set a proprtion of people to wear masks when not home  (uses mask_Wearing (0-100) policy param)
     simul_checkMask
     ;; creates a triangular distribution of virulence that peaks at the end of the incubation period
@@ -354,16 +354,16 @@ to go
   ask medresources [
     allocatebed
   ]
-  ask resources [
-    deplete
-    replenish
-    resize
-    spin
-  ]
-  ask packages [
-    absorbshock
-    movepackages
-  ]
+  ;ask resources [
+  ;  deplete
+  ;  replenish
+  ;  resize
+  ;  spin
+  ;]
+  ;ask packages [
+  ;  absorbshock
+  ;  movepackages
+  ;]
 
   ;; Set a list of policy parameters (span (speed), tracking, mask_wearning etc..) based on current stage and stage reset timers
   setupstages

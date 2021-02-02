@@ -48,9 +48,10 @@ end
 
 to simul_vaccinate_me
   if Vaccine_Available = true and global_vaccineAvailible >= 1 [
-    if VaccPhase = global_vaccinePhase and VaccSubPhase = global_vaccineSubPhase and vaccinated = 0 and color = cyan [
+    if VaccPhase = global_vaccinePhase and VaccSubPhase = global_vaccineSubPhase and vaccinated = 0 and color = cyan and vaccineOffered = 0 [
       ;; TODO for some reason people use up a vaccine even if they refuse it, but if this wasn't the case then param_vac_uptake
       ;; would mean very little. Figure out what is going on here conceptually.
+      set vaccineOffered 1
       set global_vaccineAvailible global_vaccineAvailible - 1
       if sm_vac_uptake < param_vac_uptake [
         set shape "person"

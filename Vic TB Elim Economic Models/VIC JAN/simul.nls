@@ -51,6 +51,9 @@ simuls-own [
   VaccSubPhase ;; subphase at which this person would receive vaccine (1a, 1b etc)
   sm_vac_uptake ;; Likelyhood of taking a vaccine if offered
   
+  vaccinated ;; is the person vaccinated?
+  vaccineOffered ;; Has the vaccine been offered?
+  
   Own_WFH_Capacity ;; Ability of the person to work from home
   hunted ;; has the person been traced using the phoneApp
   haveApp ;; for use in deterimining if the person has downloaded the app
@@ -68,7 +71,6 @@ simuls-own [
   unDetectedFlag ;; Indicates whether they are detected or not.
   returntoschool ;; a random number between 0 and 100 that determines whether the person will return to school (assuming they are a student) at time x
   isolating ;; is the person currently isolating?
-  vaccinated ;; is the person vaccinated?
   IDTime ;; days into infection the person is identified as a case
 
   contacts7 ;; contacts from seven days ago
@@ -462,7 +464,8 @@ to simul_gatherreseources
     face min-one-of resources with [ volume >= 0 ] [ distance myself ]
   ]
   if any? resources-here with [ volume >= 0 ] and anxiety > 0 [
-    set anxiety mean [ anxietyfactor ] of neighbors move-to one-of patches with [ pcolor = black ]
+    set anxiety mean [ anxietyfactor ] of neighbors
+    move-to one-of patches with [ pcolor = black ]
   ]
 end
 

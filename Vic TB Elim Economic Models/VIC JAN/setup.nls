@@ -169,6 +169,7 @@ to createSimulants
       set IncubationPd int ownIncubationPeriod
       set InICU 0
       set anxiety 0
+      set vaccineOffered 0
       set sensitivity random-float 1
       set R 0
       

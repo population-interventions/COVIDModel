@@ -465,8 +465,6 @@ to go
   incursion
   ;; Average "days into infection the person is identified as a case" of suceptible agents.
   CalculateMeanIDTime
-  ;; Set Vaccine_Efficacy based on Vaccine_Type
-  VaccineBrand
 
   ask patches [
     checkutilisation

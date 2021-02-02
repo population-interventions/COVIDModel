@@ -262,7 +262,7 @@ SWITCH
 168
 spatial_distance
 spatial_distance
-0
+1
 1
 -1000
 
@@ -339,7 +339,7 @@ SWITCH
 205
 case_isolation
 case_isolation
-0
+1
 1
 -1000
 
@@ -419,7 +419,7 @@ SWITCH
 349
 quarantine
 quarantine
-0
+1
 1
 -1000
 
@@ -1026,7 +1026,7 @@ Contact_Radius
 Contact_Radius
 0
 180
-22.5
+0.0
 1
 1
 NIL
@@ -1322,10 +1322,10 @@ freewheel
 -1000
 
 TEXTBOX
-143
-80
-358
-118
+161
+73
+338
+111
 Leave Freewheel to 'on' to manipulate policy on the fly
 12
 0.0
@@ -1411,7 +1411,7 @@ ICU_Beds_in_Australia
 ICU_Beds_in_Australia
 0
 20000
-7000.0
+7600.0
 50
 1
 NIL
@@ -1705,7 +1705,7 @@ Essential_Workers
 Essential_Workers
 0
 100
-75.0
+76.0
 1
 1
 NIL
@@ -2542,10 +2542,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-330
-76
-413
-121
+328
+70
+411
+115
 Green space
 count patches with [ pcolor = green ]
 0
@@ -2799,36 +2799,6 @@ Vaccine_Available
 1
 -1000
 
-SLIDER
-1532
-82
-1705
-115
-Vaccine_Rate
-Vaccine_Rate
-0
-700
-2.73
-1
-1
-NIL
-HORIZONTAL
-
-SLIDER
-1710
-82
-1883
-115
-Vaccine_Efficacy
-Vaccine_Efficacy
-0
-100
-94.0
-1
-1
-NIL
-HORIZONTAL
-
 CHOOSER
 1893
 72
@@ -2912,21 +2882,6 @@ NIL
 HORIZONTAL
 
 SLIDER
-1710
-40
-1888
-73
-Inf_Curve_Truncation
-Inf_Curve_Truncation
-0
-1
-0.29
-.01
-1
-NIL
-HORIZONTAL
-
-SLIDER
 1158
 49
 1344
@@ -2986,10 +2941,10 @@ NIL
 HORIZONTAL
 
 TEXTBOX
-13
-497
-180
-548
+11
+479
+178
+530
 Vaccine rollout and vaccine used per phase set in vaccine.csv.
 14
 0.0

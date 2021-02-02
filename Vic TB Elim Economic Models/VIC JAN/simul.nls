@@ -68,7 +68,6 @@ simuls-own [
   returntoschool ;; a random number between 0 and 100 that determines whether the person will return to school (assuming they are a student) at time x
   isolating ;; is the person currently isolating?
   vaccinated ;; is the person vaccinated?
-  vacc_Effective ;; is this effective in this person?
   IDTime ;; days into infection the person is identified as a case
 
   contacts7 ;; contacts from seven days ago

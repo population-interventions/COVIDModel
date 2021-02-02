@@ -1,21 +1,4 @@
 
-to VaccineBrand
-  ;; For selection of vaccines
-  if Vaccine_Type = "AstraZeneca" [
-    set Vaccine_Efficacy 70
-  ]
-  if Vaccine_Type = "Pfizer" [
-    set Vaccine_Efficacy 95
-  ]
-  if Vaccine_Type = "Moderna" [
-    set Vaccine_Efficacy 94
-  ]
-  if Vaccine_Type = "Other" [
-    set Vaccine_Efficacy 70
-  ]
-end
-
-
 to setup_vaccineData
   let vaccineFileData remove-item 0 csv:from-file "vaccine.csv"
   set vaccineTable table:make
@@ -66,12 +49,14 @@ end
 to simul_vaccinate_me
   if Vaccine_Available = true and global_vaccineAvailible >= 1 [
     if VaccPhase = global_vaccinePhase and VaccSubPhase = global_vaccineSubPhase and vaccinated = 0 and color = cyan [
+      ;; TODO for some reason people use up a vaccine even if they refuse it, but if this wasn't the case then param_vac_uptake
+      ;; would mean very little. Figure out what is going on here conceptually.
       set global_vaccineAvailible global_vaccineAvailible - 1
-      set shape "person"
-      set vaccinated 1
-      if vacc_Effective < Vaccine_Efficacy [
-        set ownincubationperiod ( ownincubationperiod / Inf_Curve_Truncation )
-        set ownillnessperiod (ownillnessperiod * Inf_Curve_Truncation )
+      if random 100 < param_vac_uptake [
+        set shape "person"
+        set vaccinated 1
+        set ownincubationperiod ( ownincubationperiod / 555 )
+        set ownillnessperiod (ownillnessperiod * 555 )
       ]
     ]
   ]

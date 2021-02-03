@@ -266,7 +266,7 @@ SWITCH
 168
 spatial_distance
 spatial_distance
-0
+1
 1
 -1000
 
@@ -343,7 +343,7 @@ SWITCH
 205
 case_isolation
 case_isolation
-0
+1
 1
 -1000
 
@@ -517,7 +517,7 @@ Track_and_Trace_Efficiency
 Track_and_Trace_Efficiency
 0
 1
-0.25
+0.5821932938662112
 .05
 1
 NIL
@@ -2786,7 +2786,7 @@ Mask_Efficacy_Discount
 Mask_Efficacy_Discount
 0
 1
-0.33
+0.0033
 .01
 1
 NIL

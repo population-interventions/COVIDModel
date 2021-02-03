@@ -231,14 +231,28 @@ to go
   vaccine_update
   set global_schoolActive policyTriggerOn = true and freewheel = false and schoolsPolicy = true and ticks >= triggerday + SchoolReturnDate
   
+  ;; All the simulants independently either move outside or back to home
   ask simuls [
-    ;; Move either outside or back to home
+    ;; Untracked people have their speed set to the current recommended speed, based on policy.
+    simul_respeed
+    ;; Set 1/7th of people who are near a destination to move to that destination.
+    simul_visitDestination
+    ;; Move around, or not. It's random.
     simul_move
   ]
+  ;; Patches update the flag that sets whether they have a simulant on them. TODO, update this on the fly.
+  ask patches [
+    checkutilisation
+  ]
+  
+  ;; Simulants avoid people if social distancing is enabled, and they are not essential workers (or have some other reason to be in a crowd)
+  ;; Note that simulants can effect each other in this stage. TODO, take a closer look at what happens here.
   ask simuls [
-    ;; Avoid people if able
     simul_avoid
   ]
+  
+  ;; Simulants update how effective they are at spreading or receiving the virus, then add their infectiveness to the patch infectiveness
+  ;; list (if they are infective).
   ask simuls [
     ;; creates a triangular distribution of virulence that peaks at the end of the incubation period
     simul_updatepersonalvirulence
@@ -247,10 +261,14 @@ to go
     ;; Tell the patch I am on whether I am infected
     simul_record_patch_infectiveness
   ]
+  
+  ;; Succeptible simulants look at the patch infectiveness list and possibly become infected by each entry they find.
   ask simuls [
     ;; Potentially catch the infection from patch infectiveness
     simul_infect
   ]
+  
+  ;; Simulants do a bunch of non-interactive housekeeping.
   ask simuls [
     ;; if you are not dead at the end of your illness period, then you become recovered and turn yellow. Don't need hospital resources anymore.
     simul_recover
@@ -261,18 +279,16 @@ to go
     ;; Move everyone home based on their chance of being compliant with isolation. It is weird that this happens after simul_move, in which people
     ;; who are out and about can infect each other.
     simul_isolation
-    ;; Recovered people can randomly become infected again.
-    simul_reinfect
+    ;; Recovered people can randomly become succeptible again.
+    simul_recovered_lose_immunity
     ;; Give people anxiety based on global factors.
     simul_createanxiety
     ;; Pick up resources, which seems to reduce anxiety?
     ;simul_gatherreseources
     ;; Infected people with inICU = 1 are moved to a white patch (hospital?)
     simul_treat
-    ;; Take the rolling average of contacts over the past seven days, only for non-infected people.
+    ;; Take the rolling average of contacts over the past seven days, only for non-infected people. Is this needed?
     simul_Countcontacts
-    ;; Untracked people have their speed set to the current recommended speed, based on policy.
-    simul_respeed
     ;; Set infected people to always require ICU after their incubation period???
     simul_checkICU
     ;; Randomly start tracking infected people based on track_and_trace_efficiency. Note that simul_traceme can also be called upon being infected
@@ -284,12 +300,8 @@ to go
     simul_hunt
     ;; enables people to access the support packages (???)
     ;simul_AccessPackage
-    ;; Set 1/7th of people who are near a destination to move to that destination.
-    simul_visitDestination
     ;; If I am succeptible and a household member is tracked, move home and set pace to 0, set isolated=1. Also track isolated=1 infected people.
     simul_HHContactsIso
-  ]
-  ask simuls [
     ;; Randomly vaccinate people according to uptake and stage.
     simul_vaccinate_me
   ]
@@ -314,25 +326,35 @@ to go
   ;; stops the model if the following criteria are met - no more infected people in the simulation and it has run for at least 10 days, only if freewheel = true.
   finished
   ;CruiseShip
+  
+  
   ;; Send people to ICU if they have been identified
   GlobalTreat
   ;; Set anxiety factor based on some infected/dead/recovered count, multiplied by media_Exposure
-  Globalanxiety
+  ;Globalanxiety
+  
   ;; Randomly move infected people  who are untracked or unaware they are sick to new areas, based on the Superspreaders parameter, set in Stages.
   SuperSpread
+  
   ;; set numberinfected cumulativeInfected (???)
   CountInfected
+  
   ;; Calculate proportional change in real infection count. Updates InfectionChange, TodayInfections and YesterdayInfections
   CalculateDailyGrowth
+  
   ;; Enable distancing, isolation and quarantine based on triggers
   TriggerActionIsolation
+  
   ;; Mouse click does something interactive
-  DeployStimulus
+  ;DeployStimulus
+  
   ;setInitialReserves
   ;; Set AverageContacts. Doesn't appear to do anything?
   CalculateAverageContacts
+  
   ;; Check whether to scale up, which occurs when 10% of the agents are infected.
   ScaleUp
+  
   ;; Reverses the initiation of social distancing and isolation policies over time.
   Unlock
 
@@ -405,10 +427,6 @@ to go
   incursion
   ;; Average "days into infection the person is identified as a case" of suceptible agents.
   CalculateMeanIDTime
-
-  ask patches [
-    checkutilisation
-  ]
 
   ;; set days days + 1
   ForwardTime

@@ -366,7 +366,7 @@ to simul_isolation
   ]
 end
 
-to simul_reinfect
+to simul_recovered_lose_immunity
   ;; if you are recovered but suceptible again, you could become reinfected
   if color = yellow and ReinfectionRate > random 100 [
     set color cyan
@@ -479,7 +479,7 @@ end
 to simul_visitDestination
   ;; sets up destinations where people might gather and set off superspreader events
   ;; reduces large gatherings by stage
-  if remainder random 7 Visit_Frequency = 0 and any? patches with [ destination = 1 ] in-radius (5 - stage) [
+  if isolating = 0 and remainder random 7 Visit_Frequency = 0 and any? patches with [ destination = 1 ] in-radius (5 - stage) [
     move-to one-of patches with [ destination = 1 ]
   ]
   ;; essential workers do not have the same capacity to reduce contact as non-esssential

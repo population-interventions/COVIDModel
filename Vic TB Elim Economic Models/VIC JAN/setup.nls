@@ -173,6 +173,7 @@ to createSimulants
       set sensitivity random-float 1
       set R 0
       set vacWaitDays 0
+      set isolating 0
       
       set agerange item 1 cohortData
       set atsi item 2 cohortData

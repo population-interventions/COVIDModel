@@ -1,8 +1,7 @@
-Implement the three underlying causes of transmissability reduction.
-Currently the rate changes are spread around a bit.
-There doesn't seem to be a variable for the height of the triangle.
-
 Figure out whether there should be a non-infective period at the start of covid.
-
-Figure out what is going on with vaccine refusal.
-Make sure someone is not asked to be vaccinated twice.
+Check up on the ICU. I've seen ICU beds go pretty weird.
+Look into the tracking and tracing system. It seems very complex.
+Check up on what people do to avoid each other. Keep a lookout for order effects.
+Figure out how simul_visitDestination works and why.
+Look into scaling because that seems like a good place for bugs. Why are so many parameters resampled at this point?
+Check whether dead people are really dead. They are moved to a particular patch, but does this actually ensure they won't interact with people?

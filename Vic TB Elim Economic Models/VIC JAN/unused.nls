@@ -1,5 +1,79 @@
 ;; Functions that are not referenced anywhere else.
 
+;; This code used to infect simulants. It is unclear what it was meant to do.
+to simul_infect_old
+  ;; reduces capacity of asymptomatic people to pass on the virus by Asymptomatic_Trans
+  if any? other simuls-here
+      with [ color = red and asymptomaticFlag = 1 and ( currentVirulence * Asymptomatic_Trans ) > random 100 and wearingMask = 0 ]
+      and color = cyan [
+    set color red
+    set timenow 0
+    simul_traceme
+  ]
+
+  ;; people who are symptomatic pass on the virus at the rate of their personal virulence, which is drawn from population means
+  if any? other simuls-here
+      with [ color = red and asymptomaticFlag = 0 and currentVirulence > random 100 and wearingMask = 0 ]
+      and color = cyan [
+    set color red
+    set timenow 0
+    simul_traceme
+  ]
+
+  ;; accounts for a % reduction in transfer through mask wearing
+  if any? other simuls-here
+      with [ color = red and asymptomaticFlag = 1 and ( currentVirulence * Asymptomatic_Trans ) > random 100 and wearingMask = 1 ]
+      and color = cyan and random 100 > ownMaskEfficacy [
+    set color red
+    set timenow 0
+    simul_traceme
+  ]
+
+  ;; accounts for a % reduction in transfer through mask wearing
+  if any? other simuls-here
+      with [ color = red and asymptomaticFlag = 0 and currentVirulence > random 100 and wearingMask = 1 ]
+      and color = cyan and random 100 > ownMaskEfficacy [
+    set color red
+    set timenow 0
+    simul_traceme
+  ]
+
+  ;; asymptomatic and wearing mask
+  if any? other simuls-here
+      with [ color = cyan ] and color = red and Asymptomaticflag = 1 and ( currentVirulence * Asymptomatic_Trans ) > random 100
+      and wearingMask = 1 and random 100 > ownMaskEfficacy [
+    set R R + 1
+    set GlobalR GlobalR + 1
+  ]
+
+  ;; symptomatic and wearing mask
+  if any? other simuls-here
+      with [ color = cyan ] and color = red and Asymptomaticflag = 0 and currentVirulence > random 100
+      and wearingMask = 1 and random 100 > ownMaskEfficacy [
+    set R R + 1
+    set GlobalR GlobalR + 1
+  ]
+
+  ;; asymptomatic and not wearing mask
+  if any? other simuls-here
+      with [ color = cyan ] and color = red and Asymptomaticflag = 1 and ( currentVirulence * Asymptomatic_Trans ) > random 100
+      and wearingMask = 0 [
+    set R R + 1
+    set GlobalR GlobalR + 1
+  ]
+
+  ;; symptomatic and not wearing mask
+  if any? other simuls-here
+      with [ color = cyan ] and color = red and Asymptomaticflag = 0 and currentVirulence > random 100
+      and wearingMask = 0 [
+    set R R + 1
+    set GlobalR GlobalR + 1
+  ]
+
+  ;; these functions reflect thos above but allow the Reff to be measured over the course of the simulation
+end
+
+
 ;; This code was referenced in setup, but it did not do anything since it was called at a point where agerage=95 for all agents.
 to iterateAsymptomAge
   if freeWheel = false and PolicyTriggerOn = true and schoolsPolicy = true [
@@ -139,7 +213,7 @@ to Cruiseship
       set ownComplianceWithIsolation dist
       let maskWearEfficacy rngs:rnd-beta stream_id 20 11
 
-      set ownMaskEfficacy maskWearEfficacy * 100
+      set ownMaskEfficacy maskWearEfficacy
     ]
   ]
 end

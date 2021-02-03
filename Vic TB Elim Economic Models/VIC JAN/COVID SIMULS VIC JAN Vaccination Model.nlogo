@@ -160,6 +160,8 @@ __includes[
 patches-own [
   utilisation ;; indicator of whether any people are located on that patch of the environment or not
   destination ;; indicator of whether this location is a place that people might gather
+  lastUpdate ;; Update indicator for stale simulantCount data
+  infectionList ;; List of infectivities of simulants on the patch
 ]
 @#$#@#$#@
 GRAPHICS-WINDOW
@@ -264,7 +266,7 @@ SWITCH
 168
 spatial_distance
 spatial_distance
-1
+0
 1
 -1000
 
@@ -341,7 +343,7 @@ SWITCH
 205
 case_isolation
 case_isolation
-1
+0
 1
 -1000
 
@@ -421,7 +423,7 @@ SWITCH
 349
 quarantine
 quarantine
-1
+0
 1
 -1000
 
@@ -515,7 +517,7 @@ Track_and_Trace_Efficiency
 Track_and_Trace_Efficiency
 0
 1
-0.30525359855885564
+0.25
 .05
 1
 NIL

@@ -40,7 +40,7 @@ to scaleup
       set ownComplianceWithIsolation dist
       let maskWearEfficacy rngs:rnd-beta stream_id 20 11
 
-      set ownMaskEfficacy maskWearEfficacy * 100
+      set ownMaskEfficacy maskWearEfficacy
       set returntoschool random 100
       set detectable random 100
     ]
@@ -78,7 +78,7 @@ to scaleup
       set ownComplianceWithIsolation dist
       let maskWearEfficacy rngs:rnd-beta stream_id 20 11
 
-      set ownMaskEfficacy maskWearEfficacy * 100
+      set ownMaskEfficacy maskWearEfficacy
     ]
 
     set contact_Radius Contact_Radius + (90 / 4)

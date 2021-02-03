@@ -53,6 +53,8 @@ simuls-own [
   
   vaccinated ;; is the person vaccinated?
   vaccineOffered ;; Has the vaccine been offered?
+  vacWaitDays ;; Timer for the delay in vaccine coming into effect.
+  selfVaccEffectiveness ;; Effectiveness of the vaccine I recieved
   
   Own_WFH_Capacity ;; Ability of the person to work from home
   hunted ;; has the person been traced using the phoneApp
@@ -374,10 +376,68 @@ to simul_move
     [
       move-to homeLocation
     ]
-
-    simul_infect
   ]
 end
+
+to simul_avoid_student
+  ;; Makes students avoid some people but not others if schoolsPolicy = true.
+  ;; same thing but specifically targets the movement of students if the schools policy is turned on - that is
+  ;; if students are expected to return to school
+  ;; schoolspolicy = true means 'go to school = true
+  ifelse Spatial_Distance = true and Proportion_People_Avoid + random-normal 0 3 > random 100
+      and Proportion_Time_Avoid + random-normal 0 3 > random 100 and AgeRange > Age_Isolation
+  [
+    if any? other simuls-here with [ householdUnit != [ householdUnit ] of myself or studentFlag != 1 ] [
+      ;; students don't isolate from each other or their household unit
+      if any? neighbors with [ utilisation = 0 ] and Ess_W_Risk_Reduction > random 100 [
+        move-to one-of neighbors with [ utilisation = 0 ]
+      ]
+    ]
+  ]
+  ;; if you are a student, you avoid everyone you can except for essential workers (i.e., teachers), other students
+  ;; and people from your own household
+  [
+    move-to one-of simuls with [ essentialworkerflag = 1 or householdUnit = [ householdUnit ] of myself or studentFlag = 1 ]
+  ]
+end
+
+to simul_avoid
+  ;; so, if the social distancing policies are on and you are distancing at this time and you are not part of an age-isolated
+  ;; group and you are not an EssentialWorkerPriority, then if there is anyone near you, move away if you can.
+  (ifelse Spatial_Distance = true and (Proportion_People_Avoid + random-normal 0 3) > random 100
+      and (Proportion_Time_Avoid + random-normal 0 3) > random 100 and AgeRange > Age_Isolation and EssentialWorkerFlag = 0
+  [
+    if any? other simuls-here with [ householdUnit != [ householdUnit ] of myself ] [
+      if any? neighbors with [ utilisation = 0 ] [
+        move-to one-of neighbors with [ utilisation = 0 ]
+      ]
+    ]
+  ]
+  ;; elseif
+  ;; if you are an essential worker, you can only reduce your
+  ;; contacts when you are not at work assuming 8 hours work, 8 hours rest, 8 hours recreation - rest doesn't count for anyone, hence it is
+  ;; set at 50 on the input slider. People don't isolate from others in their household unit
+  Spatial_Distance = true and (Proportion_People_Avoid + random-normal 0 3) > random 100 and (Proportion_Time_Avoid + random-normal 0 3) > random 100
+      and AgeRange > Age_Isolation and EssentialWorkerFlag = 1
+  [
+    if any? other simuls-here with [ householdUnit != [ householdUnit ] of myself ] [
+      if any? neighbors with [ utilisation = 0 ] and Ess_W_Risk_Reduction > random 100 [
+        move-to one-of neighbors with [ utilisation = 0 ]
+      ]
+    ]
+  ]
+  [
+    ;; otherwise just move wherever you like
+    set heading heading + contact_Radius fd random pace
+    avoidICUs
+    move-to patch-here
+  ])
+  
+  if studentFlag = 1 and global_schoolActive [
+    simul_avoid_student
+  ]
+end
+
 
 to simul_recover
   ;; if you are not dead at the end of your illness period, then you become recovered and turn yellow and 

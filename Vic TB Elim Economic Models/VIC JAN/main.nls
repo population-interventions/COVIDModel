@@ -6,67 +6,6 @@ to avoidICUs
   ]
 end
 
-
-to avoid
-  ;; these are the circustances under which people will interact
-  ask simuls [
-    ;; so, if the social distancing policies are on and you are distancing at this time and you are not part of an age-isolated
-    ;; group and you are not an EssentialWorkerPriority, then if there is anyone near you, move away if you can.
-    (ifelse Spatial_Distance = true and (Proportion_People_Avoid + random-normal 0 3) > random 100
-        and (Proportion_Time_Avoid + random-normal 0 3) > random 100 and AgeRange > Age_Isolation and EssentialWorkerFlag = 0
-    [
-      if any? other simuls-here with [ householdUnit != [ householdUnit ] of myself ] [
-        if any? neighbors with [ utilisation = 0 ] [
-          move-to one-of neighbors with [ utilisation = 0 ]
-        ]
-      ]
-    ]
-    ;; elseif
-    ;; if you are an essential worker, you can only reduce your
-    ;; contacts when you are not at work assuming 8 hours work, 8 hours rest, 8 hours recreation - rest doesn't count for anyone, hence it is
-    ;; set at 50 on the input slider. People don't isolate from others in their household unit
-    Spatial_Distance = true and (Proportion_People_Avoid + random-normal 0 3) > random 100 and (Proportion_Time_Avoid + random-normal 0 3) > random 100
-        and AgeRange > Age_Isolation and EssentialWorkerFlag = 1
-    [
-      if any? other simuls-here with [ householdUnit != [ householdUnit ] of myself ] [
-        if any? neighbors with [ utilisation = 0 ] and Ess_W_Risk_Reduction > random 100 [
-          move-to one-of neighbors with [ utilisation = 0 ]
-        ]
-      ]
-    ]
-    [
-      ;; otherwise just move wherever you like
-      set heading heading + contact_Radius fd random pace
-      avoidICUs
-      move-to patch-here
-    ])
-  ]
-
-  if policyTriggerOn = true and freewheel = false and schoolsPolicy = true and ticks >= triggerday + SchoolReturnDate [
-    ask simuls with [ studentFlag = 1 ] [
-      ;; same thing but specifically targets the movement of students if the schools policy is turned on - that is
-      ;; if students are expected to return to school
-      ;; schoolspolicy = true means 'go to school = true
-      ifelse Spatial_Distance = true and Proportion_People_Avoid + random-normal 0 3 > random 100
-          and Proportion_Time_Avoid + random-normal 0 3 > random 100 and AgeRange > Age_Isolation
-      [
-        if any? other simuls-here with [ householdUnit != [ householdUnit ] of myself or studentFlag != 1 ] [
-          ;; students don't isolate from each other or their household unit
-          if any? neighbors with [ utilisation = 0 ] and Ess_W_Risk_Reduction > random 100 [
-            move-to one-of neighbors with [ utilisation = 0 ]
-          ]
-        ]
-      ]
-      ;; if you are a student, you avoid everyone you can except for essential workers (i.e., teachers), other students
-      ;; and people from your own household
-      [
-        move-to one-of simuls with [ essentialworkerflag = 1 or householdUnit = [ householdUnit ] of myself or studentFlag = 1 ]
-      ]
-    ]
-  ]
-end
-
-
 to finished
   if freewheel = true [
     ;; stops the model if the following criteria are met - no more infected people in the simulation and it has run for at least 10 days
@@ -298,15 +237,27 @@ end
 ;;** Buttons **
 ;;*******************************************************************************************************************************
 
-
 to go
   ;; these funtions get called each time-step
   
   vaccine_update
+  ask simuls [
+    ;; Move either outside or back to home
+    simul_move
+  ]
+  
+  set global_schoolActive policyTriggerOn = true and freewheel = false and schoolsPolicy = true and ticks >= triggerday + SchoolReturnDate
+  ask simuls [
+    ;; Avoid people if able
+    simul_avoid
+  ]
   
   ask simuls [
-    ;; Move either outside or back to home, then potentially catch the infection from whoever is there. Large function.
-    simul_move
+    ;; Potentially catch the infection from whoever is here.
+    simul_infect
+  ]
+  
+  ask simuls [
     ;; if you are not dead at the end of your illness period, then you become recovered and turn yellow. Don't need hospital resources anymore.
     simul_recover
     ;; Increment illness time and possibly lose 'health' due to it. It is unclear what health is for.
@@ -347,9 +298,13 @@ to go
     simul_visitDestination
     ;; If I am succeptible and a household member is tracked, move home and set pace to 0, set isolated=1. Also track isolated=1 infected people.
     simul_HHContactsIso
+  ]
+    
+  ask simuls [
     ;; Randomly vaccinate people according to uptake and stage.
     simul_vaccinate_me
   ]
+  
   ; *current excluded functions for reducing processing resources**
   ask medresources [
     allocatebed
@@ -428,10 +383,6 @@ to go
   ;; Spontaneously generate a case if ticks < Triggerday and there are fewer than three cases.
   stopFade
   ;seedCases
-  
-  ;; A massive function that randomly moves agents away to neighbouring patches if Spatial_Distance = True, otherwise avoid ICU. Also
-  ;; makes students avoid some people but not others if schoolsPolicy = true.
-  avoid
   
   ;; ensures that policies are enacted if their master switches are set to true at the time of the policy switch turning on (?)
   turnOnTracking

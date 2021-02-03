@@ -172,6 +172,7 @@ to createSimulants
       set vaccineOffered 0
       set sensitivity random-float 1
       set R 0
+      set vacWaitDays 0
       
       set agerange item 1 cohortData
       set atsi item 2 cohortData

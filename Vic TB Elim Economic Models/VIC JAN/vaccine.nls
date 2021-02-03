@@ -16,30 +16,44 @@ to setup_vaccineData
   set global_vaccineAvailible 0
   set global_vaccineType 0
   set global_vaccinePerDay 0
+  set global_vaccine_eff 0
+end
+
+to vaccine_brand_update
+  if global_vaccineType = "Pfizer" [
+    set global_vaccine_eff (1 - param_vac1_tran_reduct / 100) ^ (1 / 3)
+  ]
+  if global_vaccineType = "Other" [
+    set global_vaccine_eff (1 - param_vac2_tran_reduct / 100) ^ (1 / 3)
+  ]
 end
 
 to vaccine_update
   ;; Happens at the start of the first 'go', since days = 0
   if days >= vaccinePhaseEndDay [
-    set vaccinePhaseIndex vaccinePhaseIndex + 1
-    let phaseData table:get vaccineTable vaccinePhaseIndex
-    
-    ;print "Old vaccine total pop and unvaccinated pop"
-    ;print count simuls with [VaccPhase = global_vaccinePhase and VaccSubPhase = global_vaccineSubPhase]
-    ;print count simuls with [VaccPhase = global_vaccinePhase and VaccSubPhase = global_vaccineSubPhase and vaccinated = 0]
-    
-    set vaccinePhaseEndDay (vaccinePhaseEndDay + item 2 phaseData)
-    set global_vaccineAvailible 0
-    set global_vaccinePhase item 0 phaseData
-    set global_vaccineSubPhase item 1 phaseData
-    set global_vaccinePerDay (item 3 phaseData)/(item 2 phaseData) + 0.00001 ; Floats
-    set global_vaccineType item 4 phaseData
-    
-    ;print "New vaccine phase"
-    ;print global_vaccinePhase
-    ;print global_vaccineSubPhase
-    ;print global_vaccinePerDay
-    ;print vaccinePhaseEndDay
+    if table:has-key? vaccineTable (vaccinePhaseIndex + 1) [
+      set vaccinePhaseIndex vaccinePhaseIndex + 1
+      let phaseData table:get vaccineTable vaccinePhaseIndex
+      
+      ;print "Old vaccine total pop and unvaccinated pop"
+      ;print count simuls with [VaccPhase = global_vaccinePhase and VaccSubPhase = global_vaccineSubPhase]
+      ;print count simuls with [VaccPhase = global_vaccinePhase and VaccSubPhase = global_vaccineSubPhase and vaccinated = 0]
+      
+      set vaccinePhaseEndDay (vaccinePhaseEndDay + item 2 phaseData)
+      set global_vaccineAvailible 0
+      set global_vaccinePhase item 0 phaseData
+      set global_vaccineSubPhase item 1 phaseData
+      set global_vaccinePerDay (item 3 phaseData)/(item 2 phaseData) + 0.00001 ; Floats
+      set global_vaccineType item 4 phaseData
+      
+      vaccine_brand_update
+      
+      ;print "New vaccine phase"
+      ;print global_vaccinePhase
+      ;print global_vaccineSubPhase
+      ;print global_vaccinePerDay
+      ;print vaccinePhaseEndDay
+    ]
   ]
   
   set global_vaccineAvailible global_vaccineAvailible + global_vaccinePerDay
@@ -47,17 +61,27 @@ end
 
 
 to simul_vaccinate_me
+  if vacWaitDays > 0 [
+    set vacWaitDays vacWaitDays - 1
+    if vacWaitDays = 0 [
+      set shape "person"
+      set vaccinated 1
+      
+      ;; Reduce illness length
+      set ownincubationperiod ( ownincubationperiod * (1 - selfVaccEffectiveness) )
+      set ownillnessperiod (ownillnessperiod * (1 - selfVaccEffectiveness) )
+    ]
+  ]
+  
   if Vaccine_Available = true and global_vaccineAvailible >= 1 [
     if VaccPhase = global_vaccinePhase and VaccSubPhase = global_vaccineSubPhase and vaccinated = 0 and color = cyan and vaccineOffered = 0 [
       ;; TODO for some reason people use up a vaccine even if they refuse it, but if this wasn't the case then param_vac_uptake
       ;; would mean very little. Figure out what is going on here conceptually.
       set vaccineOffered 1
+      set selfVaccEffectiveness global_vaccine_eff
       set global_vaccineAvailible global_vaccineAvailible - 1
       if sm_vac_uptake < param_vac_uptake [
-        set shape "person"
-        set vaccinated 1
-        set ownincubationperiod ( ownincubationperiod / 555 )
-        set ownillnessperiod (ownillnessperiod * 555 )
+        set vacWaitDays param_vacEffDays
       ]
     ]
   ]

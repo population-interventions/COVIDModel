@@ -110,7 +110,9 @@ globals [
   vaccinePhaseEndDay
   vaccinePhaseIndex
   vaccineTable
+  global_vaccine_eff ;; Effectiveness of the vaccine along the three dimensions (infection rate, transmition rate, duration)
 
+  global_schoolActive ;; Whether students ignore avoiding each other to go to school
 
   ;; log transform illness period variables
   Illness_PeriodVariance
@@ -2989,7 +2991,7 @@ param_vac1_tran_reduct
 param_vac1_tran_reduct
 50
 90
-75.0
+90.0
 5
 1
 NIL
@@ -3004,8 +3006,23 @@ param_vac2_tran_reduct
 param_vac2_tran_reduct
 50
 90
-50.0
+75.0
 5
+1
+NIL
+HORIZONTAL
+
+SLIDER
+5
+540
+177
+573
+param_vacEffDays
+param_vacEffDays
+0
+30
+21.0
+1
 1
 NIL
 HORIZONTAL

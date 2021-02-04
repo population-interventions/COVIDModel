@@ -220,6 +220,18 @@ to incursion
   ]
 end
 
+to resetMetricAverages
+  ifelse transmission_count > 0
+  [
+    set transmission_average transmission_sum / transmission_count
+  ]
+  [
+    set transmission_average -1
+  ]
+  set transmission_count 0
+  set transmission_sum 0
+end
+
 
 ;;*******************************************************************************************************************************
 ;;** Buttons **
@@ -227,6 +239,8 @@ end
 
 to go
   ;; these funtions get called each time-step
+  
+  resetMetricAverages
   
   vaccine_update
   set global_schoolActive policyTriggerOn = true and freewheel = false and schoolsPolicy = true and ticks >= triggerday + SchoolReturnDate

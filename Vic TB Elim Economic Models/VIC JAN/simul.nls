@@ -194,6 +194,9 @@ to simul_infect
         ;print "x"
         ;print x
         if color = cyan [
+          set transmission_count transmission_count + 1
+          set transmission_sum transmission_sum + mySucceptibility * x
+          
           if mySucceptibility * x > random-float 1 [
             set color red
             set timenow 0

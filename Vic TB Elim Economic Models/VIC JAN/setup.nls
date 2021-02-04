@@ -335,6 +335,10 @@ to setGlobals
   set essentialWorkerRange 0
   set otherWorkerRange 0
 
+  set transmission_count 0
+  set transmission_sum 0
+  set transmission_average 0
+  
   ; Vaccine phase and subphase, as well as internal index and data table.
   set global_vaccinePhase 0
   set global_vaccineSubPhase 0
@@ -388,11 +392,12 @@ to setup
   ;;import-drawing "Background1.png" ;; imports MSD image
 
   set days 0 ; used to count days
-  setupstages
 
   loadPopDivisionTable
   processPopulationWorkerData
   setup_vaccineData
+  
+  set resetdate 7
   
   ;; illness period estimation using ln transform
   set Illness_Periodvariance se_Illnesspd

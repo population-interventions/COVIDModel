@@ -231,11 +231,153 @@ to createSimulants
   ]
 end
 
+to setGlobals
+  set anxietyFactor              0
+  set NumberInfected             0
+  set InfectionChange            0
+  set TodayInfections            0
+  set YesterdayInfections        0
+  set five                       0
+  set fifteen                    0
+  set twentyfive                 0
+  set thirtyfive                 0
+  set fortyfive                  0
+  set fiftyfive                  0
+  set sixtyfive                  0
+  set seventyfive                0
+  set eightyfive                 0
+  set ninetyfive                 0
+  set InitialReserves            0
+  set AverageContacts            0
+  set AverageFinancialContacts   0
+  set ScalePhase                 0
+  set Days                       0
+  set GlobalR                    0
+  set CaseFatalityRate           0
+  set DeathCount                 0
+  set DailyCases                 0
+  set Scaled_Population          0
+  set ICUBedsRequired            0
+  set scaled_Bed_Capacity        0
+  set currentInfections          0
+  set eliminationDate            0
+  set PotentialContacts          0
+  set bluecount                  0
+  set yellowcount                0
+  set redcount                   0
+  set todayInfected              0
+  set cumulativeInfected         0
+  set scaledPopulation           0
+  set MeanR                      0
+  set EWInfections               0
+  set StudentInfections          0
+  set meanDaysInfected           0
+  set lasttransday               0
+  set lastPeriod                 0
+  set casesinperiod28            0
+  set casesinperiod14            0
+  set casesinperiod7             0
+  set resetDate                  0
+  set cashposition               0
+  set Objfunction                0
+  set decisionDate               0
+  set prior0                     0
+  set prior1                     0
+  set prior2                     0
+  set prior3                     0
+  set prior4                     0
+  set prior5                     0
+  set prior6                     0
+  set prior7                     0
+  set prior8                     0
+  set prior9                     0
+  set prior10                    0
+  set prior11                    0
+  set prior12                    0
+  set prior13                    0
+  set prior14                    0
+  set prior15                    0
+  set prior16                    0
+  set prior17                    0
+  set prior18                    0
+  set prior19                    0
+  set prior20                    0
+  set prior21                    0
+  set prior22                    0
+  set prior23                    0
+  set prior24                    0
+  set prior25                    0
+  set prior26                    0
+  set prior27                    0
+  set prior28                    0
+
+  ;; These used to be dynamic controls with conflicting variable names.
+  set spatial_distance 0
+  set case_isolation 0
+  set quarantine 0
+  set AsymptomaticPercentage 0
+  set contact_radius 0
+  set Track_and_Trace_Efficiency 0
+  set stage 0
+
+  set stageHasChanged 0
+  set stageToday 0
+  set stageYesterday 0
+  set PrimaryUpper 0
+  set SecondaryLower 0
+
+  set meanIDTime 0
+  set popDivisionTable 0 ; Table of population cohort data
+
+  ; Number of agents that are workers and essential workers respectively.
+  set totalWorkers 0
+  set totalEssentialWorkers 0
+  set essentialWorkerRange 0
+  set otherWorkerRange 0
+
+  ; Vaccine phase and subphase, as well as internal index and data table.
+  set global_vaccinePhase 0
+  set global_vaccineSubPhase 0
+  set global_vaccineAvailible 0
+  set global_vaccineType 0
+  set global_vaccinePerDay 0
+  set vaccinePhaseEndDay 0
+  set vaccinePhaseIndex 0
+  set vaccineTable 0
+  set global_vaccine_eff 0 ;; Effectiveness of the vaccine along the three dimensions (infection rate, transmition rate, duration)
+
+  set global_schoolActive 0 ;; Whether students ignore avoiding each other to go to school
+
+  ;; log transform illness period variables
+  set Illness_PeriodVariance 0
+  set M 0
+  set BetaillnessPd 0
+  set S 0
+
+  ;; log transform incubation period variables
+  set Incubation_PeriodVariance 0
+  set MInc 0
+  set BetaIncubationPd 0
+  set SInc 0
+
+  ;; log transform compliance period variables
+  set Compliance_PeriodVariance 0
+  set MComp 0
+  set BetaCompliance 0
+  set SComp 0
+
+  ;; file reading and draw handling
+  set drawNumber 0
+  set drawRandomSeed 0
+  set drawList 0
+end
+
 ;;*******************************************************************************************************************************
 ;;** Buttons **
 ;;*******************************************************************************************************************************
 
 to setup
+  setGlobals
   random-seed RAND_SEED ;; Read from a behaviourSpace variable.
 
   ;profiler:start
@@ -246,6 +388,7 @@ to setup
   ;;import-drawing "Background1.png" ;; imports MSD image
 
   set days 0 ; used to count days
+  setupstages
 
   loadPopDivisionTable
   processPopulationWorkerData
@@ -317,7 +460,6 @@ to setup
   ;; set up initial infected people
   set scalephase InitialScale
   ;; sets up the initial date for looking at policy-changes
-  set resetdate 7
 
   ask n-of ( Current_Cases ) simuls [
     set color red

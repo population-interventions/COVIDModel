@@ -55,7 +55,7 @@ to traceadjust
   ]
   [
     ;; Why is this 0.25 at zero when that is otherwise the track_and_trace_efficiency of 200 casesinperiod7?
-    set track_and_trace_efficiency .25
+    set track_and_trace_efficiency 0.25
   ]
 end
 

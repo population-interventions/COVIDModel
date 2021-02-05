@@ -92,8 +92,9 @@ end
 to scaledown
   ;; reverses the procedure above after the peak of the epidemic
   if scale = true and count simuls with [ color = red ] <= 25 and yellowcount > redcount and days > 0 and scalephase > 0 [
-    ask n-of (count simuls with [ color = red ] * .9 ) simuls with [ color = red ] [
-      hatch 10 [
+    ask simuls with [ color = red ] [
+      hatch 9 [
+        ;; Doesn't this give them all the same household???
         move-to one-of patches with [ pcolor = black ]
       ]
     ]

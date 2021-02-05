@@ -269,8 +269,9 @@ end
 to simul_avoid
   ;; so, if the social distancing policies are on and you are distancing at this time and you are not part of an age-isolated
   ;; group and you are not an EssentialWorkerPriority, then if there is anyone near you, move away if you can.
-  (ifelse Spatial_Distance = true and (Proportion_People_Avoid + random-normal 0 3) > random 100
-      and (Proportion_Time_Avoid + random-normal 0 3) > random 100 and AgeRange > Age_Isolation and EssentialWorkerFlag = 0
+  (ifelse EssentialWorkerFlag = 0 and Spatial_Distance = true and AgeRange > Age_Isolation 
+      and (Proportion_People_Avoid + random-normal 0 3) > random 100
+      and (Proportion_Time_Avoid + random-normal 0 3) > random 100
   [
     if any? other simuls-here with [ householdUnit != [ householdUnit ] of myself ] [
       if any? neighbors with [ utilisation = 0 ] [
@@ -282,8 +283,9 @@ to simul_avoid
   ;; if you are an essential worker, you can only reduce your
   ;; contacts when you are not at work assuming 8 hours work, 8 hours rest, 8 hours recreation - rest doesn't count for anyone, hence it is
   ;; set at 50 on the input slider. People don't isolate from others in their household unit
-  Spatial_Distance = true and (Proportion_People_Avoid + random-normal 0 3) > random 100 and (Proportion_Time_Avoid + random-normal 0 3) > random 100
-      and AgeRange > Age_Isolation and EssentialWorkerFlag = 1
+  EssentialWorkerFlag = 1 and Spatial_Distance = true and AgeRange > Age_Isolation
+      and (Proportion_People_Avoid + random-normal 0 3) > random 100
+      and (Proportion_Time_Avoid + random-normal 0 3) > random 100
   [
     if any? other simuls-here with [ householdUnit != [ householdUnit ] of myself ] [
       if any? neighbors with [ utilisation = 0 ] and Ess_W_Risk_Reduction > random 100 [

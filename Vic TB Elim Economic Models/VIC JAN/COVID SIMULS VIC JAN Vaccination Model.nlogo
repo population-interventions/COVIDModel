@@ -221,10 +221,10 @@ NIL
 1
 
 BUTTON
-179
-142
-243
-176
+185
+143
+249
+177
 Go
 ifelse (count simuls ) = (count simuls with [ color = blue ])  [ stop ] [ Go ]
 T
@@ -599,7 +599,7 @@ Proportion_People_Avoid
 Proportion_People_Avoid
 0
 100
-89.0
+80.0
 .5
 1
 NIL
@@ -614,7 +614,7 @@ Proportion_Time_Avoid
 Proportion_Time_Avoid
 0
 100
-89.0
+80.0
 .5
 1
 NIL
@@ -663,9 +663,9 @@ mean [ R ] of simuls with [ color = red and timenow = int Illness_Period ]
 
 SWITCH
 190
-469
+534
 315
-502
+567
 policytriggeron
 policytriggeron
 0
@@ -757,10 +757,10 @@ current_cases
 Number
 
 INPUTBOX
-203
-399
-312
-460
+204
+464
+313
+525
 total_population
 2.5E7
 1
@@ -768,10 +768,10 @@ total_population
 Number
 
 SLIDER
-188
-509
-314
-542
+189
+574
+315
+607
 Triggerday
 Triggerday
 0
@@ -1022,10 +1022,10 @@ objFunction
 14
 
 BUTTON
-203
-625
-309
-660
+204
+689
+310
+724
 Stop Stimulus
 ask packages [ die ] 
 NIL
@@ -1083,10 +1083,10 @@ count simuls with [ color = red ]
 11
 
 SWITCH
-1390
-965
 1495
-998
+955
+1589
+989
 scale
 scale
 0
@@ -1128,9 +1128,9 @@ count simuls with [ shape = \"star\" ] / count simuls
 
 TEXTBOX
 190
-593
+658
 315
-616
+681
 Day 1 - Dec 21st, 2020
 12
 15.0
@@ -1152,7 +1152,7 @@ INPUTBOX
 1450
 152
 ppa
-88.0
+80.0
 1
 0
 Number
@@ -1163,7 +1163,7 @@ INPUTBOX
 1521
 152
 pta
-88.0
+80.0
 1
 0
 Number
@@ -1562,15 +1562,15 @@ mean [ personalvirulence] of simuls
 11
 
 SLIDER
-190
-1289
-396
-1322
+742
+899
+948
+932
 Global_Transmissability
 Global_Transmissability
 0
 100
-25.0
+40.0
 1
 1
 NIL
@@ -2140,10 +2140,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-1390
-668
-1498
-713
+1388
+669
+1496
+714
 NIL
 currentinfections
 17
@@ -2184,10 +2184,10 @@ Complacency
 -1000
 
 CHOOSER
-1484
-905
-1577
-950
+1494
+900
+1587
+945
 InitialScale
 InitialScale
 0 1 2 3 4
@@ -2289,9 +2289,9 @@ PENS
 
 MONITOR
 1388
-765
+769
 1503
-810
+814
 Cases in period 7
 casesinperiod7
 0
@@ -2568,7 +2568,7 @@ Household_Attack
 Household_Attack
 0
 100
-50.0
+30.0
 1
 1
 NIL
@@ -2642,7 +2642,7 @@ Mask_Efficacy_Discount
 Mask_Efficacy_Discount
 0
 1
-0.21
+0.51
 .01
 1
 NIL
@@ -2717,10 +2717,10 @@ Vaccinated %
 11
 
 SLIDER
-188
-547
-314
-580
+189
+612
+315
+645
 RAND_SEED
 RAND_SEED
 0
@@ -2938,10 +2938,10 @@ stage
 11
 
 MONITOR
-1519
-719
-1654
-764
+1515
+720
+1650
+765
 NIL
 transmission_average
 17
@@ -2949,10 +2949,10 @@ transmission_average
 11
 
 MONITOR
-1390
-717
-1510
-762
+1388
+719
+1508
+764
 NIL
 transmission_count
 17
@@ -2986,6 +2986,17 @@ Stage Policy
 12
 0.0
 1
+
+INPUTBOX
+205
+397
+310
+457
+houseCases
+0.0
+1
+0
+Number
 
 @#$#@#$#@
 ## WHAT IS IT?

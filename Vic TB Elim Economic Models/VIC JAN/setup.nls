@@ -569,10 +569,12 @@ to setup
     simul_resetlanding
   ]
 
-  ;; this ensures that half the people in households with existing infections have also had an infection and prevents a big spike early-on
+  ;; this ensures that half the people in households with existing infections have also have an infection and prevents a big spike early-on
+  let init_secondry_infect houseCases
   ask simuls [
-    if any? other simuls in-radius 3 with [ color = red ] and Household_Attack > random 100 [
-      set color yellow
+    if init_secondry_infect > 0 and any? other simuls in-radius 2 with [ color = red ] [
+      set color red
+      set init_secondry_infect init_secondry_infect - 1
     ]
   ]
 

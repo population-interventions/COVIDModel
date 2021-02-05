@@ -295,7 +295,7 @@ Span
 Span
 0
 30
-5.0
+15.0
 1
 1
 NIL
@@ -370,10 +370,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-15
-793
-177
-850
+7
+804
+169
+861
 Deaths
 Deathcount
 0
@@ -510,10 +510,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-17
-729
-176
-786
+8
+740
+167
+797
 Mean Days infected
 meanDaysInfected
 2
@@ -529,7 +529,7 @@ Superspreaders
 Superspreaders
 0
 100
-2.0
+10.0
 1
 1
 NIL
@@ -551,10 +551,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-15
-855
-175
-912
+8
+872
+168
+929
 % Total Infections
 numberInfected / Total_Population * 100
 2
@@ -599,7 +599,7 @@ Proportion_People_Avoid
 Proportion_People_Avoid
 0
 100
-80.0
+52.0
 .5
 1
 NIL
@@ -614,7 +614,7 @@ Proportion_Time_Avoid
 Proportion_Time_Avoid
 0
 100
-80.0
+52.0
 .5
 1
 NIL
@@ -1072,10 +1072,10 @@ mean [ expenditure ] of simuls with [ agerange >= 18 and agerange < 70 and color
 11
 
 MONITOR
-17
-665
-156
-710
+8
+674
+147
+719
 Count red simuls (raw)
 count simuls with [ color = red ]
 0
@@ -1152,7 +1152,7 @@ INPUTBOX
 1450
 152
 ppa
-80.0
+52.0
 1
 0
 Number
@@ -1163,7 +1163,7 @@ INPUTBOX
 1521
 152
 pta
-80.0
+52.0
 1
 0
 Number
@@ -1596,7 +1596,7 @@ Essential_Workers
 Essential_Workers
 0
 100
-20.0
+50.0
 1
 1
 NIL
@@ -1794,7 +1794,7 @@ SWITCH
 161
 SchoolPolicyActive
 SchoolPolicyActive
-1
+0
 1
 -1000
 
@@ -1833,7 +1833,7 @@ ResidualCautionPPA
 ResidualCautionPPA
 0
 100
-81.0
+52.0
 1
 1
 NIL
@@ -1848,7 +1848,7 @@ ResidualCautionPTA
 ResidualCautionPTA
 0
 100
-81.0
+52.0
 1
 1
 NIL
@@ -2206,12 +2206,12 @@ NIL
 0.0
 10.0
 true
-false
+true
 "" ""
 PENS
-"default" 1.0 0 -16777216 true "" "plot casesinperiod14"
-"pen-1" 1.0 0 -7500403 true "" "plot casesinperiod7"
-"pen-2" 1.0 0 -2674135 true "" "plot casesinperiod28"
+"7" 1.0 0 -16777216 true "" "plot casesinperiod7"
+"14" 1.0 0 -7500403 true "" "plot casesinperiod14"
+"28" 1.0 0 -2674135 true "" "plot casesinperiod28"
 
 INPUTBOX
 2310
@@ -2549,10 +2549,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-17
-610
-132
-655
+8
+619
+123
+664
 Undetected Cases
 count simuls with [ color = red and undetectedFlag = 1 ]
 0
@@ -2670,10 +2670,10 @@ BaseStage
 1
 
 MONITOR
-17
-558
-106
-603
+8
+568
+97
+613
 Mean ID Time
 meanIDTime
 1
@@ -2725,7 +2725,7 @@ RAND_SEED
 RAND_SEED
 0
 1000000
-290698.0
+744186.0
 1
 1
 NIL
@@ -2978,10 +2978,10 @@ PENS
 "default" 1.0 0 -16777216 true "" "plot transmission_count"
 
 TEXTBOX
-1402
-17
-1560
-105
+1398
+15
+1556
+103
 Stage Policy
 12
 0.0
@@ -2993,10 +2993,20 @@ INPUTBOX
 310
 457
 houseCases
-0.0
+4.0
 1
 0
 Number
+
+CHOOSER
+10
+508
+183
+553
+param_policy
+param_policy
+"AgggressElim" "ModerateElim" "TightSupress" "LooseSupress"
+0
 
 @#$#@#$#@
 ## WHAT IS IT?

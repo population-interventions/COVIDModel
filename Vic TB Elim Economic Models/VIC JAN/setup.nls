@@ -381,14 +381,16 @@ end
 ;;*******************************************************************************************************************************
 
 to setup
+  clear-all
+  
   setGlobals
   random-seed RAND_SEED ;; Read from a behaviourSpace variable.
 
   ;profiler:start
+  resetMetricAverages
 
   rngs:init
 
-  clear-all
   ;;import-drawing "Background1.png" ;; imports MSD image
 
   set days 0 ; used to count days

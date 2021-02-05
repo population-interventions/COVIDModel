@@ -287,25 +287,25 @@ NIL
 HORIZONTAL
 
 SLIDER
-1387
-53
-1520
-86
+1400
+55
+1533
+88
 Span
 Span
 0
 30
-15.0
+5.0
 1
 1
 NIL
 HORIZONTAL
 
 PLOT
-1747
-105
-2289
-337
+1754
+115
+2296
+347
 Susceptible, Infected and Recovered - 000's
 Days from March 10th
 Numbers of people
@@ -331,7 +331,7 @@ Illness_period
 Illness_period
 0
 25
-20.7
+21.2
 .1
 1
 NIL
@@ -355,10 +355,10 @@ NIL
 1
 
 SLIDER
-2670
-530
-2857
-563
+2662
+539
+2849
+572
 RestrictedMovement
 RestrictedMovement
 0
@@ -396,10 +396,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2668
-37
-2800
-70
+2660
+47
+2792
+80
 Available_Resources
 Available_Resources
 0
@@ -411,10 +411,10 @@ NIL
 HORIZONTAL
 
 PLOT
-2665
-234
-2962
-379
+2657
+244
+2954
+389
 Resource Availability
 NIL
 NIL
@@ -429,10 +429,10 @@ PENS
 "default" 1.0 1 -5298144 true "" "if count resources > 0 [ plot mean [ volume ] of resources ]"
 
 SLIDER
-2666
-454
-2855
-487
+2658
+464
+2847
+497
 ProductionRate
 ProductionRate
 0
@@ -444,10 +444,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-2494
-20
-2649
-77
+2487
+29
+2642
+86
 # simuls
 count simuls * (Total_Population / population)
 0
@@ -455,10 +455,10 @@ count simuls * (Total_Population / population)
 14
 
 MONITOR
-2103
-600
-2361
-645
+2117
+613
+2375
+658
 Bed Capacity Scaled for Australia at 65,000k
 count patches with [ pcolor = white ]
 0
@@ -495,10 +495,10 @@ PENS
 "default" 1.0 1 -2674135 true "" "plot mean [ anxiety ] of simuls"
 
 SLIDER
-2668
-653
-2855
-686
+2660
+663
+2847
+696
 Media_Exposure
 Media_Exposure
 1
@@ -521,25 +521,25 @@ meanDaysInfected
 14
 
 SLIDER
-1533
-418
-1715
-451
+1547
+420
+1729
+453
 Superspreaders
 Superspreaders
 0
 100
-10.0
+2.0
 1
 1
 NIL
 HORIZONTAL
 
 SLIDER
-2672
-605
-2857
-638
+2664
+614
+2849
+647
 Severity_of_illness
 Severity_of_illness
 0
@@ -562,10 +562,10 @@ numberInfected / Total_Population * 100
 14
 
 MONITOR
-2255
-13
-2385
-58
+2247
+23
+2377
+68
 Case Fatality Rate %
 caseFatalityRate * 100
 2
@@ -591,40 +591,40 @@ PENS
 "default" 1.0 0 -5298144 true "" "plot caseFatalityRate * 100"
 
 SLIDER
-1528
-54
-1710
-87
-Proportion_People_Avoid
-Proportion_People_Avoid
-0
-100
-24.0
-.5
-1
-NIL
-HORIZONTAL
-
-SLIDER
-1528
+1542
+57
+1724
 90
-1711
-123
-Proportion_Time_Avoid
-Proportion_Time_Avoid
+Proportion_People_Avoid
+Proportion_People_Avoid
 0
 100
-24.0
+90.0
 .5
 1
 NIL
 HORIZONTAL
 
 SLIDER
-2666
-414
-2856
-447
+1542
+92
+1725
+125
+Proportion_Time_Avoid
+Proportion_Time_Avoid
+0
+100
+90.0
+.5
+1
+NIL
+HORIZONTAL
+
+SLIDER
+2658
+424
+2848
+457
 Treatment_Benefit
 Treatment_Benefit
 0
@@ -636,10 +636,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2670
-490
-2857
-523
+2662
+499
+2849
+532
 FearTrigger
 FearTrigger
 0
@@ -673,10 +673,10 @@ policytriggeron
 -1000
 
 SLIDER
-2672
-569
-2857
-602
+2664
+579
+2849
+612
 Initial
 Initial
 0
@@ -688,10 +688,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-3553
-445
-3708
-502
+3552
+418
+3707
+475
 Financial Reserves
 mean [ reserves ] of simuls
 1
@@ -699,10 +699,10 @@ mean [ reserves ] of simuls
 14
 
 PLOT
-2130
-350
-2650
-471
+2125
+363
+2645
+484
 Estimated count of deceased across age ranges (not scaled)
 NIL
 NIL
@@ -717,10 +717,10 @@ PENS
 "default" 1.0 1 -2674135 true "" "Histogram [ agerange ] of simuls with [ color = black ] "
 
 PLOT
-2375
-460
-2644
-625
+2370
+473
+2639
+638
 Infection Proportional Growth Rate
 Time
 Growth rate
@@ -735,10 +735,10 @@ PENS
 "default" 1.0 0 -16777216 true "" "if ticks > 1 [ plot ( InfectionChange ) * 10 ]"
 
 MONITOR
-2496
-564
-2628
-609
+2488
+574
+2620
+619
 Infection Growth %
 infectionchange
 2
@@ -751,7 +751,7 @@ INPUTBOX
 310
 393
 current_cases
-1.0
+20.0
 1
 0
 Number
@@ -783,9 +783,9 @@ NIL
 HORIZONTAL
 
 MONITOR
-960
+963
 254
-1115
+1135
 299
 Close contacts per day
 AverageContacts
@@ -794,10 +794,10 @@ AverageContacts
 11
 
 PLOT
-2125
-847
-2315
-968
+2117
+857
+2307
+978
 Close contacts and Mobility
 NIL
 NIL
@@ -863,10 +863,10 @@ NIL
 HORIZONTAL
 
 PLOT
-2794
-82
-3086
-227
+2788
+90
+3080
+235
 Age ranges
 NIL
 NIL
@@ -945,10 +945,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1565
-15
-1709
-48
+1578
+17
+1722
+50
 Age_Isolation
 Age_Isolation
 0
@@ -978,10 +978,10 @@ PENS
 "Financial_Reserves" 1.0 0 -16777216 true "" "plot mean [ reserves] of simuls with [ color != black ]"
 
 SWITCH
-2664
-77
-2768
-110
+2657
+87
+2761
+120
 stimulus
 stimulus
 1
@@ -989,10 +989,10 @@ stimulus
 -1000
 
 SWITCH
-2664
-119
-2768
-152
+2657
+129
+2761
+162
 cruise
 cruise
 1
@@ -1000,10 +1000,10 @@ cruise
 -1000
 
 MONITOR
-3555
-511
-3708
-560
+3553
+484
+3706
+533
 Stimulus
 Sum [ value ] of packages * -1 * (Total_Population / Population )
 0
@@ -1039,10 +1039,10 @@ NIL
 1
 
 INPUTBOX
-3553
-376
-3708
-438
+3552
+349
+3707
+411
 days_of_cash_reserves
 30.0
 1
@@ -1050,10 +1050,10 @@ days_of_cash_reserves
 Number
 
 MONITOR
-2453
-658
-2538
-703
+2445
+668
+2530
+713
 Mean income
 mean [ income ] of simuls with [ agerange > 18 and agerange < 70 and color != black ]
 0
@@ -1061,10 +1061,10 @@ mean [ income ] of simuls with [ agerange > 18 and agerange < 70 and color != bl
 11
 
 MONITOR
-2547
-658
-2647
-703
+2539
+668
+2639
+713
 Mean Expenses
 mean [ expenditure ] of simuls with [ agerange >= 18 and agerange < 70 and color != black ]
 0
@@ -1083,10 +1083,10 @@ count simuls with [ color = red ]
 11
 
 SWITCH
-1495
-955
-1589
-988
+1739
+1089
+1833
+1122
 scale
 scale
 0
@@ -1147,32 +1147,32 @@ TEXTBOX
 1
 
 INPUTBOX
-1385
-92
-1450
-152
+1400
+94
+1465
+154
 ppa
-23.0
+90.0
 1
 0
 Number
 
 INPUTBOX
-1457
-92
-1521
-152
+1470
+94
+1534
+154
 pta
-23.0
+90.0
 1
 0
 Number
 
 PLOT
-2342
-847
-2657
-967
+2338
+860
+2653
+980
 Trust in Govt
 NIL
 NIL
@@ -1249,10 +1249,10 @@ Leave Freewheel to 'on' to manipulate policy on the fly
 1
 
 MONITOR
-2408
-30
-2488
-75
+2404
+43
+2484
+88
 NIL
 count simuls
 17
@@ -1275,10 +1275,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-1763
-938
-1917
-987
+1812
+957
+1966
+1006
 ICU Beds Needed
 ICUBedsRequired
 0
@@ -1286,10 +1286,10 @@ ICUBedsRequired
 12
 
 PLOT
-1758
-808
-2082
-932
+1764
+825
+2088
+949
 ICU Beds Available vs Required
 NIL
 NIL
@@ -1305,10 +1305,10 @@ PENS
 "Spare" 1.0 0 -5298144 true "" "plot ICU_Beds_in_Australia - ICUBedsRequired "
 
 SLIDER
-2450
-798
-2659
-831
+2445
+812
+2654
+845
 Mean_Individual_Income
 Mean_Individual_Income
 0
@@ -1350,10 +1350,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2668
-693
-2858
-726
+2660
+703
+2850
+736
 Bed_Capacity
 Bed_Capacity
 0
@@ -1365,10 +1365,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-2584
-732
-2648
-781
+2577
+742
+2641
+791
 Links
 count links / count simuls with [ color = red ]
 0
@@ -1376,10 +1376,10 @@ count links / count simuls with [ color = red ]
 12
 
 SWITCH
-1388
-374
-1522
-407
+1402
+377
+1536
+410
 link_switch
 link_switch
 0
@@ -1387,10 +1387,10 @@ link_switch
 -1000
 
 INPUTBOX
-2675
-810
-2830
-870
+2667
+819
+2822
+879
 maxv
 1.0
 1
@@ -1398,10 +1398,10 @@ maxv
 Number
 
 INPUTBOX
-2675
-880
-2830
-940
+2667
+889
+2822
+949
 minv
 0.0
 1
@@ -1409,10 +1409,10 @@ minv
 Number
 
 INPUTBOX
-2844
-947
-2999
-1007
+2837
+957
+2992
+1017
 phwarnings
 0.8
 1
@@ -1420,10 +1420,10 @@ phwarnings
 Number
 
 INPUTBOX
-2678
-949
-2833
-1009
+2670
+959
+2825
+1019
 saliency_of_experience
 1.0
 1
@@ -1431,10 +1431,10 @@ saliency_of_experience
 Number
 
 INPUTBOX
-2833
-743
-2988
-803
+2825
+753
+2980
+813
 care_attitude
 0.5
 1
@@ -1442,10 +1442,10 @@ care_attitude
 Number
 
 INPUTBOX
-2837
-810
-2992
-870
+2829
+819
+2984
+879
 self_capacity
 0.8
 1
@@ -1453,10 +1453,10 @@ self_capacity
 Number
 
 MONITOR
-2876
-408
-2990
-453
+2868
+418
+2982
+463
 Potential contacts
 PotentialContacts
 0
@@ -1464,10 +1464,10 @@ PotentialContacts
 11
 
 PLOT
-1752
-534
-2087
-657
+1758
+552
+2093
+675
 Distribution of Illness pd
 NIL
 NIL
@@ -1482,10 +1482,10 @@ PENS
 "default" 1.0 1 -16777216 true "" "histogram [ ownIllnessPeriod ] of simuls "
 
 INPUTBOX
-2872
-464
-3028
-525
+2864
+474
+3020
+535
 se_illnesspd
 4.0
 1
@@ -1493,10 +1493,10 @@ se_illnesspd
 Number
 
 INPUTBOX
-2872
-526
-3028
-587
+2864
+535
+3020
+596
 se_incubation
 2.25
 1
@@ -1504,10 +1504,10 @@ se_incubation
 Number
 
 PLOT
-1754
-672
-2092
-794
+1760
+689
+2098
+811
 Dist_Incubation_Pd
 NIL
 NIL
@@ -1540,10 +1540,10 @@ PENS
 "default" 1.0 1 -16777216 true "" "histogram [ owncompliancewithisolation ] of simuls"
 
 INPUTBOX
-2673
-744
-2828
-804
+2665
+754
+2820
+814
 initialassociationstrength
 0.0
 1
@@ -1551,10 +1551,10 @@ initialassociationstrength
 Number
 
 MONITOR
-2128
-787
-2193
-832
+1515
+672
+1580
+717
 Virulence
 mean [ personalvirulence] of simuls
 1
@@ -1577,10 +1577,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-2202
-787
-2258
-832
+2194
+797
+2250
+842
 A V
 mean [ personalvirulence ] of simuls with [ asymptom < AsymptomaticPercentage ]
 1
@@ -1588,15 +1588,15 @@ mean [ personalvirulence ] of simuls with [ asymptom < AsymptomaticPercentage ]
 11
 
 SLIDER
-1530
-258
-1708
-291
+1543
+260
+1721
+293
 Essential_Workers
 Essential_Workers
 0
 100
-50.0
+20.0
 1
 1
 NIL
@@ -1648,10 +1648,10 @@ NIL
 HORIZONTAL
 
 SWITCH
-1387
-417
-1524
-450
+1400
+419
+1537
+452
 tracking
 tracking
 0
@@ -1659,10 +1659,10 @@ tracking
 -1000
 
 SLIDER
-1530
-297
-1710
-330
+1543
+299
+1723
+332
 Mask_Wearing
 Mask_Wearing
 0
@@ -1674,13 +1674,13 @@ NIL
 HORIZONTAL
 
 SWITCH
-1387
-255
-1522
-288
+1400
+257
+1535
+290
 schoolsPolicy
 schoolsPolicy
-0
+1
 1
 -1000
 
@@ -1696,9 +1696,9 @@ mean [ householdunit ] of simuls
 11
 
 PLOT
-3098
+3100
 82
-3378
+3380
 230
 Infections by age range
 NIL
@@ -1740,10 +1740,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-617
-952
-780
-985
+960
+163
+1123
+196
 TTIncrease
 TTIncrease
 0
@@ -1755,10 +1755,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-2453
-744
-2569
-789
+2445
+754
+2561
+799
 Link Proportion
 count links with [ color = blue ] / count links with [ color = red ]
 1
@@ -1788,13 +1788,13 @@ studentInfections / 2500
 11
 
 SWITCH
-1532
-128
-1710
-161
+1545
+130
+1723
+163
 SchoolPolicyActive
 SchoolPolicyActive
-0
+1
 1
 -1000
 
@@ -1814,10 +1814,10 @@ NIL
 HORIZONTAL
 
 SWITCH
-1387
-333
-1521
-366
+1400
+335
+1534
+368
 MaskPolicy
 MaskPolicy
 0
@@ -1825,40 +1825,40 @@ MaskPolicy
 -1000
 
 SLIDER
-1533
-337
-1713
-370
+1547
+339
+1727
+372
 ResidualCautionPPA
 ResidualCautionPPA
 0
 100
-15.0
+81.0
 1
 1
 NIL
 HORIZONTAL
 
 SLIDER
-1533
-378
-1712
-411
+1547
+380
+1726
+413
 ResidualCautionPTA
 ResidualCautionPTA
 0
 100
-15.0
+81.0
 1
 1
 NIL
 HORIZONTAL
 
 SLIDER
-2839
-880
-2995
-913
+2832
+889
+2988
+922
 Case_Reporting_Delay
 Case_Reporting_Delay
 0
@@ -2073,10 +2073,10 @@ sum [ R ] of simuls with [ color != 85 and R > 2] / sum [ R ] of simuls with [ c
 11
 
 SLIDER
-327
+745
+942
 947
-529
-980
+975
 Asymptomatic_Trans
 Asymptomatic_Trans
 0
@@ -2125,10 +2125,10 @@ OS %
 11
 
 SLIDER
-1530
-219
-1707
-252
+1543
+222
+1720
+255
 OS_Import_Post_Proportion
 OS_Import_Post_Proportion
 0
@@ -2151,10 +2151,10 @@ currentinfections
 11
 
 MONITOR
-2206
-488
-2281
-533
+2198
+498
+2273
+543
 Illness time
 mean [ timenow ] of simuls with [ color = red ]
 1
@@ -2162,10 +2162,10 @@ mean [ timenow ] of simuls with [ color = red ]
 11
 
 MONITOR
-2279
-782
-2384
-843
+2272
+792
+2377
+853
 ICU Beds
 ICUBedsRequired
 0
@@ -2173,10 +2173,10 @@ ICUBedsRequired
 15
 
 SWITCH
-1387
-295
-1521
-328
+1400
+297
+1534
+330
 Complacency
 Complacency
 0
@@ -2184,10 +2184,10 @@ Complacency
 -1000
 
 CHOOSER
-1494
-900
-1587
+1502
 945
+1595
+990
 InitialScale
 InitialScale
 0 1 2 3 4
@@ -2214,10 +2214,10 @@ PENS
 "28" 1.0 0 -2674135 true "" "plot casesinperiod28"
 
 INPUTBOX
-2310
-88
-2390
-149
+2302
+98
+2382
+159
 zerotoone
 1.0
 1
@@ -2225,10 +2225,10 @@ zerotoone
 Number
 
 INPUTBOX
-2308
-152
-2388
-213
+2302
+160
+2382
+221
 onetotwo
 35.0
 1
@@ -2236,10 +2236,10 @@ onetotwo
 Number
 
 INPUTBOX
-2308
-215
-2391
-275
+2300
+224
+2383
+284
 twotothree
 56.0
 1
@@ -2247,10 +2247,10 @@ twotothree
 Number
 
 INPUTBOX
-2308
-275
-2390
-336
+2300
+284
+2382
+345
 threetofour
 210.0
 1
@@ -2299,10 +2299,10 @@ casesinperiod7
 11
 
 INPUTBOX
-2392
-85
-2474
-146
+2388
+98
+2470
+159
 JudgeDay1
 2.0
 1
@@ -2310,10 +2310,10 @@ JudgeDay1
 Number
 
 INPUTBOX
-2392
-154
-2475
-215
+2389
+167
+2472
+228
 JudgeDay2
 2.0
 1
@@ -2321,10 +2321,10 @@ JudgeDay2
 Number
 
 INPUTBOX
-2394
-215
-2476
-276
+2390
+228
+2472
+289
 JudgeDay3
 2.0
 1
@@ -2332,10 +2332,10 @@ JudgeDay3
 Number
 
 INPUTBOX
-2394
-278
-2476
-339
+2390
+292
+2472
+353
 JudgeDay4
 2.0
 1
@@ -2343,10 +2343,10 @@ JudgeDay4
 Number
 
 MONITOR
-1027
-305
-1137
-350
+2313
+684
+2423
+729
 Policy Reset Date
 ResetDate
 0
@@ -2354,10 +2354,10 @@ ResetDate
 11
 
 INPUTBOX
-2872
-592
-3028
-653
+2864
+602
+3020
+663
 UpperStudentAge
 18.0
 1
@@ -2365,10 +2365,10 @@ UpperStudentAge
 Number
 
 INPUTBOX
-2873
-663
-3029
-724
+2865
+673
+3021
+734
 LowerStudentAge
 4.0
 1
@@ -2376,9 +2376,9 @@ LowerStudentAge
 Number
 
 PLOT
-3397
+3399
 83
-3577
+3579
 233
 Objective Function
 NIL
@@ -2424,10 +2424,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-2208
-1217
-2291
-1262
+2200
+1227
+2283
+1272
 Green space
 count patches with [ pcolor = green ]
 0
@@ -2435,10 +2435,10 @@ count patches with [ pcolor = green ]
 11
 
 INPUTBOX
-2562
-90
-2635
-151
+2554
+99
+2627
+160
 onetozero
 0.0
 1
@@ -2446,10 +2446,10 @@ onetozero
 Number
 
 INPUTBOX
-2564
-152
-2636
-213
+2558
+160
+2630
+221
 twotoone
 1.0
 1
@@ -2457,10 +2457,10 @@ twotoone
 Number
 
 INPUTBOX
-2564
-216
-2634
-277
+2557
+225
+2627
+286
 threetotwo
 35.0
 1
@@ -2468,10 +2468,10 @@ threetotwo
 Number
 
 INPUTBOX
-2564
-276
-2636
-337
+2557
+285
+2629
+346
 fourtothree
 105.0
 1
@@ -2479,10 +2479,10 @@ fourtothree
 Number
 
 MONITOR
-203
-804
-285
-849
+207
+848
+289
+893
 Yellow (raw)
 count simuls with [ color = yellow ]
 0
@@ -2490,10 +2490,10 @@ count simuls with [ color = yellow ]
 11
 
 INPUTBOX
-2486
-92
-2556
-152
+2478
+102
+2548
+162
 JudgeDay1_d
 1.0
 1
@@ -2501,10 +2501,10 @@ JudgeDay1_d
 Number
 
 INPUTBOX
-2486
-152
-2560
-212
+2479
+160
+2553
+220
 Judgeday2_d
 1.0
 1
@@ -2512,10 +2512,10 @@ Judgeday2_d
 Number
 
 INPUTBOX
-2486
-216
-2563
-276
+2478
+225
+2555
+285
 Judgeday3_d
 1.0
 1
@@ -2523,10 +2523,10 @@ Judgeday3_d
 Number
 
 INPUTBOX
-2486
-280
-2561
-340
+2478
+289
+2553
+349
 Judgeday4_d
 1.0
 1
@@ -2534,15 +2534,15 @@ Judgeday4_d
 Number
 
 SLIDER
-1749
-55
-1929
-88
+530
+942
+728
+976
 Undetected_Proportion
 Undetected_Proportion
 0
 100
-0.0
+29.0
 1
 1
 NIL
@@ -2560,10 +2560,10 @@ count simuls with [ color = red and undetectedFlag = 1 ]
 11
 
 SLIDER
-2070
-57
-2243
-90
+2062
+67
+2235
+100
 Household_Attack
 Household_Attack
 0
@@ -2586,10 +2586,10 @@ count simuls with [ timenow = 2 ]
 11
 
 MONITOR
-2296
-492
-2361
-537
+2288
+502
+2353
+547
 Students
 count simuls with [ studentFlag = 1 ]
 0
@@ -2597,10 +2597,10 @@ count simuls with [ studentFlag = 1 ]
 11
 
 SLIDER
-1939
-57
-2058
-90
+328
+940
+517
+974
 IncursionRate
 IncursionRate
 0
@@ -2681,10 +2681,10 @@ meanIDTime
 11
 
 SLIDER
-2800
-36
-2973
-69
+2799
+45
+2972
+78
 GoldStandard
 GoldStandard
 0
@@ -2725,7 +2725,7 @@ RAND_SEED
 RAND_SEED
 0
 1000000
-744186.0
+523256.0
 1
 1
 NIL
@@ -2861,10 +2861,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-1622
-168
-1710
-213
+1503
+898
+1591
+943
 NIL
 contact_radius
 17
@@ -2872,10 +2872,10 @@ contact_radius
 11
 
 MONITOR
-1387
-155
-1524
-200
+1400
+157
+1537
+202
 NIL
 spatial_distance
 17
@@ -2883,10 +2883,10 @@ spatial_distance
 11
 
 MONITOR
-1388
-205
-1522
-250
+1402
+207
+1536
+252
 NIL
 case_isolation
 17
@@ -2894,10 +2894,10 @@ case_isolation
 11
 
 MONITOR
-1529
-168
-1613
-213
+1543
+170
+1720
+215
 NIL
 quarantine
 17
@@ -2916,10 +2916,10 @@ AsymptomaticPercentage
 11
 
 MONITOR
-794
-950
-948
-995
+962
+202
+1134
+247
 NIL
 Track_and_Trace_Efficiency
 17
@@ -2938,10 +2938,10 @@ stage
 11
 
 MONITOR
-1515
-720
-1650
-765
+1613
+569
+1748
+614
 NIL
 transmission_average
 17
@@ -2949,10 +2949,10 @@ transmission_average
 11
 
 MONITOR
-1388
-719
-1508
-764
+1627
+515
+1747
+560
 NIL
 transmission_count
 17
@@ -2960,10 +2960,10 @@ transmission_count
 11
 
 PLOT
-1747
-353
-2090
-525
+1758
+363
+2101
+535
 Potential transmission interactions per day
 NIL
 NIL
@@ -2978,11 +2978,11 @@ PENS
 "default" 1.0 0 -16777216 true "" "plot transmission_count"
 
 TEXTBOX
-1398
-15
-1556
-103
-Stage Policy
+1412
+27
+1536
+60
+Stage Policy Settings
 12
 0.0
 1
@@ -2993,7 +2993,7 @@ INPUTBOX
 310
 457
 houseCases
-4.0
+80.0
 1
 0
 Number
@@ -3005,8 +3005,8 @@ CHOOSER
 553
 param_policy
 param_policy
-"AgggressElim" "ModerateElim" "TightSupress" "LooseSupress"
-0
+"AgggressElim" "ModerateElim" "TightSupress" "LooseSupress" "None"
+2
 
 @#$#@#$#@
 ## WHAT IS IT?

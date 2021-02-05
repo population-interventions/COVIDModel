@@ -410,7 +410,8 @@ to go
   ;seedCases
   
   ;; ensures that policies are enacted if their master switches are set to true at the time of the policy switch turning on (?)
-  turnOnTracking
+  ;turnOnTracking
+  
   ;; counts infections among Essential workers
   countEWInfections
   ;; counts infections among school students

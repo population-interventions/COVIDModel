@@ -118,7 +118,7 @@ to policy_tight_supress
   )
   
   if decisionDate + 20 <= ticks [
-    (if stage >= 0 and casesinperiod7 > 2.5 * total_population / 1000000 * 7
+    (if stage >= 1 and casesinperiod7 < 2.5 * total_population / 1000000 * 7
       [
         set stage stage - 1
         if stage = 1 [
@@ -150,7 +150,7 @@ to policy_loose_supress
   )
   
   if decisionDate + 20 <= ticks [
-    (if stage >= 0 and casesinperiod7 > 12.5 * total_population / 1000000 * 7
+    (if stage >= 1 and casesinperiod7 < 12.5 * total_population / 1000000 * 7
       [
         set stage stage - 1
         if stage = 1 [

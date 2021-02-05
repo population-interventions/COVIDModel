@@ -230,12 +230,6 @@ to resetMetricAverages
   ]
   set transmission_count 0
   set transmission_sum 0
-  
-  set infectivity_hist temp_infectivity_hist
-  if not is-list? infectivity_hist [
-    set infectivity_hist []
-  ]
-  set temp_infectivity_hist []
 end
 
 

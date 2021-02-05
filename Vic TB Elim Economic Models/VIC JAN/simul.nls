@@ -160,7 +160,6 @@ to simul_record_patch_infectiveness
     ;print ownMaskEfficacy
     ;print Asymptomatic_Trans
     ;print localInfectiveness
-    set temp_infectivity_hist lput localInfectiveness temp_infectivity_hist
     
     let myPatch patch-here
     ask myPatch [

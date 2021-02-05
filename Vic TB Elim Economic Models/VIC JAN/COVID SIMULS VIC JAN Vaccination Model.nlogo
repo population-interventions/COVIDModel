@@ -113,8 +113,6 @@ globals [
   transmission_count
   transmission_sum
   transmission_average
-  infectivity_hist
-  temp_infectivity_hist
 
   ; Vaccine phase and subphase, as well as internal index and data table.
   global_vaccinePhase
@@ -134,7 +132,6 @@ globals [
   M
   BetaillnessPd
   S
-
 
   ;; log transform incubation period variables
   Incubation_PeriodVariance
@@ -180,13 +177,13 @@ patches-own [
 ]
 @#$#@#$#@
 GRAPHICS-WINDOW
-325
-67
-955
-901
+323
+62
+947
+889
 -1
 -1
-8.13115
+10.1
 1
 10
 1
@@ -241,10 +238,10 @@ NIL
 1
 
 BUTTON
-209
-245
-306
-279
+212
+240
+309
+274
 Trace_Patterns
 ask n-of 50 simuls with [ color != black ] [ pen-down ] 
 NIL
@@ -258,10 +255,10 @@ NIL
 1
 
 BUTTON
-205
-285
-305
-319
+210
+280
+310
+314
 UnTrace
 ask turtles [ pen-up ]
 NIL
@@ -376,7 +373,7 @@ MONITOR
 15
 793
 177
-851
+850
 Deaths
 Deathcount
 0
@@ -469,10 +466,10 @@ count patches with [ pcolor = white ]
 11
 
 MONITOR
-1390
-610
-1548
-667
+1392
+508
+1550
+565
 Total # Infected
 numberInfected
 0
@@ -524,15 +521,15 @@ meanDaysInfected
 14
 
 SLIDER
-1537
+1533
 418
-1719
-452
+1715
+451
 Superspreaders
 Superspreaders
 0
 100
-0.0
+2.0
 1
 1
 NIL
@@ -557,7 +554,7 @@ MONITOR
 15
 855
 175
-913
+912
 % Total Infections
 numberInfected / Total_Population * 100
 2
@@ -602,7 +599,7 @@ Proportion_People_Avoid
 Proportion_People_Avoid
 0
 100
-88.0
+89.0
 .5
 1
 NIL
@@ -617,7 +614,7 @@ Proportion_Time_Avoid
 Proportion_Time_Avoid
 0
 100
-88.0
+89.0
 .5
 1
 NIL
@@ -786,10 +783,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-963
-250
-1118
-295
+960
+254
+1115
+299
 Close contacts per day
 AverageContacts
 2
@@ -885,9 +882,9 @@ PENS
 
 PLOT
 957
-750
+740
 1373
-1006
+996
 Active (red) and Total (blue) Infections ICU Beds (black)
 NIL
 NIL
@@ -905,9 +902,9 @@ PENS
 
 MONITOR
 1394
-553
+575
 1547
-602
+624
 New Infections Today
 DailyCases
 0
@@ -916,9 +913,9 @@ DailyCases
 
 PLOT
 958
-500
+490
 1375
-620
+610
 New Infections Per Day
 NIL
 NIL
@@ -951,7 +948,7 @@ SLIDER
 1565
 15
 1709
-49
+48
 Age_Isolation
 Age_Isolation
 0
@@ -1086,10 +1083,10 @@ count simuls with [ color = red ]
 11
 
 SWITCH
-1599
-823
-1704
-856
+1390
+965
+1495
+998
 scale
 scale
 0
@@ -1097,10 +1094,10 @@ scale
 -1000
 
 MONITOR
-332
-14
-390
-59
+890
+13
+948
+58
 NIL
 Days
 17
@@ -1140,10 +1137,10 @@ Day 1 - Dec 21st, 2020
 1
 
 TEXTBOX
-1392
-879
-1607
-972
+1395
+878
+1610
+971
 0 - 2,500 Population\n1 - 25,000 \n2 - 250,000\n3 - 2,500,000\n4 - 25,000,000
 12
 0.0
@@ -1220,10 +1217,10 @@ NIL
 HORIZONTAL
 
 SWITCH
-1598
-860
-1722
-893
+1830
+1310
+1954
+1343
 lockdown_off
 lockdown_off
 0
@@ -1231,10 +1228,10 @@ lockdown_off
 -1000
 
 SWITCH
-1597
-898
-1706
-931
+1828
+1224
+1937
+1257
 freewheel
 freewheel
 1
@@ -1242,10 +1239,10 @@ freewheel
 -1000
 
 TEXTBOX
-1933
-960
-2110
-998
+1827
+1177
+2004
+1215
 Leave Freewheel to 'on' to manipulate policy on the fly
 12
 0.0
@@ -1278,10 +1275,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-1752
-944
-1906
-993
+1763
+938
+1917
+987
 ICU Beds Needed
 ICUBedsRequired
 0
@@ -1289,10 +1286,10 @@ ICUBedsRequired
 12
 
 PLOT
-1747
-814
-2071
-938
+1758
+808
+2082
+932
 ICU Beds Available vs Required
 NIL
 NIL
@@ -1591,10 +1588,10 @@ mean [ personalvirulence ] of simuls with [ asymptom < AsymptomaticPercentage ]
 11
 
 SLIDER
-1535
+1530
 258
-1713
-292
+1708
+291
 Essential_Workers
 Essential_Workers
 0
@@ -1654,7 +1651,7 @@ SWITCH
 1387
 417
 1524
-451
+450
 tracking
 tracking
 0
@@ -1662,10 +1659,10 @@ tracking
 -1000
 
 SLIDER
-1535
+1530
 297
-1715
-331
+1710
+330
 Mask_Wearing
 Mask_Wearing
 0
@@ -1688,10 +1685,10 @@ schoolsPolicy
 -1000
 
 MONITOR
-400
-14
-472
-59
+804
+13
+876
+58
 Household
 mean [ householdunit ] of simuls
 1
@@ -1828,10 +1825,10 @@ MaskPolicy
 -1000
 
 SLIDER
-1537
+1533
 337
-1717
-371
+1713
+370
 ResidualCautionPPA
 ResidualCautionPPA
 0
@@ -1843,10 +1840,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1537
+1533
 378
-1716
-412
+1712
+411
 ResidualCautionPTA
 ResidualCautionPTA
 0
@@ -2128,10 +2125,10 @@ OS %
 11
 
 SLIDER
-1535
-220
-1712
-253
+1530
+219
+1707
+252
 OS_Import_Post_Proportion
 OS_Import_Post_Proportion
 0
@@ -2187,9 +2184,9 @@ Complacency
 -1000
 
 CHOOSER
-1485
+1484
 905
-1578
+1577
 950
 InitialScale
 InitialScale
@@ -2198,9 +2195,9 @@ InitialScale
 
 PLOT
 959
-359
-1368
-482
+360
+1374
+484
 New cases in last 7, 14, 28 days
 NIL
 NIL
@@ -2261,10 +2258,10 @@ threetofour
 Number
 
 SWITCH
-1597
-940
-1709
-973
+1828
+1265
+1940
+1298
 SelfGovern
 SelfGovern
 0
@@ -2273,9 +2270,9 @@ SelfGovern
 
 PLOT
 957
-625
+615
 1374
-745
+735
 Stage (red) and Scale (blue)
 NIL
 NIL
@@ -2637,10 +2634,10 @@ Isolate
 -1000
 
 SLIDER
-329
-912
-517
-945
+324
+900
+512
+933
 Mask_Efficacy_Discount
 Mask_Efficacy_Discount
 0
@@ -2655,7 +2652,7 @@ SWITCH
 432
 1089
 585
-1123
+1122
 Vaccine_Available
 Vaccine_Available
 0
@@ -2699,10 +2696,10 @@ NIL
 HORIZONTAL
 
 CHOOSER
-1570
-622
-1709
-667
+1577
+613
+1716
+658
 MaxStage
 MaxStage
 0 1 2 3 4
@@ -2941,10 +2938,10 @@ stage
 11
 
 MONITOR
-1517
-714
-1652
-759
+1519
+719
+1654
+764
 NIL
 transmission_average
 17
@@ -2952,33 +2949,15 @@ transmission_average
 11
 
 MONITOR
-1388
-712
-1508
-757
+1390
+717
+1510
+762
 NIL
 transmission_count
 17
 1
 11
-
-PLOT
-1397
-490
-1717
-610
-currentVirulence of infective
-NIL
-NIL
-0.0
-0.2
-0.0
-10.0
-true
-false
-"" ""
-PENS
-"default" 0.01 1 -16777216 true "" "histogram infectivity_hist"
 
 PLOT
 1747
@@ -2999,10 +2978,10 @@ PENS
 "default" 1.0 0 -16777216 true "" "plot transmission_count"
 
 TEXTBOX
-1392
-13
-1549
-53
+1402
+17
+1560
+105
 Stage Policy
 12
 0.0

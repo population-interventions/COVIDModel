@@ -245,13 +245,13 @@ to go
     ;; Move around, or not. It's random.
     simul_move
   ]
-  ;; Patches update the flag that sets whether they have a simulant on them. TODO, update this on the fly.
+  ;; Patches update the flag that sets whether they have a simulant on them.
   ask simuls [
     simul_update_patch_utilisation
   ]
   
   ;; Simulants avoid people if social distancing is enabled, and they are not essential workers (or have some other reason to be in a crowd)
-  ;; Note that simulants can effect each other in this stage. TODO, take a closer look at what happens here.
+  ;; Note that simulants can effect each other in this stage.
   ask simuls [
     simul_avoid
   ]

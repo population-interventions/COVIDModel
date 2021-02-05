@@ -142,9 +142,19 @@ to simul_move_to_empty_patch
   let movePatch one-of neighbors with [ utilisation = 0 or lastUtilUpdate < ticks ]
   if is-patch? movePatch [
     move-to movePatch
+    ;print "movePatch"
+    ;print movePatch
     ask movePatch [
+      ;print "utilisation"
+      ;print utilisation
+      ;print lastUtilUpdate
+      ;print ticks
       set utilisation 1
       set lastUtilUpdate ticks
+    ]
+    set moveCount moveCount + 1
+    if any? other simuls-here [
+      set foundUseCount foundUseCount + 1
     ]
   ]
 end
@@ -281,6 +291,7 @@ to simul_avoid_student
   ;; and people from your own household
   [
     move-to one-of simuls with [ essentialworkerflag = 1 or householdUnit = [ householdUnit ] of myself or studentFlag = 1 ]
+    simul_update_patch_utilisation
   ]
 end
 
@@ -313,6 +324,7 @@ to simul_avoid
       set heading heading + contact_Radius fd random pace
       simul_avoidICUs
       move-to patch-here
+      simul_update_patch_utilisation
   ])
   
   if studentFlag = 1 and global_schoolActive [

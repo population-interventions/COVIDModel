@@ -219,6 +219,12 @@ to resetMetricAverages
   ]
   set transmission_count 0
   set transmission_sum 0
+  
+  print "moveCount"
+  print moveCount
+  print foundUseCount
+  set moveCount 0
+  set foundUseCount 0
 end
 
 
@@ -245,6 +251,7 @@ to go
     ;; Move around, or not. It's random.
     simul_move
   ]
+  
   ;; Patches update the flag that sets whether they have a simulant on them.
   ask simuls [
     simul_update_patch_utilisation

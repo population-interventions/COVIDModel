@@ -113,6 +113,8 @@ globals [
   transmission_count
   transmission_sum
   transmission_average
+  moveCount
+  foundUseCount
 
   ; Vaccine phase and subphase, as well as internal index and data table.
   global_vaccinePhase
@@ -2538,7 +2540,7 @@ SLIDER
 530
 942
 728
-976
+975
 Undetected_Proportion
 Undetected_Proportion
 0
@@ -2601,7 +2603,7 @@ SLIDER
 328
 940
 517
-974
+973
 IncursionRate
 IncursionRate
 0

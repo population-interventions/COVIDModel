@@ -1,7 +1,9 @@
 Figure out whether there should be a non-infective period at the start of covid.
 Check up on the ICU. I've seen ICU beds go pretty weird.
 Look into the tracking and tracing system. It seems very complex.
-Check up on what people do to avoid each other. Keep a lookout for order effects.
 Figure out how simul_visitDestination works and why.
-Look into scaling because that seems like a good place for bugs. Why are so many parameters resampled at this point?
 Check whether dead people are really dead. They are moved to a particular patch, but does this actually ensure they won't interact with people?
+
+Report on the fact that avoiding only worked about 50% of the time.
+Ask questions about how essential workers should behave.
+Ask questions about schools.

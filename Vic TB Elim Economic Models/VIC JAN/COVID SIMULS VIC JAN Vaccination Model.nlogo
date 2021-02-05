@@ -113,8 +113,6 @@ globals [
   transmission_count
   transmission_sum
   transmission_average
-  moveCount
-  foundUseCount
 
   ; Vaccine phase and subphase, as well as internal index and data table.
   global_vaccinePhase
@@ -175,8 +173,7 @@ patches-own [
   destination ;; indicator of whether this location is a place that people might gather
   lastInfectionUpdate ;; Update indicator for stale simulantCount data
   infectionList ;; List of infectivities of simulants on the patch
-  utilisation ;; indicator of whether any people are located on that patch of the environment or not
-  lastUtilUpdate ;; Last tick that the patch had its utilisation updated
+  lastUtilTime ;; Last tick that the patch was occupied
 ]
 @#$#@#$#@
 GRAPHICS-WINDOW
@@ -298,7 +295,7 @@ Span
 Span
 0
 30
-30.0
+5.0
 1
 1
 NIL
@@ -532,7 +529,7 @@ Superspreaders
 Superspreaders
 0
 100
-10.0
+2.0
 1
 1
 NIL
@@ -602,7 +599,7 @@ Proportion_People_Avoid
 Proportion_People_Avoid
 0
 100
-0.0
+89.0
 .5
 1
 NIL
@@ -617,7 +614,7 @@ Proportion_Time_Avoid
 Proportion_Time_Avoid
 0
 100
-0.0
+89.0
 .5
 1
 NIL
@@ -1155,7 +1152,7 @@ INPUTBOX
 1465
 154
 ppa
-0.0
+88.0
 1
 0
 Number
@@ -1166,7 +1163,7 @@ INPUTBOX
 1534
 154
 pta
-0.0
+88.0
 1
 0
 Number
@@ -1385,7 +1382,7 @@ SWITCH
 410
 link_switch
 link_switch
-1
+0
 1
 -1000
 
@@ -1599,7 +1596,7 @@ Essential_Workers
 Essential_Workers
 0
 100
-100.0
+20.0
 1
 1
 NIL
@@ -1644,7 +1641,7 @@ App_Uptake
 App_Uptake
 0
 100
-20.0
+30.0
 1
 1
 NIL
@@ -1657,7 +1654,7 @@ SWITCH
 452
 tracking
 tracking
-1
+0
 1
 -1000
 
@@ -1670,7 +1667,7 @@ Mask_Wearing
 Mask_Wearing
 0
 100
-50.0
+90.0
 1
 1
 NIL
@@ -1683,7 +1680,7 @@ SWITCH
 290
 schoolsPolicy
 schoolsPolicy
-0
+1
 1
 -1000
 
@@ -1797,7 +1794,7 @@ SWITCH
 163
 SchoolPolicyActive
 SchoolPolicyActive
-0
+1
 1
 -1000
 
@@ -1836,7 +1833,7 @@ ResidualCautionPPA
 ResidualCautionPPA
 0
 100
-0.0
+81.0
 1
 1
 NIL
@@ -1851,7 +1848,7 @@ ResidualCautionPTA
 ResidualCautionPTA
 0
 100
-0.0
+81.0
 1
 1
 NIL
@@ -3009,7 +3006,7 @@ CHOOSER
 param_policy
 param_policy
 "AgggressElim" "ModerateElim" "TightSupress" "LooseSupress" "None"
-2
+1
 
 @#$#@#$#@
 ## WHAT IS IT?

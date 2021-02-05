@@ -139,22 +139,11 @@ to simul_avoidICUs
 end
 
 to simul_move_to_empty_patch
-  let movePatch one-of neighbors with [ utilisation = 0 or lastUtilUpdate < ticks ]
+  let movePatch one-of neighbors with [ lastUtilTime < ticks ]
   if is-patch? movePatch [
     move-to movePatch
-    ;print "movePatch"
-    ;print movePatch
     ask movePatch [
-      ;print "utilisation"
-      ;print utilisation
-      ;print lastUtilUpdate
-      ;print ticks
-      set utilisation 1
-      set lastUtilUpdate ticks
-    ]
-    set moveCount moveCount + 1
-    if any? other simuls-here [
-      set foundUseCount foundUseCount + 1
+      set lastUtilTime ticks
     ]
   ]
 end
@@ -196,8 +185,7 @@ end
 to simul_update_patch_utilisation
   let myPatch patch-here
   ask myPatch [
-    set utilisation 1
-    set lastUtilUpdate ticks
+    set lastUtilTime ticks
   ]
 end
 

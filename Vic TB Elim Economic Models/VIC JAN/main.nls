@@ -220,11 +220,11 @@ to resetMetricAverages
   set transmission_count 0
   set transmission_sum 0
   
-  print "moveCount"
-  print moveCount
-  print foundUseCount
-  set moveCount 0
-  set foundUseCount 0
+  ;print "moveCount"
+  ;print moveCount
+  ;print foundUseCount
+  ;set moveCount 0
+  ;set foundUseCount 0
 end
 
 

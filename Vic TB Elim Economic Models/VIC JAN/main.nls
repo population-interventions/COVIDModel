@@ -241,6 +241,8 @@ to go
   ;; these funtions get called each time-step
   
   resetMetricAverages
+  ;; Set a list of policy parameters (span (speed), tracking, mask_wearning etc..) based on current stage and stage reset timers
+  setupstages
   
   vaccine_update
   set global_schoolActive policyTriggerOn = true and freewheel = false and schoolsPolicy = true and ticks >= triggerday + SchoolReturnDate
@@ -335,8 +337,6 @@ to go
   ;  movepackages
   ;]
 
-  ;; Set a list of policy parameters (span (speed), tracking, mask_wearning etc..) based on current stage and stage reset timers
-  setupstages
   ;; stops the model if the following criteria are met - no more infected people in the simulation and it has run for at least 10 days, only if freewheel = true.
   finished
   ;CruiseShip

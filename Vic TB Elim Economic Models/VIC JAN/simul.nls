@@ -146,7 +146,7 @@ to simul_record_patch_infectiveness
   if color = red and currentVirulence > 0 [
     let localInfectiveness currentVirulence
     if wearingMask = 1 [
-      set localInfectiveness (localInfectiveness * (1 - ownMaskEfficacy))
+      set localInfectiveness (localInfectiveness * (1 - ownMaskEfficacy)) * Mask_Efficacy_Mult
     ]
     if asymptomaticFlag = 1 [
       set localInfectiveness (localInfectiveness * Asymptomatic_Trans)
@@ -176,7 +176,7 @@ to simul_infect
   if color = cyan [
     let mySucceptibility 1
     if wearingMask = 1 [
-      set mySucceptibility (mySucceptibility * (1 - ownMaskEfficacy))
+      set mySucceptibility (mySucceptibility * (1 - ownMaskEfficacy)) * Mask_Efficacy_Mult
     ]
     if vaccinated = 1 [
       set mySucceptibility (mySucceptibility * (1 - selfVaccEffectiveness))

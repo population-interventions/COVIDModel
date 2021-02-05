@@ -599,7 +599,7 @@ Proportion_People_Avoid
 Proportion_People_Avoid
 0
 100
-52.0
+24.0
 .5
 1
 NIL
@@ -614,7 +614,7 @@ Proportion_Time_Avoid
 Proportion_Time_Avoid
 0
 100
-52.0
+24.0
 .5
 1
 NIL
@@ -930,10 +930,10 @@ PENS
 "New Cases" 1.0 1 -5298144 true "" "if scalephase = 0 [ plot count simuls with [ color = red and timenow = Case_Reporting_Delay ] ]"
 
 SLIDER
-207
-1145
-407
-1178
+528
+902
+728
+935
 Diffusion_Adjustment
 Diffusion_Adjustment
 1
@@ -1086,7 +1086,7 @@ SWITCH
 1495
 955
 1589
-989
+988
 scale
 scale
 0
@@ -1152,7 +1152,7 @@ INPUTBOX
 1450
 152
 ppa
-52.0
+23.0
 1
 0
 Number
@@ -1163,7 +1163,7 @@ INPUTBOX
 1521
 152
 pta
-52.0
+23.0
 1
 0
 Number
@@ -1570,7 +1570,7 @@ Global_Transmissability
 Global_Transmissability
 0
 100
-40.0
+18.0
 1
 1
 NIL
@@ -1641,7 +1641,7 @@ App_Uptake
 App_Uptake
 0
 100
-100.0
+30.0
 1
 1
 NIL
@@ -1740,10 +1740,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1489
-1203
-1652
-1236
+617
+952
+780
+985
 TTIncrease
 TTIncrease
 0
@@ -1833,7 +1833,7 @@ ResidualCautionPPA
 ResidualCautionPPA
 0
 100
-52.0
+15.0
 1
 1
 NIL
@@ -1848,7 +1848,7 @@ ResidualCautionPTA
 ResidualCautionPTA
 0
 100
-52.0
+15.0
 1
 1
 NIL
@@ -2073,10 +2073,10 @@ sum [ R ] of simuls with [ color != 85 and R > 2] / sum [ R ] of simuls with [ c
 11
 
 SLIDER
-195
-1208
-397
-1241
+327
+947
+529
+980
 Asymptomatic_Trans
 Asymptomatic_Trans
 0
@@ -2623,10 +2623,10 @@ DecisionDate
 11
 
 SWITCH
-323
-1089
-427
-1122
+1630
+1268
+1734
+1301
 Isolate
 Isolate
 0
@@ -2638,21 +2638,21 @@ SLIDER
 900
 512
 933
-Mask_Efficacy_Discount
-Mask_Efficacy_Discount
+Mask_Efficacy_Mult
+Mask_Efficacy_Mult
 0
-1
-0.51
+3
+2.45
 .01
 1
 NIL
 HORIZONTAL
 
 SWITCH
-432
-1089
-585
-1122
+1628
+1310
+1781
+1343
 Vaccine_Available
 Vaccine_Available
 0
@@ -2660,10 +2660,10 @@ Vaccine_Available
 -1000
 
 CHOOSER
-1575
-553
-1714
-598
+1604
+823
+1743
+868
 BaseStage
 BaseStage
 0 1 2 3 4
@@ -2696,10 +2696,10 @@ NIL
 HORIZONTAL
 
 CHOOSER
-1577
-613
-1716
-658
+1605
+878
+1744
+923
 MaxStage
 MaxStage
 0 1 2 3 4
@@ -2916,10 +2916,10 @@ AsymptomaticPercentage
 11
 
 MONITOR
-1327
-1222
-1481
-1267
+794
+950
+948
+995
 NIL
 Track_and_Trace_Efficiency
 17

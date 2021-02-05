@@ -1,4 +1,150 @@
 
+
+;;**************************************************************************************************************************************************************************************************************
+;; this section for Tony
+
+to do_stages_tony
+  if stage = 0 [
+    set span 30
+    set pta 0
+    set ppa 0
+    set spatial_distance false
+    set age_isolation 0
+    set case_isolation false
+    set schoolsPolicy true
+    set quarantine true
+    set schoolPolicyActive true
+    set OS_Import_Proportion 0
+    set link_switch false
+    set Essential_Workers 100
+    set maskPolicy true
+    set mask_wearing 50
+    set tracking false
+    set App_Uptake 20
+    set residualcautionPTA 0
+    set residualcautionPPA 0
+    set proportion_people_avoid ppa
+    set proportion_time_avoid pta
+    set complacency true
+    set superspreaders 10
+    ; Does nothing
+    ;set upperStudentAge 18
+    ;set LowerStudentAge 3
+  ]
+
+  if stage = 1 [
+    set span 30
+    set pta 15
+    set ppa 15
+    set spatial_distance true
+    set age_isolation 0
+    set case_isolation true
+    set schoolsPolicy true
+    set quarantine true
+    set schoolPolicyActive true
+    set OS_Import_Proportion 0
+    set link_switch true
+    set Essential_Workers 75
+    set maskPolicy true
+    set mask_wearing 90
+    set tracking true
+    set App_Uptake 30
+    set residualcautionPTA 12
+    set residualcautionPPA 12
+    set proportion_people_avoid ppa
+    set proportion_time_avoid pta
+    set complacency true
+    set superspreaders 10
+    ; Does nothing
+    ;set upperStudentAge 18
+    ;set LowerStudentAge 3
+  ]
+
+  if stage = 2 [
+    set span 15
+    set pta 25
+    set ppa 25
+    set spatial_distance true
+    set age_isolation 0
+    set case_isolation true
+    set schoolsPolicy true
+    set quarantine true
+    set schoolPolicyActive true
+    set OS_Import_Proportion 0
+    set link_switch true
+    set Essential_Workers 50
+    set maskPolicy true
+    set mask_wearing 90
+    set tracking true
+    set App_Uptake 30
+    set residualcautionPTA 15
+    set residualcautionPPA 15
+    set proportion_people_avoid ppa
+    set proportion_time_avoid pta
+    set complacency true
+    set superspreaders 10
+    ; Does nothing
+    ;set upperStudentAge 18
+    ;set LowerStudentAge 3
+  ]
+
+  if stage = 3 [
+    set span 10
+    set pta 80
+    set ppa 80
+    set spatial_distance true
+    set age_isolation 0
+    set case_isolation true
+    set schoolsPolicy false
+    set quarantine true
+    set schoolPolicyActive false
+    set OS_Import_Proportion 0
+    set link_switch true
+    set Essential_Workers 30
+    set maskPolicy true
+    set mask_wearing 90
+    set tracking true
+    set App_Uptake 30
+    set residualcautionPTA 64
+    set residualcautionPPA 64
+    set proportion_people_avoid ppa
+    set proportion_time_avoid pta
+    set complacency true
+    set superspreaders 5
+    ; Does nothing
+    ;set upperStudentAge 16
+    ;set LowerStudentAge 3
+  ]
+
+  if stage = 4 [
+    set span 5
+    set pta 90
+    set ppa 90
+    set spatial_distance true
+    set age_isolation 0
+    set case_isolation true
+    set schoolsPolicy false
+    set quarantine true
+    set schoolPolicyActive false
+    set OS_Import_Proportion 0
+    set link_switch true
+    set Essential_Workers 20
+    set maskPolicy true
+    set mask_wearing 90
+    set tracking true
+    set App_Uptake 30
+    set residualcautionPTA 81
+    set residualcautionPPA 81
+    set proportion_people_avoid ppa
+    set proportion_time_avoid pta
+    set complacency true
+    set superspreaders 2
+    ; Does nothing
+    ;set upperStudentAge 18
+    ;set LowerStudentAge 0
+  ] ;; check student age update
+end
+
  ;;; *******************************************************************************************************************************************************************************************************
  ;; This section for 28-9-20
 
@@ -164,146 +310,6 @@ to do_stages_28_9_20
     set LowerStudentAge 0
     set superspreaders 2
   ] ;;
-end
-
-;;**************************************************************************************************************************************************************************************************************
-;; this section for Tony
-
-to do_stages_tony
-  if stage = 0 [
-    set span 30
-    set pta 0
-    set ppa 0
-    set spatial_distance false
-    set age_isolation 0
-    set case_isolation false
-    set schoolsPolicy true
-    set quarantine true
-    set schoolPolicyActive true
-    set OS_Import_Proportion 0
-    set link_switch false
-    set Essential_Workers 100
-    set maskPolicy true
-    set mask_wearing 50
-    set tracking false
-    set App_Uptake 20
-    set residualcautionPTA 0
-    set residualcautionPPA 0
-    set proportion_people_avoid ppa
-    set proportion_time_avoid pta
-    set complacency true
-    set upperStudentAge 18
-    set LowerStudentAge 3
-    set superspreaders 10
-  ]
-
-  if stage = 1 [
-    set span 30
-    set pta 15
-    set ppa 15
-    set spatial_distance true
-    set age_isolation 0
-    set case_isolation true
-    set schoolsPolicy true
-    set quarantine true
-    set schoolPolicyActive true
-    set OS_Import_Proportion 0
-    set link_switch true
-    set Essential_Workers 75
-    set maskPolicy true
-    set mask_wearing 90
-    set tracking true
-    set App_Uptake 30
-    set residualcautionPTA 12
-    set residualcautionPPA 12
-    set proportion_people_avoid ppa
-    set proportion_time_avoid pta
-    set complacency true
-    set upperStudentAge 18
-    set LowerStudentAge 3
-    set superspreaders 10
-  ]
-
-  if stage = 2 [
-    set span 15
-    set pta 25
-    set ppa 25
-    set spatial_distance true
-    set age_isolation 0
-    set case_isolation true
-    set schoolsPolicy true
-    set quarantine true
-    set schoolPolicyActive true
-    set OS_Import_Proportion 0
-    set link_switch true
-    set Essential_Workers 50
-    set maskPolicy true
-    set mask_wearing 90
-    set tracking true
-    set App_Uptake 30
-    set residualcautionPTA 15
-    set residualcautionPPA 15
-    set proportion_people_avoid ppa
-    set proportion_time_avoid pta
-    set complacency true
-    set upperStudentAge 18
-    set LowerStudentAge 3
-    set superspreaders 10
-  ]
-
-  if stage = 3 [
-    set span 10
-    set pta 80
-    set ppa 80
-    set spatial_distance true
-    set age_isolation 0
-    set case_isolation true
-    set schoolsPolicy false
-    set quarantine true
-    set schoolPolicyActive false
-    set OS_Import_Proportion 0
-    set link_switch true
-    set Essential_Workers 30
-    set maskPolicy true
-    set mask_wearing 90
-    set tracking true
-    set App_Uptake 30
-    set residualcautionPTA 64
-    set residualcautionPPA 64
-    set proportion_people_avoid ppa
-    set proportion_time_avoid pta
-    set complacency true
-    set upperStudentAge 16
-    set LowerStudentAge 3
-    set superspreaders 5
-  ]
-
-  if stage = 4 [
-    set span 5
-    set pta 90
-    set ppa 90
-    set spatial_distance true
-    set age_isolation 0
-    set case_isolation true
-    set schoolsPolicy false
-    set quarantine true
-    set schoolPolicyActive false
-    set OS_Import_Proportion 0
-    set link_switch true
-    set Essential_Workers 20
-    set maskPolicy true
-    set mask_wearing 90
-    set tracking true
-    set App_Uptake 30
-    set residualcautionPTA 81
-    set residualcautionPPA 81
-    set proportion_people_avoid ppa
-    set proportion_time_avoid pta
-    set complacency true
-    set upperStudentAge 18
-    set LowerStudentAge 0
-    set superspreaders 2
-  ] ;; check student age update
 end
 
 ;;**************************************************************************************************************************************************************************************************************
@@ -726,6 +732,6 @@ end
 
 to setupstages
   if selfgovern = true [
-    do_stages_31_8_2020
+    do_stages_tony
   ]
 end

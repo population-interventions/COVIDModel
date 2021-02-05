@@ -94,17 +94,6 @@ to TriggerActionIsolation
   ]
 end
 
-to checkutilisation
-  ;; records which patches are being occupied by simuls
-  ifelse any? simuls-here
-  [
-    set utilisation 1
-  ]
-  [
-    set utilisation 0
-  ]
-end
-
 to forwardTime
   ;; counts days per tick, likely redundant at present as days are not used for anything right now.
   set days days + 1
@@ -257,8 +246,8 @@ to go
     simul_move
   ]
   ;; Patches update the flag that sets whether they have a simulant on them. TODO, update this on the fly.
-  ask patches [
-    checkutilisation
+  ask simuls [
+    simul_update_patch_utilisation
   ]
   
   ;; Simulants avoid people if social distancing is enabled, and they are not essential workers (or have some other reason to be in a crowd)

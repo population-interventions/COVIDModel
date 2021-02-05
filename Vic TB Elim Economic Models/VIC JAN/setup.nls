@@ -418,7 +418,8 @@ to setup
   ]
   ask patches [
     set pcolor black
-    set lastUpdate -1
+    set lastInfectionUpdate -1
+    set lastUtilUpdate -1
   ]
   ;; sets a proportion of interactions outside vs inside
   ask n-of (count patches * Outside) patches [

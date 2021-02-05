@@ -110,7 +110,7 @@ to simul_resetlanding
 
   set homeLocation patch-here
   if 50 > random 100 [
-    move-to one-of patches with [ pcolor = black and utilisation = 0 ]
+    move-to one-of patches with [ pcolor = black ]
   ]
   ;; iterates / sorts people into households
 end
@@ -135,6 +135,17 @@ to simul_avoidICUs
   ;; makes sure that simulswho have not been sent to hospital stay outside
   if [ pcolor ] of patch-here = white and InICU = 0 [
     move-to min-one-of patches with [ pcolor = black ] [ distance myself ]
+  ]
+end
+
+to simul_move_to_empty_patch
+  let movePatch one-of neighbors with [ utilisation = 0 or lastUtilUpdate < ticks ]
+  if is-patch? movePatch [
+    move-to movePatch
+    ask movePatch [
+      set utilisation 1
+      set lastUtilUpdate ticks
+    ]
   ]
 end
 
@@ -163,12 +174,20 @@ to simul_record_patch_infectiveness
     
     let myPatch patch-here
     ask myPatch [
-      if lastUpdate < ticks [
+      if lastInfectionUpdate < ticks [
         set infectionList []
-        set lastUpdate ticks
+        set lastInfectionUpdate ticks
       ]
       set infectionList lput localInfectiveness infectionList
     ]
+  ]
+end
+
+to simul_update_patch_utilisation
+  let myPatch patch-here
+  ask myPatch [
+    set utilisation 1
+    set lastUtilUpdate ticks
   ]
 end
 
@@ -184,7 +203,7 @@ to simul_infect
     let myPatch patch-here
     let localInfectionList 0
     ask myPatch [
-      if lastUpdate >= ticks [
+      if lastInfectionUpdate >= ticks [
         set localInfectionList infectionList
       ]
     ]
@@ -251,12 +270,11 @@ to simul_avoid_student
   ;; schoolspolicy = true means 'go to school = true
   ifelse Spatial_Distance = true and Proportion_People_Avoid + random-normal 0 3 > random 100
       and Proportion_Time_Avoid + random-normal 0 3 > random 100 and AgeRange > Age_Isolation
+      and Ess_W_Risk_Reduction > random 100
   [
     if any? other simuls-here with [ householdUnit != [ householdUnit ] of myself or studentFlag != 1 ] [
       ;; students don't isolate from each other or their household unit
-      if any? neighbors with [ utilisation = 0 ] and Ess_W_Risk_Reduction > random 100 [
-        move-to one-of neighbors with [ utilisation = 0 ]
-      ]
+      simul_move_to_empty_patch
     ]
   ]
   ;; if you are a student, you avoid everyone you can except for essential workers (i.e., teachers), other students
@@ -270,34 +288,31 @@ to simul_avoid
   ;; so, if the social distancing policies are on and you are distancing at this time and you are not part of an age-isolated
   ;; group and you are not an EssentialWorkerPriority, then if there is anyone near you, move away if you can.
   (ifelse EssentialWorkerFlag = 0 and Spatial_Distance = true and AgeRange > Age_Isolation 
-      and (Proportion_People_Avoid + random-normal 0 3) > random 100
-      and (Proportion_Time_Avoid + random-normal 0 3) > random 100
-  [
-    if any? other simuls-here with [ householdUnit != [ householdUnit ] of myself ] [
-      if any? neighbors with [ utilisation = 0 ] [
-        move-to one-of neighbors with [ utilisation = 0 ]
+    and (Proportion_People_Avoid + random-normal 0 3) > random 100
+    and (Proportion_Time_Avoid + random-normal 0 3) > random 100
+    [
+      if any? other simuls-here with [ householdUnit != [ householdUnit ] of myself ] [
+        simul_move_to_empty_patch
       ]
     ]
-  ]
-  ;; elseif
-  ;; if you are an essential worker, you can only reduce your
-  ;; contacts when you are not at work assuming 8 hours work, 8 hours rest, 8 hours recreation - rest doesn't count for anyone, hence it is
-  ;; set at 50 on the input slider. People don't isolate from others in their household unit
-  EssentialWorkerFlag = 1 and Spatial_Distance = true and AgeRange > Age_Isolation
-      and (Proportion_People_Avoid + random-normal 0 3) > random 100
-      and (Proportion_Time_Avoid + random-normal 0 3) > random 100
-  [
-    if any? other simuls-here with [ householdUnit != [ householdUnit ] of myself ] [
-      if any? neighbors with [ utilisation = 0 ] and Ess_W_Risk_Reduction > random 100 [
-        move-to one-of neighbors with [ utilisation = 0 ]
+    ;; elseif
+    ;; if you are an essential worker, you can only reduce your
+    ;; contacts when you are not at work assuming 8 hours work, 8 hours rest, 8 hours recreation - rest doesn't count for anyone, hence it is
+    ;; set at 50 on the input slider. People don't isolate from others in their household unit
+    EssentialWorkerFlag = 1 and Spatial_Distance = true and AgeRange > Age_Isolation
+    and (Proportion_People_Avoid + random-normal 0 3) > random 100
+    and (Proportion_Time_Avoid + random-normal 0 3) > random 100
+    and Ess_W_Risk_Reduction > random 100
+    [
+      if any? other simuls-here with [ householdUnit != [ householdUnit ] of myself ] [
+        simul_move_to_empty_patch
       ]
     ]
-  ]
-  [
-    ;; otherwise just move wherever you like
-    set heading heading + contact_Radius fd random pace
-    simul_avoidICUs
-    move-to patch-here
+    [
+      ;; otherwise just move wherever you like
+      set heading heading + contact_Radius fd random pace
+      simul_avoidICUs
+      move-to patch-here
   ])
   
   if studentFlag = 1 and global_schoolActive [

@@ -170,10 +170,11 @@ __includes[
 
 
 patches-own [
-  utilisation ;; indicator of whether any people are located on that patch of the environment or not
   destination ;; indicator of whether this location is a place that people might gather
-  lastUpdate ;; Update indicator for stale simulantCount data
+  lastInfectionUpdate ;; Update indicator for stale simulantCount data
   infectionList ;; List of infectivities of simulants on the patch
+  utilisation ;; indicator of whether any people are located on that patch of the environment or not
+  lastUtilUpdate ;; Last tick that the patch had its utilisation updated
 ]
 @#$#@#$#@
 GRAPHICS-WINDOW
@@ -295,7 +296,7 @@ Span
 Span
 0
 30
-5.0
+30.0
 1
 1
 NIL
@@ -529,7 +530,7 @@ Superspreaders
 Superspreaders
 0
 100
-2.0
+10.0
 1
 1
 NIL
@@ -599,7 +600,7 @@ Proportion_People_Avoid
 Proportion_People_Avoid
 0
 100
-90.0
+0.0
 .5
 1
 NIL
@@ -614,7 +615,7 @@ Proportion_Time_Avoid
 Proportion_Time_Avoid
 0
 100
-90.0
+0.0
 .5
 1
 NIL
@@ -1152,7 +1153,7 @@ INPUTBOX
 1465
 154
 ppa
-90.0
+0.0
 1
 0
 Number
@@ -1163,7 +1164,7 @@ INPUTBOX
 1534
 154
 pta
-90.0
+0.0
 1
 0
 Number
@@ -1382,7 +1383,7 @@ SWITCH
 410
 link_switch
 link_switch
-0
+1
 1
 -1000
 
@@ -1596,7 +1597,7 @@ Essential_Workers
 Essential_Workers
 0
 100
-20.0
+100.0
 1
 1
 NIL
@@ -1641,7 +1642,7 @@ App_Uptake
 App_Uptake
 0
 100
-30.0
+20.0
 1
 1
 NIL
@@ -1654,7 +1655,7 @@ SWITCH
 452
 tracking
 tracking
-0
+1
 1
 -1000
 
@@ -1667,7 +1668,7 @@ Mask_Wearing
 Mask_Wearing
 0
 100
-90.0
+50.0
 1
 1
 NIL
@@ -1680,7 +1681,7 @@ SWITCH
 290
 schoolsPolicy
 schoolsPolicy
-1
+0
 1
 -1000
 
@@ -1794,7 +1795,7 @@ SWITCH
 163
 SchoolPolicyActive
 SchoolPolicyActive
-1
+0
 1
 -1000
 
@@ -1833,7 +1834,7 @@ ResidualCautionPPA
 ResidualCautionPPA
 0
 100
-81.0
+0.0
 1
 1
 NIL
@@ -1848,7 +1849,7 @@ ResidualCautionPTA
 ResidualCautionPTA
 0
 100
-81.0
+0.0
 1
 1
 NIL

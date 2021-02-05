@@ -10,7 +10,8 @@ to scaleup
 
   ifelse scale = true and ( count simuls with [ color = red ] ) >= 250 and scalePhase >= 0 and scalePhase < 4 and count simuls * 1000 < Total_Population and days > 0
   [
-    set scalephase scalephase + 1 ask n-of ( count simuls with [ color = red ] * .9 ) simuls with [ color = red ] [
+    set scalephase scalephase + 1
+    ask n-of ( count simuls with [ color = red ] * .9 ) simuls with [ color = red ] [
       set size 2
       set color cyan
       set detectable random 100 ;; identifies whether the person is detectable or not
@@ -44,7 +45,6 @@ to scaleup
       set returntoschool random 100
       set detectable random 100
     ]
-
 
     ask n-of ( count simuls with [ color = yellow ] * .9 ) simuls with [ color = yellow ] [
       set size 2

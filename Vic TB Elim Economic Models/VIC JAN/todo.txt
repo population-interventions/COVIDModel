@@ -7,3 +7,5 @@ Check whether dead people are really dead. They are moved to a particular patch,
 Report on the fact that avoiding only worked about 50% of the time.
 Ask questions about how essential workers should behave.
 Ask questions about schools.
+
+Run a batch of simulations that test whether choice of scale has a consistent effect on the result.

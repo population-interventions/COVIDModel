@@ -8,7 +8,7 @@ to scaleup
   ;; It enables the fine-grained analysis in early stages that more closely resembles diffusion across a population similar to
   ;; assumptions in SEIR models but as it scales up, recognises taht there are geographic constraints of movement of populations
 
-  ifelse scale = true and ( count simuls with [ color = red ] ) >= Scale_Threshold * Scale_Factor and scalePhase >= 0 and ((Scale_Factor ^ (scalePhase + 1)) * Population <= Total_Population) and days > 0
+  ifelse scale = true and ( count simuls with [ color = red ] ) >= Scale_Threshold and scalePhase >= 0 and ((Scale_Factor ^ (scalePhase + 1)) * Population <= Total_Population) and days > 0
   [
     set scalephase scalephase + 1
     ask n-of ( count simuls with [ color = red ] * (1 - 1 / Scale_Factor) ) simuls with [ color = red ] [
@@ -91,7 +91,7 @@ end
 
 to scaledown
   ;; reverses the procedure above after the peak of the epidemic
-  if scale = true and count simuls with [ color = red ] <= Scale_Threshold and yellowcount > redcount and days > 0 and scalephase > 0 [
+  if scale = true and count simuls with [ color = red ] <= Scale_Threshold / Scale_Factor and yellowcount > redcount and days > 0 and scalephase > 0 [
     ask simuls with [ color = red ] [
       hatch (Scale_Factor - 1) [
         ;; Doesn't this give them all the same household???

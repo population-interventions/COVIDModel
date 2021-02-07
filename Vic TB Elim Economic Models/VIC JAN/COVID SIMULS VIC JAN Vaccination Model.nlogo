@@ -295,7 +295,7 @@ Span
 Span
 0
 30
-30.0
+15.0
 1
 1
 NIL
@@ -455,10 +455,10 @@ count simuls * (Total_Population / population)
 14
 
 MONITOR
-2117
-613
-2375
-658
+3065
+1105
+3323
+1150
 Bed Capacity Scaled for Australia at 65,000k
 count patches with [ pcolor = white ]
 0
@@ -599,7 +599,7 @@ Proportion_People_Avoid
 Proportion_People_Avoid
 0
 100
-0.0
+24.0
 .5
 1
 NIL
@@ -614,7 +614,7 @@ Proportion_Time_Avoid
 Proportion_Time_Avoid
 0
 100
-0.0
+24.0
 .5
 1
 NIL
@@ -794,10 +794,10 @@ AverageContacts
 11
 
 PLOT
-2117
-857
-2307
-978
+2462
+1100
+2652
+1221
 Close contacts and Mobility
 NIL
 NIL
@@ -863,10 +863,10 @@ NIL
 HORIZONTAL
 
 PLOT
-2788
-90
-3080
-235
+2114
+548
+2406
+693
 Age ranges
 NIL
 NIL
@@ -1086,7 +1086,7 @@ SWITCH
 1517
 954
 1610
-988
+987
 scale
 scale
 0
@@ -1108,7 +1108,7 @@ MONITOR
 1390
 832
 1504
-882
+881
 Scale Exponent
 scalePhase
 17
@@ -1142,7 +1142,7 @@ INPUTBOX
 1465
 154
 ppa
-0.0
+23.0
 1
 0
 Number
@@ -1153,16 +1153,16 @@ INPUTBOX
 1534
 154
 pta
-0.0
+23.0
 1
 0
 Number
 
 PLOT
-2338
-860
-2653
-980
+2683
+1103
+2998
+1223
 Trust in Govt
 NIL
 NIL
@@ -1372,7 +1372,7 @@ SWITCH
 410
 link_switch
 link_switch
-1
+0
 1
 -1000
 
@@ -1567,10 +1567,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-2194
-797
-2250
-842
+2539
+1040
+2595
+1085
 A V
 mean [ personalvirulence ] of simuls with [ asymptom < AsymptomaticPercentage ]
 1
@@ -1586,7 +1586,7 @@ Essential_Workers
 Essential_Workers
 0
 100
-100.0
+50.0
 1
 1
 NIL
@@ -1631,7 +1631,7 @@ App_Uptake
 App_Uptake
 0
 100
-20.0
+30.0
 1
 1
 NIL
@@ -1644,7 +1644,7 @@ SWITCH
 452
 tracking
 tracking
-1
+0
 1
 -1000
 
@@ -1657,7 +1657,7 @@ Mask_Wearing
 Mask_Wearing
 0
 100
-50.0
+90.0
 1
 1
 NIL
@@ -1686,10 +1686,10 @@ mean [ householdunit ] of simuls
 11
 
 PLOT
-3100
-82
-3380
-230
+2115
+707
+2395
+855
 Infections by age range
 NIL
 NIL
@@ -1823,7 +1823,7 @@ ResidualCautionPPA
 ResidualCautionPPA
 0
 100
-0.0
+15.0
 1
 1
 NIL
@@ -1838,7 +1838,7 @@ ResidualCautionPTA
 ResidualCautionPTA
 0
 100
-0.0
+15.0
 1
 1
 NIL
@@ -2104,10 +2104,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-2126
-488
-2198
-533
+3074
+980
+3146
+1025
 OS %
 ( count simuls with [  imported = 1 ] / count simuls with [ color != 85 ]) * 100
 2
@@ -2141,10 +2141,10 @@ currentinfections
 11
 
 MONITOR
-2198
-498
-2273
-543
+3147
+990
+3222
+1035
 Illness time
 mean [ timenow ] of simuls with [ color = red ]
 1
@@ -2152,10 +2152,10 @@ mean [ timenow ] of simuls with [ color = red ]
 11
 
 MONITOR
-2272
-792
-2377
-853
+2617
+1035
+2722
+1096
 ICU Beds
 ICUBedsRequired
 0
@@ -2333,10 +2333,10 @@ JudgeDay4
 Number
 
 MONITOR
-2313
-684
-2423
-729
+3262
+1177
+3372
+1222
 Policy Reset Date
 ResetDate
 0
@@ -2576,10 +2576,10 @@ count simuls with [ timenow = 2 ]
 11
 
 MONITOR
-2288
-502
-2353
-547
+3237
+994
+3302
+1039
 Students
 count simuls with [ studentFlag = 1 ]
 0
@@ -3002,12 +3002,12 @@ SLIDER
 1513
 830
 1666
-864
+863
 Scale_Threshold
 Scale_Threshold
-25
-250
-25.0
+50
+300
+240.0
 1
 1
 NIL
@@ -3017,12 +3017,12 @@ SLIDER
 1513
 867
 1667
-901
+900
 Scale_Factor
 Scale_Factor
 2
 10
-10.0
+4.0
 1
 1
 NIL

@@ -345,36 +345,11 @@ end
 to simul_death
   ;; calculates death for individuals and adds them to a total for the population - This should not be relied upon to
   ;; esitmate deaths as it currently interacts with asymptomatic cases and undetected cases in the most recent version
-
-  if Scalephase = 0 and color = red and timenow = int ownIllnessPeriod - 1 and RiskofDeath > random-float 1 [
+  if color = red and timenow = int ownIllnessPeriod - 1 and RiskofDeath > random-float 1 [
     set color black
     set pace 0
     set RequireICU 0
-    set deathcount deathcount + 1
-  ]
-  if Scalephase = 1 and color = red and timenow = int ownIllnessPeriod - 1 and RiskofDeath > random-float 1 [
-    set color black
-    set pace 0
-    set RequireICU 0
-    set deathcount deathcount + 10
-  ]
-  if Scalephase = 2 and color = red and timenow = int ownIllnessPeriod - 1 and RiskofDeath > random-float 1 [
-    set color black
-    set pace 0
-    set RequireICU 0
-    set deathcount deathcount + 100
-  ]
-  if Scalephase = 3 and color = red and timenow = int ownIllnessPeriod - 1 and RiskofDeath > random-float 1 [
-    set color black
-    set pace 0
-    set RequireICU 0
-    set deathcount deathcount + 1000
-  ]
-  if Scalephase = 4 and color = red and timenow = int ownIllnessPeriod - 1 and RiskofDeath > random-float 1 [
-    set color black
-    set pace 0
-    set RequireICU 0
-    set deathcount deathcount + 10000
+    set deathcount deathcount + Scale_Factor ^ scalephase
   ]
 end
 

@@ -52,22 +52,7 @@ to Globalanxiety
   ;; levels of global anxiety are tied to knowledge of dead and infected
   ;; people multiplied by media exposure of dead and infected people
   let anxiouscohort (count simuls with [ color = red ] + count simuls with [ color = black ] - count simuls with [ color = yellow ] ) / Total_Population
-
-  if scalephase = 0 [
-    set anxietyFactor anxiouscohort * media_Exposure
-  ]
-  if scalephase = 1 [
-    set anxietyFactor anxiouscohort * 10 * media_Exposure
-  ]
-  if scalephase = 2 [
-    set anxietyFactor anxiouscohort * 100 * media_Exposure
-  ]
-  if scalephase = 3 [
-    set anxietyFactor anxiouscohort * 1000 * media_Exposure
-  ]
-  if scalephase = 4 [
-    set anxietyFactor anxiouscohort * 10000 * media_Exposure
-  ]
+  set anxietyFactor anxiouscohort * media_Exposure * Scale_Factor ^ scalephase
 end
 
 to GlobalTreat

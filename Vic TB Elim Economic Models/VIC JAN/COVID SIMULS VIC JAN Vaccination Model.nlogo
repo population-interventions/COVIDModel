@@ -295,7 +295,7 @@ Span
 Span
 0
 30
-5.0
+30.0
 1
 1
 NIL
@@ -529,7 +529,7 @@ Superspreaders
 Superspreaders
 0
 100
-2.0
+10.0
 1
 1
 NIL
@@ -599,7 +599,7 @@ Proportion_People_Avoid
 Proportion_People_Avoid
 0
 100
-89.0
+0.0
 .5
 1
 NIL
@@ -614,7 +614,7 @@ Proportion_Time_Avoid
 Proportion_Time_Avoid
 0
 100
-89.0
+0.0
 .5
 1
 NIL
@@ -751,7 +751,7 @@ INPUTBOX
 310
 393
 current_cases
-20.0
+2.0
 1
 0
 Number
@@ -925,9 +925,9 @@ NIL
 10.0
 true
 false
-"" "if Scalephase = 1 [ plot count simuls with [ color = red and int timenow = Case_Reporting_Delay ] * 10 ] \nif ScalePhase = 2 [ plot count simuls with [ color = red and int timenow = Case_Reporting_Delay ] * 100 ] \nif ScalePhase = 3 [ plot count simuls with [ color = red and int timenow = Case_Reporting_Delay ] * 1000 ]\nif ScalePhase = 4 [ plot count simuls with [ color = red and int timenow = Case_Reporting_Delay ] * 10000 ]"
+"" ""
 PENS
-"New Cases" 1.0 1 -5298144 true "" "if scalephase = 0 [ plot count simuls with [ color = red and timenow = Case_Reporting_Delay ] ]"
+"New Cases" 1.0 1 -5298144 true "" "plot (Scale_Factor ^ scalephase) * (count simuls with [ color = red and timenow = Case_Reporting_Delay ])"
 
 SLIDER
 528
@@ -1083,10 +1083,10 @@ count simuls with [ color = red ]
 11
 
 SWITCH
-1739
-1089
-1833
-1122
+1517
+954
+1610
+988
 scale
 scale
 0
@@ -1105,11 +1105,11 @@ Days
 11
 
 MONITOR
-1387
-820
-1585
-869
-Scale Phase
+1390
+832
+1504
+882
+Scale Exponent
 scalePhase
 17
 1
@@ -1136,23 +1136,13 @@ Day 1 - Dec 21st, 2020
 15.0
 1
 
-TEXTBOX
-1395
-878
-1610
-971
-0 - 2,500 Population\n1 - 25,000 \n2 - 250,000\n3 - 2,500,000\n4 - 25,000,000
-12
-0.0
-1
-
 INPUTBOX
 1400
 94
 1465
 154
 ppa
-88.0
+0.0
 1
 0
 Number
@@ -1163,7 +1153,7 @@ INPUTBOX
 1534
 154
 pta
-88.0
+0.0
 1
 0
 Number
@@ -1382,7 +1372,7 @@ SWITCH
 410
 link_switch
 link_switch
-0
+1
 1
 -1000
 
@@ -1551,10 +1541,10 @@ initialassociationstrength
 Number
 
 MONITOR
-1515
-672
-1580
-717
+1398
+687
+1463
+732
 Virulence
 mean [ personalvirulence] of simuls
 1
@@ -1596,7 +1586,7 @@ Essential_Workers
 Essential_Workers
 0
 100
-20.0
+100.0
 1
 1
 NIL
@@ -1641,7 +1631,7 @@ App_Uptake
 App_Uptake
 0
 100
-30.0
+20.0
 1
 1
 NIL
@@ -1654,7 +1644,7 @@ SWITCH
 452
 tracking
 tracking
-0
+1
 1
 -1000
 
@@ -1667,7 +1657,7 @@ Mask_Wearing
 Mask_Wearing
 0
 100
-90.0
+50.0
 1
 1
 NIL
@@ -1680,7 +1670,7 @@ SWITCH
 290
 schoolsPolicy
 schoolsPolicy
-1
+0
 1
 -1000
 
@@ -1794,7 +1784,7 @@ SWITCH
 163
 SchoolPolicyActive
 SchoolPolicyActive
-1
+0
 1
 -1000
 
@@ -1833,7 +1823,7 @@ ResidualCautionPPA
 ResidualCautionPPA
 0
 100
-81.0
+0.0
 1
 1
 NIL
@@ -1848,7 +1838,7 @@ ResidualCautionPTA
 ResidualCautionPTA
 0
 100
-81.0
+0.0
 1
 1
 NIL
@@ -2140,10 +2130,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-1388
-669
-1496
-714
+1397
+635
+1505
+680
 NIL
 currentinfections
 17
@@ -2184,10 +2174,10 @@ Complacency
 -1000
 
 CHOOSER
-1502
-945
-1595
-990
+1515
+905
+1608
+950
 InitialScale
 InitialScale
 0 1 2 3 4
@@ -2288,10 +2278,10 @@ PENS
 "Scale" 1.0 0 -14454117 true "" "plot scalePhase"
 
 MONITOR
-1388
-769
-1503
-814
+1392
+752
+1507
+797
 Cases in period 7
 casesinperiod7
 0
@@ -2660,10 +2650,10 @@ Vaccine_Available
 -1000
 
 CHOOSER
-1604
-823
-1743
-868
+1608
+628
+1747
+673
 BaseStage
 BaseStage
 0 1 2 3 4
@@ -2696,14 +2686,14 @@ NIL
 HORIZONTAL
 
 CHOOSER
-1605
-878
-1744
-923
+1608
+683
+1747
+728
 MaxStage
 MaxStage
 0 1 2 3 4
-4
+3
 
 MONITOR
 1160
@@ -2769,7 +2759,7 @@ param_transmit_scale
 param_transmit_scale
 1
 1.5
-1.5
+1.25
 0.25
 1
 NIL
@@ -2861,10 +2851,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-1503
-898
-1591
-943
+1533
+750
+1621
+795
 NIL
 contact_radius
 17
@@ -2993,7 +2983,7 @@ INPUTBOX
 310
 457
 houseCases
-80.0
+8.0
 1
 0
 Number
@@ -3007,6 +2997,58 @@ param_policy
 param_policy
 "AgggressElim" "ModerateElim" "TightSupress" "LooseSupress" "None"
 1
+
+SLIDER
+1513
+830
+1666
+864
+Scale_Threshold
+Scale_Threshold
+25
+250
+25.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+1513
+867
+1667
+901
+Scale_Factor
+Scale_Factor
+2
+10
+10.0
+1
+1
+NIL
+HORIZONTAL
+
+MONITOR
+1389
+890
+1503
+935
+Person per Simul
+(Scale_Factor ^ scalephase)
+17
+1
+11
+
+MONITOR
+1390
+943
+1503
+988
+People in Model
+(Population * Scale_Factor ^ scalephase)
+17
+1
+11
 
 @#$#@#$#@
 ## WHAT IS IT?

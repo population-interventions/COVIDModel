@@ -4,164 +4,49 @@
 
 to countDailyCases
   ;; sets the day for reporting new cases at 6 (adjustable) days after initial infection, scales up as the population scales
-
   ;; this now ONLY reports detected cases, not all infections - this flows through to daily cases
   let casestoday count simuls with [ color = red and unDetectedFlag = 0 and int timenow = int Case_reporting_delay ]
-
-  if Scalephase = 0 [
-    set dailyCases casestoday
-  ]
-  if Scalephase = 1 [
-    set dailyCases casestoday * 10
-  ]
-  if Scalephase = 2 [
-    set dailyCases casestoday * 100
-  ]
-  if Scalephase = 3 [
-    set dailyCases casestoday * 1000
-  ]
-  if Scalephase = 4 [
-    set dailyCases casestoday * 10000
-  ]
+  set dailyCases casestoday * Scale_Factor ^ scalephase
 end
 
 
 to calculatePopulationScale
   ;; population scaling function
-  if scalephase = 0 [
-    set Scaled_Population ( count simuls )
-  ]
-  if scalephase = 1 [
-    set Scaled_Population ( count simuls ) * 10
-  ]
-  if scalephase = 2 [
-    set Scaled_Population ( count simuls ) * 100
-  ]
-  if scalephase = 3 [
-    set Scaled_Population ( count simuls ) * 1000
-  ]
-  if scalephase = 4 [
-    set Scaled_Population ( count simuls ) * 10000
-  ]
+  set Scaled_Population ( count simuls ) * Scale_Factor ^ scalephase
 end
 
 to calculateScaledPopulation
   ;; calculates the scaled population for working with smaller environments
-  if scalephase = 0 [
-    set scaledPopulation Total_Population / 10000
-  ]
-  if scalephase = 1 [
-    set scaledPopulation Total_Population / 1000
-  ]
-  if scalephase = 2 [
-    set scaledPopulation Total_Population / 100
-  ]
-  if scalephase = 3 [
-    set scaledPopulation Total_Population / 10
-  ]
-  if scalephase = 4 [
-    set scaledPopulation Total_Population
-  ]
+  set scaledPopulation Population * Scale_Factor ^ scalephase
 end
 
 to CalculateICUBedsRequired
   ;; calculates the number of ICU beds required at any time
   let needsICU count simuls with [ color = red and requireICU = 1 ]
-
-  if scalephase = 0 [
-    set ICUBedsRequired needsICU
-  ]
-  if scalephase = 1 [
-    set ICUBedsRequired needsICU * 10
-  ]
-  if scalephase = 2 [
-    set ICUBedsRequired needsICU * 100]
-  if scalephase = 3 [
-    set ICUBedsRequired needsICU * 1000
-  ]
-  if scalephase = 4 [
-    set ICUBedsRequired needsICU * 10000
-  ]
+  set ICUBedsRequired needsICU * Scale_Factor ^ scalephase
 end
 
 to calculateCurrentInfections
   ;; calculates the number of infected people in the population
   let infectedsimuls count simuls with [ color = red ]
-
-  if Scalephase = 0 [
-    set currentInfections infectedsimuls
-  ]
-  if Scalephase = 1 [
-    set currentInfections infectedsimuls * 10
-  ]
-  if Scalephase = 2 [
-    set currentInfections infectedsimuls * 100
-  ]
-  if Scalephase = 3 [
-    set currentInfections infectedsimuls * 1000
-  ]
-  if Scalephase = 4 [
-    set currentInfections infectedsimuls * 10000
-  ]
+    set currentInfections infectedsimuls * Scale_Factor ^ scalephase
 end
 
 to calculatePotentialContacts ;; counts the number of people tracked from infected people
-  if Scalephase = 0 [
-    set PotentialContacts ( count links )
-  ]
-  if Scalephase = 1 [
-    set PotentialContacts ( count links ) * 10
-  ]
-  if Scalephase = 2 [
-    set PotentialContacts ( count links ) * 100
-  ]
-  if Scalephase = 3 [
-    set PotentialContacts ( count links ) * 1000
-  ]
-  if Scalephase = 4 [
-    set PotentialContacts ( count links ) * 10000
-  ]
+  set PotentialContacts ( count links ) * Scale_Factor ^ scalephase
 end
 
 
 to countEWInfections
   ;; counts infections among Essential workers
   let EWInfects (count simuls with [ color = red and EssentialWorkerFlag = 1 ] )
-  if Scalephase = 0 [
-    set EWInfections EWInfects
-  ]
-  if Scalephase = 1 [
-    set EWInfections EWInfects * 10
-  ]
-  if Scalephase = 2 [
-    set EWInfections EWInfects * 100
-  ]
-  if Scalephase = 3 [
-    set EWInfections EWInfects * 1000
-  ]
-  if Scalephase = 4 [
-    set EWInfections EWInfects * 10000
-  ]
+  set EWInfections EWInfects * Scale_Factor ^ scalephase
 end
 
 to countSchoolInfections
   ;; counts infections among school students
   let studentInfects ( count simuls with [ color = red and StudentFlag = 1 ] )
-  if Scalephase = 0 [
-    set studentInfections studentInfects
-  ]
-  if Scalephase = 1 [
-    set studentInfections studentInfects * 10
-  ]
-  if Scalephase = 2 [
-    set studentInfections studentInfects * 100
-  ]
-  if Scalephase = 3 [
-    set studentInfections studentInfects * 1000
-  ]
-  if Scalephase = 4 [
-    set studentInfections studentInfects * 10000
-  ]
+  set studentInfections studentInfects * Scale_Factor ^ scalephase
 end
 
 to setCaseFatalityRate

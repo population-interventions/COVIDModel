@@ -237,5 +237,12 @@ end
 
 
 to CalculateMeanIDTime
-  set meanIDTime mean [ IDTime ] of simuls with [ color != cyan ]
+  let IDTimeList [ IDTime ] of simuls with [ color != cyan ]
+  ifelse not empty? IDTimeList
+  [
+    set meanIDTime mean IDTimeList
+  ]
+  [
+    set meanIDTime 0
+  ]
 end

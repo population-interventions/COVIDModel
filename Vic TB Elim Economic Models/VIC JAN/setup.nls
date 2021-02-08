@@ -188,14 +188,12 @@ to createSimulants
       set personalTrust random-normal 75 10
       set WFHCap random 100
       set personalVirulence random-normal Global_Transmissability 2.5
-      set haveApp random 100
       set sm_vac_uptake random 100
 
       set requireICU 0
       set requireICU_draw random-float 1
 
       set wearsMask random 100 ;; resethealth resetincome calculateincomeperday calculateexpenditureperday resettrust
-      set detectable random 100 ;; identifies whether the person is detectable or not
       set returntoschool random 100
       set ownIllnessPeriod ( exp random-normal M S ) ;; log transform of illness period
       set ownIncubationPeriod ( exp random-normal Minc Sinc ) ;;; log transform of incubation period
@@ -204,13 +202,10 @@ to createSimulants
 
       simul_resetComplianceAndMaskEfficacy
 
-      set asymptom random 100
       setEssentialWorkerPriority
       setdeathrisk
       
       simul_resetPersonalVirulence
-      assignApptoEssential ;; Does essentially nothing at this point as the app is unused.
-      simul_assigndetectablestatus ;; identifies people unlikely to be found
 
       ;set pta random-float ((Proportion_time_avoid - (Proportion_Time_Avoid * .2)) + random-float (Proportion_time_avoid + (1 - Proportion_time_avoid) * .2))
       ;set ppa random-float ((Proportion_People_avoid - (Proportion_People_Avoid * .2)) + random-float (Proportion_People_avoid + (1 - Proportion_People_avoid) * .2))
@@ -464,7 +459,6 @@ to setup
   ask n-of ( initial_cases ) simuls [
     set color red
     set tracked 1
-    set reported 1
     set timenow random int OwnIllnessperiod
     simul_updatepersonalvirulence
     if timenow <= 7 [
@@ -478,9 +472,7 @@ to setup
   ask n-of ((initial_cases * (AsymptomaticPercentage / 100) * ( Undetected_Proportion / 100 ))) simuls [
     set color red
     set asymptomaticFlag 1
-    set undetectedFlag 1
     set tracked 0
-    set reported 0
     set timenow random int OwnIllnessperiod
     simul_updatepersonalvirulence
     if timenow <= 7 [

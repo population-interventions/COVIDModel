@@ -31,8 +31,8 @@ simuls-own [
   ownIllnessPeriod ;; unique illness period associated with the individual
   ownIncubationPeriod ;; unique incubation pd for the person - related to IncubationPd so can probably be cleaned up - IncubationPd is a legacy var as previously all incubation periods were identical
   ownComplianceWithIsolation ;; unique variable associated with compliance to Isocation of cases if infected
-  asymptom ;; whether the person is asymptomatic or not
   personalVirulence ;; the infectivity of the person
+  
   tracked ;; whether the person has been tracked by the health system
   Asymptomaticflag ;; indicator identifying Asymptomatic cases
 
@@ -56,23 +56,19 @@ simuls-own [
   vaccineOffered ;; Has the vaccine been offered?
   vacWaitDays ;; Timer for the delay in vaccine coming into effect.
   selfVaccEffectiveness ;; Effectiveness of the vaccine I recieved
-  
-  Own_WFH_Capacity ;; Ability of the person to work from home
-  hunted ;; has the person been traced using the phoneApp
-  haveApp ;; for use in deterimining if the person has downloaded the app
+
   wearsMask ;; for use in determining if the person wears a face mask
+  wearingMask ;; identifies if the person is wearing a mask or not
+  ownMaskEfficacy ;; the efficacy of the person's own mask
+
   householdUnit ;; the id of the household the person belongs to
   studentFlag ;; identifies if the person is a student or not
-  wearingMask ;; identifies if the person is wearing a mask or not
   currentVirulence ;; current virulence of the person on the day of their infection
   Imported ;; identifies imported cases
   adultsInHousehold ;; counts how many adults in a household for peole under 70
   homeLocation ;; this is where these people live
-  ownMaskEfficacy ;; the efficacy of the person's own mask
-  reported ;; has the person's case been reported yet
-  detectable ;; Is the infected person detectable likelihood
-  unDetectedFlag ;; Indicates whether they are detected or not.
   returntoschool ;; a random number between 0 and 100 that determines whether the person will return to school (assuming they are a student) at time x
+
   isolating ;; is the person currently isolating?
   IDTime ;; days into infection the person is identified as a case
 
@@ -117,12 +113,6 @@ to simul_resetlanding
     move-to one-of patches with [ pcolor = black ]
   ]
   ;; iterates / sorts people into households
-end
-
-to simul_assigndetectablestatus
-  if asymptomaticFlag = 1 and detectable < Undetected_Proportion [
-    set unDetectedFlag 1
-  ]
 end
 
 to simul_PossiblyDie
@@ -423,10 +413,6 @@ to simul_checkICU
   if color = red and RequireICU_draw < ICU_Required and timenow >= ownIncubationPeriod [
     set requireICU 1
   ]
-  ;; and updates their reported status - this needs to go after the last function as it wasn't being counted properly
-  if unDetectedFlag = 0 and reported = 0 [
-    set reported 1
-  ]
 end
 
 to simul_EssentialWorkerID
@@ -437,25 +423,6 @@ to simul_EssentialWorkerID
   ]
   [
     set EssentialWorkerFlag 0
-  ]
-end
-
-to simul_hunt
-  ;; this specifically uses the app to trace people
-  if link_switch = true [
-    if count my-links > 0 and haveApp <= App_Uptake [
-      set hunted 1
-    ]
-    if hunted = 1 [
-      set tracked 1
-    ]
-  ]
-end
-
-to simul_AccessPackage
-  ;; enables people to access the support packages
-  if any? Packages in-radius 10 and reserves < 0 [
-    set reserves 100
   ]
 end
 

@@ -5,7 +5,7 @@
 to countDailyCases
   ;; sets the day for reporting new cases at 6 (adjustable) days after initial infection, scales up as the population scales
   ;; this now ONLY reports detected cases, not all infections - this flows through to daily cases
-  let casestoday count simuls with [ color = red and unDetectedFlag = 0 and int timenow = int Case_reporting_delay ]
+  let casestoday count simuls with [ color = red and int timenow = int Case_reporting_delay ]
   set dailyCases casestoday * Scale_Factor ^ scalephase
 end
 

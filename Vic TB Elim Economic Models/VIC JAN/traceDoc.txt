@@ -1,22 +1,8 @@
-hunted:
- - If the agent has the app (haveApp < App_Uptake) and has a link to them, they become hunted.
- - If they are hunted they become tracked instantly.
- - Seems like a redundant variable.
 
 IDTime:
  - Looks like an output metric.
  - Set to simul.timenow when tracked set to 1, but only via some methods of tracked changing.
  - Looks broken or has an unclear use since it doesn't log all changes to tracked.
-
-reported:
- - (unDetectedFlag = 0 and reported = 0) => (reported = 1)
- - Otherwise doesn't appear to do anything at all.
-
-unDetectedFlag:
- - (unDetectedFlag = 0) is required to set (tracked = 1) in simul_traceme.
- - ((initial_cases * (AsymptomaticPercentage / 100) * ( Undetected_Proportion / 100 ))) many initial infected agents have (unDetectedFlag = 1)
- - simul_assigndetectablestatus sets (unDetectedFlag = 1) if (asymptomaticFlag = 1 and detectable < Undetected_Proportion)
- - In practise, no agent seems to have (unDetectedFlag = 1)
 
 asymptomaticFlag:
  - 60% of five-year-olds have (asymptomaticFlag = 1)
@@ -42,6 +28,15 @@ isolating:
  - (pace = 0) while (isolating = 1), this depends on other variables though.
  - Don't move in simul_visitDestination while (isolating = 1)
 
+====================================
+==== DELETED ====
+====================================
+
+hunted:
+ - If the agent has the app (haveApp < App_Uptake) and has a link to them, they become hunted.
+ - If they are hunted they become tracked instantly.
+ - Seems like a redundant variable.
+
 haveapp:
  - (haveApp <= App_Uptake) means that an agent has the app.
  - Red simulants create links with other simulants at their location, if they both have the app.
@@ -49,3 +44,18 @@ haveapp:
  - simul_traceme only sets (tracked = 0) for uninfected agents if they don't have any in-links (why?).
  - Agents can become tracked in simul_hunt if they have in-links.
  - The end result just seems to be that all infected people automatically set (tracked = 1) for everyone they meet over the course of their infection?
+
+asymptom:
+ - Random from 0 to 99.
+ - Must have (asymptom >= AsymptomaticPercentage) to get into ICU.
+ - Otherwise appears to do nothing.
+
+reported:
+ - (unDetectedFlag = 0 and reported = 0) => (reported = 1)
+ - Otherwise doesn't appear to do anything at all.
+
+unDetectedFlag:
+ - (unDetectedFlag = 0) is required to set (tracked = 1) in simul_traceme.
+ - ((initial_cases * (AsymptomaticPercentage / 100) * ( Undetected_Proportion / 100 ))) many initial infected agents have (unDetectedFlag = 1)
+ - simul_assigndetectablestatus sets (unDetectedFlag = 1) if (asymptomaticFlag = 1 and detectable < Undetected_Proportion)
+ - In practise, no agent seems to have (unDetectedFlag = 1)

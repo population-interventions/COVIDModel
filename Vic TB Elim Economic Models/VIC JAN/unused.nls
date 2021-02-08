@@ -162,6 +162,13 @@ to simul_gatherreseources
   ]
 end
 
+to simul_AccessPackage
+  ;; enables people to access the support packages
+  if any? Packages in-radius 10 and reserves < 0 [
+    set reserves 100
+  ]
+end
+
 ;; *********************************************************************************************************
 ;; *********************************************************************************************************
 

@@ -50,7 +50,7 @@ end
 
 to GlobalTreat
   ;; send people to quarantine if they have been identified
-  let eligiblesimuls simuls with [ color = red and inICU = 0 and ownIncubationPeriod >= Incubation_Period and asymptom >= AsymptomaticPercentage and tracked = 1 ]
+  let eligiblesimuls simuls with [ color = red and inICU = 0 and ownIncubationPeriod >= Incubation_Period and tracked = 1 ]
 
   ;; only symptomatic cases are identified
   if (count simuls with [ InICU = 1 ]) < (count patches with [ pcolor = white ]) and Quarantine = true and any? eligiblesimuls [
@@ -182,8 +182,7 @@ to go
     simul_traceme
     ;; Set EssentialWorkerFlag based on proportion of population that is an essential worker (uses Essential_Workers (0-100) policy param)
     simul_EssentialWorkerID
-    ;; Randomly set app-people to hunted, and set hunted people to tracked.
-    simul_hunt
+    
     ;; enables people to access the support packages (???)
     ;simul_AccessPackage
     ;; If I am succeptible and a household member is tracked, move home and set pace to 0, set isolated=1. Also track isolated=1 infected people.
@@ -234,8 +233,6 @@ to go
   calculateCurrentInfections
   calculateEliminationDate
   
-  ;; Update tracking links in covid app or similar tracing functions
-  assesslinks
   ;; PotentialContacts metric
   calculatePotentialContacts
   

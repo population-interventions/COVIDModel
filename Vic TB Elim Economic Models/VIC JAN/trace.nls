@@ -1,29 +1,13 @@
 
 directed-link-breed [red-links red-link]
 
-to assignApptoEssential
-  ;; allocates the COVID-Safe app to essential works that can be adjusted using
-  ;; the EWAppUptake slider, which maxes at 1.0 meaning 100% allocation
-  if AssignAppEss = true [
-    ;; assigns the app to a proportion of essential workers determined by EWAppUptake
-    ask n-of ( count simuls with [ essentialWorkerFlag = 1 ] * eWAppUptake ) simuls with [ essentialWorkerFlag = 1 ] [
-      set haveApp (random App_Uptake)
-    ]
-  ]
-end
-
 to simul_traceme
   ;; this represents the standard tracking and tracing regime - undetected people are not tracked
   if tracked != 1 and tracking = true [
-    if color = red and track_and_trace_efficiency > random-float 1 and unDetectedFlag = 0 [
+    if color = red and track_and_trace_efficiency > random-float 1 and tracked = 0 [
       set tracked 1
       set IDTime timenow
     ]
-  ]
-  ;; this ensures that hunted people are tracked but that tracked people are not necessarily hunted
-  if color != red and count my-in-links = 0 [
-    set hunted 0
-    set tracked 0
   ]
 end
 
@@ -42,46 +26,5 @@ to traceadjust
   [
     ;; Why is this 0.25 at zero when that is otherwise the track_and_trace_efficiency of 200 casesinperiod7?
     set track_and_trace_efficiency 0.25
-  ]
-end
-
-
-to assesslinks
-  ;; this represents the COVID-Safe or other tracing app function
-  if link_switch = true and any? simuls with [ color = red and tracked = 1 and haveApp <= App_Uptake ] [
-    ask simuls with [ color = red and tracked = 1 and haveApp <= App_Uptake ] [
-      ;; other person must also have the app installed
-      if any? other simuls-here and GoldStandard > random 100 [
-        create-links-with other simuls-here with [ haveapp <= App_Uptake ]
-      ]
-    ]
-
-    ;; asks tracked simuls who have the app to make links to other simuls who also have the app they are in contact with
-    ask simuls with [ haveApp <= App_Uptake and agerange > 10 ] [
-      ask my-out-links [
-        set color blue
-      ]
-      ;; Covid-safe app out-links are set to blue
-    ]
-
-    ask simuls with [ haveApp > App_Uptake ] [
-      ask my-in-links [
-        set color red
-      ]
-      ;; in-links red but if there is an out and in-link it will be grey
-    ]
-
-    ask simuls with [ color != red ] [
-      ask my-out-links [
-        die
-      ]
-      ;; asks all links coming from the infected agent to die
-    ]
-    ask simuls with [ color = yellow ] [
-      ask my-in-links [
-        die
-      ]
-      ;; asks all links going to the recovered agent to die
-    ]
   ]
 end

@@ -644,10 +644,10 @@ mean [ R ] of simuls with [ color = red and timenow = int Illness_Period ]
 11
 
 SWITCH
-448
-1277
-573
-1310
+582
+1268
+707
+1301
 policytriggeron
 policytriggeron
 1
@@ -750,10 +750,10 @@ total_population
 Number
 
 SLIDER
-448
-1317
-574
-1350
+582
+1308
+708
+1341
 Triggerday
 Triggerday
 0
@@ -1004,10 +1004,10 @@ objFunction
 14
 
 BUTTON
-463
-1432
-569
-1467
+597
+1423
+703
+1458
 Stop Stimulus
 ask packages [ die ] 
 NIL
@@ -1109,10 +1109,10 @@ count simuls with [ shape = \"star\" ] / count simuls
 12
 
 TEXTBOX
-448
-1400
-573
-1423
+582
+1390
+707
+1413
 Day 1 - Dec 21st, 2020
 12
 15.0
@@ -1137,10 +1137,10 @@ PENS
 "default" 1.0 0 -2674135 true "" "plot mean [ personalTrust ] of simuls with [ color != black ]"
 
 SLIDER
-190
-1372
-393
-1405
+920
+1344
+1123
+1377
 WFH_Capacity
 WFH_Capacity
 0
@@ -1152,10 +1152,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-443
-1139
-583
-1172
+577
+1130
+717
+1163
 TimeLockDownOff
 TimeLockDownOff
 0
@@ -1213,7 +1213,7 @@ SLIDER
 132
 937
 315
-971
+970
 ICU_Required
 ICU_Required
 0
@@ -1285,10 +1285,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-190
-1333
-395
-1366
+920
+1305
+1125
+1338
 Hospital_Beds_in_Australia
 Hospital_Beds_in_Australia
 0
@@ -1520,22 +1520,11 @@ Global_Transmissability
 Global_Transmissability
 0
 100
-50.0
+60.0
 1
 1
 NIL
 HORIZONTAL
-
-MONITOR
-2194
-797
-2250
-842
-A V
-mean [ personalvirulence ] of simuls with [ asymptom < AsymptomaticPercentage ]
-1
-1
-11
 
 SLIDER
 1544
@@ -1553,10 +1542,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-443
-1177
-583
-1210
+577
+1168
+717
+1201
 SeedTicks
 SeedTicks
 0
@@ -1591,7 +1580,7 @@ App_Uptake
 App_Uptake
 0
 100
-30.0
+0.0
 1
 1
 NIL
@@ -1764,10 +1753,10 @@ MaskPolicy
 -1000
 
 SLIDER
-584
-1279
-764
-1312
+718
+1270
+898
+1303
 ResidualCautionPPA
 ResidualCautionPPA
 0
@@ -1779,10 +1768,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-584
-1319
-763
-1352
+718
+1310
+897
+1343
 ResidualCautionPTA
 ResidualCautionPTA
 0
@@ -2027,10 +2016,10 @@ NIL
 HORIZONTAL
 
 SWITCH
-448
-1229
-593
-1262
+582
+1220
+727
+1253
 OS_Import_Switch
 OS_Import_Switch
 0
@@ -2112,10 +2101,10 @@ ICUBedsRequired
 15
 
 SWITCH
-597
-1369
-731
-1402
+730
+1360
+864
+1393
 Complacency
 Complacency
 1
@@ -2487,17 +2476,6 @@ Undetected_Proportion
 NIL
 HORIZONTAL
 
-MONITOR
-8
-619
-123
-664
-Undetected Cases
-count simuls with [ color = red and undetectedFlag = 1 ]
-0
-1
-11
-
 SLIDER
 2062
 67
@@ -2573,10 +2551,10 @@ Isolate
 -1000
 
 SLIDER
-324
-900
-512
-933
+39
+1158
+227
+1191
 Mask_Efficacy_Mult
 Mask_Efficacy_Mult
 0
@@ -2664,7 +2642,7 @@ RAND_SEED
 RAND_SEED
 0
 1000000
-402597.0
+805195.0
 1
 1
 NIL
@@ -2945,13 +2923,13 @@ CHOOSER
 param_policy
 param_policy
 "AgggressElim" "ModerateElim" "TightSupress" "LooseSupress" "None"
-2
+0
 
 SLIDER
 1513
 830
 1650
-864
+863
 Scale_Threshold
 Scale_Threshold
 50
@@ -2966,7 +2944,7 @@ SLIDER
 1513
 867
 1651
-901
+900
 Scale_Factor
 Scale_Factor
 2
@@ -3004,7 +2982,7 @@ PLOT
 547
 2102
 759
-Undetected Cases (raw)
+Tracked cases
 NIL
 NIL
 0.0
@@ -3015,7 +2993,7 @@ true
 false
 "" ""
 PENS
-"default" 1.0 0 -16777216 true "" "plot count simuls with [ color = red and undetectedFlag = 1 ]"
+"default" 1.0 0 -16777216 true "" "plot count simuls with [ color = red and tracked = 1 ]"
 
 TEXTBOX
 772
@@ -3023,6 +3001,16 @@ TEXTBOX
 1160
 1116
 ----- Everything below this line should (hopefully) be ignored. -----
+11
+0.0
+1
+
+TEXTBOX
+37
+1133
+259
+1152
+Permanent yet straightforward variables
 11
 0.0
 1

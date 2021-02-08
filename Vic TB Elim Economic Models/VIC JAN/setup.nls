@@ -469,7 +469,7 @@ to setup
   set scalephase InitialScale
   ;; sets up the initial date for looking at policy-changes
 
-  ask n-of ( Current_Cases ) simuls [
+  ask n-of ( initial_cases ) simuls [
     set color red
     set tracked 1
     set reported 1
@@ -482,7 +482,7 @@ to setup
   ]
 
   ;; put a function in here that iterates this
-  ask n-of ((Current_Cases * (AsymptomaticPercentage / 100) * ( Undetected_Proportion / 100 ))) simuls [
+  ask n-of ((initial_cases * (AsymptomaticPercentage / 100) * ( Undetected_Proportion / 100 ))) simuls [
     set color red
     set asymptomaticFlag 1
     set undetectedFlag 1
@@ -571,7 +571,7 @@ to setup
   ]
 
   ;; this ensures that half the people in households with existing infections have also have an infection and prevents a big spike early-on
-  let init_secondry_infect houseCases
+  let init_secondry_infect secondary_cases
   ask simuls [
     if init_secondry_infect > 0 and any? other simuls in-radius 2 with [ color = red ] [
       set color red

@@ -295,7 +295,7 @@ Span
 Span
 0
 30
-15.0
+30.0
 1
 1
 NIL
@@ -455,10 +455,10 @@ count simuls * (Total_Population / population)
 14
 
 MONITOR
-3065
-1105
-3323
-1150
+2117
+613
+2375
+658
 Bed Capacity Scaled for Australia at 65,000k
 count patches with [ pcolor = white ]
 0
@@ -523,8 +523,8 @@ meanDaysInfected
 SLIDER
 1547
 420
-1729
-453
+1726
+454
 Superspreaders
 Superspreaders
 0
@@ -599,7 +599,7 @@ Proportion_People_Avoid
 Proportion_People_Avoid
 0
 100
-24.0
+0.0
 .5
 1
 NIL
@@ -614,7 +614,7 @@ Proportion_Time_Avoid
 Proportion_Time_Avoid
 0
 100
-24.0
+0.0
 .5
 1
 NIL
@@ -662,10 +662,10 @@ mean [ R ] of simuls with [ color = red and timenow = int Illness_Period ]
 11
 
 SWITCH
-190
-534
-315
-567
+448
+1277
+573
+1310
 policytriggeron
 policytriggeron
 0
@@ -750,7 +750,7 @@ INPUTBOX
 332
 310
 393
-current_cases
+initial_cases
 2.0
 1
 0
@@ -768,10 +768,10 @@ total_population
 Number
 
 SLIDER
-189
+448
+1317
 574
-315
-607
+1350
 Triggerday
 Triggerday
 0
@@ -794,10 +794,10 @@ AverageContacts
 11
 
 PLOT
-2462
-1100
-2652
-1221
+2117
+857
+2307
+978
 Close contacts and Mobility
 NIL
 NIL
@@ -863,10 +863,10 @@ NIL
 HORIZONTAL
 
 PLOT
-2114
-548
-2406
-693
+2788
+90
+3080
+235
 Age ranges
 NIL
 NIL
@@ -1022,10 +1022,10 @@ objFunction
 14
 
 BUTTON
-204
-689
-310
-724
+463
+1432
+569
+1467
 Stop Stimulus
 ask packages [ die ] 
 NIL
@@ -1072,11 +1072,11 @@ mean [ expenditure ] of simuls with [ agerange >= 18 and agerange < 70 and color
 11
 
 MONITOR
-8
-674
-147
-719
-Count red simuls (raw)
+190
+745
+274
+790
+Red (raw)
 count simuls with [ color = red ]
 0
 1
@@ -1127,10 +1127,10 @@ count simuls with [ shape = \"star\" ] / count simuls
 12
 
 TEXTBOX
-190
-658
-315
-681
+448
+1400
+573
+1423
 Day 1 - Dec 21st, 2020
 12
 15.0
@@ -1142,7 +1142,7 @@ INPUTBOX
 1465
 154
 ppa
-23.0
+0.0
 1
 0
 Number
@@ -1153,16 +1153,16 @@ INPUTBOX
 1534
 154
 pta
-23.0
+0.0
 1
 0
 Number
 
 PLOT
-2683
-1103
-2998
-1223
+2338
+860
+2653
+980
 Trust in Govt
 NIL
 NIL
@@ -1372,7 +1372,7 @@ SWITCH
 410
 link_switch
 link_switch
-0
+1
 1
 -1000
 
@@ -1567,10 +1567,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-2539
-1040
-2595
-1085
+2194
+797
+2250
+842
 A V
 mean [ personalvirulence ] of simuls with [ asymptom < AsymptomaticPercentage ]
 1
@@ -1586,7 +1586,7 @@ Essential_Workers
 Essential_Workers
 0
 100
-50.0
+100.0
 1
 1
 NIL
@@ -1631,7 +1631,7 @@ App_Uptake
 App_Uptake
 0
 100
-30.0
+20.0
 1
 1
 NIL
@@ -1644,7 +1644,7 @@ SWITCH
 452
 tracking
 tracking
-0
+1
 1
 -1000
 
@@ -1657,7 +1657,7 @@ Mask_Wearing
 Mask_Wearing
 0
 100
-90.0
+50.0
 1
 1
 NIL
@@ -1686,10 +1686,10 @@ mean [ householdunit ] of simuls
 11
 
 PLOT
-2115
-707
-2395
-855
+3100
+82
+3380
+230
 Infections by age range
 NIL
 NIL
@@ -1823,7 +1823,7 @@ ResidualCautionPPA
 ResidualCautionPPA
 0
 100
-15.0
+0.0
 1
 1
 NIL
@@ -1833,12 +1833,12 @@ SLIDER
 1547
 380
 1726
-413
+414
 ResidualCautionPTA
 ResidualCautionPTA
 0
 100
-15.0
+0.0
 1
 1
 NIL
@@ -2104,10 +2104,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-3074
-980
-3146
-1025
+2126
+488
+2198
+533
 OS %
 ( count simuls with [  imported = 1 ] / count simuls with [ color != 85 ]) * 100
 2
@@ -2141,10 +2141,10 @@ currentinfections
 11
 
 MONITOR
-3147
-990
-3222
-1035
+2198
+498
+2273
+543
 Illness time
 mean [ timenow ] of simuls with [ color = red ]
 1
@@ -2152,10 +2152,10 @@ mean [ timenow ] of simuls with [ color = red ]
 11
 
 MONITOR
-2617
-1035
-2722
-1096
+2272
+792
+2377
+853
 ICU Beds
 ICUBedsRequired
 0
@@ -2333,10 +2333,10 @@ JudgeDay4
 Number
 
 MONITOR
-3262
-1177
-3372
-1222
+2313
+684
+2423
+729
 Policy Reset Date
 ResetDate
 0
@@ -2469,10 +2469,10 @@ fourtothree
 Number
 
 MONITOR
-207
-848
-289
-893
+192
+797
+274
+842
 Yellow (raw)
 count simuls with [ color = yellow ]
 0
@@ -2576,10 +2576,10 @@ count simuls with [ timenow = 2 ]
 11
 
 MONITOR
-3237
-994
-3302
-1039
+2288
+502
+2353
+547
 Students
 count simuls with [ studentFlag = 1 ]
 0
@@ -2707,15 +2707,15 @@ Vaccinated %
 11
 
 SLIDER
-189
-612
-315
-645
+448
+1354
+574
+1387
 RAND_SEED
 RAND_SEED
 0
 1000000
-523256.0
+430233.0
 1
 1
 NIL
@@ -2982,8 +2982,8 @@ INPUTBOX
 397
 310
 457
-houseCases
-8.0
+secondary_cases
+6.0
 1
 0
 Number
@@ -3584,7 +3584,7 @@ NetLogo 6.2.0
     <enumeratedValueSet variable="Mean_Individual_Income">
       <value value="55000"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="current_cases">
+    <enumeratedValueSet variable="initial_cases">
       <value value="2"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Available_Resources">
@@ -3665,7 +3665,7 @@ NetLogo 6.2.0
   </experiment>
   <experiment name="Wuhan" repetitions="100" runMetricsEveryStep="true">
     <setup>setup
-set current_cases current_cases + random-normal 20 10
+set initial_cases initial_cases + random-normal 20 10
 set AsymptomaticPercentage AsymptomaticPercentage + random 10 - random 10
 set PPA random 100
 set PTA random 100</setup>
@@ -3801,7 +3801,7 @@ set PTA random 100</setup>
     <enumeratedValueSet variable="Mean_Individual_Income">
       <value value="55000"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="current_cases">
+    <enumeratedValueSet variable="initial_cases">
       <value value="86"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Available_Resources">
@@ -4018,7 +4018,7 @@ set PTA random 100</setup>
     <enumeratedValueSet variable="Mean_Individual_Income">
       <value value="55000"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="current_cases">
+    <enumeratedValueSet variable="initial_cases">
       <value value="2"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Available_Resources">
@@ -4228,7 +4228,7 @@ set PTA random 100</setup>
     <enumeratedValueSet variable="Mean_Individual_Income">
       <value value="55000"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="current_cases">
+    <enumeratedValueSet variable="initial_cases">
       <value value="2"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Available_Resources">
@@ -4309,7 +4309,7 @@ set PTA random 100</setup>
   </experiment>
   <experiment name="Wuhan new" repetitions="100" runMetricsEveryStep="true">
     <setup>setup
-set current_cases current_cases + random-normal 20 10
+set initial_cases initial_cases + random-normal 20 10
 set AsymptomaticPercentage AsymptomaticPercentage + random 10 - random 10
 set PPA random 100
 set PTA random 100</setup>
@@ -4445,7 +4445,7 @@ set PTA random 100</setup>
     <enumeratedValueSet variable="Mean_Individual_Income">
       <value value="55000"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="current_cases">
+    <enumeratedValueSet variable="initial_cases">
       <value value="86"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Available_Resources">
@@ -4666,7 +4666,7 @@ set PTA random 100</setup>
     <enumeratedValueSet variable="Mean_Individual_Income">
       <value value="55000"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="current_cases">
+    <enumeratedValueSet variable="initial_cases">
       <value value="341"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Available_Resources">
@@ -4908,7 +4908,7 @@ set PTA random 100</setup>
     <enumeratedValueSet variable="Mean_Individual_Income">
       <value value="55000"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="current_cases">
+    <enumeratedValueSet variable="initial_cases">
       <value value="1200"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Available_Resources">
@@ -5139,7 +5139,7 @@ set asymptomatic asymptomatic + random-normal 0 3</setup>
     <enumeratedValueSet variable="Mean_Individual_Income">
       <value value="55000"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="current_cases">
+    <enumeratedValueSet variable="initial_cases">
       <value value="63"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Available_Resources">
@@ -5387,7 +5387,7 @@ set App_uptake App_Uptake + random-normal 0 2</setup>
     <enumeratedValueSet variable="Mean_Individual_Income">
       <value value="55000"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="current_cases">
+    <enumeratedValueSet variable="initial_cases">
       <value value="63"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Available_Resources">
@@ -5697,7 +5697,7 @@ set App_uptake App_Uptake + random-normal 0 2</setup>
     <enumeratedValueSet variable="Population">
       <value value="2500"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="current_cases">
+    <enumeratedValueSet variable="initial_cases">
       <value value="10"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Available_Resources">
@@ -5995,7 +5995,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="Population">
       <value value="2500"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="current_cases">
+    <enumeratedValueSet variable="initial_cases">
       <value value="100"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Available_Resources">
@@ -6292,7 +6292,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="Population">
       <value value="2500"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="current_cases">
+    <enumeratedValueSet variable="initial_cases">
       <value value="44"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Available_Resources">
@@ -6601,7 +6601,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="Population">
       <value value="2500"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="current_cases">
+    <enumeratedValueSet variable="initial_cases">
       <value value="36"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Available_Resources">
@@ -6904,7 +6904,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="Population">
       <value value="2500"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="current_cases">
+    <enumeratedValueSet variable="initial_cases">
       <value value="36"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Available_Resources">
@@ -7207,7 +7207,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="Population">
       <value value="2500"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="current_cases">
+    <enumeratedValueSet variable="initial_cases">
       <value value="36"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Available_Resources">
@@ -7507,7 +7507,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="Mean_Individual_Income">
       <value value="55000"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="current_cases">
+    <enumeratedValueSet variable="initial_cases">
       <value value="36"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="saliency_of_experience">
@@ -7823,7 +7823,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="Mean_Individual_Income">
       <value value="55000"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="current_cases">
+    <enumeratedValueSet variable="initial_cases">
       <value value="36"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="saliency_of_experience">
@@ -8138,7 +8138,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="Mean_Individual_Income">
       <value value="55000"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="current_cases">
+    <enumeratedValueSet variable="initial_cases">
       <value value="36"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="saliency_of_experience">
@@ -8465,7 +8465,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="Mean_Individual_Income">
       <value value="55000"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="current_cases">
+    <enumeratedValueSet variable="initial_cases">
       <value value="31"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Available_Resources">
@@ -8787,7 +8787,7 @@ set undetected_proportion undetected_proportion + random-normal 0 3</setup>
     <enumeratedValueSet variable="Mean_Individual_Income">
       <value value="55000"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="current_cases">
+    <enumeratedValueSet variable="initial_cases">
       <value value="26"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Available_Resources">
@@ -9105,7 +9105,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="Population">
       <value value="2500"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="current_cases">
+    <enumeratedValueSet variable="initial_cases">
       <value value="36"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Available_Resources">
@@ -9420,7 +9420,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="Mean_Individual_Income">
       <value value="55000"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="current_cases">
+    <enumeratedValueSet variable="initial_cases">
       <value value="36"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="saliency_of_experience">
@@ -9716,7 +9716,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="Population">
       <value value="2500"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="current_cases">
+    <enumeratedValueSet variable="initial_cases">
       <value value="36"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Available_Resources">
@@ -10032,7 +10032,7 @@ set undetected_proportion undetected_proportion + random-normal 0 3</setup>
     <enumeratedValueSet variable="Mean_Individual_Income">
       <value value="55000"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="current_cases">
+    <enumeratedValueSet variable="initial_cases">
       <value value="24"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Available_Resources">
@@ -10351,7 +10351,7 @@ set undetected_proportion undetected_proportion + random-normal 0 3</setup>
     <enumeratedValueSet variable="Mean_Individual_Income">
       <value value="55000"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="current_cases">
+    <enumeratedValueSet variable="initial_cases">
       <value value="24"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Available_Resources">
@@ -10670,7 +10670,7 @@ set undetected_proportion undetected_proportion + random-normal 0 3</setup>
     <enumeratedValueSet variable="Mean_Individual_Income">
       <value value="55000"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="current_cases">
+    <enumeratedValueSet variable="initial_cases">
       <value value="24"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Available_Resources">
@@ -10989,7 +10989,7 @@ set undetected_proportion undetected_proportion + random-normal 0 3</setup>
     <enumeratedValueSet variable="Mean_Individual_Income">
       <value value="55000"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="current_cases">
+    <enumeratedValueSet variable="initial_cases">
       <value value="24"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Available_Resources">
@@ -11154,7 +11154,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="cruise">
       <value value="true"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="current_cases">
+    <enumeratedValueSet variable="initial_cases">
       <value value="24"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="days_of_cash_reserves">
@@ -11494,7 +11494,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="cruise">
       <value value="true"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="current_cases">
+    <enumeratedValueSet variable="initial_cases">
       <value value="24"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="days_of_cash_reserves">
@@ -11833,7 +11833,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="cruise">
       <value value="true"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="current_cases">
+    <enumeratedValueSet variable="initial_cases">
       <value value="24"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="days_of_cash_reserves">
@@ -12173,7 +12173,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="cruise">
       <value value="true"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="current_cases">
+    <enumeratedValueSet variable="initial_cases">
       <value value="24"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="days_of_cash_reserves">
@@ -12513,7 +12513,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="cruise">
       <value value="true"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="current_cases">
+    <enumeratedValueSet variable="initial_cases">
       <value value="24"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="days_of_cash_reserves">
@@ -12853,7 +12853,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="cruise">
       <value value="true"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="current_cases">
+    <enumeratedValueSet variable="initial_cases">
       <value value="24"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="days_of_cash_reserves">
@@ -13193,7 +13193,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="cruise">
       <value value="true"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="current_cases">
+    <enumeratedValueSet variable="initial_cases">
       <value value="24"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="days_of_cash_reserves">
@@ -13533,7 +13533,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="cruise">
       <value value="true"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="current_cases">
+    <enumeratedValueSet variable="initial_cases">
       <value value="100"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="days_of_cash_reserves">
@@ -13873,7 +13873,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="cruise">
       <value value="true"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="current_cases">
+    <enumeratedValueSet variable="initial_cases">
       <value value="1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="days_of_cash_reserves">
@@ -14220,7 +14220,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="cruise">
       <value value="true"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="current_cases">
+    <enumeratedValueSet variable="initial_cases">
       <value value="1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="days_of_cash_reserves">
@@ -14566,7 +14566,7 @@ set stage BaseStage</setup>
     <enumeratedValueSet variable="cruise">
       <value value="true"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="current_cases">
+    <enumeratedValueSet variable="initial_cases">
       <value value="1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="days_of_cash_reserves">
@@ -14926,7 +14926,7 @@ set stage BaseStage</setup>
     <enumeratedValueSet variable="cruise">
       <value value="true"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="current_cases">
+    <enumeratedValueSet variable="initial_cases">
       <value value="1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="days_of_cash_reserves">
@@ -15295,7 +15295,7 @@ set stage BaseStage</setup>
     <enumeratedValueSet variable="cruise">
       <value value="true"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="current_cases">
+    <enumeratedValueSet variable="initial_cases">
       <value value="1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="days_of_cash_reserves">

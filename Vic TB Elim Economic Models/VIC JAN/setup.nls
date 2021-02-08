@@ -187,10 +187,12 @@ to createSimulants
 
       set personalTrust random-normal 75 10
       set WFHCap random 100
-      set requireICU random 100
       set personalVirulence random-normal Global_Transmissability 2.5
       set haveApp random 100
       set sm_vac_uptake random 100
+
+      set requireICU 0
+      set requireICU_draw random-float 1
 
       set wearsMask random 100 ;; resethealth resetincome calculateincomeperday calculateexpenditureperday resettrust
       set detectable random 100 ;; identifies whether the person is detectable or not
@@ -427,7 +429,7 @@ to setup
   ask medresources [
     set color white
     set shape "Health care"
-    set size 5
+    set size 1.5
     set xcor 20
     set ycor -20
   ]
@@ -472,6 +474,7 @@ to setup
   ]
 
   ;; put a function in here that iterates this
+  ;; (what does iterates mean?)
   ask n-of ((initial_cases * (AsymptomaticPercentage / 100) * ( Undetected_Proportion / 100 ))) simuls [
     set color red
     set asymptomaticFlag 1

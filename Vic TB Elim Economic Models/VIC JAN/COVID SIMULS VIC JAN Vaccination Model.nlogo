@@ -295,7 +295,7 @@ Span
 Span
 0
 30
-30.0
+15.0
 1
 1
 NIL
@@ -581,7 +581,7 @@ Proportion_People_Avoid
 Proportion_People_Avoid
 0
 100
-0.0
+65.0
 .5
 1
 NIL
@@ -596,7 +596,7 @@ Proportion_Time_Avoid
 Proportion_Time_Avoid
 0
 100
-0.0
+65.0
 .5
 1
 NIL
@@ -1210,16 +1210,16 @@ count simuls
 11
 
 SLIDER
-190
-1409
-394
-1442
+132
+937
+315
+971
 ICU_Required
 ICU_Required
 0
-100
-1.0
 1
+0.1
+0.01
 1
 NIL
 HORIZONTAL
@@ -1270,10 +1270,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-743
-1222
-918
-1255
+1948
+1162
+2123
+1195
 ICU_Beds_in_Australia
 ICU_Beds_in_Australia
 0
@@ -1332,7 +1332,7 @@ SWITCH
 316
 link_switch
 link_switch
-1
+0
 1
 -1000
 
@@ -1546,7 +1546,7 @@ Essential_Workers
 Essential_Workers
 0
 100
-100.0
+50.0
 1
 1
 NIL
@@ -1591,7 +1591,7 @@ App_Uptake
 App_Uptake
 0
 100
-20.0
+30.0
 1
 1
 NIL
@@ -1604,7 +1604,7 @@ SWITCH
 358
 tracking
 tracking
-1
+0
 1
 -1000
 
@@ -1617,7 +1617,7 @@ Mask_Wearing
 Mask_Wearing
 0
 100
-50.0
+90.0
 1
 1
 NIL
@@ -2945,7 +2945,7 @@ CHOOSER
 param_policy
 param_policy
 "AgggressElim" "ModerateElim" "TightSupress" "LooseSupress" "None"
-1
+2
 
 SLIDER
 1513

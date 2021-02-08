@@ -24,7 +24,6 @@ to scaleup
     set riskofdeath .01
     set WFHCap random 100
     set ageRange ([ageRange ] of one-of simuls)
-    set requireICU random 100
 
     simul_resetComplianceAndMaskEfficacy
 
@@ -52,7 +51,6 @@ to scaleup
     move-to one-of patches with [ pcolor = black ] ;; resetincome calculateincomeperday calculateexpenditureperday
     simul_resetlanding
     set riskofdeath [ riskOfDeath ] of one-of simuls with [ agerange = ([ agerange ] of myself )]
-    set requireICU random 100
 
     simul_resetComplianceAndMaskEfficacy
   ]

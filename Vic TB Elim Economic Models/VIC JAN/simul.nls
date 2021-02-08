@@ -20,7 +20,6 @@ simuls-own [
   Pace ;; the speed that pthe person moves around the environment
   PersonalTrust ;; the level of trust the person has in the Government
   WFHCap ;; capacity of the person to work from home
-  RequireICU ;; a measure of whether the person needs ICU or not
   NewV ;; the calculation of the association the person has between the their experiences in the world and their experiences of the illness - used in R-W implementation
   saliencyMessage ;; saliency of the information coming to the person about COVID 19
   saliencyExperience ;; The saliency of the person's experiences in the world
@@ -36,7 +35,10 @@ simuls-own [
   personalVirulence ;; the infectivity of the person
   tracked ;; whether the person has been tracked by the health system
   Asymptomaticflag ;; indicator identifying Asymptomatic cases
-  
+
+  RequireICU ;; Whether the agent requires ICU at the moment
+  requireICU_draw ;; Random determiner [0, 1) of whether the agent requires ICU
+
   EssentialWorkerPriority ;; Value from 0 - 100 that sets priority of the job. 1 is high, 100 is low.
   EssentialWorkerFlag ;; indicator of whether the person is considered to be an essential worker under the current lockdown policy.
   
@@ -232,7 +234,6 @@ to simul_infect
           if mySucceptibility * x > random-float 1 [
             set color red
             set timenow 0
-            simul_traceme
           ]
         ]
       ]
@@ -416,7 +417,7 @@ end
 
 to simul_checkICU
   ;; estimates if someone needs and ICU bed
-  if color = red and RequireICU < ICU_Required and timenow >= ownIncubationPeriod [
+  if color = red and RequireICU_draw < ICU_Required and timenow >= ownIncubationPeriod [
     set requireICU 1
   ]
   ;; and updates their reported status - this needs to go after the last function as it wasn't being counted properly

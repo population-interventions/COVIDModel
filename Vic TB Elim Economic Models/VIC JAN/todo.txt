@@ -1,12 +1,19 @@
 Figure out whether there should be a non-infective period at the start of covid.
-Check up on the ICU. I've seen ICU beds go pretty weird.
-Look into the tracking and tracing system. It seems very complex.
 Figure out how simul_visitDestination works and why.
 Check whether dead people are really dead. They are moved to a particular patch, but does this actually ensure they won't interact with people?
 
-Report on the fact that avoiding only worked about 50% of the time.
-Ask questions about how essential workers should behave.
-Ask questions about schools.
-Ask questions about whether mask efficiency is supposed to be 75% for two people wearing masks, or  75%^2
-
 Run a batch of simulations that test whether choice of scale has a consistent effect on the result.
+
+Look into the tracking and tracing system. It seems very complex.
+ * 
+
+Check up on the ICU. I've seen ICU beds go pretty weird.
+ * pcolor = white seems like it does it.
+ * Figure out GlobalTreat and what it has to do with tracing.
+
+Questions/notes
+ * Ask questions about how essential workers should behave.
+ * Ask questions about schools.
+ * Ask questions about whether mask efficiency is supposed to be 75% for two people wearing masks, or 75%^2
+ * Which unknown parameters are supposed to vary per-draw and which vary per-agent? For example maskEfficacy is currently drawn from beta 24.3 8.08 per agent.
+ * The elimination policy triggers for transitions between stages 1b and 2 tend to fluctuate. There can be fewer than 1 case per day for the last seven days, causing a drop to stage 1b, and five or more cases in the last 14 days, causing an instant reset to stage 2.

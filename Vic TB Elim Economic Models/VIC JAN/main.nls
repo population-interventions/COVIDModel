@@ -178,8 +178,7 @@ to go
     simul_Countcontacts
     ;; Set infected people to always require ICU after their incubation period???
     simul_checkICU
-    ;; Randomly start tracking infected people based on track_and_trace_efficiency. Note that simul_traceme can also be called upon being infected
-    ;; so track_and_trace_efficiency is not exactly the tracking rate per timestep.
+    ;; Randomly start tracking infected people based on track_and_trace_efficiency.
     simul_traceme
     ;; Set EssentialWorkerFlag based on proportion of population that is an essential worker (uses Essential_Workers (0-100) policy param)
     simul_EssentialWorkerID

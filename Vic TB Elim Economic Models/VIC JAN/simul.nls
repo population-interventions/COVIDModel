@@ -315,7 +315,7 @@ to simul_avoid
       simul_update_patch_utilisation
   ])
   
-  if studentFlag = 1 and global_schoolActive [
+  if studentFlag = 1 and global_schoolActive = 1 [
     simul_avoid_student
   ]
 end

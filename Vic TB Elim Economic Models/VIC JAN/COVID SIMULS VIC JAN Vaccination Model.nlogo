@@ -1538,7 +1538,7 @@ Global_Transmissability
 Global_Transmissability
 0
 100
-37.0
+74.0
 1
 1
 NIL
@@ -2038,7 +2038,7 @@ Asymptomatic_Trans
 Asymptomatic_Trans
 0
 1
-0.35
+0.61
 .01
 1
 NIL
@@ -2059,7 +2059,7 @@ SLIDER
 1547
 348
 1727
-382
+381
 OS_Import_Proportion
 OS_Import_Proportion
 0
@@ -2599,7 +2599,7 @@ Mask_Efficacy_Mult
 Mask_Efficacy_Mult
 0
 3
-2.45
+1.5
 .01
 1
 NIL

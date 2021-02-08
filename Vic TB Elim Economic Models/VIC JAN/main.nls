@@ -84,24 +84,6 @@ to forwardTime
   set days days + 1
 end
 
-To Unlock
-  ;; reverses the initiation of social distancing and isolation policies over time. Recognises that the policies are interpreted
-  ;; and adherence is not binary. Adherence to policies is associated with a negative exponential curve linked to the current day
-  ;; and the number of days until the policies are due to be relaxed at which point they are relaxed fully.
-
-  if Complacency = true and PolicyTriggerOn = true and LockDown_Off = true and ticks >= Triggerday
-      and int Proportion_People_Avoid > ResidualCautionPPA [
-    set PPA (PPA - 1 )
-    set Proportion_People_Avoid PPA
-  ]
-
-  if Complacency = true and PolicyTriggerOn = true and LockDown_Off = true and ticks >= Triggerday
-      and int Proportion_Time_Avoid > ResidualCautionPTA [
-    set PTA (PTA - 1 )
-    set Proportion_Time_Avoid PTA
-  ]
-end
-
 ;;;;;;;;;;;;*********END OF TTI FUNCTIONS******* ;;;;;;;;;;;;;
 
 to OSCase
@@ -159,15 +141,6 @@ end
 to-report nonesspercentage
   if count simuls with [ essentialworkerflag != 1 and color != cyan ] > 0 [
     report (count simuls with [ essentialworkerflag != 1 and color != cyan] ) / (count simuls with [ essentialWorkerFlag != 1 ])
-  ]
-end
-
-to linearbehdecrease
-  if complacency = true [
-    if ticks > triggerday and ppa > ResidualCautionppa [
-      set ppa (ppa - 1)
-      set pta ( pta - 1)
-    ]
   ]
 end
 
@@ -349,9 +322,6 @@ to go
   
   ;; Check whether to scale up, which occurs when 10% of the agents are infected.
   ScaleUp
-  
-  ;; Reverses the initiation of social distancing and isolation policies over time.
-  Unlock
 
   ;; Calculate various metrics, which may be used for policy or may just be output.
   setCaseFatalityRate
@@ -405,8 +375,6 @@ to go
   
   ;; set track_and_trace_efficiency based on the number of recent cases.
   traceadjust
-  ;; Reduce ppa and pta usage if complacency = True.
-  linearbehdecrease
   ;; Set lockdown stage and easing date, bases mostly on casesinperiod7
   CovidPolicyTriggers
   ;; Set casesinperiod7, which is only detected cases. Also sets casesinperiod14 and casesinperiod28.
@@ -423,6 +391,11 @@ to go
   incursion
   ;; Average "days into infection the person is identified as a case" of suceptible agents.
   CalculateMeanIDTime
+
+  ;; Reverses the initiation of social distancing and isolation policies over time.
+  ;Unlock
+  ;; Reduce ppa and pta usage if complacency = True.
+  ;linearbehdecrease
 
   ;; set days days + 1
   ForwardTime

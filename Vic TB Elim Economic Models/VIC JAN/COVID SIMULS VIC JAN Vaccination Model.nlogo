@@ -521,10 +521,10 @@ meanDaysInfected
 14
 
 SLIDER
-1547
-420
-1726
-454
+1549
+384
+1728
+417
 Superspreaders
 Superspreaders
 0
@@ -668,7 +668,7 @@ SWITCH
 1310
 policytriggeron
 policytriggeron
-0
+1
 1
 -1000
 
@@ -1136,28 +1136,6 @@ Day 1 - Dec 21st, 2020
 15.0
 1
 
-INPUTBOX
-1400
-94
-1465
-154
-ppa
-0.0
-1
-0
-Number
-
-INPUTBOX
-1470
-94
-1534
-154
-pta
-0.0
-1
-0
-Number
-
 PLOT
 2338
 860
@@ -1367,9 +1345,9 @@ count links / count simuls with [ color = red ]
 
 SWITCH
 1402
-377
+360
 1536
-410
+393
 link_switch
 link_switch
 1
@@ -1578,10 +1556,10 @@ mean [ personalvirulence ] of simuls with [ asymptom < AsymptomaticPercentage ]
 11
 
 SLIDER
-1543
-260
-1721
-293
+1545
+224
+1723
+257
 Essential_Workers
 Essential_Workers
 0
@@ -1638,10 +1616,10 @@ NIL
 HORIZONTAL
 
 SWITCH
-1400
-419
-1537
-452
+1399
+403
+1536
+436
 tracking
 tracking
 1
@@ -1649,10 +1627,10 @@ tracking
 -1000
 
 SLIDER
-1543
-299
-1723
-332
+1545
+264
+1725
+297
 Mask_Wearing
 Mask_Wearing
 0
@@ -1664,10 +1642,10 @@ NIL
 HORIZONTAL
 
 SWITCH
-1400
-257
-1535
-290
+1399
+240
+1534
+273
 schoolsPolicy
 schoolsPolicy
 0
@@ -1778,10 +1756,10 @@ studentInfections / 2500
 11
 
 SWITCH
-1545
-130
-1723
-163
+1399
+198
+1536
+232
 SchoolPolicyActive
 SchoolPolicyActive
 0
@@ -1804,10 +1782,10 @@ NIL
 HORIZONTAL
 
 SWITCH
-1400
-335
-1534
-368
+1399
+318
+1533
+351
 MaskPolicy
 MaskPolicy
 0
@@ -1815,30 +1793,30 @@ MaskPolicy
 -1000
 
 SLIDER
-1547
-339
-1727
-372
+1549
+304
+1729
+337
 ResidualCautionPPA
 ResidualCautionPPA
 0
 100
-0.0
+81.0
 1
 1
 NIL
 HORIZONTAL
 
 SLIDER
-1547
-380
-1726
-414
+1549
+344
+1728
+377
 ResidualCautionPTA
 ResidualCautionPTA
 0
 100
-0.0
+81.0
 1
 1
 NIL
@@ -2115,10 +2093,10 @@ OS %
 11
 
 SLIDER
-1543
-222
-1720
-255
+1545
+187
+1722
+220
 OS_Import_Post_Proportion
 OS_Import_Post_Proportion
 0
@@ -2163,10 +2141,10 @@ ICUBedsRequired
 15
 
 SWITCH
-1400
-297
-1534
-330
+1399
+280
+1533
+313
 Complacency
 Complacency
 0
@@ -2862,10 +2840,10 @@ contact_radius
 11
 
 MONITOR
-1400
-157
-1537
-202
+1399
+94
+1536
+139
 NIL
 spatial_distance
 17
@@ -2874,9 +2852,9 @@ spatial_distance
 
 MONITOR
 1402
-207
+144
 1536
-252
+189
 NIL
 case_isolation
 17
@@ -2884,10 +2862,10 @@ case_isolation
 11
 
 MONITOR
-1543
-170
-1720
-215
+1545
+134
+1722
+179
 NIL
 quarantine
 17

@@ -6,8 +6,8 @@
 to do_stages_tony
   if stage = 0 [
     set span 30
-    set pta 0
-    set ppa 0
+    set proportion_people_avoid 0
+    set proportion_time_avoid 0
     set spatial_distance false
     set age_isolation 0
     set case_isolation false
@@ -21,21 +21,19 @@ to do_stages_tony
     set mask_wearing 50
     set tracking false
     set App_Uptake 20
-    set residualcautionPTA 0
-    set residualcautionPPA 0
-    set proportion_people_avoid ppa
-    set proportion_time_avoid pta
-    set complacency true
     set superspreaders 10
     ; Does nothing
+    ;set residualcautionPTA 0
+    ;set residualcautionPPA 0
+    ;set complacency true
     ;set upperStudentAge 18
     ;set LowerStudentAge 3
   ]
 
   if stage = 1 [
     set span 30
-    set pta 15
-    set ppa 15
+    set proportion_people_avoid 25
+    set proportion_time_avoid 25
     set spatial_distance true
     set age_isolation 0
     set case_isolation true
@@ -49,21 +47,19 @@ to do_stages_tony
     set mask_wearing 90
     set tracking true
     set App_Uptake 30
-    set residualcautionPTA 12
-    set residualcautionPPA 12
-    set proportion_people_avoid ppa
-    set proportion_time_avoid pta
-    set complacency true
     set superspreaders 10
     ; Does nothing
+    ;set residualcautionPTA 12
+    ;set residualcautionPPA 12
+    ;set complacency true
     ;set upperStudentAge 18
     ;set LowerStudentAge 3
   ]
 
   if stage = 2 [
     set span 15
-    set pta 25
-    set ppa 25
+    set proportion_people_avoid 65
+    set proportion_time_avoid 65
     set spatial_distance true
     set age_isolation 0
     set case_isolation true
@@ -77,21 +73,19 @@ to do_stages_tony
     set mask_wearing 90
     set tracking true
     set App_Uptake 30
-    set residualcautionPTA 15
-    set residualcautionPPA 15
-    set proportion_people_avoid ppa
-    set proportion_time_avoid pta
-    set complacency true
     set superspreaders 10
     ; Does nothing
+    ;set residualcautionPTA 15
+    ;set residualcautionPPA 15
+    ;set complacency true
     ;set upperStudentAge 18
     ;set LowerStudentAge 3
   ]
 
   if stage = 3 [
     set span 10
-    set pta 80
-    set ppa 80
+    set proportion_people_avoid 85
+    set proportion_time_avoid 85
     set spatial_distance true
     set age_isolation 0
     set case_isolation true
@@ -105,21 +99,19 @@ to do_stages_tony
     set mask_wearing 90
     set tracking true
     set App_Uptake 30
-    set residualcautionPTA 64
-    set residualcautionPPA 64
-    set proportion_people_avoid ppa
-    set proportion_time_avoid pta
-    set complacency true
     set superspreaders 5
     ; Does nothing
+    ;set residualcautionPTA 64
+    ;set residualcautionPPA 64
+    ;set complacency true
     ;set upperStudentAge 16
     ;set LowerStudentAge 3
   ]
 
   if stage = 4 [
     set span 5
-    set pta 90
-    set ppa 90
+    set proportion_people_avoid 90
+    set proportion_time_avoid 90
     set spatial_distance true
     set age_isolation 0
     set case_isolation true
@@ -133,13 +125,11 @@ to do_stages_tony
     set mask_wearing 90
     set tracking true
     set App_Uptake 30
-    set residualcautionPTA 81
-    set residualcautionPPA 81
-    set proportion_people_avoid ppa
-    set proportion_time_avoid pta
-    set complacency true
     set superspreaders 2
     ; Does nothing
+    ;set residualcautionPTA 81
+    ;set residualcautionPPA 81
+    ;set complacency true
     ;set upperStudentAge 18
     ;set LowerStudentAge 0
   ] ;; check student age update
@@ -151,8 +141,8 @@ end
 to do_stages_28_9_20
   if stage = 0 [
     set span 30
-    set pta 0
-    set ppa 0
+    set proportion_people_avoid 0
+    set proportion_time_avoid 0
     set spatial_distance false
     set age_isolation 0
     set case_isolation false
@@ -168,8 +158,6 @@ to do_stages_28_9_20
     set App_Uptake 20
     set residualcautionPTA 0
     set residualcautionPPA 0
-    set proportion_people_avoid ppa
-    set proportion_time_avoid pta
     set complacency true
     set upperStudentAge 18
     set LowerStudentAge 3
@@ -178,8 +166,8 @@ to do_stages_28_9_20
 
   if stage = 1 [
     set span 30
-    set pta 15
-    set ppa 15
+    set proportion_people_avoid 15
+    set proportion_time_avoid 15
     set spatial_distance true
     set age_isolation 0
     set case_isolation true
@@ -195,8 +183,6 @@ to do_stages_28_9_20
     set App_Uptake 30
     set residualcautionPTA 12
     set residualcautionPPA 12
-    set proportion_people_avoid ppa
-    set proportion_time_avoid pta
     set complacency true
     set upperStudentAge 18
     set LowerStudentAge 3
@@ -205,8 +191,8 @@ to do_stages_28_9_20
 
   if stage = 2 [
     set span 15
-    set pta 25
-    set ppa 25
+    set proportion_people_avoid 15
+    set proportion_time_avoid 15
     set spatial_distance true
     set age_isolation 0
     set case_isolation true
@@ -222,8 +208,6 @@ to do_stages_28_9_20
     set App_Uptake 30
     set residualcautionPTA 15
     set residualcautionPPA 15
-    set proportion_people_avoid ppa
-    set proportion_time_avoid pta
     set complacency true
     set upperStudentAge 18
     set LowerStudentAge 3
@@ -232,8 +216,8 @@ to do_stages_28_9_20
 
   if stage = 3.5 [
     set span 10
-    set pta 85
-    set ppa 85
+    set proportion_people_avoid 85
+    set proportion_time_avoid 85
     set spatial_distance true
     set age_isolation 0
     set case_isolation true
@@ -249,8 +233,6 @@ to do_stages_28_9_20
     set App_Uptake 30
     set residualcautionPTA 68
     set residualcautionPPA 68
-    set proportion_people_avoid ppa
-    set proportion_time_avoid pta
     set complacency true
     set upperStudentAge 18
     set LowerStudentAge 4
@@ -259,8 +241,8 @@ to do_stages_28_9_20
 
   if stage = 3.9 [
     set span 7
-    set pta 89
-    set ppa 89
+    set proportion_people_avoid 89
+    set proportion_time_avoid 89
     set spatial_distance true
     set age_isolation 0
     set case_isolation true
@@ -276,8 +258,6 @@ to do_stages_28_9_20
     set App_Uptake 30
     set residualcautionPTA 80
     set residualcautionPPA 80
-    set proportion_people_avoid ppa
-    set proportion_time_avoid pta
     set complacency true
     set upperStudentAge 18
     set LowerStudentAge 0
@@ -286,8 +266,8 @@ to do_stages_28_9_20
 
   if stage = 4 [
     set span 5
-    set pta 90
-    set ppa 90
+    set proportion_people_avoid 90
+    set proportion_time_avoid 90
     set spatial_distance true
     set age_isolation 0
     set case_isolation true
@@ -303,8 +283,6 @@ to do_stages_28_9_20
     set App_Uptake 30
     set residualcautionPTA 81
     set residualcautionPPA 81
-    set proportion_people_avoid ppa
-    set proportion_time_avoid pta
     set complacency true
     set upperStudentAge 18
     set LowerStudentAge 0
@@ -318,8 +296,8 @@ end
 to do_stages_vic
   if stage = 0 [
     set span 30
-    set pta 0
-    set ppa 0
+    set proportion_people_avoid 0
+    set proportion_time_avoid 0
     set spatial_distance false
     set age_isolation 0
     set case_isolation false
@@ -335,8 +313,6 @@ to do_stages_vic
     set App_Uptake 20
     set residualcautionPTA 0
     set residualcautionPPA 0
-    set proportion_people_avoid ppa
-    set proportion_time_avoid pta
     set complacency false
     set upperStudentAge 18
     set LowerStudentAge 3
@@ -344,8 +320,8 @@ to do_stages_vic
 
   if stage = 1 [
     set span 30
-    set pta 15
-    set ppa 15
+    set proportion_people_avoid 15
+    set proportion_time_avoid 15
     set spatial_distance true
     set age_isolation 0
     set case_isolation true
@@ -361,8 +337,6 @@ to do_stages_vic
     set App_Uptake 30
     set residualcautionPTA 15
     set residualcautionPPA 15
-    set proportion_people_avoid ppa
-    set proportion_time_avoid pta
     set complacency false
     set upperStudentAge 18
     set LowerStudentAge 3
@@ -370,8 +344,8 @@ to do_stages_vic
 
   if stage = 2 [
     set span 15
-    set pta 75
-    set ppa 75
+    set proportion_people_avoid 75
+    set proportion_time_avoid 75
     set spatial_distance true
     set age_isolation 0
     set case_isolation true
@@ -387,8 +361,6 @@ to do_stages_vic
     set App_Uptake 30
     set residualcautionPTA 60
     set residualcautionPPA 60
-    set proportion_people_avoid ppa
-    set proportion_time_avoid pta
     set complacency false
     set upperStudentAge 18
     set LowerStudentAge 3
@@ -396,8 +368,8 @@ to do_stages_vic
 
   if stage = 3 [
     set span 10
-    set pta 85
-    set ppa 85
+    set proportion_people_avoid 85
+    set proportion_time_avoid 85
     set spatial_distance true
     set age_isolation 0
     set case_isolation true
@@ -413,8 +385,6 @@ to do_stages_vic
     set App_Uptake 30
     set residualcautionPTA 68
     set residualcautionPPA 68
-    set proportion_people_avoid ppa
-    set proportion_time_avoid pta
     set complacency false
     set upperStudentAge 18
     set LowerStudentAge 3
@@ -422,8 +392,8 @@ to do_stages_vic
 
   if stage = 4 [
     set span 5
-    set pta 90
-    set ppa 90
+    set proportion_people_avoid 90
+    set proportion_time_avoid 90
     set spatial_distance true
     set age_isolation 0
     set case_isolation true
@@ -439,8 +409,6 @@ to do_stages_vic
     set App_Uptake 30
     set residualcautionPTA 81
     set residualcautionPPA 81
-    set proportion_people_avoid ppa
-    set proportion_time_avoid pta
     set complacency false
     set upperStudentAge 18
     set LowerStudentAge 3
@@ -453,8 +421,8 @@ end
 to do_stages_31_8_2020
   if stage = 0 and ticks = resetdate [
     set span 30
-    set pta 0
-    set ppa 0
+    set proportion_people_avoid 0
+    set proportion_time_avoid 0
     set spatial_distance false
     set age_isolation 0
     set case_isolation false
@@ -470,8 +438,6 @@ to do_stages_31_8_2020
     set App_Uptake 100
     set residualcautionPTA 0
     set residualcautionPPA 0
-    set proportion_people_avoid ppa
-    set proportion_time_avoid pta
     set complacency true
     ask simuls [
       if agerange = 5 and returntoschool <= 100 [
@@ -488,8 +454,8 @@ to do_stages_31_8_2020
 
   if stage = 1 and ticks = resetdate [
     set span 30
-    set pta 25
-    set ppa 25
+    set proportion_people_avoid 25
+    set proportion_time_avoid 25
     set spatial_distance true
     set age_isolation 0
     set case_isolation true
@@ -505,8 +471,6 @@ to do_stages_31_8_2020
     set App_Uptake 100
     set residualcautionPTA 15
     set residualcautionPPA 15
-    set proportion_people_avoid ppa
-    set proportion_time_avoid pta
     set complacency true
     ask simuls [
       if agerange = 5 and returntoschool <= 100 [
@@ -523,8 +487,8 @@ to do_stages_31_8_2020
 
   if stage = 2 and ticks = resetdate [
     set span 15
-    set pta 65
-    set ppa 65
+    set proportion_people_avoid 65
+    set proportion_time_avoid 65
     set spatial_distance true
     set age_isolation 0
     set case_isolation true
@@ -540,8 +504,6 @@ to do_stages_31_8_2020
     set App_Uptake 100
     set residualcautionPTA 52
     set residualcautionPPA 52
-    set proportion_people_avoid ppa
-    set proportion_time_avoid pta
     set complacency true
     ask simuls [
       if agerange = 5 and returntoschool <= 40 [
@@ -558,8 +520,8 @@ to do_stages_31_8_2020
 
   if stage = 3.3 and ticks = resetdate [
     set span 10
-    set pta 85
-    set ppa 85
+    set proportion_people_avoid 85
+    set proportion_time_avoid 85
     set spatial_distance true
     set age_isolation 0
     set case_isolation true
@@ -575,8 +537,6 @@ to do_stages_31_8_2020
     set App_Uptake 100
     set residualcautionPTA 68 ;; this sends older children back
     set residualcautionPPA 68
-    set proportion_people_avoid ppa
-    set proportion_time_avoid pta
     set complacency true
     ask simuls [
       if agerange = 5 and returntoschool <= 33 [
@@ -601,8 +561,8 @@ to do_stages_31_8_2020
 
   if stage = 3.4 and ticks = resetdate [
     set span 10
-    set pta 85
-    set ppa 85
+    set proportion_people_avoid 85
+    set proportion_time_avoid 85
     set spatial_distance true
     set age_isolation 0
     set case_isolation true
@@ -618,8 +578,6 @@ to do_stages_31_8_2020
     set App_Uptake 100
     set residualcautionPTA 68 ;; this sends younger students back to school up to age 10
     set residualcautionPPA 68
-    set proportion_people_avoid ppa
-    set proportion_time_avoid pta
     set complacency true
     ask simuls [
       if agerange = 5 and returntoschool <= 33 [
@@ -645,8 +603,8 @@ to do_stages_31_8_2020
 
   if stage = 3 and ticks = resetdate [
     set span 10
-    set pta 85
-    set ppa 85
+    set proportion_people_avoid 85
+    set proportion_time_avoid 85
     set spatial_distance true
     set age_isolation 0
     set case_isolation true
@@ -662,8 +620,6 @@ to do_stages_31_8_2020
     set App_Uptake 100
     set residualcautionPTA 68 ;; 25% essentialworkers represents increase of ~150,000 FTE from 3.9
     set residualcautionPPA 68
-    set proportion_people_avoid ppa
-    set proportion_time_avoid pta
     set complacency true
     set superspreaders 5
     ask simuls [
@@ -673,8 +629,8 @@ to do_stages_31_8_2020
 
   if stage = 3.9 and ticks = resetdate [
     set span 7
-    set pta 89
-    set ppa 89
+    set proportion_people_avoid 89
+    set proportion_time_avoid 89
     set spatial_distance true
     set age_isolation 0
     set case_isolation true
@@ -690,8 +646,6 @@ to do_stages_31_8_2020
     set App_Uptake 100
     set residualcautionPTA 80
     set residualcautionPPA 80
-    set proportion_people_avoid ppa
-    set proportion_time_avoid pta
     set complacency true
     set superspreaders 3
     ask simuls [
@@ -701,8 +655,8 @@ to do_stages_31_8_2020
 
   if stage = 4 and ticks = resetdate [
     set span 5
-    set pta 90
-    set ppa 90
+    set proportion_people_avoid 90
+    set proportion_time_avoid 90
     set spatial_distance true
     set age_isolation 0
     set case_isolation true
@@ -718,8 +672,6 @@ to do_stages_31_8_2020
     set App_Uptake 100
     set residualcautionPTA 81
     set residualcautionPPA 81
-    set proportion_people_avoid ppa
-    set proportion_time_avoid pta
     set complacency true
     set superspreaders 2
     ask simuls [

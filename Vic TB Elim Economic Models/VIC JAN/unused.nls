@@ -1,5 +1,33 @@
 ;; Functions that are not referenced anywhere else.
 
+To Unlock
+  ;; reverses the initiation of social distancing and isolation policies over time. Recognises that the policies are interpreted
+  ;; and adherence is not binary. Adherence to policies is associated with a negative exponential curve linked to the current day
+  ;; and the number of days until the policies are due to be relaxed at which point they are relaxed fully.
+
+  if Complacency = true and PolicyTriggerOn = true and LockDown_Off = true and ticks >= Triggerday
+      and int Proportion_People_Avoid > ResidualCautionPPA [
+    set PPA (PPA - 1 )
+    set Proportion_People_Avoid PPA
+  ]
+
+  if Complacency = true and PolicyTriggerOn = true and LockDown_Off = true and ticks >= Triggerday
+      and int Proportion_Time_Avoid > ResidualCautionPTA [
+    set PTA (PTA - 1 )
+    set Proportion_Time_Avoid PTA
+  ]
+end
+
+to linearbehdecrease
+  if complacency = true [
+    if ticks > triggerday and ppa > ResidualCautionppa [
+      set ppa (ppa - 1)
+      set pta ( pta - 1)
+    ]
+  ]
+end
+
+
 ;; This code used to infect simulants. It is unclear what it was meant to do.
 to simul_infect_old
   ;; reduces capacity of asymptomatic people to pass on the virus by Asymptomatic_Trans

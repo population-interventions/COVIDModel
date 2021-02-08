@@ -121,10 +121,6 @@ to policy_tight_supress
     (if stage >= 1 and casesinperiod7 < 2.5 * total_population / 1000000 * 7
       [
         set stage stage - 1
-        if stage = 1 [
-          ; Stage 1 is actually stage 1b, while stage 0 is actually stage 1
-          set stage 0
-        ]
         set decisionDate ticks
       ]
     )
@@ -153,10 +149,6 @@ to policy_loose_supress
     (if stage >= 1 and casesinperiod7 < 12.5 * total_population / 1000000 * 7
       [
         set stage stage - 1
-        if stage = 1 [
-          ; Stage 1 is actually stage 1b, while stage 0 is actually stage 1
-          set stage 0
-        ]
         set decisionDate ticks
       ]
     )

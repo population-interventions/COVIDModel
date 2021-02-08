@@ -515,8 +515,6 @@ to setup
   set contact_radius 0 ;; sets contact radius of people
   set Quarantine false
   set eliminationDate 0 ; used to identify the date of elimination where no current, unrecovered cases exist
-  set Proportion_People_Avoid PPA ;; used to set the proportion of people who are socially distancing
-  set Proportion_Time_Avoid PTA ;; used to set the proportion of time that people who are socially distancing are socially distancing (e.g., 85% of people 85% of the time)
   set spatial_distance false
   set case_isolation false
 

@@ -179,7 +179,7 @@ to simul_record_patch_infectiveness
       set localInfectiveness (localInfectiveness * Asymptomatic_Trans)
     ]
     if vaccinated = 1 [
-      set asymptomaticFlag (asymptomaticFlag * (1 - selfVaccEffectiveness))
+      set localInfectiveness (localInfectiveness * (1 - selfVaccEffectiveness))
     ]
     
     ;print "currentVirulence"
@@ -251,13 +251,15 @@ to simul_move
     [
       if color != red or color != black and spatial_Distance = false [
         ;; contact radius defines how large the circle of contacts for the person is.
-        set heading heading + Contact_Radius + random 45 - random 45 fd random pace
+        set heading heading + Contact_Radius + random 45 - random 45
+        forward random pace
         simul_avoidICUs
       ]
 
       ;; non-compliant people continue to move around the environment unless they are very sick
       if color = red and Case_Isolation = false and ownCompliancewithIsolation * 100 < random 100 and health > random 100 [
-        set heading heading + random 90 - random 90 fd random pace
+        set heading heading + random 90 - random 90
+        forward random pace
       ]
 
       ;; steers people away from the hospital
@@ -325,7 +327,8 @@ to simul_avoid
     ]
     [
       ;; otherwise just move wherever you like
-      set heading heading + contact_Radius fd random pace
+      set heading heading + contact_Radius
+      forward random pace
       simul_avoidICUs
       move-to patch-here
       simul_update_patch_utilisation

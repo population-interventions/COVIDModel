@@ -14,13 +14,13 @@ to superSpread
       ;; asks some people who are infected and not tracked to move to random new areas,
       ;;potentially among susceptible people if travel restrictions are not current
       ask n-of int (count simuls with [ color = red and tracked = 0 ] / Diffusion_Adjustment ) simuls with [ color = red and tracked = 0 ] [
-        fd world-width / 2
+        forward world-width / 2
       ]
 
       ;; same as above but for recovered people to take into account immunity in the population
       if count simuls with [ color = yellow ] >= Diffusion_Adjustment [
         ask n-of int ( count simuls with [ color = yellow ] / Diffusion_Adjustment ) Simuls with [ color = yellow ] [
-          fd world-width / 2
+          forward world-width / 2
         ]
       ]
     ]
@@ -31,13 +31,13 @@ to superSpread
       ;; only moves people who don't know they are sick yet
       ask n-of int (count simuls with [ color = red and timenow < ownIncubationPeriod and tracked = 0 ] / Diffusion_Adjustment ) simuls
           with [ color = red and timenow < ownIncubationPeriod and tracked = 0 ] [
-        fd world-width / 2
+        forward world-width / 2
       ]
 
       ;; this ensures that people with immunity also move to new areas, not just infected people
       if count simuls with [ color = yellow ] >= 1 [
         ask n-of int (count simuls with [ color = yellow ] / Diffusion_Adjustment) simuls with [ color = yellow ] [
-          fd world-width / 2
+          forward world-width / 2
         ]
       ]
     ]

@@ -19,7 +19,7 @@ to do_stages_tony
     set maskPolicy true
     set mask_wearing 50
     set tracking false
-    set App_Uptake 20
+    set App_Uptake 0
     set superspreaders 10
     ; Does nothing
     ;set residualcautionPTA 0
@@ -44,7 +44,7 @@ to do_stages_tony
     set maskPolicy true
     set mask_wearing 90
     set tracking true
-    set App_Uptake 30
+    set App_Uptake 0
     set superspreaders 10
     ; Does nothing
     ;set residualcautionPTA 12
@@ -69,7 +69,7 @@ to do_stages_tony
     set maskPolicy true
     set mask_wearing 90
     set tracking true
-    set App_Uptake 30
+    set App_Uptake 0
     set superspreaders 10
     ; Does nothing
     ;set residualcautionPTA 15
@@ -94,7 +94,7 @@ to do_stages_tony
     set maskPolicy true
     set mask_wearing 90
     set tracking true
-    set App_Uptake 30
+    set App_Uptake 0
     set superspreaders 5
     ; Does nothing
     ;set residualcautionPTA 64
@@ -119,7 +119,7 @@ to do_stages_tony
     set maskPolicy true
     set mask_wearing 90
     set tracking true
-    set App_Uptake 30
+    set App_Uptake 0
     set superspreaders 2
     ; Does nothing
     ;set residualcautionPTA 81

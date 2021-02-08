@@ -1,0 +1,51 @@
+hunted:
+ - If the agent has the app (haveApp < App_Uptake) and has a link to them, they become hunted.
+ - If they are hunted they become tracked instantly.
+ - Seems like a redundant variable.
+
+IDTime:
+ - Looks like an output metric.
+ - Set to simul.timenow when tracked set to 1, but only via some methods of tracked changing.
+ - Looks broken or has an unclear use since it doesn't log all changes to tracked.
+
+reported:
+ - (unDetectedFlag = 0 and reported = 0) => (reported = 1)
+ - Otherwise doesn't appear to do anything at all.
+
+unDetectedFlag:
+ - (unDetectedFlag = 0) is required to set (tracked = 1) in simul_traceme.
+ - ((initial_cases * (AsymptomaticPercentage / 100) * ( Undetected_Proportion / 100 ))) many initial infected agents have (unDetectedFlag = 1)
+ - simul_assigndetectablestatus sets (unDetectedFlag = 1) if (asymptomaticFlag = 1 and detectable < Undetected_Proportion)
+ - In practise, no agent seems to have (unDetectedFlag = 1)
+
+asymptomaticFlag:
+ - 60% of five-year-olds have (asymptomaticFlag = 1)
+ - ((initial_cases * (AsymptomaticPercentage / 100) * ( Undetected_Proportion / 100 ))) many initial infected agents have (asymptomaticFlag = 1)
+ - Changes localInfectiveness in simul_record_patch_infectiveness
+
+tracked:
+ - Does something with the link tracking system in assesslinks
+ - Non-infected people with no links are not tracked
+ - (isolating = 1) infected people have (tracked = 1)
+ - (tracked != 1) causes agents to move at speed span
+ - (tracked = 1) can let agents move to ICU
+ - Does something with SuperSpread
+ - Can set (tracked = 1) in simul_traceme, simul_HHContactsIso, simul_hunt
+ - Initial cases have (tracked = 1)
+
+track_and_trace_efficiency:
+ - Set in traceadjust as a decreasing function of number of infected people.
+ - simul_traceme (color = red and track_and_trace_efficiency > random-float 1 and unDetectedFlag = 0) then become (tracked = 1), every step.
+
+isolating:
+ - Set in simul_HHContactsIso
+ - (pace = 0) while (isolating = 1), this depends on other variables though.
+ - Don't move in simul_visitDestination while (isolating = 1)
+
+haveapp:
+ - (haveApp <= App_Uptake) means that an agent has the app.
+ - Red simulants create links with other simulants at their location, if they both have the app.
+ - Out-links from non-red simulants are removed every setp.
+ - simul_traceme only sets (tracked = 0) for uninfected agents if they don't have any in-links (why?).
+ - Agents can become tracked in simul_hunt if they have in-links.
+ - The end result just seems to be that all infected people automatically set (tracked = 1) for everyone they meet over the course of their infection?

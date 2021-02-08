@@ -27,5 +27,6 @@ end
 
 to movepackages
   ;; makes stimulus packages drift in the environment
-  set heading heading + 5 - 5 fd .5
+  set heading heading + 5 - 5
+  forward .5
 end

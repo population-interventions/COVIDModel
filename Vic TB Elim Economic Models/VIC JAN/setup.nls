@@ -167,7 +167,7 @@ to createSimulants
       set householdUnit random 1000
       set timenow 0
       set IncubationPd int ownIncubationPeriod
-      set InICU 0
+      set inQuarantine 0
       set vaccineOffered 0
       set sensitivity random-float 1
       set R 0

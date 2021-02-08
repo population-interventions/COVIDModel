@@ -48,15 +48,16 @@ end
 ;;;*******************ANXIETY******************::::::::::::::::::
 
 
-to GlobalTreat
+to SendToQuarantine
   ;; send people to quarantine if they have been identified
-  let eligiblesimuls simuls with [ color = red and inICU = 0 and ownIncubationPeriod >= Incubation_Period and tracked = 1 ]
-
-  ;; only symptomatic cases are identified
-  if (count simuls with [ InICU = 1 ]) < (count patches with [ pcolor = white ]) and Quarantine = true and any? eligiblesimuls [
-    ask n-of ( count eligiblesimuls * Track_and_Trace_Efficiency ) eligiblesimuls [
-      move-to one-of patches with [ pcolor = white ]
-      set inICU 1
+  if Quarantine = true [
+    let freeSpots Quarantine_Spaces - (count simuls with [ inQuarantine = 1 ]) * Scale_Factor ^ scalephase
+    if freeSpots > 0 [
+      ask simuls with [ color = red and inQuarantine = 0 and tracked = 1 ] [
+        move-to one-of patches with [ pcolor = white ]
+        set inQuarantine 1
+        set freeSpots freeSpots - 1
+      ]
     ]
   ]
 end
@@ -158,11 +159,19 @@ to go
     simul_infect
   ]
   
-  ;; Simulants do a bunch of non-interactive housekeeping.
+  ;; Send people to quarantine if they have been identified and there is space.
+  SendToQuarantine
+  
+  ;; Randomly move infected people  who are untracked or unaware they are sick to new areas, based on the Superspreaders parameter, set in Stages.
+  SuperSpread
+  
+  ;; Simulants isolate based on household cases.
   ask simuls [
     ;; If I am succeptible and a household member is tracked, move home and set pace to 0, set isolated=1. Also track isolated=1 infected people.
     simul_isolateAndTrackFromHouseHold
   ]
+  
+  ;; Simulants do a bunch of non-interactive housekeeping.
   ask simuls [
     ;; if you are not dead at the end of your illness period, then you become recovered and turn yellow. Don't need hospital resources anymore.
     simul_recover
@@ -174,8 +183,6 @@ to go
     ;; Recovered people can randomly become succeptible again.
     simul_recovered_lose_immunity
 
-    ;; Infected people with inICU = 1 are moved to a white patch (hospital?)
-    simul_treat
     ;; Take the rolling average of contacts over the past seven days, only for non-infected people. Is this needed?
     simul_Countcontacts
     ;; Set infected people to always require ICU after their incubation period???
@@ -196,12 +203,6 @@ to go
 
   ;; stops the model if the following criteria are met - no more infected people in the simulation and it has run for at least 10 days, only if freewheel = true.
   finished
-  
-  ;; Send people to ICU if they have been identified
-  GlobalTreat
-  
-  ;; Randomly move infected people  who are untracked or unaware they are sick to new areas, based on the Superspreaders parameter, set in Stages.
-  SuperSpread
   
   ;; set numberinfected cumulativeInfected (???)
   CountInfected

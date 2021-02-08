@@ -7,7 +7,7 @@ breed [ simuls simul ]
 simuls-own [
   timenow ;; the number of days since initial infection
   health ;; baseline health of the individual
-  inICU ;; whether the person is in ICU or not
+  inQuarantine ;; whether the person is in ICU or not
   sensitivity ;; person's sensitivity to news about the pandemic
   R ;; the estimated RNaught of individuals
   contacts ;; the number of contacts the person has made in the model
@@ -106,17 +106,17 @@ end
 
 to simul_PossiblyDie
   ;; determines whether people die on the basis of poor health (not currently active)
-  if InICU = 0 and Severity_of_illness / Illness_Period > random 100 [
+  if inQuarantine = 0 and Severity_of_illness / Illness_Period > random 100 [
     set health health - Severity_of_Illness
   ]
-  if InICU = 1 and Severity_of_illness / Illness_Period > random 100 [
+  if inQuarantine = 1 and Severity_of_illness / Illness_Period > random 100 [
     set health health - Severity_of_Illness / Treatment_Benefit
   ]
 end
 
 to simul_avoidICUs
   ;; makes sure that simulswho have not been sent to hospital stay outside
-  if [ pcolor ] of patch-here = white and InICU = 0 [
+  if [ pcolor ] of patch-here = white and inQuarantine = 0 [
     move-to min-one-of patches with [ pcolor = black ] [ distance myself ]
   ]
 end
@@ -238,7 +238,7 @@ to simul_move
 
     ifelse randombinary = 1
     [
-      if color != red or color != black and spatial_Distance = false [
+      if (color != red or color != black) and spatial_Distance = false [
         ;; contact radius defines how large the circle of contacts for the person is.
         set heading heading + Contact_Radius + random 45 - random 45
         forward random pace
@@ -334,9 +334,9 @@ to simul_recover
   ;; don't need hospital resources, anymore
   if timenow > ownillnessperiod and color != black [
     set color yellow
+    set inQuarantine 0
     set timenow 0
     set health (100 - agerange )
-    set inICU 0
     set requireICU 0
   ]
 end
@@ -346,6 +346,7 @@ to simul_settime
   ;; dying this way currently not implemented but done at the end of the illness period, instead
   if color = red [
     set timenow timenow + 1
+	print timenow
     simul_PossiblyDie
   ]
 end
@@ -365,14 +366,6 @@ to simul_recovered_lose_immunity
   ;; if you are recovered but suceptible again, you could become reinfected
   if color = yellow and ReinfectionRate > random 100 [
     set color cyan
-  ]
-end
-
-to simul_treat
-  ;; keeps people within the bunds of the hospital patches and overrides any other movement so they can't
-  ;; interact with susceptible people
-  if inICU = 1 and color = red [
-    move-to one-of patches with [ pcolor = white]
   ]
 end
 
@@ -396,6 +389,8 @@ to simul_checkICU
   ;; estimates if someone needs and ICU bed
   if color = red and RequireICU_draw < ICU_Required and timenow >= ownIncubationPeriod [
     set requireICU 1
+    set tracked 1 ;; Lets say that someone becomes tracked when they go to ICU
+    ;; By setting them to tracked they will end up in quarantine
   ]
 end
 

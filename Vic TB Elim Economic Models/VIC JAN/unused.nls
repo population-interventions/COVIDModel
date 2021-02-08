@@ -153,7 +153,7 @@ to simul_createanxiety
 end
 
 to simul_gatherreseources
-  if (anxiety * sensitivity) > random 100 and count resources > 0 and InICU = 0 [
+  if (anxiety * sensitivity) > random 100 and count resources > 0 and inQuarantine = 0 [
     face min-one-of resources with [ volume >= 0 ] [ distance myself ]
   ]
   if any? resources-here with [ volume >= 0 ] and anxiety > 0 [
@@ -384,7 +384,7 @@ to Cruiseship
 
       set health ( 100 - Agerange )
       set timenow 0
-      set InICU 0
+      set inQuarantine 0
       set anxiety 0
       set sensitivity random-float 1
       set R 0

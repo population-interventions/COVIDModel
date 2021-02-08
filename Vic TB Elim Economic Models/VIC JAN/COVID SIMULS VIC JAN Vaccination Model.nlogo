@@ -294,7 +294,7 @@ Span
 Span
 0
 30
-15.0
+30.0
 1
 1
 NIL
@@ -369,10 +369,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-7
-804
-169
-861
+9
+688
+171
+745
 Deaths
 Deathcount
 0
@@ -491,10 +491,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-8
-740
-167
-797
+10
+623
+169
+680
 Mean Days infected
 meanDaysInfected
 2
@@ -532,10 +532,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-8
-872
-168
-929
+10
+755
+170
+812
 % Total Infections
 numberInfected / Total_Population * 100
 2
@@ -580,7 +580,7 @@ Proportion_People_Avoid
 Proportion_People_Avoid
 0
 100
-65.0
+0.0
 .5
 1
 NIL
@@ -595,7 +595,7 @@ Proportion_Time_Avoid
 Proportion_Time_Avoid
 0
 100
-65.0
+0.0
 .5
 1
 NIL
@@ -908,7 +908,7 @@ Diffusion_Adjustment
 Diffusion_Adjustment
 1
 100
-8.0
+14.0
 1
 1
 NIL
@@ -1200,10 +1200,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1948
-1162
-2123
-1195
+133
+900
+317
+933
 ICU_Beds_in_Australia
 ICU_Beds_in_Australia
 0
@@ -1262,7 +1262,7 @@ SWITCH
 316
 link_switch
 link_switch
-0
+1
 1
 -1000
 
@@ -1465,7 +1465,7 @@ Essential_Workers
 Essential_Workers
 0
 100
-50.0
+100.0
 1
 1
 NIL
@@ -1523,7 +1523,7 @@ SWITCH
 358
 tracking
 tracking
-0
+1
 1
 -1000
 
@@ -1536,7 +1536,7 @@ Mask_Wearing
 Mask_Wearing
 0
 100
-90.0
+50.0
 1
 1
 NIL
@@ -1713,10 +1713,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-2832
-889
-2988
-922
+162
+817
+318
+850
 Case_Reporting_Delay
 Case_Reporting_Delay
 0
@@ -2956,6 +2956,36 @@ Asymptom_Prop
 1
 0.33
 0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+132
+857
+319
+890
+Quarantine_Spaces
+Quarantine_Spaces
+0
+20000
+7400.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+330
+978
+517
+1011
+Asymptom_Trace_Mult
+Asymptom_Trace_Mult
+0
+100
+50.0
+1
 1
 NIL
 HORIZONTAL

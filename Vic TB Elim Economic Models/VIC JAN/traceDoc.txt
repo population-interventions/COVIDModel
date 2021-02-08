@@ -1,7 +1,23 @@
 
+dailyCases:
+ - Equal to number of people infected Case_Reporting_Delay days ago.
+ - NONE OF THE BELOW MATTERS FOR POLCIY SETTINGS
+
+inQuarantine:
+ - Infected and tracked agents move to a white patch if there is space.
+ - Compared to Quarantine_Spots
+
+tracked:
+ - Only applied to infected agents.
+ - Tracked agents can cause isolation of the household.
+ - Tracked agents are sent to quarantine.
+ - Agents become tracked if they are are infected and in an isolated household, need the ICU, or are grabbed by contact tracing.
+ - Has something to do with superSpread (TODO, look into this).
+
 asymptomaticFlag:
  - Static parameters drawn from asymptomatic_draw compared to Asymptom_Prop
- - Static
+ - Reduce virulence when passing on infection.
+ - Harder to track via contact tracing.
 
 isolating:
  - Set in simul_isolateAndTrackFromHouseHold

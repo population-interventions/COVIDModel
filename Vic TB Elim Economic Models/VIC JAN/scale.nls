@@ -9,7 +9,7 @@ to scaleup
     set size 2
     set color cyan
     set timenow 0
-    set InICU 0
+    set inQuarantine 0
     set sensitivity random-float 1
     set imported 0
     set R 0
@@ -35,7 +35,7 @@ to scaleup
     set imported 0 ;; resethealth
 
     set timenow 0
-    set InICU 0
+    set inQuarantine 0
     set sensitivity random-float 1
     set R 0
     set ownIllnessPeriod ( exp random-normal M S ) ;; log transform of illness period

@@ -88,7 +88,6 @@ globals [
   spatial_distance
   case_isolation
   quarantine
-  AsymptomaticPercentage
   contact_radius
   Track_and_Trace_Efficiency
   stage
@@ -669,17 +668,6 @@ Initial
 NIL
 HORIZONTAL
 
-MONITOR
-3552
-418
-3707
-475
-Financial Reserves
-mean [ reserves ] of simuls
-1
-1
-14
-
 PLOT
 2125
 363
@@ -941,29 +929,11 @@ Age_Isolation
 NIL
 HORIZONTAL
 
-PLOT
-3367
-642
-3527
-762
-Cash_Reserves
-NIL
-NIL
-0.0
-10.0
-0.0
-10.0
-true
-false
-"" ""
-PENS
-"Financial_Reserves" 1.0 0 -16777216 true "" "plot mean [ reserves] of simuls with [ color != black ]"
-
 SWITCH
-2657
-87
-2761
-120
+2853
+1250
+2957
+1283
 stimulus
 stimulus
 1
@@ -971,10 +941,10 @@ stimulus
 -1000
 
 SWITCH
-2657
-129
-2761
-162
+2853
+1293
+2957
+1326
 cruise
 cruise
 1
@@ -1030,28 +1000,6 @@ days_of_cash_reserves
 1
 0
 Number
-
-MONITOR
-2445
-668
-2530
-713
-Mean income
-mean [ income ] of simuls with [ agerange > 18 and agerange < 70 and color != black ]
-0
-1
-11
-
-MONITOR
-2539
-668
-2639
-713
-Mean Expenses
-mean [ expenditure ] of simuls with [ agerange >= 18 and agerange < 70 and color != black ]
-0
-1
-11
 
 MONITOR
 1662
@@ -1117,24 +1065,6 @@ Day 1 - Dec 21st, 2020
 12
 15.0
 1
-
-PLOT
-2338
-860
-2653
-980
-Trust in Govt
-NIL
-NIL
-0.0
-10.0
-0.0
-10.0
-true
-false
-"" ""
-PENS
-"default" 1.0 0 -2674135 true "" "plot mean [ personalTrust ] of simuls with [ color != black ]"
 
 SLIDER
 920
@@ -1278,7 +1208,7 @@ ICU_Beds_in_Australia
 ICU_Beds_in_Australia
 0
 20000
-7600.0
+7400.0
 50
 1
 NIL
@@ -2540,10 +2470,10 @@ DecisionDate
 11
 
 SWITCH
-1630
-1268
-1734
-1301
+1528
+1328
+1632
+1361
 Isolate
 Isolate
 0
@@ -2566,10 +2496,10 @@ NIL
 HORIZONTAL
 
 SWITCH
-1628
-1310
-1781
-1343
+1527
+1369
+1680
+1402
 Vaccine_Available
 Vaccine_Available
 0
@@ -2827,7 +2757,7 @@ MONITOR
 1482
 1210
 NIL
-AsymptomaticPercentage
+Asymptom_Prop
 17
 1
 11
@@ -3014,6 +2944,21 @@ Permanent yet straightforward variables
 11
 0.0
 1
+
+SLIDER
+326
+901
+521
+934
+Asymptom_Prop
+Asymptom_Prop
+0
+1
+0.33
+0.01
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?
@@ -3540,7 +3485,7 @@ NetLogo 6.2.0
     <enumeratedValueSet variable="phwarnings">
       <value value="0.8"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="AsymptomaticPercentage">
+    <enumeratedValueSet variable="Asymptom_Prop">
       <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Population">
@@ -3631,7 +3576,7 @@ NetLogo 6.2.0
   <experiment name="Wuhan" repetitions="100" runMetricsEveryStep="true">
     <setup>setup
 set initial_cases initial_cases + random-normal 20 10
-set AsymptomaticPercentage AsymptomaticPercentage + random 10 - random 10
+set Asymptom_Prop Asymptom_Prop + random 10 - random 10
 set PPA random 100
 set PTA random 100</setup>
     <go>go</go>
@@ -3757,7 +3702,7 @@ set PTA random 100</setup>
     <enumeratedValueSet variable="phwarnings">
       <value value="0.8"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="AsymptomaticPercentage">
+    <enumeratedValueSet variable="Asymptom_Prop">
       <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Population">
@@ -3974,7 +3919,7 @@ set PTA random 100</setup>
     <enumeratedValueSet variable="phwarnings">
       <value value="0.8"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="AsymptomaticPercentage">
+    <enumeratedValueSet variable="Asymptom_Prop">
       <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Population">
@@ -4181,7 +4126,7 @@ set PTA random 100</setup>
     <enumeratedValueSet variable="phwarnings">
       <value value="0.8"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="AsymptomaticPercentage">
+    <enumeratedValueSet variable="Asymptom_Prop">
       <value value="30"/>
       <value value="40"/>
       <value value="50"/>
@@ -4275,7 +4220,7 @@ set PTA random 100</setup>
   <experiment name="Wuhan new" repetitions="100" runMetricsEveryStep="true">
     <setup>setup
 set initial_cases initial_cases + random-normal 20 10
-set AsymptomaticPercentage AsymptomaticPercentage + random 10 - random 10
+set Asymptom_Prop Asymptom_Prop + random 10 - random 10
 set PPA random 100
 set PTA random 100</setup>
     <go>go</go>
@@ -4401,7 +4346,7 @@ set PTA random 100</setup>
     <enumeratedValueSet variable="phwarnings">
       <value value="0.8"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="AsymptomaticPercentage">
+    <enumeratedValueSet variable="Asymptom_Prop">
       <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Population">
@@ -4622,7 +4567,7 @@ set PTA random 100</setup>
     <enumeratedValueSet variable="phwarnings">
       <value value="0.8"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="AsymptomaticPercentage">
+    <enumeratedValueSet variable="Asymptom_Prop">
       <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Population">
@@ -4864,7 +4809,7 @@ set PTA random 100</setup>
     <enumeratedValueSet variable="phwarnings">
       <value value="0.8"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="AsymptomaticPercentage">
+    <enumeratedValueSet variable="Asymptom_Prop">
       <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Population">
@@ -5095,7 +5040,7 @@ set asymptomatic asymptomatic + random-normal 0 3</setup>
     <enumeratedValueSet variable="phwarnings">
       <value value="0.8"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="AsymptomaticPercentage">
+    <enumeratedValueSet variable="Asymptom_Prop">
       <value value="25"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Population">
@@ -5219,7 +5164,7 @@ set asymptomatic asymptomatic + random-normal 0 3</setup>
   </experiment>
   <experiment name="Victoria new MJA" repetitions="1000" runMetricsEveryStep="true">
     <setup>setup
-set asymptomaticPercentage asymptomaticPercentage + random-normal 0 3
+set Asymptom_Prop Asymptom_Prop + random-normal 0 3
 set Essential_Workers Essential_Workers + random-normal 0 2
 set Superspreaders Superspreaders + random-normal 0 2
 set App_uptake App_Uptake + random-normal 0 2</setup>
@@ -5343,7 +5288,7 @@ set App_uptake App_Uptake + random-normal 0 2</setup>
     <enumeratedValueSet variable="phwarnings">
       <value value="0.8"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="AsymptomaticPercentage">
+    <enumeratedValueSet variable="Asymptom_Prop">
       <value value="25"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Population">
@@ -5650,7 +5595,7 @@ set App_uptake App_Uptake + random-normal 0 2</setup>
     <enumeratedValueSet variable="AssignAppEss">
       <value value="false"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="AsymptomaticPercentage">
+    <enumeratedValueSet variable="Asymptom_Prop">
       <value value="20"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="eWAppUptake">
@@ -5746,7 +5691,7 @@ set App_uptake App_Uptake + random-normal 0 2</setup>
   </experiment>
   <experiment name="MJA stage 4 no complacency" repetitions="1000" runMetricsEveryStep="true">
     <setup>setup
-set asymptomaticPercentage asymptomaticPercentage + random-normal 0 3
+set Asymptom_Prop Asymptom_Prop + random-normal 0 3
 set Asymptomatic_Trans Asymptomatic_Trans + random-normal 0 .06 
 set Essential_Workers Essential_Workers + random-normal 0 2
 set Superspreaders Superspreaders + random-normal 0 2
@@ -5948,7 +5893,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="AssignAppEss">
       <value value="false"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="AsymptomaticPercentage">
+    <enumeratedValueSet variable="Asymptom_Prop">
       <value value="25"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="eWAppUptake">
@@ -6044,7 +5989,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
   </experiment>
   <experiment name="MJA stage 3 no complacency" repetitions="1000" runMetricsEveryStep="true">
     <setup>setup
-set asymptomaticPercentage asymptomaticPercentage + random-normal 0 3
+set Asymptom_Prop Asymptom_Prop + random-normal 0 3
 set Asymptomatic_Trans Asymptomatic_Trans + random-normal 0 .06 
 set Essential_Workers Essential_Workers + random-normal 0 2
 set Superspreaders Superspreaders + random-normal 0 2
@@ -6245,7 +6190,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="AssignAppEss">
       <value value="false"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="AsymptomaticPercentage">
+    <enumeratedValueSet variable="Asymptom_Prop">
       <value value="25"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="eWAppUptake">
@@ -6341,7 +6286,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
   </experiment>
   <experiment name="DHHS 24 August Balanced" repetitions="500" runMetricsEveryStep="true">
     <setup>setup
-set asymptomaticPercentage asymptomaticPercentage + random-normal 0 3
+set Asymptom_Prop Asymptom_Prop + random-normal 0 3
 set Asymptomatic_Trans Asymptomatic_Trans + random-normal 0 .06 
 set Essential_Workers Essential_Workers + random-normal 0 2
 set Superspreaders Superspreaders + random-normal 0 2
@@ -6554,7 +6499,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="AssignAppEss">
       <value value="false"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="AsymptomaticPercentage">
+    <enumeratedValueSet variable="Asymptom_Prop">
       <value value="33"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="eWAppUptake">
@@ -6644,7 +6589,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
   </experiment>
   <experiment name="DHHS 24 August Min Cases" repetitions="500" runMetricsEveryStep="true">
     <setup>setup
-set asymptomaticPercentage asymptomaticPercentage + random-normal 0 3
+set Asymptom_Prop Asymptom_Prop + random-normal 0 3
 set Asymptomatic_Trans Asymptomatic_Trans + random-normal 0 .06 
 set Essential_Workers Essential_Workers + random-normal 0 2
 set Superspreaders Superspreaders + random-normal 0 2
@@ -6857,7 +6802,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="AssignAppEss">
       <value value="false"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="AsymptomaticPercentage">
+    <enumeratedValueSet variable="Asymptom_Prop">
       <value value="33"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="eWAppUptake">
@@ -6947,7 +6892,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
   </experiment>
   <experiment name="DHHS 24 August Max Mobility" repetitions="500" runMetricsEveryStep="true">
     <setup>setup
-set asymptomaticPercentage asymptomaticPercentage + random-normal 0 3
+set Asymptom_Prop Asymptom_Prop + random-normal 0 3
 set Asymptomatic_Trans Asymptomatic_Trans + random-normal 0 .06 
 set Essential_Workers Essential_Workers + random-normal 0 2
 set Superspreaders Superspreaders + random-normal 0 2
@@ -7160,7 +7105,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="AssignAppEss">
       <value value="false"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="AsymptomaticPercentage">
+    <enumeratedValueSet variable="Asymptom_Prop">
       <value value="33"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="eWAppUptake">
@@ -7250,7 +7195,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
   </experiment>
   <experiment name="Elimination Aggressive" repetitions="100" runMetricsEveryStep="true">
     <setup>setup
-set asymptomaticPercentage asymptomaticPercentage + random-normal 0 3
+set Asymptom_Prop Asymptom_Prop + random-normal 0 3
 set Asymptomatic_Trans Asymptomatic_Trans + random-normal 0 .06 
 set Essential_Workers Essential_Workers + random-normal 0 2
 set Superspreaders Superspreaders + random-normal 0 2
@@ -7460,7 +7405,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="threetotwo">
       <value value="7"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="AsymptomaticPercentage">
+    <enumeratedValueSet variable="Asymptom_Prop">
       <value value="32.80452063214149"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="eWAppUptake">
@@ -7565,7 +7510,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
   </experiment>
   <experiment name="Elimination Moderate" repetitions="100" runMetricsEveryStep="true">
     <setup>setup
-set asymptomaticPercentage asymptomaticPercentage + random-normal 0 3
+set Asymptom_Prop Asymptom_Prop + random-normal 0 3
 set Asymptomatic_Trans Asymptomatic_Trans + random-normal 0 .06 
 set Essential_Workers Essential_Workers + random-normal 0 2
 set Superspreaders Superspreaders + random-normal 0 2
@@ -7776,7 +7721,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="threetotwo">
       <value value="7"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="AsymptomaticPercentage">
+    <enumeratedValueSet variable="Asymptom_Prop">
       <value value="32.80452063214149"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="eWAppUptake">
@@ -7881,7 +7826,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
   </experiment>
   <experiment name="Multiple JN" repetitions="100" runMetricsEveryStep="true">
     <setup>setup
-set asymptomaticPercentage asymptomaticPercentage + random-normal 0 3
+set Asymptom_Prop Asymptom_Prop + random-normal 0 3
 set Asymptomatic_Trans Asymptomatic_Trans + random-normal 0 .06 
 set Essential_Workers Essential_Workers + random-normal 0 2
 set Superspreaders Superspreaders + random-normal 0 2
@@ -8091,7 +8036,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="threetotwo">
       <value value="7"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="AsymptomaticPercentage">
+    <enumeratedValueSet variable="Asymptom_Prop">
       <value value="32.80452063214149"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="eWAppUptake">
@@ -8196,7 +8141,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
   </experiment>
   <experiment name="JN experiment 28_8" repetitions="100" runMetricsEveryStep="true">
     <setup>setup
-set asymptomaticPercentage asymptomaticPercentage + random-normal 0 3
+set Asymptom_Prop Asymptom_Prop + random-normal 0 3
 set Asymptomatic_Trans Asymptomatic_Trans + random-normal 0 .06 
 set Essential_Workers Essential_Workers + random-normal 0 2
 set Superspreaders Superspreaders + random-normal 0 2
@@ -8418,7 +8363,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="phwarnings">
       <value value="0.8"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="AsymptomaticPercentage">
+    <enumeratedValueSet variable="Asymptom_Prop">
       <value value="33.70984742562481"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="eWAppUptake">
@@ -8523,7 +8468,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
   </experiment>
   <experiment name="JN experiment 31_8 New" repetitions="100" runMetricsEveryStep="true">
     <setup>setup
-set asymptomaticPercentage asymptomaticPercentage + random-normal 0 3
+set Asymptom_Prop Asymptom_Prop + random-normal 0 3
 set Asymptomatic_Trans Asymptomatic_Trans + random-normal 0 .06 
 set Essential_Workers Essential_Workers + random-normal 0 2
 set Superspreaders Superspreaders + random-normal 0 2
@@ -8740,7 +8685,7 @@ set undetected_proportion undetected_proportion + random-normal 0 3</setup>
     <enumeratedValueSet variable="phwarnings">
       <value value="0.8"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="AsymptomaticPercentage">
+    <enumeratedValueSet variable="Asymptom_Prop">
       <value value="33.70984742562481"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="eWAppUptake">
@@ -8848,7 +8793,7 @@ set undetected_proportion undetected_proportion + random-normal 0 3</setup>
   </experiment>
   <experiment name="Tight Suppression" repetitions="100" runMetricsEveryStep="true">
     <setup>setup
-set asymptomaticPercentage asymptomaticPercentage + random-normal 0 3
+set Asymptom_Prop Asymptom_Prop + random-normal 0 3
 set Asymptomatic_Trans Asymptomatic_Trans + random-normal 0 .06 
 set Essential_Workers Essential_Workers + random-normal 0 2
 set Superspreaders Superspreaders + random-normal 0 2
@@ -9058,7 +9003,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="phwarnings">
       <value value="0.8"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="AsymptomaticPercentage">
+    <enumeratedValueSet variable="Asymptom_Prop">
       <value value="31.9786782754768"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="eWAppUptake">
@@ -9163,7 +9108,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
   </experiment>
   <experiment name="Loose Suppression" repetitions="100" runMetricsEveryStep="true">
     <setup>setup
-set asymptomaticPercentage asymptomaticPercentage + random-normal 0 3
+set Asymptom_Prop Asymptom_Prop + random-normal 0 3
 set Asymptomatic_Trans Asymptomatic_Trans + random-normal 0 .06 
 set Essential_Workers Essential_Workers + random-normal 0 2
 set Superspreaders Superspreaders + random-normal 0 2
@@ -9373,7 +9318,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="threetotwo">
       <value value="7"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="AsymptomaticPercentage">
+    <enumeratedValueSet variable="Asymptom_Prop">
       <value value="32.80452063214149"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="eWAppUptake">
@@ -9669,7 +9614,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="phwarnings">
       <value value="0.8"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="AsymptomaticPercentage">
+    <enumeratedValueSet variable="Asymptom_Prop">
       <value value="31.9786782754768"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="eWAppUptake">
@@ -9774,7 +9719,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
   </experiment>
   <experiment name="JN experiment 31_8 Testing for seedticks" repetitions="30" runMetricsEveryStep="true">
     <setup>setup
-set asymptomaticPercentage asymptomaticPercentage + random-normal 0 3
+set Asymptom_Prop Asymptom_Prop + random-normal 0 3
 set Asymptomatic_Trans Asymptomatic_Trans + random-normal 0 .06 
 set Essential_Workers Essential_Workers + random-normal 0 2
 set Superspreaders Superspreaders + random-normal 0 2
@@ -9985,7 +9930,7 @@ set undetected_proportion undetected_proportion + random-normal 0 3</setup>
     <enumeratedValueSet variable="phwarnings">
       <value value="0.8"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="AsymptomaticPercentage">
+    <enumeratedValueSet variable="Asymptom_Prop">
       <value value="33.70984742562481"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="eWAppUptake">
@@ -10093,7 +10038,7 @@ set undetected_proportion undetected_proportion + random-normal 0 3</setup>
   </experiment>
   <experiment name="JN experiment 1_9 Evening Testing" repetitions="250" runMetricsEveryStep="true">
     <setup>setup
-set asymptomaticPercentage asymptomaticPercentage + random-normal 0 3
+set Asymptom_Prop Asymptom_Prop + random-normal 0 3
 set Asymptomatic_Trans Asymptomatic_Trans + random-normal 0 .06 
 set Essential_Workers Essential_Workers + random-normal 0 2
 set Superspreaders Superspreaders + random-normal 0 2
@@ -10304,7 +10249,7 @@ set undetected_proportion undetected_proportion + random-normal 0 3</setup>
     <enumeratedValueSet variable="phwarnings">
       <value value="0.8"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="AsymptomaticPercentage">
+    <enumeratedValueSet variable="Asymptom_Prop">
       <value value="33.70984742562481"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="eWAppUptake">
@@ -10415,7 +10360,7 @@ set undetected_proportion undetected_proportion + random-normal 0 3</setup>
   </experiment>
   <experiment name="JN experiment 1_9 Evening Testing High" repetitions="150" runMetricsEveryStep="true">
     <setup>setup
-set asymptomaticPercentage asymptomaticPercentage + random-normal 0 3
+set Asymptom_Prop Asymptom_Prop + random-normal 0 3
 set Asymptomatic_Trans Asymptomatic_Trans + random-normal 0 .06 
 set Essential_Workers Essential_Workers + random-normal 0 2
 set Superspreaders Superspreaders + random-normal 0 2
@@ -10623,7 +10568,7 @@ set undetected_proportion undetected_proportion + random-normal 0 3</setup>
     <enumeratedValueSet variable="phwarnings">
       <value value="0.8"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="AsymptomaticPercentage">
+    <enumeratedValueSet variable="Asymptom_Prop">
       <value value="33.70984742562481"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="eWAppUptake">
@@ -10734,7 +10679,7 @@ set undetected_proportion undetected_proportion + random-normal 0 3</setup>
   </experiment>
   <experiment name="Final Schools back run" repetitions="500" runMetricsEveryStep="true">
     <setup>setup
-set asymptomaticPercentage asymptomaticPercentage + random-normal 0 3
+set Asymptom_Prop Asymptom_Prop + random-normal 0 3
 set Asymptomatic_Trans Asymptomatic_Trans + random-normal 0 .06 
 set Essential_Workers Essential_Workers + random-normal 0 2
 set Superspreaders Superspreaders + random-normal 0 2
@@ -10942,7 +10887,7 @@ set undetected_proportion undetected_proportion + random-normal 0 3</setup>
     <enumeratedValueSet variable="phwarnings">
       <value value="0.8"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="AsymptomaticPercentage">
+    <enumeratedValueSet variable="Asymptom_Prop">
       <value value="33.70984742562481"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="eWAppUptake">
@@ -11053,7 +10998,7 @@ set undetected_proportion undetected_proportion + random-normal 0 3</setup>
   </experiment>
   <experiment name="Tony Aggressive" repetitions="100" runMetricsEveryStep="true">
     <setup>setup
-set asymptomaticPercentage asymptomaticPercentage + random-normal 0 3
+set Asymptom_Prop Asymptom_Prop + random-normal 0 3
 set Asymptomatic_Trans Asymptomatic_Trans + random-normal 0 .06 
 set Essential_Workers Essential_Workers + random-normal 0 2
 set Superspreaders Superspreaders + random-normal 0 2
@@ -11089,7 +11034,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="Asymptomatic_Trans">
       <value value="0.35844673433467694"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="AsymptomaticPercentage">
+    <enumeratedValueSet variable="Asymptom_Prop">
       <value value="33.70984742562481"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Available_Resources">
@@ -11393,7 +11338,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
   </experiment>
   <experiment name="Tony Moderate" repetitions="100" runMetricsEveryStep="true">
     <setup>setup
-set asymptomaticPercentage asymptomaticPercentage + random-normal 0 3
+set Asymptom_Prop Asymptom_Prop + random-normal 0 3
 set Asymptomatic_Trans Asymptomatic_Trans + random-normal 0 .06 
 set Essential_Workers Essential_Workers + random-normal 0 2
 set Superspreaders Superspreaders + random-normal 0 2
@@ -11429,7 +11374,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="Asymptomatic_Trans">
       <value value="0.35844673433467694"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="AsymptomaticPercentage">
+    <enumeratedValueSet variable="Asymptom_Prop">
       <value value="33.70984742562481"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Available_Resources">
@@ -11732,7 +11677,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
   </experiment>
   <experiment name="Tight Suppression" repetitions="100" runMetricsEveryStep="true">
     <setup>setup
-set asymptomaticPercentage asymptomaticPercentage + random-normal 0 3
+set Asymptom_Prop Asymptom_Prop + random-normal 0 3
 set Asymptomatic_Trans Asymptomatic_Trans + random-normal 0 .06 
 set Essential_Workers Essential_Workers + random-normal 0 2
 set Superspreaders Superspreaders + random-normal 0 2
@@ -11768,7 +11713,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="Asymptomatic_Trans">
       <value value="0.333"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="AsymptomaticPercentage">
+    <enumeratedValueSet variable="Asymptom_Prop">
       <value value="33.3"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Available_Resources">
@@ -12072,7 +12017,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
   </experiment>
   <experiment name="Loose Suppression" repetitions="100" runMetricsEveryStep="true">
     <setup>setup
-set asymptomaticPercentage asymptomaticPercentage + random-normal 0 3
+set Asymptom_Prop Asymptom_Prop + random-normal 0 3
 set Asymptomatic_Trans Asymptomatic_Trans + random-normal 0 .06 
 set Essential_Workers Essential_Workers + random-normal 0 2
 set Superspreaders Superspreaders + random-normal 0 2
@@ -12108,7 +12053,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="Asymptomatic_Trans">
       <value value="0.333"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="AsymptomaticPercentage">
+    <enumeratedValueSet variable="Asymptom_Prop">
       <value value="33.3"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Available_Resources">
@@ -12412,7 +12357,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
   </experiment>
   <experiment name="Balanced Optimised" repetitions="100" runMetricsEveryStep="true">
     <setup>setup
-set asymptomaticPercentage asymptomaticPercentage + random-normal 0 3
+set Asymptom_Prop Asymptom_Prop + random-normal 0 3
 set Asymptomatic_Trans Asymptomatic_Trans + random-normal 0 .06 
 set Essential_Workers Essential_Workers + random-normal 0 2
 set Superspreaders Superspreaders + random-normal 0 2
@@ -12448,7 +12393,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="Asymptomatic_Trans">
       <value value="0.3786520078146838"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="AsymptomaticPercentage">
+    <enumeratedValueSet variable="Asymptom_Prop">
       <value value="33.93835399015626"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Available_Resources">
@@ -12752,7 +12697,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
   </experiment>
   <experiment name="Case Optimised" repetitions="100" runMetricsEveryStep="true">
     <setup>setup
-set asymptomaticPercentage asymptomaticPercentage + random-normal 0 3
+set Asymptom_Prop Asymptom_Prop + random-normal 0 3
 set Asymptomatic_Trans Asymptomatic_Trans + random-normal 0 .06 
 set Essential_Workers Essential_Workers + random-normal 0 2
 set Superspreaders Superspreaders + random-normal 0 2
@@ -12788,7 +12733,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="Asymptomatic_Trans">
       <value value="0.3786520078146838"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="AsymptomaticPercentage">
+    <enumeratedValueSet variable="Asymptom_Prop">
       <value value="33.93835399015626"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Available_Resources">
@@ -13092,7 +13037,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
   </experiment>
   <experiment name="Mobility Optimised" repetitions="100" runMetricsEveryStep="true">
     <setup>setup
-set asymptomaticPercentage asymptomaticPercentage + random-normal 0 3
+set Asymptom_Prop Asymptom_Prop + random-normal 0 3
 set Asymptomatic_Trans Asymptomatic_Trans + random-normal 0 .06 
 set Essential_Workers Essential_Workers + random-normal 0 2
 set Superspreaders Superspreaders + random-normal 0 2
@@ -13128,7 +13073,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="Asymptomatic_Trans">
       <value value="0.3786520078146838"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="AsymptomaticPercentage">
+    <enumeratedValueSet variable="Asymptom_Prop">
       <value value="33.93835399015626"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Available_Resources">
@@ -13432,7 +13377,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
   </experiment>
   <experiment name="Loose Suppression Variation Test" repetitions="300" runMetricsEveryStep="true">
     <setup>setup
-set asymptomaticPercentage asymptomaticPercentage + random-normal 0 3
+set Asymptom_Prop Asymptom_Prop + random-normal 0 3
 set Asymptomatic_Trans Asymptomatic_Trans + random-normal 0 .06 
 set Essential_Workers Essential_Workers + random-normal 0 2
 set Superspreaders Superspreaders + random-normal 0 2
@@ -13468,7 +13413,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="Asymptomatic_Trans">
       <value value="0.333"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="AsymptomaticPercentage">
+    <enumeratedValueSet variable="Asymptom_Prop">
       <value value="33.3"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Available_Resources">
@@ -13771,7 +13716,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
   </experiment>
   <experiment name="Aggressive Vic" repetitions="100" runMetricsEveryStep="true">
     <setup>setup
-set asymptomaticPercentage asymptomaticPercentage + random-normal 0 3
+set Asymptom_Prop Asymptom_Prop + random-normal 0 3
 set Asymptomatic_Trans Asymptomatic_Trans + random-normal 0 .06 
 set Essential_Workers Essential_Workers + random-normal 0 2
 set Superspreaders Superspreaders + random-normal 0 2
@@ -13808,7 +13753,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="Asymptomatic_Trans">
       <value value="0.35844673433467694"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="AsymptomaticPercentage">
+    <enumeratedValueSet variable="Asymptom_Prop">
       <value value="33.70984742562481"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Available_Resources">
@@ -14118,7 +14063,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
   </experiment>
   <experiment name="Unmitigated Vic" repetitions="100" runMetricsEveryStep="true">
     <setup>setup
-set asymptomaticPercentage asymptomaticPercentage + random-normal 0 3
+set Asymptom_Prop Asymptom_Prop + random-normal 0 3
 set Asymptomatic_Trans Asymptomatic_Trans + random-normal 0 .06 
 set Essential_Workers Essential_Workers + random-normal 0 2
 set Superspreaders Superspreaders + random-normal 0 2
@@ -14155,7 +14100,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="Asymptomatic_Trans">
       <value value="0.35844673433467694"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="AsymptomaticPercentage">
+    <enumeratedValueSet variable="Asymptom_Prop">
       <value value="33.70984742562481"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Available_Resources">
@@ -14458,7 +14403,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
   </experiment>
   <experiment name="Jan Tests Vic" repetitions="100" runMetricsEveryStep="true">
     <setup>setup
-set asymptomaticPercentage asymptomaticPercentage + random-normal 0 3
+set Asymptom_Prop Asymptom_Prop + random-normal 0 3
 set Asymptomatic_Trans Asymptomatic_Trans + random-normal 0 .06 
 set Essential_Workers Essential_Workers + random-normal 0 2
 set Superspreaders Superspreaders + random-normal 0 2
@@ -14497,7 +14442,7 @@ set stage BaseStage</setup>
     <enumeratedValueSet variable="Asymptomatic_Trans">
       <value value="0.35844673433467694"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="AsymptomaticPercentage">
+    <enumeratedValueSet variable="Asymptom_Prop">
       <value value="33.70984742562481"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Available_Resources">
@@ -14819,7 +14764,7 @@ set stage BaseStage</setup>
   </experiment>
   <experiment name="Bumble Along" repetitions="100" runMetricsEveryStep="true">
     <setup>setup
-set asymptomaticPercentage asymptomaticPercentage + random-normal 0 3
+set Asymptom_Prop Asymptom_Prop + random-normal 0 3
 set Asymptomatic_Trans Asymptomatic_Trans + random-normal 0 .06 
 set Essential_Workers Essential_Workers + random-normal 0 2
 set Superspreaders Superspreaders + random-normal 0 2
@@ -14858,7 +14803,7 @@ set stage BaseStage</setup>
     <enumeratedValueSet variable="Asymptomatic_Trans">
       <value value="0.35844673433467694"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="AsymptomaticPercentage">
+    <enumeratedValueSet variable="Asymptom_Prop">
       <value value="33.70984742562481"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Available_Resources">
@@ -15182,7 +15127,7 @@ set stage BaseStage</setup>
   </experiment>
   <experiment name="Test" repetitions="1" runMetricsEveryStep="true">
     <setup>setup
-set asymptomaticPercentage asymptomaticPercentage + random-normal 0 3
+set Asymptom_Prop Asymptom_Prop + random-normal 0 3
 set Asymptomatic_Trans Asymptomatic_Trans + random-normal 0 .06 
 set Essential_Workers Essential_Workers + random-normal 0 2
 set Superspreaders Superspreaders + random-normal 0 2
@@ -15227,7 +15172,7 @@ set stage BaseStage</setup>
     <enumeratedValueSet variable="Asymptomatic_Trans">
       <value value="0.35844673433467694"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="AsymptomaticPercentage">
+    <enumeratedValueSet variable="Asymptom_Prop">
       <value value="33.70984742562481"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Available_Resources">

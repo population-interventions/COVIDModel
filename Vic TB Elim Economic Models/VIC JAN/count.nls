@@ -95,35 +95,6 @@ to CountInfected ;; global infection count
   set numberinfected cumulativeInfected
 end
 
-to calculateCarefactor
-  ;; not currently implemented so can ignore
-
-  ;; experience can be fear ;; we can analyse who got infected - vulnerable communities
-  set newv ( ( saliencyMessage * SaliencyExperience ) * (( vmax - initialassociationstrength ) * ( Careattitude * selfCapacity )))
-
-  if newv > vmax [
-    set newv vmax
-  ]
-  if newv < vmin [
-    set newv vmin
-  ]
-
-  set newAssociationstrength ( initialAssociationstrength + newv )
-  set vmax maxv
-  set vmin minv
-
-  set saliencyMessage PHWarnings
-  set SaliencyExperience Saliency_of_Experience
-  set CareAttitude Care_Attitude
-  set selfCapacity Self_capacity
-  if saliencyMessage > 1 [
-    set saliencymessage 1
-  ]
-  if saliencyExperience > 1 [
-    set saliencyExperience 1
-  ]
-end
-
 to calculateMeanDaysInfected
   if any? simuls with [ color = red ] [
     set meanDaysInfected ( mean [ timenow ] of simuls with [ color = red ] )

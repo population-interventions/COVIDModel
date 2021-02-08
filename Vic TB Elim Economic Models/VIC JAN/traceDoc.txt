@@ -1,4 +1,19 @@
 
+asymptomaticFlag:
+ - Static parameters drawn from asymptomatic_draw compared to Asymptom_Prop
+ - Static
+
+isolating:
+ - Set in simul_isolateAndTrackFromHouseHold
+ - (isolating = 1) if succeptible and infected household member.
+ - (pace = 0) while (isolating = 1) and randomly compliant (set in simul_updateIsolationResponse)
+ - isolating only does anything for succeptible agents.
+ - An infected agent that is or would isolate gains (tracked = 1) instead.
+
+====================================
+==== OUTDATED ====
+====================================
+
 IDTime:
  - Looks like an output metric.
  - Set to simul.timenow when tracked set to 1, but only via some methods of tracked changing.
@@ -6,7 +21,7 @@ IDTime:
 
 asymptomaticFlag:
  - 60% of five-year-olds have (asymptomaticFlag = 1)
- - ((initial_cases * (AsymptomaticPercentage / 100) * ( Undetected_Proportion / 100 ))) many initial infected agents have (asymptomaticFlag = 1)
+ - ((initial_cases * (Asymptom_Prop / 100) * ( Undetected_Proportion / 100 ))) many initial infected agents have (asymptomaticFlag = 1)
  - Changes localInfectiveness in simul_record_patch_infectiveness
 
 tracked:
@@ -16,7 +31,7 @@ tracked:
  - (tracked != 1) causes agents to move at speed span
  - (tracked = 1) can let agents move to ICU
  - Does something with SuperSpread
- - Can set (tracked = 1) in simul_traceme, simul_HHContactsIso, simul_hunt
+ - Can set (tracked = 1) in simul_traceme, simul_isolateAndTrackHouseHold, simul_hunt
  - Initial cases have (tracked = 1)
 
 track_and_trace_efficiency:
@@ -24,7 +39,7 @@ track_and_trace_efficiency:
  - simul_traceme (color = red and track_and_trace_efficiency > random-float 1 and unDetectedFlag = 0) then become (tracked = 1), every step.
 
 isolating:
- - Set in simul_HHContactsIso
+ - Set in simul_isolateAndTrackHouseHold
  - (pace = 0) while (isolating = 1), this depends on other variables though.
  - Don't move in simul_visitDestination while (isolating = 1)
 
@@ -47,7 +62,7 @@ haveapp:
 
 asymptom:
  - Random from 0 to 99.
- - Must have (asymptom >= AsymptomaticPercentage) to get into ICU.
+ - Must have (asymptom >= Asymptom_Prop) to get into ICU.
  - Otherwise appears to do nothing.
 
 reported:
@@ -56,6 +71,6 @@ reported:
 
 unDetectedFlag:
  - (unDetectedFlag = 0) is required to set (tracked = 1) in simul_traceme.
- - ((initial_cases * (AsymptomaticPercentage / 100) * ( Undetected_Proportion / 100 ))) many initial infected agents have (unDetectedFlag = 1)
+ - ((initial_cases * (Asymptom_Prop / 100) * ( Undetected_Proportion / 100 ))) many initial infected agents have (unDetectedFlag = 1)
  - simul_assigndetectablestatus sets (unDetectedFlag = 1) if (asymptomaticFlag = 1 and detectable < Undetected_Proportion)
  - In practise, no agent seems to have (unDetectedFlag = 1)

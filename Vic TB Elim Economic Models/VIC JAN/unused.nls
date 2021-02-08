@@ -271,13 +271,13 @@ end
 to iterateAsymptomAge
   if freeWheel = false and PolicyTriggerOn = true and schoolsPolicy = true [
     ;; places proportion of people under 18 into the asymptomatic category
-    ask n-of ((count simuls with [ agerange < 19 ] ) * AsymptomaticPercentage ) simuls with [ agerange <= 18 ] [
-      set asymptom random asymptomaticPercentage
+    ask n-of ((count simuls with [ agerange < 19 ] ) * Asymptom_Prop ) simuls with [ agerange <= 18 ] [
+      set asymptom random Asymptom_Prop
     ]
     ;; takes older people out of the asymptomatic category and puts them in the symptomatic
     ;; category to keep total percentages of asymptomatic cases consistent with input slider
-    ask n-of ((count simuls with [ agerange < 19 ] ) * AsymptomaticPercentage ) simuls with [ agerange > 18 ] [
-      set asymptom random (asymptomaticPercentage ) + (100 - AsymptomaticPercentage)
+    ask n-of ((count simuls with [ agerange < 19 ] ) * Asymptom_Prop ) simuls with [ agerange > 18 ] [
+      set asymptom random (Asymptom_Prop ) + (100 - Asymptom_Prop)
     ]
   ]
 end
@@ -312,7 +312,7 @@ end
 
 to simul_setASFlag
   ;; records an asymptomatic flag for individual people
-  if asymptom <= asymptomaticPercentage [
+  if asymptom <= Asymptom_Prop [
     set asymptomaticFlag 1
   ]
 end
@@ -408,5 +408,12 @@ to Cruiseship
 
       set ownMaskEfficacy maskWearEfficacy
     ]
+  ]
+end
+
+to absorbshock
+  ;; stimulus packages soak up the debt present in the simuls
+  if any? simuls in-radius 1 with [ shape = "star" ] [
+    set value value - sum [ reserves ] of simuls in-radius 1 with [ shape = "star" ]
   ]
 end

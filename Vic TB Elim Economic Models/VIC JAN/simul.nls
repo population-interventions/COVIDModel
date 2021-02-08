@@ -10,31 +10,20 @@ simuls-own [
   inICU ;; whether the person is in ICU or not
   sensitivity ;; person's sensitivity to news about the pandemic
   R ;; the estimated RNaught of individuals
-  income ;; people's income from wage / salary
-  expenditure ;; people's expenditure
-  reserves ;; cash reserves available to the person
   contacts ;; the number of contacts the person has made in the model
   IncubationPd ;; the incubation perios of the illness ascribed to the person
   DailyRisk ;; the risk of death of the person per day based on their agerange
   RiskofDeath ;; the overall risk of deth for the person if they contract the illness based on their age
   Pace ;; the speed that pthe person moves around the environment
-  PersonalTrust ;; the level of trust the person has in the Government
-  WFHCap ;; capacity of the person to work from home
-  NewV ;; the calculation of the association the person has between the their experiences in the world and their experiences of the illness - used in R-W implementation
-  saliencyMessage ;; saliency of the information coming to the person about COVID 19
-  saliencyExperience ;; The saliency of the person's experiences in the world
-  vMax ;; the maximum association the person can make between COVID-19 and their experience of the world
-  vMin ;; the minimum association the person can make between COVID-19 and their experience of the world
-  CareAttitude ;; the extent to which the person cares about protecting themselves and others from Covid
-  SelfCapacity ;; The capacity of the person to care about protecting themselves and others form COVID
-  newAssociationstrength ;; a variable that is used in the calculation and carry-forward of NewV as above
+
   ownIllnessPeriod ;; unique illness period associated with the individual
   ownIncubationPeriod ;; unique incubation pd for the person - related to IncubationPd so can probably be cleaned up - IncubationPd is a legacy var as previously all incubation periods were identical
   ownComplianceWithIsolation ;; unique variable associated with compliance to Isocation of cases if infected
   personalVirulence ;; the infectivity of the person
-  
+
   tracked ;; whether the person has been tracked by the health system
-  Asymptomaticflag ;; indicator identifying Asymptomatic cases
+  asymptomaticFlag ;; indicator identifying Asymptomatic cases
+  asymptomatic_draw ;; Determines whether the agent will be asymptomatic
 
   RequireICU ;; Whether the agent requires ICU at the moment
   requireICU_draw ;; Random determiner [0, 1) of whether the agent requires ICU
@@ -155,6 +144,16 @@ to simul_resetComplianceAndMaskEfficacy
   set ownMaskEfficacy maskWearEfficacy 
 end
 
+to simul_updateIsolationResponse
+  set pace span
+  if ((Case_Isolation and isolating = 1) or (tracked = 1)) [
+    if ownCompliancewithIsolation < random-float 1 [
+      move-to homelocation
+      set pace 0
+    ]
+  ]
+end
+
 ;;*******************************************************************************************************************************
 ;;** Simul Once-A-Tick Functions **
 ;;*******************************************************************************************************************************
@@ -247,7 +246,7 @@ to simul_move
       ]
 
       ;; non-compliant people continue to move around the environment unless they are very sick
-      if color = red and Case_Isolation = false and ownCompliancewithIsolation * 100 < random 100 and health > random 100 [
+      if color = red and health > random 100 [
         set heading heading + random 90 - random 90
         forward random pace
       ]
@@ -362,14 +361,6 @@ to simul_death
   ]
 end
 
-to simul_isolation
-  ;; tracks people and isolates them even if they are pre incubation period
-  if ownCompliancewithIsolation * 100 > random 100 [
-    move-to homelocation
-    set pace 0
-  ]
-end
-
 to simul_recovered_lose_immunity
   ;; if you are recovered but suceptible again, you could become reinfected
   if color = yellow and ReinfectionRate > random 100 [
@@ -398,13 +389,6 @@ to simul_countcontacts
     ;; or alternatively add the following ## and householdUnit != [ householdUnit ] of myself
 
     set contacts ( contacts1 + contacts2 + contacts3 + contacts4 + contacts5 + contacts6 + contacts7 ) / 7
-  ]
-end
-
-to simul_respeed
-  ;; If people aren't tracked they can move as they wish
-  if tracked != 1 [
-    set pace span
   ]
 end
 
@@ -442,27 +426,31 @@ end
 to simul_visitDestination
   ;; sets up destinations where people might gather and set off superspreader events
   ;; reduces large gatherings by stage
-  if isolating = 0 and remainder random 7 Visit_Frequency = 0 and any? patches with [ destination = 1 ] in-radius (5 - stage) [
+  ;; TODO figure out why this works this way.
+  if pace > 0 and remainder random 7 Visit_Frequency = 0 and any? patches with [ destination = 1 ] in-radius (5 - stage) [
     move-to one-of patches with [ destination = 1 ]
   ]
   ;; essential workers do not have the same capacity to reduce contact as non-esssential
 end
 
-to simul_HHContactsIso
-  ifelse isolate = true and color = cyan and any? other simuls
-      with [ householdunit = [ householdunit ] of myself and tracked = 1 ]
-  [
-    move-to homelocation
-    set pace 0
-    set isolating 1
-  ]
-  [
-    set isolating 0
-  ]
+to simul_isolateAndTrackFromHouseHold
   ;; this identifies people in the system earlier because they get a test straight away having been a close contact of someone in their house
   if isolating = 1 and color = red [
     set tracked 1
   ]
+  
+  if color = cyan or (color = red and tracked = 0) [
+    ifelse any? other simuls with [ householdunit = [ householdunit ] of myself and tracked = 1 ]
+    [
+      if color = cyan [
+        set isolating 1
+      ]
+      if color = red [
+        set tracked 1
+      ]
+    ]
+    [
+      set isolating 0
+    ]
+  ]
 end
-
-

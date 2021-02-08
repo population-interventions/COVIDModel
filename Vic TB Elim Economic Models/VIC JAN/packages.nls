@@ -18,13 +18,6 @@ to DeployStimulus
   ]
 end
 
-to absorbshock
-  ;; stimulus packages soak up the debt present in the simuls
-  if any? simuls in-radius 1 with [ shape = "star" ] [
-    set value value - sum [ reserves ] of simuls in-radius 1 with [ shape = "star" ]
-  ]
-end
-
 to movepackages
   ;; makes stimulus packages drift in the environment
   set heading heading + 5 - 5

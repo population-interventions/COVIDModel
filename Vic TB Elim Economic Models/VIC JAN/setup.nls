@@ -173,7 +173,7 @@ to createSimulants
       set R 0
       set vacWaitDays 0
       set isolating 0
-      
+
       set agerange item 1 cohortData
       set atsi item 2 cohortData
       set comorbidityState item 3 cohortData
@@ -182,13 +182,16 @@ to createSimulants
       set VaccPhase item 6 cohortData
       set VaccSubPhase item 7 cohortData
 
-      set income random-exponential mean_Individual_Income
       move-to one-of patches with [ pcolor = black ]
 
-      set personalTrust random-normal 75 10
-      set WFHCap random 100
       set personalVirulence random-normal Global_Transmissability 2.5
       set sm_vac_uptake random 100
+
+      set asymptomatic_draw random-float 1
+      set asymptomaticFlag 0
+      if asymptomatic_draw < Asymptom_Prop [
+        set asymptomaticFlag 1
+      ]
 
       set requireICU 0
       set requireICU_draw random-float 1
@@ -302,7 +305,6 @@ to setGlobals
   set spatial_distance 0
   set case_isolation 0
   set quarantine 0
-  set AsymptomaticPercentage 0
   set contact_radius 0
   set Track_and_Trace_Efficiency 0
   set stage 0
@@ -467,21 +469,6 @@ to setup
     ]
   ]
 
-  ;; put a function in here that iterates this
-  ;; (what does iterates mean?)
-  ask n-of ((initial_cases * (AsymptomaticPercentage / 100) * ( Undetected_Proportion / 100 ))) simuls [
-    set color red
-    set asymptomaticFlag 1
-    set tracked 0
-    set timenow random int OwnIllnessperiod
-    simul_updatepersonalvirulence
-    if timenow <= 7 [
-      ;; includes a proportion of undetected cases in the community at the initialisation step
-      set timenow random int Ownillnessperiod
-      simul_updatepersonalvirulence
-    ]
-  ]
-
   if count simuls with [ color = red ] <= 1 [
     ask n-of 1 simuls [
       set xcor 0
@@ -559,12 +546,6 @@ to setup
     if init_secondry_infect > 0 and any? other simuls in-radius 2 with [ color = red ] [
       set color red
       set init_secondry_infect init_secondry_infect - 1
-    ]
-  ]
-
-  ask simuls [
-    if agerange = 5 and 60 > random 100 [
-      set AsymptomaticFlag 1
     ]
   ]
 

@@ -17,11 +17,9 @@ to scaleup
 
     set ownIncubationPeriod ( exp random-normal Minc Sinc ) ;; log transform of compliance with isolation
 
-    set income ([ income ] of one-of other simuls )
     move-to one-of patches with [ pcolor = black ]
     simul_resetlanding
     set riskofdeath .01
-    set WFHCap random 100
     set ageRange ([ageRange ] of one-of simuls)
 
     simul_resetComplianceAndMaskEfficacy
@@ -32,7 +30,6 @@ to scaleup
   ask n-of ( count simuls with [ color = yellow ] * (1 - 1 / Scale_Factor) ) simuls with [ color = yellow ] [
     set size 2
     set color cyan
-    set WFHCap random 100
 
     set ageRange ([ageRange ] of one-of simuls)
     set imported 0 ;; resethealth
@@ -45,7 +42,6 @@ to scaleup
 
     set ownIncubationPeriod ( exp random-normal Minc Sinc ) ;; log transform of compliance with isolation
 
-    set income ([income ] of one-of other simuls)
     move-to one-of patches with [ pcolor = black ] ;; resetincome calculateincomeperday calculateexpenditureperday
     simul_resetlanding
     set riskofdeath [ riskOfDeath ] of one-of simuls with [ agerange = ([ agerange ] of myself )]

@@ -123,7 +123,7 @@ to go
   ;; All the simulants independently either move outside or back to home
   ask simuls [
     ;; Untracked people have their speed set to the current recommended speed, based on policy.
-    simul_respeed
+    simul_updateIsolationResponse
     ;; Set 1/7th of people who are near a destination to move to that destination.
     simul_visitDestination
     ;; Move around, or not. It's random.
@@ -160,15 +160,17 @@ to go
   
   ;; Simulants do a bunch of non-interactive housekeeping.
   ask simuls [
+    ;; If I am succeptible and a household member is tracked, move home and set pace to 0, set isolated=1. Also track isolated=1 infected people.
+    simul_isolateAndTrackFromHouseHold
+  ]
+  ask simuls [
     ;; if you are not dead at the end of your illness period, then you become recovered and turn yellow. Don't need hospital resources anymore.
     simul_recover
     ;; Increment illness time and possibly lose 'health' due to it. It is unclear what health is for.
     simul_settime
     ;; Possibly die if infected.
     simul_death
-    ;; Move everyone home based on their chance of being compliant with isolation. It is weird that this happens after simul_move, in which people
-    ;; who are out and about can infect each other.
-    simul_isolation
+    
     ;; Recovered people can randomly become succeptible again.
     simul_recovered_lose_immunity
 
@@ -183,10 +185,6 @@ to go
     ;; Set EssentialWorkerFlag based on proportion of population that is an essential worker (uses Essential_Workers (0-100) policy param)
     simul_EssentialWorkerID
     
-    ;; enables people to access the support packages (???)
-    ;simul_AccessPackage
-    ;; If I am succeptible and a household member is tracked, move home and set pace to 0, set isolated=1. Also track isolated=1 infected people.
-    simul_HHContactsIso
     ;; Randomly vaccinate people according to uptake and stage.
     simul_vaccinate_me
   ]

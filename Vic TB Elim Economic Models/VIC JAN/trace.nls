@@ -1,20 +1,6 @@
 
 directed-link-breed [red-links red-link]
 
-to turnOnTracking
-  ;; ensures that policies are enacted if their master switches are set to true at the time of the policy switch turning on
-  if freewheel != true [
-    if policyTriggerOn = true and ticks >= triggerday and schoolsPolicy = true [
-      set tracking true
-      set SchoolsPolicy true
-    ]
-    if policyTriggerOn = true and ticks >= triggerday [
-      set tracking true
-    ]
-    set link_switch true
-  ]
-end
-
 to assignApptoEssential
   ;; allocates the COVID-Safe app to essential works that can be adjusted using
   ;; the EWAppUptake slider, which maxes at 1.0 meaning 100% allocation

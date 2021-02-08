@@ -1,5 +1,86 @@
 ;; Functions that are not referenced anywhere else.
 
+;; *********************************************************************************************************
+;; **** Functions that reference policyTriggerOn or triggerday
+;; *********************************************************************************************************
+
+to stopfade
+  ;; prevents cases from dying out in the eraly stage of the trials when few numbers exist
+  if freewheel != true [
+    if ticks < Triggerday and count simuls with [ color = red ] < 3 [
+      ask n-of 1 simuls with [ color = cyan ] [
+        set color red
+        set timenow int ownIncubationPeriod - 1
+        set EssentialWorkerPriority random 100
+      ]
+    ]
+  ]
+end
+
+to TriggerActionIsolation
+  ;; sets the date for social isolation and case isolation
+  if PolicyTriggerOn = true and Freewheel = false [
+    if ticks >= Triggerday and Freewheel = false [
+      set Spatial_Distance true
+      set Case_Isolation true
+      set Quarantine true
+    ]
+  ]
+end
+
+to OSCase
+  if policytriggeron = true and count simuls with [ color = red and imported = 0 ] > 1 [
+    let totallocal count simuls with [ color != cyan and imported = 0 ]
+    let totalimported count simuls with [ imported = 1 ]
+    let ratio ( totalimported / (totallocal + totalimported) )
+
+    ;; contributes additional cases as a result of OS imports prior to lockdown
+    if ticks <= triggerday and OS_Import_Switch = true and ratio < OS_Import_Proportion [
+      ask n-of ( count simuls with [ color = red ] * .10 ) simuls with [ color = cyan ] [
+        set color red
+        set timenow int ownIncubationPeriod - random-normal 1 .5
+        set EssentialWorkerPriority random 100
+        set imported 1
+      ]
+    ]
+
+    ;; creates steady stream of OS cases at beginning of pandemic
+    if ticks <= triggerday and OS_Import_Switch = true [
+      ask n-of 1 simuls with [ color = cyan ] [
+        set color red
+        set timenow int ownIncubationPeriod - random-normal 1 .5
+        set EssentialWorkerPriority random 100
+        set imported 1
+      ]
+    ]
+
+    ;; contributes additional cases as a result of OS imports after lockdown
+    if ticks > triggerday and OS_Import_Switch = true and ratio < OS_Import_Post_Proportion [
+      ask n-of ( count simuls with [ color = red ] * .05 ) simuls with [ color = cyan ] [
+        set color red
+        set timenow int ownIncubationPeriod - random-normal 1 .5
+        set EssentialWorkerPriority random 100
+        set imported 1
+        set tracked 1
+      ]
+    ]
+  ]
+end
+
+to turnOnTracking
+  ;; ensures that policies are enacted if their master switches are set to true at the time of the policy switch turning on
+  if freewheel != true [
+    if policyTriggerOn = true and ticks >= triggerday and schoolsPolicy = true [
+      set tracking true
+      set SchoolsPolicy true
+    ]
+    if policyTriggerOn = true and ticks >= triggerday [
+      set tracking true
+    ]
+    set link_switch true
+  ]
+end
+
 To Unlock
   ;; reverses the initiation of social distancing and isolation policies over time. Recognises that the policies are interpreted
   ;; and adherence is not binary. Adherence to policies is associated with a negative exponential curve linked to the current day
@@ -26,6 +107,9 @@ to linearbehdecrease
     ]
   ]
 end
+
+;; *********************************************************************************************************
+;; *********************************************************************************************************
 
 
 ;; This code used to infect simulants. It is unclear what it was meant to do.

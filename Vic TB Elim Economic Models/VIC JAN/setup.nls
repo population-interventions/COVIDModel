@@ -350,7 +350,7 @@ to setGlobals
   set vaccineTable 0
   set global_vaccine_eff 0 ;; Effectiveness of the vaccine along the three dimensions (infection rate, transmition rate, duration)
 
-  set global_schoolActive 0 ;; Whether students ignore avoiding each other to go to school
+  set global_schoolActive 1 ;; Whether students ignore avoiding each other to go to school
 
   ;; log transform illness period variables
   set Illness_PeriodVariance 0

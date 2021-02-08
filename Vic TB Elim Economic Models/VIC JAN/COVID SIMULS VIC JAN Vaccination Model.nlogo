@@ -222,9 +222,9 @@ NIL
 
 BUTTON
 185
-143
+142
 249
-177
+176
 Go
 ifelse (count simuls ) = (count simuls with [ color = blue ])  [ stop ] [ Go ]
 T
@@ -948,7 +948,7 @@ SLIDER
 1590
 19
 1724
-53
+52
 Age_Isolation
 Age_Isolation
 0
@@ -1243,10 +1243,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-1849
-1535
-2003
-1584
+1810
+939
+1964
+988
 ICU Beds Needed
 ICUBedsRequired
 0
@@ -1254,10 +1254,10 @@ ICUBedsRequired
 12
 
 PLOT
-1802
-1403
-2126
-1527
+1763
+808
+2087
+932
 ICU Beds Available vs Required
 NIL
 NIL
@@ -1432,10 +1432,10 @@ PotentialContacts
 11
 
 PLOT
-1795
-1129
-2130
-1252
+2342
+95
+2582
+219
 Distribution of Illness pd
 NIL
 NIL
@@ -1472,10 +1472,10 @@ se_incubation
 Number
 
 PLOT
-1797
-1267
-2136
-1391
+2340
+228
+2580
+353
 Dist_Incubation_Pd
 NIL
 NIL
@@ -2045,10 +2045,10 @@ NIL
 HORIZONTAL
 
 SWITCH
-443
-1217
-588
-1250
+448
+1229
+593
+1262
 OS_Import_Switch
 OS_Import_Switch
 0
@@ -2056,10 +2056,10 @@ OS_Import_Switch
 -1000
 
 SLIDER
-195
-1248
-397
-1281
+1547
+348
+1727
+382
 OS_Import_Proportion
 OS_Import_Proportion
 0
@@ -2171,10 +2171,10 @@ PENS
 "28" 1.0 0 -2674135 true "" "plot casesinperiod28"
 
 INPUTBOX
-2302
-98
-2382
-159
+2442
+1137
+2522
+1198
 zerotoone
 1.0
 1
@@ -2182,10 +2182,10 @@ zerotoone
 Number
 
 INPUTBOX
-2302
-160
-2382
-221
+2442
+1198
+2522
+1259
 onetotwo
 35.0
 1
@@ -2193,10 +2193,10 @@ onetotwo
 Number
 
 INPUTBOX
-2300
-224
-2383
-284
+2439
+1263
+2522
+1323
 twotothree
 56.0
 1
@@ -2204,10 +2204,10 @@ twotothree
 Number
 
 INPUTBOX
-2300
-284
-2382
-345
+2439
+1323
+2521
+1384
 threetofour
 210.0
 1
@@ -2256,10 +2256,10 @@ casesinperiod7
 11
 
 INPUTBOX
-2388
-98
-2470
-159
+2528
+1137
+2610
+1198
 JudgeDay1
 2.0
 1
@@ -2267,10 +2267,10 @@ JudgeDay1
 Number
 
 INPUTBOX
-2389
-167
-2472
-228
+2529
+1205
+2612
+1266
 JudgeDay2
 2.0
 1
@@ -2278,10 +2278,10 @@ JudgeDay2
 Number
 
 INPUTBOX
-2390
-228
-2472
-289
+2529
+1267
+2611
+1328
 JudgeDay3
 2.0
 1
@@ -2289,10 +2289,10 @@ JudgeDay3
 Number
 
 INPUTBOX
-2390
-292
-2472
-353
+2529
+1330
+2611
+1391
 JudgeDay4
 2.0
 1
@@ -2392,10 +2392,10 @@ count patches with [ pcolor = green ]
 11
 
 INPUTBOX
-2554
-99
-2627
-160
+2694
+1138
+2767
+1199
 onetozero
 0.0
 1
@@ -2403,10 +2403,10 @@ onetozero
 Number
 
 INPUTBOX
-2558
-160
-2630
-221
+2698
+1198
+2770
+1259
 twotoone
 1.0
 1
@@ -2414,10 +2414,10 @@ twotoone
 Number
 
 INPUTBOX
-2557
-225
-2627
-286
+2697
+1263
+2767
+1324
 threetotwo
 35.0
 1
@@ -2425,10 +2425,10 @@ threetotwo
 Number
 
 INPUTBOX
-2557
-285
-2629
-346
+2697
+1323
+2769
+1384
 fourtothree
 105.0
 1
@@ -2447,10 +2447,10 @@ count simuls with [ color = yellow ]
 11
 
 INPUTBOX
-2478
-102
-2548
-162
+2618
+1140
+2688
+1200
 JudgeDay1_d
 1.0
 1
@@ -2458,10 +2458,10 @@ JudgeDay1_d
 Number
 
 INPUTBOX
-2479
-160
-2553
-220
+2619
+1198
+2693
+1258
 Judgeday2_d
 1.0
 1
@@ -2469,10 +2469,10 @@ Judgeday2_d
 Number
 
 INPUTBOX
-2478
-225
-2555
-285
+2618
+1263
+2695
+1323
 Judgeday3_d
 1.0
 1
@@ -2480,10 +2480,10 @@ Judgeday3_d
 Number
 
 INPUTBOX
-2478
-289
-2553
-349
+2618
+1328
+2693
+1388
 Judgeday4_d
 1.0
 1
@@ -3034,6 +3034,16 @@ false
 "" ""
 PENS
 "default" 1.0 0 -16777216 true "" "plot count simuls with [ color = red and undetectedFlag = 1 ]"
+
+TEXTBOX
+772
+1088
+1160
+1116
+----- Everything below this line should (hopefully) be ignored. -----
+11
+0.0
+1
 
 @#$#@#$#@
 ## WHAT IS IT?

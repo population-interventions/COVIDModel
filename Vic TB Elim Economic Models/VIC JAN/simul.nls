@@ -8,7 +8,6 @@ simuls-own [
   timenow ;; the number of days since initial infection
   health ;; baseline health of the individual
   inICU ;; whether the person is in ICU or not
-  anxiety ;; person's level of anxiety aboutt he pandemic
   sensitivity ;; person's sensitivity to news about the pandemic
   R ;; the estimated RNaught of individuals
   income ;; people's income from wage / salary
@@ -82,6 +81,9 @@ simuls-own [
   contacts3
   contacts2
   contacts1 ;; contacts from today
+  
+  ;; Unused
+  ;anxiety ;; person's level of anxiety aboutt he pandemic
 ]
 
 ;;*******************************************************************************************************************************
@@ -146,6 +148,19 @@ to simul_move_to_empty_patch
       set lastUtilTime ticks
     ]
   ]
+end
+
+to simul_resetComplianceAndMaskEfficacy
+  rngs:init ;; replacing previous log transform with beta distribution
+  let stream_id random-float 999
+  let seed random-float 999
+  rngs:set-seed stream_id seed
+  let complianceDist rngs:rnd-beta stream_id 450.3 23.7
+  set ownComplianceWithIsolation complianceDist
+
+  let maskWearEfficacy rngs:rnd-beta stream_id 24.3 8.08
+  ;; assigning mask efficacy to individuals around a distribution with median 75% or 75% x 1/3 if 33 as per request based on Burnett Institute #s
+  set ownMaskEfficacy maskWearEfficacy 
 end
 
 ;;*******************************************************************************************************************************
@@ -365,24 +380,6 @@ to simul_recovered_lose_immunity
   ;; if you are recovered but suceptible again, you could become reinfected
   if color = yellow and ReinfectionRate > random 100 [
     set color cyan
-  ]
-end
-
-to simul_createanxiety
-  ;; a fairly unsophisticated (currently unused) means of allocating anxiety around COVID-19 to people - will be updated
-  set anxiety ( anxiety + anxietyfactor ) * random-normal .9 .1
-  if anxiety < 0 [
-    set anxiety 0
-  ]
-end
-
-to simul_gatherreseources
-  if (anxiety * sensitivity) > random 100 and count resources > 0 and InICU = 0 [
-    face min-one-of resources with [ volume >= 0 ] [ distance myself ]
-  ]
-  if any? resources-here with [ volume >= 0 ] and anxiety > 0 [
-    set anxiety mean [ anxietyfactor ] of neighbors
-    move-to one-of patches with [ pcolor = black ]
   ]
 end
 

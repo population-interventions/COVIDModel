@@ -1,5 +1,37 @@
 ;; Functions that are not referenced anywhere else.
 
+;; Parts of main that are not used.
+to go
+  ;ask resources [
+  ;  deplete
+  ;  replenish
+  ;  resize
+  ;  spin
+  ;]
+  ;ask packages [
+  ;  absorbshock
+  ;  movepackages
+  ;]
+  
+  ;CruiseShip
+  ;; controls the amount of time that interactions happen outside
+  ;updateoutside
+  ;updatestudentStatus
+  ;; Randomly set some simulants to be infected, to simulate overseas cases. They have imported = 1.
+  ;OSCase
+  ;; Spontaneously generate a case if ticks < Triggerday and there are fewer than three cases.
+  ;stopFade
+  ;seedCases
+  ;; Reverses the initiation of social distancing and isolation policies over time.
+  ;Unlock
+  ;; Reduce ppa and pta usage if complacency = True.
+  ;linearbehdecrease
+  ;calculateCashPosition
+  ;; Set anxiety factor based on some infected/dead/recovered count, multiplied by media_Exposure
+  ;Globalanxiety
+  
+end
+
 ;; *********************************************************************************************************
 ;; **** Functions that reference policyTriggerOn or triggerday
 ;; *********************************************************************************************************
@@ -109,8 +141,50 @@ to linearbehdecrease
 end
 
 ;; *********************************************************************************************************
+;; **** Simul Functions
 ;; *********************************************************************************************************
 
+to simul_createanxiety
+  ;; a fairly unsophisticated (currently unused) means of allocating anxiety around COVID-19 to people - will be updated
+  set anxiety ( anxiety + anxietyfactor ) * random-normal .9 .1
+  if anxiety < 0 [
+    set anxiety 0
+  ]
+end
+
+to simul_gatherreseources
+  if (anxiety * sensitivity) > random 100 and count resources > 0 and InICU = 0 [
+    face min-one-of resources with [ volume >= 0 ] [ distance myself ]
+  ]
+  if any? resources-here with [ volume >= 0 ] and anxiety > 0 [
+    set anxiety mean [ anxietyfactor ] of neighbors
+    move-to one-of patches with [ pcolor = black ]
+  ]
+end
+
+;; *********************************************************************************************************
+;; *********************************************************************************************************
+
+to Globalanxiety
+  ;; levels of global anxiety are tied to knowledge of dead and infected
+  ;; people multiplied by media exposure of dead and infected people
+  let anxiouscohort (count simuls with [ color = red ] + count simuls with [ color = black ] - count simuls with [ color = yellow ] ) / Total_Population
+  set anxietyFactor anxiouscohort * media_Exposure * Scale_Factor ^ scalephase
+end
+
+to updateoutside
+  ;; controls the amount of time that interactions happen outside
+  if count patches with [ pcolor = green ] < ( Outside * (count patches) ) [
+    ask n-of random 10 patches with [ pcolor = black ] [
+      set pcolor green
+    ]
+  ]
+  if count patches with [ pcolor = green ] > ( Outside * (count patches) ) [
+    ask n-of random 10 patches with [ pcolor = green ] [
+      set pcolor black
+    ]
+  ]
+end
 
 ;; This code used to infect simulants. It is unclear what it was meant to do.
 to simul_infect_old

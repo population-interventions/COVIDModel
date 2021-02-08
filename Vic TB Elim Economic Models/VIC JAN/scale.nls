@@ -4,104 +4,73 @@
 ;;*******************************************************************************************************************************
 
 to scaleup
-  ;; this function scales up the simulation over 5 phases at base 10 to enable a small and large-scale understanding of dynamics.
-  ;; It enables the fine-grained analysis in early stages that more closely resembles diffusion across a population similar to
-  ;; assumptions in SEIR models but as it scales up, recognises taht there are geographic constraints of movement of populations
+  set scalephase scalephase + 1
+  ask n-of ( count simuls with [ color = red ] * (1 - 1 / Scale_Factor) ) simuls with [ color = red ] [
+    set size 2
+    set color cyan
+    set detectable random 100 ;; identifies whether the person is detectable or not
+    set timenow 0
+    set InICU 0
+    set sensitivity random-float 1
+    set imported 0
+    set R 0
+    set ownIllnessPeriod ( exp random-normal M S ) ;; log transform of illness period
 
-  ifelse scale = true and ( count simuls with [ color = red ] ) >= Scale_Threshold and scalePhase >= 0 and ((Scale_Factor ^ (scalePhase + 1)) * Population <= Total_Population) and days > 0
-  [
-    set scalephase scalephase + 1
-    ask n-of ( count simuls with [ color = red ] * (1 - 1 / Scale_Factor) ) simuls with [ color = red ] [
-      set size 2
-      set color cyan
-      set detectable random 100 ;; identifies whether the person is detectable or not
-      set timenow 0
-      set InICU 0
-      set anxiety 0
-      set sensitivity random-float 1
-      set imported 0
-      set R 0
-      set ownIllnessPeriod ( exp random-normal M S ) ;; log transform of illness period
+    set ownIncubationPeriod ( exp random-normal Minc Sinc ) ;; log transform of compliance with isolation
 
-      set ownIncubationPeriod ( exp random-normal Minc Sinc ) ;; log transform of compliance with isolation
+    set income ([ income ] of one-of other simuls )
+    move-to one-of patches with [ pcolor = black ]
+    simul_resetlanding
+    set riskofdeath .01
+    set WFHCap random 100
+    set ageRange ([ageRange ] of one-of simuls)
+    set requireICU random 100
 
-      set income ([ income ] of one-of other simuls )
-      move-to one-of patches with [ pcolor = black ]
-      simul_resetlanding
-      set riskofdeath .01
-      set WFHCap random 100
-      set ageRange ([ageRange ] of one-of simuls)
-      set requireICU random 100
+    simul_resetComplianceAndMaskEfficacy
 
-      rngs:init ;; replacing previous log transform with beta distribution
-      let stream_id random-float 999
-      let seed random-float 999
-      rngs:set-seed stream_id seed
-      let dist rngs:rnd-beta stream_id 450.3 23.7
-
-      set ownComplianceWithIsolation dist
-      let maskWearEfficacy rngs:rnd-beta stream_id 20 11
-
-      set ownMaskEfficacy maskWearEfficacy
-      set returntoschool random 100
-      set detectable random 100
-    ]
-
-    ask n-of ( count simuls with [ color = yellow ] * (1 - 1 / Scale_Factor) ) simuls with [ color = yellow ] [
-      set size 2
-      set color cyan
-      set WFHCap random 100
-
-      set ageRange ([ageRange ] of one-of simuls)
-      set imported 0 ;; resethealth
-
-      set timenow 0
-      set InICU 0
-      set anxiety 0
-      set sensitivity random-float 1
-      set R 0
-      set ownIllnessPeriod ( exp random-normal M S ) ;; log transform of illness period
-
-      set ownIncubationPeriod ( exp random-normal Minc Sinc ) ;; log transform of compliance with isolation
-
-      set income ([income ] of one-of other simuls)
-      move-to one-of patches with [ pcolor = black ] ;; resetincome calculateincomeperday calculateexpenditureperday
-      simul_resetlanding
-      set riskofdeath [ riskOfDeath ] of one-of simuls with [ agerange = ([ agerange ] of myself )]
-      set requireICU random 100
-
-      rngs:init ;; replacing previous log transform with beta distribution
-      let stream_id random-float 999
-      let seed random-float 999
-      rngs:set-seed stream_id seed
-      let dist rngs:rnd-beta stream_id 450.3 23.7
-
-      set ownComplianceWithIsolation dist
-      let maskWearEfficacy rngs:rnd-beta stream_id 20 11
-
-      set ownMaskEfficacy maskWearEfficacy
-    ]
-
-    set contact_Radius Contact_Radius + (90 / 4)
+    set returntoschool random 100
+    set detectable random 100
   ]
-  [
-    scaledown
+
+  ask n-of ( count simuls with [ color = yellow ] * (1 - 1 / Scale_Factor) ) simuls with [ color = yellow ] [
+    set size 2
+    set color cyan
+    set WFHCap random 100
+
+    set ageRange ([ageRange ] of one-of simuls)
+    set imported 0 ;; resethealth
+
+    set timenow 0
+    set InICU 0
+    set sensitivity random-float 1
+    set R 0
+    set ownIllnessPeriod ( exp random-normal M S ) ;; log transform of illness period
+
+    set ownIncubationPeriod ( exp random-normal Minc Sinc ) ;; log transform of compliance with isolation
+
+    set income ([income ] of one-of other simuls)
+    move-to one-of patches with [ pcolor = black ] ;; resetincome calculateincomeperday calculateexpenditureperday
+    simul_resetlanding
+    set riskofdeath [ riskOfDeath ] of one-of simuls with [ agerange = ([ agerange ] of myself )]
+    set requireICU random 100
+
+    simul_resetComplianceAndMaskEfficacy
   ]
+
+  set contact_Radius Contact_Radius + (90 / 4)
 end
 
 to scaledown
   ;; reverses the procedure above after the peak of the epidemic
-  if scale = true and count simuls with [ color = red ] <= Scale_Threshold / Scale_Factor and yellowcount > redcount and days > 0 and scalephase > 0 [
-    ask simuls with [ color = red ] [
-      hatch (Scale_Factor - 1) [
-        ;; Doesn't this give them all the same household???
-        move-to one-of patches with [ pcolor = black ]
-      ]
+  ask simuls with [ color = red ] [
+    hatch (Scale_Factor - 1) [
+      ;; Doesn't this give them all the same household???
+      move-to one-of patches with [ pcolor = black ]
     ]
-
-    set contact_Radius Contact_radius - (90 / 4)
-    set scalephase scalephase - 1
   ]
+
+  set contact_Radius Contact_radius - (90 / 4)
+  set scalephase scalephase - 1
 end
 
 to scaledownhatch
@@ -111,4 +80,20 @@ to scaledownhatch
       die
     ]
   ]
+end
+
+to CheckScale
+  ;; this function scales up the simulation at base Scale_Factor to enable a small and large-scale understanding of dynamics.
+  ;; It enables the fine-grained analysis in early stages that more closely resembles diffusion across a population similar to
+  ;; assumptions in SEIR models but as it scales up, recognises that there are geographic constraints of movement of populations
+  (ifelse scale = true and ( count simuls with [ color = red ] ) >= Scale_Threshold and scalePhase >= 0 and ((Scale_Factor ^ (scalePhase + 1)) * Population <= Total_Population) and days > 0
+    [
+      scaleup
+    ]
+    scale = true and count simuls with [ color = red ] <= Scale_Threshold / Scale_Factor and yellowcount > redcount and days > 0 and scalephase > 0
+    [
+      scaledown
+    ]
+  )
+  scaledownhatch
 end

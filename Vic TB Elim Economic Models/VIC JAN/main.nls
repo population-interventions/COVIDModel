@@ -48,13 +48,6 @@ end
 ;;;*******************ANXIETY******************::::::::::::::::::
 
 
-to Globalanxiety
-  ;; levels of global anxiety are tied to knowledge of dead and infected
-  ;; people multiplied by media exposure of dead and infected people
-  let anxiouscohort (count simuls with [ color = red ] + count simuls with [ color = black ] - count simuls with [ color = yellow ] ) / Total_Population
-  set anxietyFactor anxiouscohort * media_Exposure * Scale_Factor ^ scalephase
-end
-
 to GlobalTreat
   ;; send people to quarantine if they have been identified
   let eligiblesimuls simuls with [ color = red and inICU = 0 and ownIncubationPeriod >= Incubation_Period and asymptom >= AsymptomaticPercentage and tracked = 1 ]
@@ -82,19 +75,6 @@ to-report nonesspercentage
   ]
 end
 
-to updateoutside
-  ;; controls the amount of time that interactions happen outside
-  if count patches with [ pcolor = green ] < ( Outside * (count patches) ) [
-    ask n-of random 10 patches with [ pcolor = black ] [
-      set pcolor green
-    ]
-  ]
-  if count patches with [ pcolor = green ] > ( Outside * (count patches) ) [
-    ask n-of random 10 patches with [ pcolor = green ] [
-      set pcolor black
-    ]
-  ]
-end
 
 to incursion
   ;; randomly asks someone to become infected
@@ -131,10 +111,13 @@ end
 to go
   ;; these funtions get called each time-step
   
+  ;; Zero count- and average-style metrics for gaterhing throughout the next step
   resetMetricAverages
+  
   ;; Set a list of policy parameters (span (speed), tracking, mask_wearning etc..) based on current stage and stage reset timers
   setupstages
   
+  ;; Update vaccine stage and parameters related to vaccines.
   vaccine_update
   
   ;; All the simulants independently either move outside or back to home
@@ -188,10 +171,7 @@ to go
     simul_isolation
     ;; Recovered people can randomly become succeptible again.
     simul_recovered_lose_immunity
-    ;; Give people anxiety based on global factors.
-    simul_createanxiety
-    ;; Pick up resources, which seems to reduce anxiety?
-    ;simul_gatherreseources
+
     ;; Infected people with inICU = 1 are moved to a white patch (hospital?)
     simul_treat
     ;; Take the rolling average of contacts over the past seven days, only for non-infected people. Is this needed?
@@ -217,26 +197,12 @@ to go
   ask medresources [
     allocatebed
   ]
-  ;ask resources [
-  ;  deplete
-  ;  replenish
-  ;  resize
-  ;  spin
-  ;]
-  ;ask packages [
-  ;  absorbshock
-  ;  movepackages
-  ;]
 
   ;; stops the model if the following criteria are met - no more infected people in the simulation and it has run for at least 10 days, only if freewheel = true.
   finished
-  ;CruiseShip
-  
   
   ;; Send people to ICU if they have been identified
   GlobalTreat
-  ;; Set anxiety factor based on some infected/dead/recovered count, multiplied by media_Exposure
-  ;Globalanxiety
   
   ;; Randomly move infected people  who are untracked or unaware they are sick to new areas, based on the Superspreaders parameter, set in Stages.
   SuperSpread
@@ -258,7 +224,7 @@ to go
   CalculateAverageContacts
   
   ;; Check whether to scale up, which occurs when 10% of the agents are infected.
-  ScaleUp
+  CheckScale
 
   ;; Calculate various metrics, which may be used for policy or may just be output.
   setCaseFatalityRate
@@ -279,9 +245,6 @@ to go
   countBlue
   countYellow
   
-  ;; Randomly remove the excess agents when they exceed the fixed agent population (eg 2500), provided they are not infected or dead.
-  scaledownhatch
-  
   ;; Set cumulativeInfected, not yesterdayInfected
   calculateYesterdayInfected
   ;; Set todayInfected from dailycases
@@ -290,12 +253,6 @@ to go
   calculateScaledPopulation
   ;; Average R of infected simulants.
   calculateMeanR
-  
-  ;; Randomly set some simulants to be infected, to simulate overseas cases. They have imported = 1.
-  ;OSCase
-  ;; Spontaneously generate a case if ticks < Triggerday and there are fewer than three cases.
-  ;stopFade
-  ;seedCases
   
   ;; ensures that policies are enacted if their master switches are set to true at the time of the policy switch turning on (?)
   ;turnOnTracking
@@ -308,7 +265,6 @@ to go
   finished
   ;; set meanDaysInfected
   calculateMeanDaysInfected
-  ;profilerstop
   
   ;; set track_and_trace_efficiency based on the number of recent cases.
   traceadjust
@@ -316,23 +272,15 @@ to go
   CovidPolicyTriggers
   ;; Set casesinperiod7, which is only detected cases. Also sets casesinperiod14 and casesinperiod28.
   calculateCasesInLastPeriod
-  ;calculateCashPosition
   
   ;; Set objFunction. Doesn't appear to do anything.
   calculateObjfunction
-  ;; controls the amount of time that interactions happen outside
-  updateoutside
-  ;updatestudentStatus
-  
   ;; Randomly turn suceptible agents into infected ones. Percentage chance = IncursionRate.
   incursion
   ;; Average "days into infection the person is identified as a case" of suceptible agents.
   CalculateMeanIDTime
 
-  ;; Reverses the initiation of social distancing and isolation policies over time.
-  ;Unlock
-  ;; Reduce ppa and pta usage if complacency = True.
-  ;linearbehdecrease
+  ;profilerstop
 
   ;; set days days + 1
   ForwardTime

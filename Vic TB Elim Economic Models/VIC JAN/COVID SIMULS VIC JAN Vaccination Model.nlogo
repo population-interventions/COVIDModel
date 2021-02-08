@@ -476,24 +476,6 @@ numberInfected
 1
 14
 
-PLOT
-3008
-327
-3211
-447
-Fear & Action
-NIL
-NIL
-0.0
-10.0
-0.0
-10.0
-true
-false
-"" ""
-PENS
-"default" 1.0 1 -2674135 true "" "plot mean [ anxiety ] of simuls"
-
 SLIDER
 2660
 663
@@ -1072,10 +1054,10 @@ mean [ expenditure ] of simuls with [ agerange >= 18 and agerange < 70 and color
 11
 
 MONITOR
-190
-745
-274
-790
+1662
+830
+1746
+875
 Red (raw)
 count simuls with [ color = red ]
 0
@@ -1217,10 +1199,10 @@ Leave Freewheel to 'on' to manipulate policy on the fly
 1
 
 MONITOR
-194
-853
-274
-898
+1662
+930
+1742
+975
 NIL
 count simuls
 17
@@ -1538,7 +1520,7 @@ Global_Transmissability
 Global_Transmissability
 0
 100
-74.0
+50.0
 1
 1
 NIL
@@ -2436,10 +2418,10 @@ fourtothree
 Number
 
 MONITOR
-192
-797
-274
-842
+1662
+879
+1744
+924
 Yellow (raw)
 count simuls with [ color = yellow ]
 0
@@ -2599,7 +2581,7 @@ Mask_Efficacy_Mult
 Mask_Efficacy_Mult
 0
 3
-1.5
+1.0
 .01
 1
 NIL
@@ -2682,7 +2664,7 @@ RAND_SEED
 RAND_SEED
 0
 1000000
-688312.0
+402597.0
 1
 1
 NIL
@@ -2963,13 +2945,13 @@ CHOOSER
 param_policy
 param_policy
 "AgggressElim" "ModerateElim" "TightSupress" "LooseSupress" "None"
-2
+1
 
 SLIDER
 1513
 830
-1666
-863
+1650
+864
 Scale_Threshold
 Scale_Threshold
 50
@@ -2983,8 +2965,8 @@ HORIZONTAL
 SLIDER
 1513
 867
-1667
-900
+1651
+901
 Scale_Factor
 Scale_Factor
 2

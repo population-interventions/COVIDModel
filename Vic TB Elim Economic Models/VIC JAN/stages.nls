@@ -13,7 +13,6 @@ to do_stages_tony
     set case_isolation false
     set schoolsPolicy true
     set quarantine true
-    set schoolPolicyActive true
     set OS_Import_Proportion 0
     set link_switch false
     set Essential_Workers 100
@@ -39,7 +38,6 @@ to do_stages_tony
     set case_isolation true
     set schoolsPolicy true
     set quarantine true
-    set schoolPolicyActive true
     set OS_Import_Proportion 0
     set link_switch true
     set Essential_Workers 75
@@ -65,7 +63,6 @@ to do_stages_tony
     set case_isolation true
     set schoolsPolicy true
     set quarantine true
-    set schoolPolicyActive true
     set OS_Import_Proportion 0
     set link_switch true
     set Essential_Workers 50
@@ -91,7 +88,6 @@ to do_stages_tony
     set case_isolation true
     set schoolsPolicy false
     set quarantine true
-    set schoolPolicyActive false
     set OS_Import_Proportion 0
     set link_switch true
     set Essential_Workers 30
@@ -117,7 +113,6 @@ to do_stages_tony
     set case_isolation true
     set schoolsPolicy false
     set quarantine true
-    set schoolPolicyActive false
     set OS_Import_Proportion 0
     set link_switch true
     set Essential_Workers 20
@@ -148,7 +143,6 @@ to do_stages_28_9_20
     set case_isolation false
     set schoolsPolicy true
     set quarantine true
-    set schoolPolicyActive true
     set OS_Import_Proportion 0
     set link_switch false
     set Essential_Workers 100
@@ -173,7 +167,6 @@ to do_stages_28_9_20
     set case_isolation true
     set schoolsPolicy true
     set quarantine true
-    set schoolPolicyActive true
     set OS_Import_Proportion 0
     set link_switch true
     set Essential_Workers 75
@@ -198,7 +191,6 @@ to do_stages_28_9_20
     set case_isolation true
     set schoolsPolicy true
     set quarantine true
-    set schoolPolicyActive true
     set OS_Import_Proportion 0
     set link_switch true
     set Essential_Workers 50
@@ -223,7 +215,6 @@ to do_stages_28_9_20
     set case_isolation true
     set schoolsPolicy false
     set quarantine true
-    set schoolPolicyActive false
     set OS_Import_Proportion 0
     set link_switch true
     set Essential_Workers 30
@@ -248,7 +239,6 @@ to do_stages_28_9_20
     set case_isolation true
     set schoolsPolicy false
     set quarantine true
-    set schoolPolicyActive false
     set OS_Import_Proportion 0
     set link_switch true
     set Essential_Workers 20
@@ -273,7 +263,6 @@ to do_stages_28_9_20
     set case_isolation true
     set schoolsPolicy false
     set quarantine true
-    set schoolPolicyActive false
     set OS_Import_Proportion 0
     set link_switch true
     set Essential_Workers 20
@@ -303,7 +292,6 @@ to do_stages_vic
     set case_isolation false
     set schoolsPolicy true
     set quarantine true
-    set schoolPolicyActive true
     set OS_Import_Proportion 0
     set link_switch false
     set Essential_Workers 100
@@ -327,7 +315,6 @@ to do_stages_vic
     set case_isolation true
     set schoolsPolicy true
     set quarantine true
-    set schoolPolicyActive true
     set OS_Import_Proportion 0
     set link_switch true
     set Essential_Workers 75
@@ -351,7 +338,6 @@ to do_stages_vic
     set case_isolation true
     set schoolsPolicy false
     set quarantine true
-    set schoolPolicyActive false
     set OS_Import_Proportion 0
     set link_switch true
     set Essential_Workers 50
@@ -375,7 +361,6 @@ to do_stages_vic
     set case_isolation true
     set schoolsPolicy false
     set quarantine true
-    set schoolPolicyActive false
     set OS_Import_Proportion 0
     set link_switch true
     set Essential_Workers 30
@@ -399,7 +384,6 @@ to do_stages_vic
     set case_isolation true
     set schoolsPolicy false
     set quarantine true
-    set schoolPolicyActive false
     set OS_Import_Proportion 0
     set link_switch true
     set Essential_Workers 20
@@ -428,7 +412,6 @@ to do_stages_31_8_2020
     set case_isolation false
     set schoolsPolicy true
     set quarantine true
-    set schoolPolicyActive true
     set OS_Import_Proportion 0
     set link_switch false
     set Essential_Workers 100
@@ -461,7 +444,6 @@ to do_stages_31_8_2020
     set case_isolation true
     set schoolsPolicy true
     set quarantine true
-    set schoolPolicyActive true
     set OS_Import_Proportion 0
     set link_switch true
     set Essential_Workers 75
@@ -494,7 +476,6 @@ to do_stages_31_8_2020
     set case_isolation true
     set schoolsPolicy true
     set quarantine true
-    set schoolPolicyActive true
     set OS_Import_Proportion 0
     set link_switch true
     set Essential_Workers 50
@@ -527,7 +508,6 @@ to do_stages_31_8_2020
     set case_isolation true
     set schoolsPolicy true
     set quarantine true
-    set schoolPolicyActive false
     set OS_Import_Proportion 0
     set link_switch true
     set Essential_Workers 25
@@ -568,7 +548,6 @@ to do_stages_31_8_2020
     set case_isolation true
     set schoolsPolicy true
     set quarantine true
-    set schoolPolicyActive false
     set OS_Import_Proportion 0
     set link_switch true
     set Essential_Workers 25
@@ -610,7 +589,6 @@ to do_stages_31_8_2020
     set case_isolation true
     set schoolsPolicy true
     set quarantine true
-    set schoolPolicyActive false
     set OS_Import_Proportion 0
     set link_switch true
     set Essential_Workers 25
@@ -636,7 +614,6 @@ to do_stages_31_8_2020
     set case_isolation true
     set schoolsPolicy true
     set quarantine true
-    set schoolPolicyActive false
     set OS_Import_Proportion 0
     set link_switch true
     set Essential_Workers 20
@@ -662,7 +639,6 @@ to do_stages_31_8_2020
     set case_isolation true
     set schoolsPolicy true
     set quarantine true
-    set schoolPolicyActive false
     set OS_Import_Proportion 0
     set link_switch true
     set Essential_Workers 20

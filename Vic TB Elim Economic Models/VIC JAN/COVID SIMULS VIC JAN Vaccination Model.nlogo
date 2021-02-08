@@ -521,10 +521,10 @@ meanDaysInfected
 14
 
 SLIDER
-1549
-384
-1728
-417
+1545
+307
+1724
+340
 Superspreaders
 Superspreaders
 0
@@ -945,10 +945,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1578
-17
-1722
-50
+1590
+19
+1724
+53
 Age_Isolation
 Age_Isolation
 0
@@ -1185,10 +1185,10 @@ NIL
 HORIZONTAL
 
 SWITCH
-1830
-1310
-1954
-1343
+1380
+1389
+1504
+1422
 lockdown_off
 lockdown_off
 0
@@ -1196,10 +1196,10 @@ lockdown_off
 -1000
 
 SWITCH
-1828
-1224
-1937
-1257
+1379
+1304
+1488
+1337
 freewheel
 freewheel
 1
@@ -1207,20 +1207,20 @@ freewheel
 -1000
 
 TEXTBOX
-1827
-1177
-2004
-1215
+1378
+1257
+1555
+1295
 Leave Freewheel to 'on' to manipulate policy on the fly
 12
 0.0
 1
 
 MONITOR
-2404
-43
-2484
-88
+194
+853
+274
+898
 NIL
 count simuls
 17
@@ -1243,10 +1243,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-1812
-957
-1966
-1006
+1849
+1535
+2003
+1584
 ICU Beds Needed
 ICUBedsRequired
 0
@@ -1254,10 +1254,10 @@ ICUBedsRequired
 12
 
 PLOT
-1764
-825
-2088
-949
+1802
+1403
+2126
+1527
 ICU Beds Available vs Required
 NIL
 NIL
@@ -1344,10 +1344,10 @@ count links / count simuls with [ color = red ]
 12
 
 SWITCH
-1402
-360
-1536
-393
+1404
+283
+1538
+316
 link_switch
 link_switch
 1
@@ -1432,10 +1432,10 @@ PotentialContacts
 11
 
 PLOT
-1758
-552
-2093
-675
+1795
+1129
+2130
+1252
 Distribution of Illness pd
 NIL
 NIL
@@ -1472,10 +1472,10 @@ se_incubation
 Number
 
 PLOT
-1760
-689
-2098
-811
+1797
+1267
+2136
+1391
 Dist_Incubation_Pd
 NIL
 NIL
@@ -1538,7 +1538,7 @@ Global_Transmissability
 Global_Transmissability
 0
 100
-18.0
+37.0
 1
 1
 NIL
@@ -1556,9 +1556,9 @@ mean [ personalvirulence ] of simuls with [ asymptom < AsymptomaticPercentage ]
 11
 
 SLIDER
-1545
+1544
 224
-1723
+1722
 257
 Essential_Workers
 Essential_Workers
@@ -1616,10 +1616,10 @@ NIL
 HORIZONTAL
 
 SWITCH
-1399
-403
-1536
-436
+1402
+325
+1539
+358
 tracking
 tracking
 1
@@ -1627,9 +1627,9 @@ tracking
 -1000
 
 SLIDER
-1545
+1544
 264
-1725
+1724
 297
 Mask_Wearing
 Mask_Wearing
@@ -1642,10 +1642,10 @@ NIL
 HORIZONTAL
 
 SWITCH
-1399
-240
-1534
-273
+1402
+199
+1537
+232
 schoolsPolicy
 schoolsPolicy
 0
@@ -1755,17 +1755,6 @@ studentInfections / 2500
 1
 11
 
-SWITCH
-1399
-198
-1536
-232
-SchoolPolicyActive
-SchoolPolicyActive
-0
-1
--1000
-
 SLIDER
 945
 1135
@@ -1782,10 +1771,10 @@ NIL
 HORIZONTAL
 
 SWITCH
-1399
-318
-1533
-351
+1402
+240
+1536
+273
 MaskPolicy
 MaskPolicy
 0
@@ -1793,10 +1782,10 @@ MaskPolicy
 -1000
 
 SLIDER
-1549
-304
-1729
-337
+584
+1279
+764
+1312
 ResidualCautionPPA
 ResidualCautionPPA
 0
@@ -1808,10 +1797,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1549
-344
-1728
-377
+584
+1319
+763
+1352
 ResidualCautionPTA
 ResidualCautionPTA
 0
@@ -2093,9 +2082,9 @@ OS %
 11
 
 SLIDER
-1545
+1544
 187
-1722
+1721
 220
 OS_Import_Post_Proportion
 OS_Import_Post_Proportion
@@ -2141,13 +2130,13 @@ ICUBedsRequired
 15
 
 SWITCH
-1399
-280
-1533
-313
+597
+1369
+731
+1402
 Complacency
 Complacency
-0
+1
 1
 -1000
 
@@ -2226,10 +2215,10 @@ threetofour
 Number
 
 SWITCH
-1828
-1265
-1940
-1298
+1379
+1344
+1491
+1377
 SelfGovern
 SelfGovern
 0
@@ -2685,15 +2674,15 @@ Vaccinated %
 11
 
 SLIDER
-448
-1354
-574
-1387
+203
+540
+318
+573
 RAND_SEED
 RAND_SEED
 0
 1000000
-430233.0
+688312.0
 1
 1
 NIL
@@ -2862,9 +2851,9 @@ case_isolation
 11
 
 MONITOR
-1545
+1544
 134
-1722
+1721
 179
 NIL
 quarantine
@@ -2974,7 +2963,7 @@ CHOOSER
 param_policy
 param_policy
 "AgggressElim" "ModerateElim" "TightSupress" "LooseSupress" "None"
-1
+2
 
 SLIDER
 1513
@@ -3027,6 +3016,24 @@ People in Model
 17
 1
 11
+
+PLOT
+1760
+547
+2102
+759
+Undetected Cases (raw)
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+false
+"" ""
+PENS
+"default" 1.0 0 -16777216 true "" "plot count simuls with [ color = red and undetectedFlag = 1 ]"
 
 @#$#@#$#@
 ## WHAT IS IT?

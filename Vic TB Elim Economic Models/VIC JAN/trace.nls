@@ -4,7 +4,7 @@ directed-link-breed [red-links red-link]
 to turnOnTracking
   ;; ensures that policies are enacted if their master switches are set to true at the time of the policy switch turning on
   if freewheel != true [
-    if policyTriggerOn = true and ticks >= triggerday and schoolPolicyActive = true [
+    if policyTriggerOn = true and ticks >= triggerday and schoolsPolicy = true [
       set tracking true
       set SchoolsPolicy true
     ]

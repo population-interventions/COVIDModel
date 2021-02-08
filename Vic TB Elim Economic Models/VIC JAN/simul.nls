@@ -5,7 +5,6 @@
 breed [ simuls simul ]
 
 simuls-own [
-  timenow ;; the number of days since initial infection
   health ;; baseline health of the individual
   inQuarantine ;; whether the person is in ICU or not
   sensitivity ;; person's sensitivity to news about the pandemic
@@ -21,6 +20,9 @@ simuls-own [
   ownComplianceWithIsolation ;; unique variable associated with compliance to Isocation of cases if infected
   personalVirulence ;; the infectivity of the person
 
+  timenow ;; the number of days since initial infection
+  caseReportTime ;; Day on which the case will be reported
+  
   tracked ;; whether the person has been tracked by the health system
   asymptomaticFlag ;; indicator identifying Asymptomatic cases
   asymptomatic_draw ;; Determines whether the agent will be asymptomatic
@@ -389,6 +391,7 @@ to simul_checkICU
   ;; estimates if someone needs and ICU bed
   if color = red and RequireICU_draw < ICU_Required and timenow >= ownIncubationPeriod [
     set requireICU 1
+    set caseReportTime ticks ;; Report instantly.
     set tracked 1 ;; Lets say that someone becomes tracked when they go to ICU
     ;; By setting them to tracked they will end up in quarantine
   ]
@@ -431,6 +434,9 @@ end
 to simul_isolateAndTrackFromHouseHold
   ;; this identifies people in the system earlier because they get a test straight away having been a close contact of someone in their house
   if isolating = 1 and color = red [
+    if tracked = 0 [
+      set caseReportTime ticks + Case_Reporting_Delay
+    ]
     set tracked 1
   ]
   
@@ -441,6 +447,9 @@ to simul_isolateAndTrackFromHouseHold
         set isolating 1
       ]
       if color = red [
+        if tracked = 0 [
+          set caseReportTime ticks + Case_Reporting_Delay
+        ]
         set tracked 1
       ]
     ]

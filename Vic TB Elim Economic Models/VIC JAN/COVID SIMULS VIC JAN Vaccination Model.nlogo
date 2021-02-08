@@ -294,7 +294,7 @@ Span
 Span
 0
 30
-30.0
+5.0
 1
 1
 NIL
@@ -454,10 +454,10 @@ count simuls * (Total_Population / population)
 14
 
 MONITOR
-2117
-613
-2375
-658
+2223
+602
+2481
+647
 Bed Capacity Scaled for Australia at 65,000k
 count patches with [ pcolor = white ]
 0
@@ -510,7 +510,7 @@ Superspreaders
 Superspreaders
 0
 100
-10.0
+2.0
 1
 1
 NIL
@@ -580,7 +580,7 @@ Proportion_People_Avoid
 Proportion_People_Avoid
 0
 100
-0.0
+90.0
 .5
 1
 NIL
@@ -595,7 +595,7 @@ Proportion_Time_Avoid
 Proportion_Time_Avoid
 0
 100
-0.0
+90.0
 .5
 1
 NIL
@@ -1262,7 +1262,7 @@ SWITCH
 316
 link_switch
 link_switch
-1
+0
 1
 -1000
 
@@ -1465,7 +1465,7 @@ Essential_Workers
 Essential_Workers
 0
 100
-100.0
+20.0
 1
 1
 NIL
@@ -1523,7 +1523,7 @@ SWITCH
 358
 tracking
 tracking
-1
+0
 1
 -1000
 
@@ -1536,7 +1536,7 @@ Mask_Wearing
 Mask_Wearing
 0
 100
-50.0
+90.0
 1
 1
 NIL
@@ -1549,7 +1549,7 @@ SWITCH
 232
 schoolsPolicy
 schoolsPolicy
-0
+1
 1
 -1000
 
@@ -2564,15 +2564,15 @@ Vaccinated %
 11
 
 SLIDER
-203
-540
-318
-573
+0
+13
+277
+46
 RAND_SEED
 RAND_SEED
 0
 1000000
-805195.0
+106796.0
 1
 1
 NIL
@@ -2853,7 +2853,7 @@ CHOOSER
 param_policy
 param_policy
 "AgggressElim" "ModerateElim" "TightSupress" "LooseSupress" "None"
-0
+2
 
 SLIDER
 1513
@@ -2910,9 +2910,9 @@ People in Model
 PLOT
 1760
 547
-2102
-759
-Tracked cases
+2165
+760
+Case Tracking
 NIL
 NIL
 0.0
@@ -2920,10 +2920,12 @@ NIL
 0.0
 10.0
 true
-false
+true
 "" ""
 PENS
-"default" 1.0 0 -16777216 true "" "plot count simuls with [ color = red and tracked = 1 ]"
+"Tracked" 1.0 0 -16777216 true "" "plot count simuls with [ color = red and tracked = 1 ] * Scale_Factor ^ scalephase"
+"Total" 1.0 0 -7500403 true "" "plot count simuls with [ color = red ] * Scale_Factor ^ scalephase"
+"Reported" 1.0 0 -2674135 true "" "plot count simuls with [ color = red and caseReportTime >= ticks] * Scale_Factor ^ scalephase"
 
 TEXTBOX
 772
@@ -2983,9 +2985,9 @@ SLIDER
 Asymptom_Trace_Mult
 Asymptom_Trace_Mult
 0
-100
-50.0
 1
+0.5
+0.01
 1
 NIL
 HORIZONTAL

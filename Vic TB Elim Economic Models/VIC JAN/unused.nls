@@ -29,7 +29,12 @@ to go
   ;calculateCashPosition
   ;; Set anxiety factor based on some infected/dead/recovered count, multiplied by media_Exposure
   ;Globalanxiety
-  
+  ;; ensures that policies are enacted if their master switches are set to true at the time of the policy switch turning on (?)
+  ;turnOnTracking
+  ;; Enable distancing, isolation and quarantine based on triggers
+  ;TriggerActionIsolation
+  ;; Mouse click does something interactive
+  ;DeployStimulus
 end
 
 ;; *********************************************************************************************************

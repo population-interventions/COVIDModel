@@ -461,6 +461,7 @@ to setup
   ask n-of ( initial_cases ) simuls [
     set color red
     set tracked 1
+    set caseReportTime Case_Reporting_Delay
     set timenow random int OwnIllnessperiod
     simul_updatepersonalvirulence
     if timenow <= 7 [

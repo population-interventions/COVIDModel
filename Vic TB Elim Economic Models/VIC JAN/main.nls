@@ -204,18 +204,14 @@ to go
   ;; stops the model if the following criteria are met - no more infected people in the simulation and it has run for at least 10 days, only if freewheel = true.
   finished
   
+  ;; Randomly turn suceptible agents into infected ones. Percentage chance = IncursionRate.
+  incursion
+  
   ;; set numberinfected cumulativeInfected (???)
   CountInfected
   
   ;; Calculate proportional change in real infection count. Updates InfectionChange, TodayInfections and YesterdayInfections
   CalculateDailyGrowth
-  
-  ;; Enable distancing, isolation and quarantine based on triggers
-  ;TriggerActionIsolation
-  
-  ;; Mouse click does something interactive
-  ;DeployStimulus
-  
   ;setInitialReserves
   ;; Set AverageContacts. Doesn't appear to do anything?
   CalculateAverageContacts
@@ -249,9 +245,6 @@ to go
   ;; Average R of infected simulants.
   calculateMeanR
   
-  ;; ensures that policies are enacted if their master switches are set to true at the time of the policy switch turning on (?)
-  ;turnOnTracking
-  
   ;; counts infections among Essential workers
   countEWInfections
   ;; counts infections among school students
@@ -270,8 +263,6 @@ to go
   
   ;; Set objFunction. Doesn't appear to do anything.
   calculateObjfunction
-  ;; Randomly turn suceptible agents into infected ones. Percentage chance = IncursionRate.
-  incursion
   ;; Average "days into infection the person is identified as a case" of suceptible agents.
   CalculateMeanIDTime
 

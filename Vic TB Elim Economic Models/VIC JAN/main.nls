@@ -15,10 +15,14 @@ to SendToQuarantine
     if freeSpots > 0 [
       ;; Moves simuls to quarantine if they are known to be sick (checked by caseReportTime <= ticks)
       ;; Previously they would isolate, which has interactions with household and imperfect compliance, while quarantine is perfect.
-      ask simuls with [ color = red and inQuarantine = 0 and tracked = 1 and caseReportTime <= ticks ] [
-        move-to one-of patches with [ pcolor = white ]
+      let rawFreeSpots int freeSpots / (Scale_Factor ^ scalephase)
+      let eligible simuls with [ color = red and inQuarantine = 0 and tracked = 1 and caseReportTime <= ticks ]
+      if count eligible < rawFreeSpots [
+       set rawFreeSpots count eligible 
+      ]
+      ask n-of rawFreeSpots eligible [
         set inQuarantine 1
-        set freeSpots freeSpots - 1
+        move-to one-of patches with [ pcolor = white ]
       ]
     ]
   ]

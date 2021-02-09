@@ -425,7 +425,7 @@ end
 
 to COVIDPolicyTriggers
   if selfgovern = true [
-    if param_policy = "AgggressElim" [
+    if param_policy = "AggressElim" [
       policy_agressive_elim
     ]
     if param_policy = "ModerateElim" [

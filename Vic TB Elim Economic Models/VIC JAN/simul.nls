@@ -141,7 +141,10 @@ to simul_move_to_empty_patch
   ]
 end
 
-to simul_resetComplianceAndMaskEfficacy
+to simul_resetSomeRandomParams
+  set ownIllnessPeriod ( exp random-normal M S ) ;; log transform of illness period
+  set ownIncubationPeriod ( exp random-normal Minc Sinc ) ;;; log transform of incubation period
+  
   rngs:init ;; replacing previous log transform with beta distribution
   let stream_id random-float 999
   let seed random-float 999

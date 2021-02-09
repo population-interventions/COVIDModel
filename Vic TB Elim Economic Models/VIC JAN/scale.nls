@@ -13,16 +13,13 @@ to scaleup
     set sensitivity random-float 1
     set imported 0
     set R 0
-    set ownIllnessPeriod ( exp random-normal M S ) ;; log transform of illness period
-
-    set ownIncubationPeriod ( exp random-normal Minc Sinc ) ;; log transform of compliance with isolation
 
     move-to one-of patches with [ pcolor = black ]
     simul_resetlanding
     set riskofdeath .01
     set ageRange ([ageRange ] of one-of simuls)
 
-    simul_resetComplianceAndMaskEfficacy
+    simul_resetSomeRandomParams
 
     set returntoschool random 100
   ]
@@ -38,20 +35,40 @@ to scaleup
     set inQuarantine 0
     set sensitivity random-float 1
     set R 0
-    set ownIllnessPeriod ( exp random-normal M S ) ;; log transform of illness period
-
-    set ownIncubationPeriod ( exp random-normal Minc Sinc ) ;; log transform of compliance with isolation
 
     move-to one-of patches with [ pcolor = black ] ;; resetincome calculateincomeperday calculateexpenditureperday
     simul_resetlanding
     set riskofdeath [ riskOfDeath ] of one-of simuls with [ agerange = ([ agerange ] of myself )]
 
-    simul_resetComplianceAndMaskEfficacy
+    simul_resetSomeRandomParams
   ]
 
   set contact_Radius Contact_Radius + (90 / 4)
 end
 
+to scaledown_no_hatch
+  ask simuls with [ color = red ] [
+    let my_timenow timenow
+    let my_caseReportTime caseReportTime
+    let my_tracked tracked
+    let my_inQuarantine inQuarantine
+
+    ask n-of (Scale_Factor - 1) simuls with [ color != red or color != black ] [
+      set color red
+      set timenow my_timenow
+      set caseReportTime my_caseReportTime
+      set tracked my_tracked
+      set inQuarantine my_inQuarantine
+      if inQuarantine = 1 [
+        move-to one-of patches with [ pcolor = white ] 
+      ]
+    ]
+  ]
+  
+  set contact_Radius Contact_radius - (90 / 4)
+  set scalephase scalephase - 1
+end
+  
 to scaledown
   ;; reverses the procedure above after the peak of the epidemic
   ask simuls with [ color = red ] [
@@ -60,12 +77,14 @@ to scaledown
       move-to one-of patches with [ pcolor = black ]
       
       ;; Re-randomise some things
-      simul_resetComplianceAndMaskEfficacy
+      simul_resetSomeRandomParams
     ]
   ]
 
   set contact_Radius Contact_radius - (90 / 4)
   set scalephase scalephase - 1
+  
+  scaledownhatch
 end
 
 to scaledownhatch
@@ -116,8 +135,7 @@ to CheckScale
     ]
     scale = true and count simuls with [ color = red ] <= Scale_Threshold / Scale_Factor and yellowcount > redcount and days > 0 and scalephase > 0
     [
-      scaledown
+      scaledown_no_hatch
     ]
   )
-  scaledownhatch
 end

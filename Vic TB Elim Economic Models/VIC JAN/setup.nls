@@ -196,12 +196,10 @@ to createSimulants
 
       set wearsMask random 100 ;; resethealth resetincome calculateincomeperday calculateexpenditureperday resettrust
       set returntoschool random 100
-      set ownIllnessPeriod ( exp random-normal M S ) ;; log transform of illness period
-      set ownIncubationPeriod ( exp random-normal Minc Sinc ) ;;; log transform of incubation period
 
       ;;set ownComplianceWithIsolation ( exp random-normal Mcomp SComp ) ;; log transform of compliance with isolation
 
-      simul_resetComplianceAndMaskEfficacy
+      simul_resetSomeRandomParams
 
       setEssentialWorkerPriority
       setdeathrisk

@@ -310,7 +310,7 @@ Span
 Span
 0
 30
-30.0
+15.0
 1
 1
 NIL
@@ -578,7 +578,7 @@ Proportion_People_Avoid
 Proportion_People_Avoid
 0
 100
-0.0
+52.0
 .5
 1
 NIL
@@ -593,7 +593,7 @@ Proportion_Time_Avoid
 Proportion_Time_Avoid
 0
 100
-0.0
+52.0
 .5
 1
 NIL
@@ -1464,7 +1464,7 @@ Essential_Workers
 Essential_Workers
 0
 100
-100.0
+50.0
 1
 1
 NIL
@@ -1535,7 +1535,7 @@ Mask_Wearing
 Mask_Wearing
 0
 100
-50.0
+90.0
 1
 1
 NIL
@@ -1886,7 +1886,7 @@ Visit_Radius
 Visit_Radius
 0
 16
-8.8
+5.3
 1
 1
 NIL
@@ -2545,7 +2545,7 @@ RAND_SEED
 RAND_SEED
 0
 1000000
-1234.0
+5555.0
 1
 1
 NIL
@@ -2826,7 +2826,7 @@ CHOOSER
 param_policy
 param_policy
 "AggressElim" "ModerateElim" "TightSupress" "LooseSupress" "None"
-2
+0
 
 SLIDER
 1513
@@ -3040,7 +3040,7 @@ Complacency_Bound
 Complacency_Bound
 0
 100
-0.0
+52.0
 1
 1
 NIL
@@ -15668,7 +15668,6 @@ set stage BaseStage</setup>
       <value value="&quot;ModerateElim&quot;"/>
       <value value="&quot;TightSupress&quot;"/>
       <value value="&quot;LooseSupress&quot;"/>
-      <value value="&quot;None&quot;"/>
     </enumeratedValueSet>
   </experiment>
 </experiments>

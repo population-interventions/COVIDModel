@@ -110,18 +110,6 @@ to calculatedailyrisk
   set dailyrisk ( riskofDeath / Illness_period )
 end
 
-
-to simul_resetPersonalVirulence
-  ;; ensures that personalVirulence is within bounds
-  if personalVirulence > 100 [
-    set personalVirulence random-normal global_Transmissability 2.5
-  ]
-  if personalVirulence < 0 [
-    set personalVirulence random-normal global_Transmissability 2.5
-  ]
-end
-
-
 to loadPopDivisionTable
   let populationFileData remove-item 0 csv:from-file "population.csv"
   set popDivisionTable table:make
@@ -207,8 +195,6 @@ to createSimulants
 
       setEssentialWorkerPriority
       setdeathrisk
-      
-      simul_resetPersonalVirulence
 
       ;set pta random-float ((Proportion_time_avoid - (Proportion_Time_Avoid * .2)) + random-float (Proportion_time_avoid + (1 - Proportion_time_avoid) * .2))
       ;set ppa random-float ((Proportion_People_avoid - (Proportion_People_Avoid * .2)) + random-float (Proportion_People_avoid + (1 - Proportion_People_avoid) * .2))
@@ -308,6 +294,7 @@ to setGlobals
   set contact_radius 0
   set Track_and_Trace_Efficiency 0
   set stage 0
+  set prev_stage -1
 
   set stageHasChanged 0
   set stageToday 0
@@ -325,6 +312,7 @@ to setGlobals
   set otherWorkerRange 0
 
   set transmission_count 0
+  set transmission_count_metric 0
   set transmission_sum 0
   set transmission_average 0
   
@@ -415,7 +403,8 @@ to setup
     set pcolor green
   ]
   ;; a beta function for testing locating many people in one place at a single time
-  ask n-of 100 patches with [ pcolor = black ] [
+  ask n-of Gather_Location_Count patches with [ pcolor = black ] [
+    set pcolor grey
     set destination 1
   ]
 

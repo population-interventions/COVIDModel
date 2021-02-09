@@ -8,52 +8,14 @@ to finished
   ]
 end
 
-to superSpread
-  if count simuls with [ color = red and tracked = 0 ] > 1 and Case_Isolation = false [
-    if Superspreaders > random 100 [
-      ;; asks some people who are infected and not tracked to move to random new areas,
-      ;;potentially among susceptible people if travel restrictions are not current
-      ask n-of int (count simuls with [ color = red and tracked = 0 ] / Diffusion_Adjustment ) simuls with [ color = red and tracked = 0 ] [
-        forward world-width / 2
-      ]
-
-      ;; same as above but for recovered people to take into account immunity in the population
-      if count simuls with [ color = yellow ] >= Diffusion_Adjustment [
-        ask n-of int ( count simuls with [ color = yellow ] / Diffusion_Adjustment ) Simuls with [ color = yellow ] [
-          forward world-width / 2
-        ]
-      ]
-    ]
-  ]
-
-  if count simuls with [ color = red and timenow < ownIncubationPeriod and tracked = 0 ] > Diffusion_Adjustment and Case_Isolation = true [
-    if Superspreaders > random 100 [
-      ;; only moves people who don't know they are sick yet
-      ask n-of int (count simuls with [ color = red and timenow < ownIncubationPeriod and tracked = 0 ] / Diffusion_Adjustment ) simuls
-          with [ color = red and timenow < ownIncubationPeriod and tracked = 0 ] [
-        forward world-width / 2
-      ]
-
-      ;; this ensures that people with immunity also move to new areas, not just infected people
-      if count simuls with [ color = yellow ] >= 1 [
-        ask n-of int (count simuls with [ color = yellow ] / Diffusion_Adjustment) simuls with [ color = yellow ] [
-          forward world-width / 2
-        ]
-      ]
-    ]
-  ]
-end
-
-
-;;;*******************ANXIETY******************::::::::::::::::::
-
-
 to SendToQuarantine
   ;; send people to quarantine if they have been identified
   if Quarantine = true [
     let freeSpots Quarantine_Spaces - (count simuls with [ inQuarantine = 1 ]) * Scale_Factor ^ scalephase
     if freeSpots > 0 [
-      ask simuls with [ color = red and inQuarantine = 0 and tracked = 1 ] [
+      ;; Moves simuls to quarantine if they are known to be sick (checked by caseReportTime <= ticks)
+      ;; Previously they would isolate, which has interactions with household and imperfect compliance, while quarantine is perfect.
+      ask simuls with [ color = red and inQuarantine = 0 and tracked = 1 and caseReportTime <= ticks] [
         move-to one-of patches with [ pcolor = white ]
         set inQuarantine 1
         set freeSpots freeSpots - 1
@@ -66,6 +28,15 @@ end
 to forwardTime
   ;; counts days per tick, likely redundant at present as days are not used for anything right now.
   set days days + 1
+end
+
+to Update_Complacency
+  if proportion_people_avoid > Complacency_Bound [
+    set proportion_people_avoid proportion_people_avoid - 1
+  ]
+  if proportion_time_avoid > Complacency_Bound [
+    set proportion_time_avoid proportion_time_avoid - 1
+  ]
 end
 
 ;;;;;;;;;;;;*********END OF TTI FUNCTIONS******* ;;;;;;;;;;;;;
@@ -92,8 +63,9 @@ to resetMetricAverages
     set transmission_average transmission_sum / transmission_count
   ]
   [
-    set transmission_average -1
+    set transmission_average 0
   ]
+  set transmission_count_metric transmission_count * Scale_Factor ^ scalephase
   set transmission_count 0
   set transmission_sum 0
   
@@ -112,9 +84,6 @@ end
 to go
   ;; these funtions get called each time-step
   
-  ;; Zero count- and average-style metrics for gaterhing throughout the next step
-  resetMetricAverages
-  
   ;; Set a list of policy parameters (span (speed), tracking, mask_wearning etc..) based on current stage and stage reset timers
   setupstages
   
@@ -125,10 +94,10 @@ to go
   ask simuls [
     ;; Untracked people have their speed set to the current recommended speed, based on policy.
     simul_updateIsolationResponse
-    ;; Set 1/7th of people who are near a destination to move to that destination.
-    simul_visitDestination
     ;; Move around, or not. It's random.
     simul_move
+    ;; Some people who are near a destination to move to that destination.
+    simul_visitDestination
   ]
   
   ;; Patches update the flag that sets whether they have a simulant on them.
@@ -140,6 +109,10 @@ to go
   ;; Note that simulants can effect each other in this stage.
   ask simuls [
     simul_avoid
+  ]
+  
+  ask simuls [
+    simul_superSpread
   ]
   
   ;; Simulants update how effective they are at spreading or receiving the virus, then add their infectiveness to the patch infectiveness
@@ -161,9 +134,6 @@ to go
   
   ;; Send people to quarantine if they have been identified and there is space.
   SendToQuarantine
-  
-  ;; Randomly move infected people  who are untracked or unaware they are sick to new areas, based on the Superspreaders parameter, set in Stages.
-  SuperSpread
   
   ;; Simulants isolate based on household cases.
   ask simuls [
@@ -200,6 +170,8 @@ to go
   ask medresources [
     allocatebed
   ]
+  
+  Update_Complacency
 
   ;; stops the model if the following criteria are met - no more infected people in the simulation and it has run for at least 10 days, only if freewheel = true.
   finished
@@ -216,9 +188,9 @@ to go
   ;; Set AverageContacts. Doesn't appear to do anything?
   CalculateAverageContacts
   
-  ;; Check whether to scale up, which occurs when 10% of the agents are infected.
-  CheckScale
-
+  ;; Zero count- and average-style metrics for gaterhing throughout the next step
+  resetMetricAverages
+  
   ;; Calculate various metrics, which may be used for policy or may just be output.
   setCaseFatalityRate
   countDailyCases
@@ -265,6 +237,9 @@ to go
   calculateObjfunction
   ;; Average "days into infection the person is identified as a case" of suceptible agents.
   CalculateMeanIDTime
+
+  ;; Check whether to scale up, which occurs when 10% of the agents are infected.
+  CheckScale
 
   ;profilerstop
 

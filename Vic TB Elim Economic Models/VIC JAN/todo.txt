@@ -1,6 +1,8 @@
 Figure out whether there should be a non-infective period at the start of covid.
-Figure out how simul_visitDestination works and why.
 Check whether dead people are really dead. They are moved to a particular patch, but does this actually ensure they won't interact with people?
+Make Proportion_People_Avoid compare to a draw instead of being re-randomised.
+
+Stop using (pace = 0) to mean complicit with isolation on this timestep.
 
 Run a batch of simulations that test whether choice of scale has a consistent effect on the result.
 

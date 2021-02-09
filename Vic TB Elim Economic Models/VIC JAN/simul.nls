@@ -234,7 +234,7 @@ end
 
 to simul_move
   ;; describes the circumstances under which people can move and infect one another
-  if ticks > 1 [
+  if ticks > 1 and inQuarantine = 0 [
     ;; this is assigned per agent so day and night are not aligned across people - this is deliberate
     let randombinary random 2
 
@@ -295,41 +295,48 @@ end
 to simul_avoid
   ;; so, if the social distancing policies are on and you are distancing at this time and you are not part of an age-isolated
   ;; group and you are not an EssentialWorkerPriority, then if there is anyone near you, move away if you can.
-  (ifelse EssentialWorkerFlag = 0 and Spatial_Distance = true and AgeRange > Age_Isolation 
-    and (Proportion_People_Avoid + random-normal 0 3) > random 100
-    and (Proportion_Time_Avoid + random-normal 0 3) > random 100
-    [
-      if any? other simuls-here with [ householdUnit != [ householdUnit ] of myself ] [
-        simul_move_to_empty_patch
+  if inQuarantine = 0 [
+    (ifelse EssentialWorkerFlag = 0 and Spatial_Distance = true and AgeRange > Age_Isolation 
+      and Proportion_People_Avoid > random 100
+      and Proportion_Time_Avoid > random 100
+      [
+        if any? other simuls-here with [ householdUnit != [ householdUnit ] of myself ] [
+          simul_move_to_empty_patch
+        ]
       ]
-    ]
-    ;; elseif
-    ;; if you are an essential worker, you can only reduce your
-    ;; contacts when you are not at work assuming 8 hours work, 8 hours rest, 8 hours recreation - rest doesn't count for anyone, hence it is
-    ;; set at 50 on the input slider. People don't isolate from others in their household unit
-    EssentialWorkerFlag = 1 and Spatial_Distance = true and AgeRange > Age_Isolation
-    and (Proportion_People_Avoid + random-normal 0 3) > random 100
-    and (Proportion_Time_Avoid + random-normal 0 3) > random 100
-    and Ess_W_Risk_Reduction > random 100
-    [
-      if any? other simuls-here with [ householdUnit != [ householdUnit ] of myself ] [
-        simul_move_to_empty_patch
+      ;; elseif
+      ;; if you are an essential worker, you can only reduce your
+      ;; contacts when you are not at work assuming 8 hours work, 8 hours rest, 8 hours recreation - rest doesn't count for anyone, hence it is
+      ;; set at 50 on the input slider. People don't isolate from others in their household unit
+      EssentialWorkerFlag = 1 and Spatial_Distance = true and AgeRange > Age_Isolation
+      and (Proportion_People_Avoid + random-normal 0 3) > random 100
+      and (Proportion_Time_Avoid + random-normal 0 3) > random 100
+      and Ess_W_Risk_Reduction > random 100
+      [
+        if any? other simuls-here with [ householdUnit != [ householdUnit ] of myself ] [
+          simul_move_to_empty_patch
+        ]
       ]
+      [
+        ;; otherwise just move wherever you like
+        set heading heading + contact_Radius
+        forward random pace
+        simul_avoidICUs
+        move-to patch-here
+        simul_update_patch_utilisation
+    ])
+    
+    if studentFlag = 1 and global_schoolActive = 1 [
+      simul_avoid_student
     ]
-    [
-      ;; otherwise just move wherever you like
-      set heading heading + contact_Radius
-      forward random pace
-      simul_avoidICUs
-      move-to patch-here
-      simul_update_patch_utilisation
-  ])
-  
-  if studentFlag = 1 and global_schoolActive = 1 [
-    simul_avoid_student
   ]
 end
 
+to simul_superSpread
+  if inQuarantine = 0 and (Case_Isolation = false or (tracked = 0 and pace > 0)) [
+    move-to one-of patches with [not (pcolor = white)]
+  ]
+end
 
 to simul_recover
   ;; if you are not dead at the end of your illness period, then you become recovered and turn yellow and 
@@ -337,7 +344,9 @@ to simul_recover
   if timenow > ownillnessperiod and color != black [
     set color yellow
     set inQuarantine 0
+    set isolating 0
     set timenow 0
+    set tracked 0
     set health (100 - agerange )
     set requireICU 0
   ]
@@ -348,7 +357,6 @@ to simul_settime
   ;; dying this way currently not implemented but done at the end of the illness period, instead
   if color = red [
     set timenow timenow + 1
-	print timenow
     simul_PossiblyDie
   ]
 end
@@ -360,6 +368,10 @@ to simul_death
     set color black
     set pace 0
     set RequireICU 0
+    set inQuarantine 0
+    set isolating 0
+    set timenow 0
+    set tracked 0
     set deathcount deathcount + Scale_Factor ^ scalephase
   ]
 end
@@ -424,9 +436,11 @@ end
 to simul_visitDestination
   ;; sets up destinations where people might gather and set off superspreader events
   ;; reduces large gatherings by stage
-  ;; TODO figure out why this works this way.
-  if pace > 0 and remainder random 7 Visit_Frequency = 0 and any? patches with [ destination = 1 ] in-radius (5 - stage) [
-    move-to one-of patches with [ destination = 1 ]
+  if pace > 0 and inQuarantine = 0 and random-float 1 < Visit_Frequency [
+    let movePatch one-of patches with [ destination = 1 ] in-radius Visit_Radius
+    if is-patch? movePatch [
+      move-to movePatch
+    ]
   ]
   ;; essential workers do not have the same capacity to reduce contact as non-esssential
 end

@@ -3,7 +3,6 @@
 breed [ resources resource ]
 breed [ medresources medresource ] ;; people living in the city
 
-
 medresources-own [
   capacity ;; bed capacity of hospital system
 ]

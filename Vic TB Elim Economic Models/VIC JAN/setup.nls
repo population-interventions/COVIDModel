@@ -431,6 +431,7 @@ to setup
     set pcolor grey
     set destination 1
   ]
+  set destination_patches patches with [ destination = 1 ]
 
   ;; setting up the hospital
   ask n-of 1 patches [

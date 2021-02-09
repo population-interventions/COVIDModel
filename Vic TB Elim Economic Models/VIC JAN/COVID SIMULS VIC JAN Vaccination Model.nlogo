@@ -110,6 +110,7 @@ globals [
   stageYesterday
 
   houseTrackedCaseTimeTable
+  destination_patches
 
   PrimaryUpper
   SecondaryLower
@@ -3110,7 +3111,7 @@ SWITCH
 167
 profile_on
 profile_on
-1
+0
 1
 -1000
 

@@ -24,8 +24,12 @@ Notes to report?
  * People were moving out of ICU the day after they were sent there.
  * The concept of ICU and quarantine was being conflated. What we have now is quarantine for everyone.
 
-
 Meeting notes:
  * Simple question - How are recovered people handled? Currently a recovered person has a 5% chance per day to turn into a succeptible person. They gain no vaccine-type benefit, which is very weird. They are also currently skipped over for vaccination.
  * Simple question - Are the death rates in setup::setdeathrisk good?
  * 
+ 
+ casesinperiod7_real?
+ 75% mask efficacy is two way.
+ Fix set track_and_trace_efficiency (0.63219 - (0.07213 * ln(casesinperiod7_real)))
+ fix 1b and 2

@@ -431,7 +431,7 @@ to simul_visitDestination
   ;; sets up destinations where people might gather and set off superspreader events
   ;; reduces large gatherings by stage
   if inQuarantine = 0 and isolateCompliant = 0 and random-float 1 < Visit_Frequency [
-    let movePatch one-of patches with [ destination = 1 ] in-radius Visit_Radius
+    let movePatch one-of destination_patches in-radius Visit_Radius
     if is-patch? movePatch [
       move-to movePatch
     ]

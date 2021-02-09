@@ -16,9 +16,6 @@ to scaleup
 
     move-to one-of patches with [ pcolor = black ]
     simul_resetlanding
-    set riskofdeath .01
-    set ageRange ([ageRange ] of one-of simuls)
-
     simul_resetSomeRandomParams
 
     set returntoschool random 100
@@ -27,10 +24,6 @@ to scaleup
   ask n-of ( count simuls with [ color = yellow ] * (1 - 1 / Scale_Factor) ) simuls with [ color = yellow ] [
     set size 2
     set color cyan
-
-    set ageRange ([ageRange ] of one-of simuls)
-    set imported 0 ;; resethealth
-
     set timenow 0
     set inQuarantine 0
     set sensitivity random-float 1
@@ -38,7 +31,6 @@ to scaleup
 
     move-to one-of patches with [ pcolor = black ] ;; resetincome calculateincomeperday calculateexpenditureperday
     simul_resetlanding
-    set riskofdeath [ riskOfDeath ] of one-of simuls with [ agerange = ([ agerange ] of myself )]
 
     simul_resetSomeRandomParams
   ]

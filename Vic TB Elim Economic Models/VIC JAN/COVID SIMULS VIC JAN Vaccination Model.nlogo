@@ -310,7 +310,7 @@ Span
 Span
 0
 30
-15.0
+30.0
 1
 1
 NIL
@@ -578,7 +578,7 @@ Proportion_People_Avoid
 Proportion_People_Avoid
 0
 100
-52.0
+0.0
 .5
 1
 NIL
@@ -593,7 +593,7 @@ Proportion_Time_Avoid
 Proportion_Time_Avoid
 0
 100
-52.0
+0.0
 .5
 1
 NIL
@@ -1464,7 +1464,7 @@ Essential_Workers
 Essential_Workers
 0
 100
-50.0
+100.0
 1
 1
 NIL
@@ -1535,7 +1535,7 @@ Mask_Wearing
 Mask_Wearing
 0
 100
-90.0
+50.0
 1
 1
 NIL
@@ -1886,7 +1886,7 @@ Visit_Radius
 Visit_Radius
 0
 16
-5.3
+8.8
 1
 1
 NIL
@@ -2545,7 +2545,7 @@ RAND_SEED
 RAND_SEED
 0
 1000000
-5555.0
+758454.0
 1
 1
 NIL
@@ -2826,7 +2826,7 @@ CHOOSER
 param_policy
 param_policy
 "AggressElim" "ModerateElim" "TightSupress" "LooseSupress" "None"
-0
+4
 
 SLIDER
 1513
@@ -3040,7 +3040,7 @@ Complacency_Bound
 Complacency_Bound
 0
 100
-52.0
+0.0
 1
 1
 NIL

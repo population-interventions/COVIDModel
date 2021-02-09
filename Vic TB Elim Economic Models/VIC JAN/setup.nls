@@ -76,15 +76,6 @@ to resetlanding
   ]
 end
 
-
-to simul_iteratetimenow
-  set timenow random int Ownillnessperiod
-  simul_updatepersonalvirulence
-  if timenow <= 7 [
-    simul_iteratetimenow
-  ]
-end
-
 to resethouseholdUnit
   ;; allocates children to households
   if schoolsPolicy = true [
@@ -109,6 +100,18 @@ to calculatedailyrisk
   ;; used for stats more than calibrated to real world given most people die late in the illness period
   set dailyrisk ( riskofDeath / Illness_period )
 end
+
+
+to simul_resetPersonalVirulence
+  ;; ensures that personalVirulence is within bounds
+  if personalVirulence > 100 [
+    set personalVirulence random-normal global_Transmissability 2.5
+  ]
+  if personalVirulence < 0 [
+    set personalVirulence random-normal global_Transmissability 2.5
+  ]
+end
+
 
 to loadPopDivisionTable
   let populationFileData remove-item 0 csv:from-file "population.csv"
@@ -172,7 +175,14 @@ to createSimulants
 
       move-to one-of patches with [ pcolor = black ]
 
-      set personalVirulence random-normal Global_Transmissability 2.5
+      set personalVirulence random-normal Global_Transmissability 0.025
+      if personalVirulence > 1 [
+        set personalVirulence 1
+      ]
+      if personalVirulence < 0.01 [
+        set personalVirulence 0.01
+      ]
+      
       set sm_vac_uptake random 100
 
       set asymptomatic_draw random-float 1
@@ -195,9 +205,8 @@ to createSimulants
 
       setEssentialWorkerPriority
       setdeathrisk
-
-      ;set pta random-float ((Proportion_time_avoid - (Proportion_Time_Avoid * .2)) + random-float (Proportion_time_avoid + (1 - Proportion_time_avoid) * .2))
-      ;set ppa random-float ((Proportion_People_avoid - (Proportion_People_Avoid * .2)) + random-float (Proportion_People_avoid + (1 - Proportion_People_avoid) * .2))
+      
+      simul_resetPersonalVirulence
     ]
     
     if agentsOfThisIndex >= item 0 cohortData [ ; item 0 cohortData = cohort size
@@ -449,23 +458,8 @@ to setup
 
   ask n-of ( initial_cases ) simuls [
     set color red
-    set tracked 1
-    set caseReportTime Case_Reporting_Delay
-    set timenow random int OwnIllnessperiod
+    set timenow random int ownIncubationPeriod
     simul_updatepersonalvirulence
-    if timenow <= 7 [
-      ;; includes a proportion reported cases in the community at the initialisation step matched to current day data
-      simul_iteratetimenow
-    ]
-  ]
-
-  if count simuls with [ color = red ] <= 1 [
-    ask n-of 1 simuls [
-      set xcor 0
-      set ycor 0
-      set color red
-      set timenow int ownIllnessperiod - 1 ;; sould be 'ownincubationperiod' for new outbreaks
-    ]
   ]
 
   ;; spend CalculateIncomePerday

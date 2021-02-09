@@ -20,10 +20,10 @@ to traceadjust
     ;; Ensure that track_and_trace_efficiency does not go negative
     ifelse casesinperiod7 > 6300
     [
-      set track_and_trace_efficiency (0.63219 - (0.07213 * ln(6300)))
+      set track_and_trace_efficiency (0.63219 - (0.07213 * ln(6300))) * 0.5
     ]
     [
-      set track_and_trace_efficiency (0.63219 - (0.07213 * ln(casesinperiod7)))
+      set track_and_trace_efficiency (0.63219 - (0.07213 * ln(casesinperiod7))) * 0.5
     ]
   ]
   [

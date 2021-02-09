@@ -296,7 +296,7 @@ Span
 Span
 0
 30
-15.0
+30.0
 1
 1
 NIL
@@ -324,10 +324,10 @@ PENS
 "New Infections" 1.0 0 -11221820 true "" "plot count simuls with [ color = red and timenow = Incubation_Period ] * ( Total_Population / 100 / count Simuls )"
 
 SLIDER
-1088
-1138
-1288
-1171
+40
+1202
+240
+1235
 Illness_period
 Illness_period
 0
@@ -382,10 +382,10 @@ Deathcount
 14
 
 SLIDER
-1088
-1174
-1288
-1207
+40
+1238
+240
+1271
 ReInfectionRate
 ReInfectionRate
 0
@@ -564,7 +564,7 @@ Proportion_People_Avoid
 Proportion_People_Avoid
 0
 100
-52.0
+0.0
 .5
 1
 NIL
@@ -579,7 +579,7 @@ Proportion_Time_Avoid
 Proportion_Time_Avoid
 0
 100
-52.0
+0.0
 .5
 1
 NIL
@@ -653,10 +653,10 @@ NIL
 HORIZONTAL
 
 PLOT
-2679
-348
-3086
-470
+2793
+335
+3200
+457
 Estimated count of deceased across age ranges (not scaled)
 NIL
 NIL
@@ -802,10 +802,10 @@ PENS
 "default" 1.0 0 -16777216 true "" "plot count simuls"
 
 SLIDER
-1088
-1214
-1290
-1247
+40
+1278
+242
+1311
 Incubation_Period
 Incubation_Period
 0
@@ -885,15 +885,15 @@ PENS
 "New Cases" 1.0 1 -5298144 true "" "plot (Scale_Factor ^ scalephase) * (count simuls with [ color = red and timenow = Case_Reporting_Delay ])"
 
 SLIDER
-528
-902
-728
-935
+1094
+1259
+1294
+1292
 Diffusion_Adjustment
 Diffusion_Adjustment
 1
 100
-14.0
+9.0
 1
 1
 NIL
@@ -1170,10 +1170,10 @@ PENS
 "Spare" 1.0 0 -5298144 true "" "plot ICU_Beds_in_Australia - ICUBedsRequired "
 
 SLIDER
-2445
-812
-2654
-845
+3048
+978
+3257
+1011
 Mean_Individual_Income
 Mean_Individual_Income
 0
@@ -1434,9 +1434,9 @@ SLIDER
 Global_Transmissability
 Global_Transmissability
 0
-100
-60.0
 1
+0.5
+0.01
 1
 NIL
 HORIZONTAL
@@ -1450,7 +1450,7 @@ Essential_Workers
 Essential_Workers
 0
 100
-50.0
+100.0
 1
 1
 NIL
@@ -1472,15 +1472,15 @@ NIL
 HORIZONTAL
 
 SLIDER
-744
-1180
-919
-1213
+332
+980
+507
+1013
 Ess_W_Risk_Reduction
 Ess_W_Risk_Reduction
 0
 100
-53.0
+50.0
 1
 1
 NIL
@@ -1521,7 +1521,7 @@ Mask_Wearing
 Mask_Wearing
 0
 100
-90.0
+50.0
 1
 1
 NIL
@@ -1588,21 +1588,6 @@ eWAppUptake
 0
 1
 0.0
-.01
-1
-NIL
-HORIZONTAL
-
-SLIDER
-960
-163
-1123
-196
-TTIncrease
-TTIncrease
-0
-5
-2.0
 .01
 1
 NIL
@@ -1887,7 +1872,7 @@ Visit_Radius
 Visit_Radius
 0
 16
-5.3
+8.8
 1
 1
 NIL
@@ -1924,7 +1909,7 @@ Asymptomatic_Trans
 Asymptomatic_Trans
 0
 1
-0.61
+0.58
 .01
 1
 NIL
@@ -2377,15 +2362,15 @@ Judgeday4_d
 Number
 
 SLIDER
-530
-942
-728
-975
+912
+1395
+1110
+1428
 Undetected_Proportion
 Undetected_Proportion
 0
 100
-29.0
+28.0
 1
 1
 NIL
@@ -2557,7 +2542,7 @@ RAND_SEED
 RAND_SEED
 0
 1000000
-371981.0
+768116.0
 1
 1
 NIL
@@ -2792,10 +2777,10 @@ transmission_count_metric
 11
 
 PLOT
-1775
-410
-2149
-583
+1774
+453
+2148
+626
 Potential transmission interactions per day (scaled)
 NIL
 NIL
@@ -2838,7 +2823,7 @@ CHOOSER
 param_policy
 param_policy
 "AgggressElim" "ModerateElim" "TightSupress" "LooseSupress" "None"
-1
+2
 
 SLIDER
 1513
@@ -2893,10 +2878,10 @@ People in Model
 11
 
 PLOT
-1775
-594
-2180
-807
+1774
+638
+2179
+851
 Case Tracking (scaled)
 NIL
 NIL
@@ -2934,10 +2919,10 @@ Permanent yet straightforward variables
 1
 
 SLIDER
-326
-901
-521
-934
+329
+898
+524
+931
 Asymptom_Prop
 Asymptom_Prop
 0
@@ -2964,25 +2949,25 @@ NIL
 HORIZONTAL
 
 SLIDER
-330
-978
-517
-1011
+537
+899
+724
+932
 Asymptom_Trace_Mult
 Asymptom_Trace_Mult
 0
 1
-0.5
+0.33
 0.01
 1
 NIL
 HORIZONTAL
 
 PLOT
-1775
-254
-2149
-404
+1774
+298
+2148
+448
 Average Interaction Infectivity
 NIL
 NIL
@@ -3009,9 +2994,9 @@ transmission_count_metric * transmission_average
 
 PLOT
 1779
-815
+858
 2183
-992
+1035
 States (raw)
 NIL
 NIL
@@ -3052,11 +3037,29 @@ Complacency_Bound
 Complacency_Bound
 0
 100
-52.0
+0.0
 1
 1
 NIL
 HORIZONTAL
+
+PLOT
+2029
+170
+2308
+290
+Distribution of currentVirulence
+NIL
+NIL
+0.0
+1.2
+0.0
+1.0
+true
+false
+"" ""
+PENS
+"default" 0.05 1 -16777216 true "" "histogram [ currentVirulence ] of simuls with [ color = red ]"
 
 @#$#@#$#@
 ## WHAT IS IT?

@@ -234,7 +234,7 @@ end
 
 to simul_move
   ;; describes the circumstances under which people can move and infect one another
-  if ticks > 1 and inQuarantine = 0 [
+  if ticks > 1 and (inQuarantine = 0 or true) [
     ;; this is assigned per agent so day and night are not aligned across people - this is deliberate
     let randombinary random 2
 
@@ -295,7 +295,7 @@ end
 to simul_avoid
   ;; so, if the social distancing policies are on and you are distancing at this time and you are not part of an age-isolated
   ;; group and you are not an EssentialWorkerPriority, then if there is anyone near you, move away if you can.
-  if inQuarantine = 0 [
+  if inQuarantine = 0 or true [
     (ifelse EssentialWorkerFlag = 0 and Spatial_Distance = true and AgeRange > Age_Isolation 
       and Proportion_People_Avoid > random 100
       and Proportion_Time_Avoid > random 100

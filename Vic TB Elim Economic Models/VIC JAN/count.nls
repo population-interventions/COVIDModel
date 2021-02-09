@@ -172,7 +172,7 @@ to calculateCasesInLastPeriod
   set prior2 prior1
   set prior1 prior0
   set prior0 dailyCases
-
+  
   set casesinperiod14 (prior0 + prior1 + prior2 + prior3 + prior4 + prior5 + prior6 + prior7 + prior8 + prior9
     + prior10 + prior11 + prior12 + prior13 )
 
@@ -182,6 +182,16 @@ to calculateCasesInLastPeriod
     + prior10 + prior11 + prior12 + prior13 + prior14 + prior15 + prior16 + prior17 + prior18 + prior19
     + prior20 + prior21 + prior22 + prior23 + prior24 + prior25 + prior26 + prior27)
 
+  set prior6_real prior5_real
+  set prior5_real prior4_real
+  set prior4_real prior3_real
+  set prior3_real prior2_real
+  set prior2_real prior1_real
+  set prior1_real prior0_real
+  set prior0_real new_case_real
+  
+  set casesinperiod7_real (prior0_real + prior1_real + prior2_real + prior3_real + prior4_real + prior5_real + prior6_real )
+  
   ;print prior13
   ;print prior12
   ;print prior11

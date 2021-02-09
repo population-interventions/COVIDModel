@@ -296,6 +296,18 @@ to setGlobals
   set prior27                    0
   set prior28                    0
 
+  set prior6_real 0
+  set prior5_real 0
+  set prior4_real 0
+  set prior3_real 0
+  set prior2_real 0
+  set prior1_real 0
+  set prior0_real 0
+  set casesinperiod7_real 0
+  
+  set new_case_real 0
+  set new_case_real_counter 0
+  
   ;; These used to be dynamic controls with conflicting variable names.
   set spatial_distance 0
   set case_isolation 0

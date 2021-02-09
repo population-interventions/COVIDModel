@@ -15,7 +15,7 @@ to SendToQuarantine
     if freeSpots > 0 [
       ;; Moves simuls to quarantine if they are known to be sick (checked by caseReportTime <= ticks)
       ;; Previously they would isolate, which has interactions with household and imperfect compliance, while quarantine is perfect.
-      ask simuls with [ color = red and inQuarantine = 0 and tracked = 1 and caseReportTime <= ticks and requireICU = 1 ] [
+      ask simuls with [ color = red and inQuarantine = 0 and tracked = 1 and caseReportTime <= ticks ] [
         move-to one-of patches with [ pcolor = white ]
         set inQuarantine 1
         set freeSpots freeSpots - 1
@@ -69,6 +69,9 @@ to resetMetricAverages
   set transmission_count 0
   set transmission_sum 0
   
+  set new_case_real new_case_real_counter
+  set new_case_real_counter 0
+  
   ;print "moveCount"
   ;print moveCount
   ;print foundUseCount
@@ -80,9 +83,11 @@ end
 ;;*******************************************************************************************************************************
 ;;** Buttons **
 ;;*******************************************************************************************************************************
+;; these funtions get called each time-step
 
 to go
-  ;; these funtions get called each time-step
+  ;; Check whether to scale up, which occurs when 10% of the agents are infected.
+  CheckScale
   
   ;; Set a list of policy parameters (span (speed), tracking, mask_wearning etc..) based on current stage and stage reset timers
   setupstages
@@ -237,9 +242,6 @@ to go
   calculateObjfunction
   ;; Average "days into infection the person is identified as a case" of suceptible agents.
   CalculateMeanIDTime
-
-  ;; Check whether to scale up, which occurs when 10% of the agents are infected.
-  CheckScale
 
   ;profilerstop
 

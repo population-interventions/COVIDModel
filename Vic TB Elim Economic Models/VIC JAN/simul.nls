@@ -237,6 +237,7 @@ to simul_infect
           if mySucceptibility * x > random-float 1 [
             set color red
             set timenow 0
+            set new_case_real_counter new_case_real_counter + Scale_Factor ^ scalephase
           ]
         ]
       ]
@@ -338,6 +339,7 @@ to simul_superSpread
   if inQuarantine = 0 and isolateCompliant = 0 and superspreaders > random-float 1 [
     forward world-width / 2
     move-to patch-here
+    simul_avoidICUs
   ]
 end
 

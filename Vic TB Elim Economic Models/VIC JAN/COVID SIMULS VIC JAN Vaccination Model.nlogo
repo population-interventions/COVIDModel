@@ -84,6 +84,18 @@ globals [
   prior27
   prior28
 
+  prior6_real
+  prior5_real
+  prior4_real
+  prior3_real
+  prior2_real
+  prior1_real
+  prior0_real
+  casesinperiod7_real
+
+  new_case_real
+  new_case_real_counter
+
   ;; These used to be dynamic controls with conflicting variable names.
   spatial_distance
   case_isolation
@@ -1516,7 +1528,7 @@ SLIDER
 1400
 93
 1534
-127
+126
 Mask_Wearing
 Mask_Wearing
 0
@@ -1852,7 +1864,7 @@ SLIDER
 1545
 332
 1727
-366
+365
 Visit_Frequency
 Visit_Frequency
 0
@@ -1867,7 +1879,7 @@ SLIDER
 1545
 369
 1728
-403
+402
 Visit_Radius
 Visit_Radius
 0
@@ -2116,10 +2128,10 @@ PENS
 "Scale" 1.0 0 -14454117 true "" "plot scalePhase"
 
 MONITOR
-1392
-752
-1507
-797
+964
+99
+1079
+144
 Cases in period 7
 casesinperiod7
 0
@@ -2542,7 +2554,7 @@ RAND_SEED
 RAND_SEED
 0
 1000000
-768116.0
+676329.0
 1
 1
 NIL
@@ -2823,7 +2835,7 @@ CHOOSER
 param_policy
 param_policy
 "AgggressElim" "ModerateElim" "TightSupress" "LooseSupress" "None"
-2
+3
 
 SLIDER
 1513
@@ -2982,11 +2994,11 @@ PENS
 "default" 1.0 0 -16777216 true "" "plot transmission_average"
 
 MONITOR
-1620
-609
-1729
-654
-E[VirIinf * IntInf]
+1624
+608
+1754
+653
+Expected New Cases
 transmission_count_metric * transmission_average
 17
 1
@@ -3017,7 +3029,7 @@ SLIDER
 133
 978
 318
-1012
+1011
 Gather_Location_Count
 Gather_Location_Count
 0
@@ -3032,7 +3044,7 @@ SLIDER
 1543
 134
 1725
-168
+167
 Complacency_Bound
 Complacency_Bound
 0
@@ -3060,6 +3072,28 @@ false
 "" ""
 PENS
 "default" 0.05 1 -16777216 true "" "histogram [ currentVirulence ] of simuls with [ color = red ]"
+
+MONITOR
+1625
+662
+1755
+707
+Real New Cases
+new_case_real
+17
+1
+11
+
+MONITOR
+963
+148
+1082
+193
+Real cases in 7
+casesinperiod7_real
+17
+1
+11
 
 @#$#@#$#@
 ## WHAT IS IT?

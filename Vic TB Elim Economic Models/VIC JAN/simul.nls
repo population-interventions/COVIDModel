@@ -331,11 +331,13 @@ to simul_avoid
       simul_avoid_student
     ]
   ]
+  move-to patch-here
 end
 
 to simul_superSpread
-  if inQuarantine = 0 and isolateCompliant = 0 [
-    move-to one-of patches with [not (pcolor = white)]
+  if inQuarantine = 0 and isolateCompliant = 0 and superspreaders > random-float 1 [
+    forward world-width / 2
+    move-to patch-here
   ]
 end
 

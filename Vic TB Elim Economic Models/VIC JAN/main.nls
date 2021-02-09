@@ -146,6 +146,9 @@ to go
   
   ;; Simulants isolate based on household cases.
   ask simuls [
+    simul_updateHouseTrackedCase
+  ]
+  ask simuls [
     ;; If I am succeptible and a household member is tracked, move home and set pace to 0, set isolated=1. Also track isolated=1 infected people.
     simul_isolateAndTrackFromHouseHold
   ]
@@ -162,8 +165,6 @@ to go
     ;; Recovered people can randomly become succeptible again.
     simul_recovered_lose_immunity
 
-    ;; Take the rolling average of contacts over the past seven days, only for non-infected people. Is this needed?
-    simul_Countcontacts
     ;; Set infected people to always require ICU after their incubation period???
     simul_checkICU
     ;; Randomly start tracking infected people based on track_and_trace_efficiency.
@@ -188,14 +189,16 @@ to go
   ;; Randomly turn suceptible agents into infected ones. Percentage chance = IncursionRate.
   incursion
   
+  ;; Cache number of infected (red) suceptible (blue (actually cyan)) and recovered (yellow) agents
+  countRed
+  countBlue
+  countYellow
+  
   ;; set numberinfected cumulativeInfected (???)
   CountInfected
   
   ;; Calculate proportional change in real infection count. Updates InfectionChange, TodayInfections and YesterdayInfections
   CalculateDailyGrowth
-  ;setInitialReserves
-  ;; Set AverageContacts. Doesn't appear to do anything?
-  CalculateAverageContacts
   
   ;; Zero count- and average-style metrics for gaterhing throughout the next step
   resetMetricAverages
@@ -207,15 +210,10 @@ to go
   calculateICUBedsRequired
   calculateScaledBedCapacity
   calculateCurrentInfections
-  calculateEliminationDate
   
   ;; PotentialContacts metric
   calculatePotentialContacts
   
-  ;; Cache number of infected (red) suceptible (blue (actually cyan)) and recovered (yellow) agents
-  countRed
-  countBlue
-  countYellow
   
   ;; Set cumulativeInfected, not yesterdayInfected
   calculateYesterdayInfected
@@ -223,17 +221,9 @@ to go
   calculateTodayInfected
   ;; calculates scaledPopulation for working with smaller environments
   calculateScaledPopulation
-  ;; Average R of infected simulants.
-  calculateMeanR
   
-  ;; counts infections among Essential workers
-  countEWInfections
-  ;; counts infections among school students
-  countSchoolInfections
   ;; stops the model if the following criteria are met - no more infected people in the simulation and it has run for at least 10 days
   finished
-  ;; set meanDaysInfected
-  calculateMeanDaysInfected
   
   ;; set track_and_trace_efficiency based on the number of recent cases.
   traceadjust
@@ -241,13 +231,6 @@ to go
   CovidPolicyTriggers
   ;; Set casesinperiod7, which is only detected cases. Also sets casesinperiod14 and casesinperiod28.
   calculateCasesInLastPeriod
-  
-  ;; Set objFunction. Doesn't appear to do anything.
-  calculateObjfunction
-  ;; Average "days into infection the person is identified as a case" of suceptible agents.
-  CalculateMeanIDTime
-
-  ;profilerstop
 
   ;; set days days + 1
   ForwardTime

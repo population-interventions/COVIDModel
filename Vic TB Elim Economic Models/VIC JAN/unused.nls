@@ -37,6 +37,26 @@ to go
   ;DeployStimulus
   ;; Randomly move infected people  who are untracked or unaware they are sick to new areas, based on the Superspreaders parameter, set in Stages.
   ;SuperSpread
+  
+  
+  ;setInitialReserves
+  ;; Set AverageContacts. Doesn't appear to do anything?
+  CalculateAverageContacts
+  ;; Set objFunction. Doesn't appear to do anything.
+  calculateObjfunction
+  ;; Average "days into infection the person is identified as a case" of suceptible agents.
+  CalculateMeanIDTime
+  calculateEliminationDate
+
+  ;; Average R of infected simulants.
+  calculateMeanR
+  
+  ;; set meanDaysInfected
+  calculateMeanDaysInfected
+  ;; counts infections among Essential workers
+  countEWInfections
+  ;; counts infections among school students
+  countSchoolInfections
 end
 
 to superSpread
@@ -72,6 +92,74 @@ to superSpread
         ]
       ]
     ]
+  ]
+end
+
+;; *********************************************************************************************************
+;; **** Counting
+;; *********************************************************************************************************
+
+to CalculateAverageContacts
+  ;; calculates average contacts for simuls and average financial contacts, which are contacts with people who have positive 
+  ;; cash reserves (?)
+  if ticks > 0 [
+    set AverageContacts mean [ contacts ] of simuls with [ color != black ]
+  ]
+end
+
+to calculateObjfunction
+  ;; moderate
+  if ticks > 1 and numberinfected != 0 [
+    set objFunction ( log numberInfected 10 ) + 1 * (1 - ( mean [ contacts ] of simuls ) )
+  ]
+end
+
+
+to CalculateMeanIDTime
+  let IDTimeList [ IDTime ] of simuls with [ color != cyan ]
+  ifelse not empty? IDTimeList
+  [
+    set meanIDTime mean IDTimeList
+  ]
+  [
+    set meanIDTime 0
+  ]
+end
+
+to countEWInfections
+  ;; counts infections among Essential workers
+  let EWInfects (count simuls with [ color = red and EssentialWorkerFlag = 1 ] )
+  set EWInfections EWInfects * Scale_Factor ^ scalephase
+end
+
+to countSchoolInfections
+  ;; counts infections among school students
+  let studentInfects ( count simuls with [ color = red and StudentFlag = 1 ] )
+  set studentInfections studentInfects * Scale_Factor ^ scalephase
+end
+
+to calculateEliminationDate
+  ;; records the day that no infected people remain in the environment
+  if ticks > 1 and count simuls with [ color = red ] = 0 and eliminationDate = 0 [
+    set eliminationDate ticks
+  ]
+end
+
+to calculateMeanDaysInfected
+  if any? simuls with [ color = red ] [
+    set meanDaysInfected ( mean [ timenow ] of simuls with [ color = red ] )
+  ]
+end
+
+
+to calculateMeanr
+  ifelse any? simuls with [ color = red and timenow = int ownillnessperiod ]
+  [
+    set meanR ( mean [ R ] of simuls with [ color = red and timenow = int ownillnessperiod ])
+  ]
+  [
+    ;; calculates mean Reff for the population
+    set MeanR MeanR
   ]
 end
 
@@ -186,6 +274,22 @@ end
 ;; *********************************************************************************************************
 ;; **** Simul Functions
 ;; *********************************************************************************************************
+
+to simul_countcontacts
+  if color != red [
+    set contacts7 contacts6
+    set contacts6 contacts5
+    set contacts5 contacts4
+    set contacts4 contacts3
+    set contacts3 contacts2
+    set contacts2 contacts1
+
+    set contacts1 (count other simuls-here with [ color != black and householdUnit != [ householdUnit ] of myself ])
+    ;; or alternatively add the following ## and householdUnit != [ householdUnit ] of myself
+
+    set contacts ( contacts1 + contacts2 + contacts3 + contacts4 + contacts5 + contacts6 + contacts7 ) / 7
+  ]
+end
 
 to simul_createanxiety
   ;; a fairly unsophisticated (currently unused) means of allocating anxiety around COVID-19 to people - will be updated

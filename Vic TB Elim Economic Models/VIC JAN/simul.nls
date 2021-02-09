@@ -391,22 +391,6 @@ to simul_recovered_lose_immunity
   ]
 end
 
-to simul_countcontacts
-  if color != red [
-    set contacts7 contacts6
-    set contacts6 contacts5
-    set contacts5 contacts4
-    set contacts4 contacts3
-    set contacts3 contacts2
-    set contacts2 contacts1
-
-    set contacts1 (count other simuls-here with [ color != black and householdUnit != [ householdUnit ] of myself ])
-    ;; or alternatively add the following ## and householdUnit != [ householdUnit ] of myself
-
-    set contacts ( contacts1 + contacts2 + contacts3 + contacts4 + contacts5 + contacts6 + contacts7 ) / 7
-  ]
-end
-
 to simul_checkICU
   ;; estimates if someone needs and ICU bed
   if color = red and RequireICU_draw < ICU_Required and timenow >= ownIncubationPeriod [
@@ -455,6 +439,12 @@ to simul_visitDestination
   ;; essential workers do not have the same capacity to reduce contact as non-esssential
 end
 
+to simul_updateHouseTrackedCase
+  if color = red and tracked = 1 [
+    table:put houseTrackedCaseTimeTable householdunit ticks
+  ]
+end
+
 to simul_isolateAndTrackFromHouseHold
   ;; this identifies people in the system earlier because they get a test straight away having been a close contact of someone in their house
   if isolating = 1 and color = red [
@@ -465,7 +455,7 @@ to simul_isolateAndTrackFromHouseHold
   ]
   
   if color = cyan or (color = red and tracked = 0) [
-    ifelse any? other simuls with [ householdunit = [ householdunit ] of myself and tracked = 1 ]
+    ifelse table:get houseTrackedCaseTimeTable householdunit = ticks
     [
       if color = cyan [
         set isolating 1

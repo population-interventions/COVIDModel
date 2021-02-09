@@ -320,6 +320,8 @@ to setGlobals
   set stageYesterday 0
   set PrimaryUpper 0
   set SecondaryLower 0
+  
+  set houseTrackedCaseTimeTable table:make
 
   set meanIDTime 0
   set popDivisionTable 0 ; Table of population cohort data
@@ -382,7 +384,10 @@ to setup
   setGlobals
   random-seed RAND_SEED ;; Read from a behaviourSpace variable.
 
-  ;profiler:start
+  profiler:stop
+  if profile_on [
+    profiler:start
+  ]
   resetMetricAverages
 
   rngs:init
@@ -532,6 +537,11 @@ to setup
   resetHouseholdUnit ;; iterates this process
   ask simuls [
     simul_resetlanding
+  ]
+  
+  ;; Enter values in household isolation table to save O(N) existence checks per tick
+  ask simuls [
+    table:put houseTrackedCaseTimeTable householdunit -1
   ]
 
   ;; this ensures that half the people in households with existing infections have also have an infection and prevents a big spike early-on

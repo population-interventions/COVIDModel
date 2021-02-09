@@ -129,11 +129,11 @@ to CheckScale
   ;; this function scales up the simulation at base Scale_Factor to enable a small and large-scale understanding of dynamics.
   ;; It enables the fine-grained analysis in early stages that more closely resembles diffusion across a population similar to
   ;; assumptions in SEIR models but as it scales up, recognises that there are geographic constraints of movement of populations
-  (ifelse scale = true and ( count simuls with [ color = red ] ) >= Scale_Threshold and scalePhase >= 0 and ((Scale_Factor ^ (scalePhase + 1)) * Population <= Total_Population) and days > 0
+  (ifelse scale = true and redCount >= Scale_Threshold and scalePhase >= 0 and ((Scale_Factor ^ (scalePhase + 1)) * Population <= Total_Population) and days > 0
     [
       scaleup
     ]
-    scale = true and count simuls with [ color = red ] <= Scale_Threshold / Scale_Factor and yellowcount > redcount and days > 0 and scalephase > 0
+    scale = true and redCount <= Scale_Threshold / Scale_Factor and yellowcount > redcount and days > 0 and scalephase > 0
     [
       scaledown_no_hatch
     ]

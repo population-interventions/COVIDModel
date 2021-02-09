@@ -407,9 +407,11 @@ end
 to simul_checkICU
   ;; estimates if someone needs and ICU bed
   if color = red and RequireICU_draw < ICU_Required and timenow >= ownIncubationPeriod [
-    set requireICU 1
-    set caseReportTime ticks ;; Report instantly.
+    if tracked = 0 or caseReportTime > ticks[
+      set caseReportTime ticks ;; Report instantly.
+    ]
     set tracked 1 ;; Lets say that someone becomes tracked when they go to ICU
+    set requireICU 1
     ;; By setting them to tracked they will end up in quarantine
   ]
 end

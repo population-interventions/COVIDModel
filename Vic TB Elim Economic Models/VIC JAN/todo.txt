@@ -1,19 +1,18 @@
-Figure out whether there should be a non-infective period at the start of covid.
-Check whether dead people are really dead. They are moved to a particular patch, but does this actually ensure they won't interact with people?
 
 Run a batch of simulations that test whether choice of scale has a consistent effect on the result.
-
-Check up on the ICU. I've seen ICU beds go pretty weird.
- * pcolor = white seems like it does it.
- * Figure out GlobalTreat and what it has to do with tracing.
 
 Questions
  * Ask questions about how essential workers should behave.
  * Ask questions about schools.
  * Ask questions about whether mask efficiency is supposed to be 75% for two people wearing masks, or 75%^2
  * Which unknown parameters are supposed to vary per-draw and which vary per-agent? For example maskEfficacy is currently drawn from beta 24.3 8.08 per agent.
+ * Figure out whether there should be a non-infective period at the start of covid.
+ * The trace efficiency equation can go negative.
+ * Should people be able to be reinfected? What is the assumption here?
 
 Notes to report?
  * Scale had a big impact, the number of ICU places seemed to scale up with the population.
  * None of tracking and tracing parameters had anything to do with reported cases, they were all to do with isolation and quarantine. The case reporting was simply six days after first infection!
  * The elimination policy triggers for transitions between stages 1b and 2 tend to fluctuate. There can be fewer than 1 case per day for the last seven days, causing a drop to stage 1b, and five or more cases in the last 14 days, causing an instant reset to stage 2.
+ * People were moving out of ICU the day after they were sent there.
+ * The concept of ICU and quarantine was being conflated. What we have now is quarantine for everyone.

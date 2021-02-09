@@ -3,7 +3,6 @@ Run a batch of simulations that test whether choice of scale has a consistent ef
 Why is (yellowcount > redcount) a condition for scaledown?
 
 Speedup:
- * Replace simul_resetlanding with something that creates a static list of house locations, rather than having to recalculate and find it.
  * Replace "any? other simuls-here with [ householdUnit != [ householdUnit ] of myself" in general with a "am I at my house" check?
  * simul_visitDestination is particularly slow.
  * SIMUL_AVOID_STUDENT and SIMUL_AVOID are a bit slow.

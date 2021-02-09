@@ -225,12 +225,12 @@ to go
   ;; stops the model if the following criteria are met - no more infected people in the simulation and it has run for at least 10 days
   finished
   
+  ;; Set casesinperiod7, which is only detected cases. Also sets casesinperiod14 and casesinperiod28.
+  calculateCasesInLastPeriod
   ;; set track_and_trace_efficiency based on the number of recent cases.
   traceadjust
   ;; Set lockdown stage and easing date, bases mostly on casesinperiod7
   CovidPolicyTriggers
-  ;; Set casesinperiod7, which is only detected cases. Also sets casesinperiod14 and casesinperiod28.
-  calculateCasesInLastPeriod
 
   ;; set days days + 1
   ForwardTime

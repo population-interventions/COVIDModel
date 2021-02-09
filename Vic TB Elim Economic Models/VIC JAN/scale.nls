@@ -15,7 +15,6 @@ to scaleup
     set R 0
 
     move-to one-of patches with [ pcolor = black ]
-    simul_resetlanding
     simul_resetSomeRandomParams
 
     set returntoschool random 100
@@ -30,7 +29,6 @@ to scaleup
     set R 0
 
     move-to one-of patches with [ pcolor = black ] ;; resetincome calculateincomeperday calculateexpenditureperday
-    simul_resetlanding
 
     simul_resetSomeRandomParams
   ]

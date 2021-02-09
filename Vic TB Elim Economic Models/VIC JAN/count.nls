@@ -94,9 +94,9 @@ end
 
 
 to calculateCasesInLastPeriod
-  ;; counts cases in the last 14 days -
+  ;; counts cases in the last 7/14/28 days -
   ;; THIS ONLY COUNTS DETECTED CASES, NOT ALL INFECTIONS - TO ADJUST YOU MUST SET ASYMPTOMATIC TO ZERO
-
+  
   set prior27 prior26
   set prior26 prior25
   set prior25 prior24
@@ -126,14 +126,15 @@ to calculateCasesInLastPeriod
   set prior1 prior0
   set prior0 dailyCases
   
-  set casesinperiod14 (prior0 + prior1 + prior2 + prior3 + prior4 + prior5 + prior6 + prior7 + prior8 + prior9
-    + prior10 + prior11 + prior12 + prior13 )
+  set casesinperiod7 prior0 + prior1 + prior2 + prior3
+  set casesinperiod7 casesinperiod7 + prior4 + prior5 + prior6
+  
+  set casesinperiod14 casesinperiod7 + prior7 + prior8 + prior9
+  set casesinperiod14 casesinperiod14 + prior10 + prior11 + prior12 + prior13
 
-  set casesinperiod7 (prior0 + prior1 + prior2 + prior3 + prior4 + prior5 + prior6 )
-
-  set casesinperiod28 (prior0 + prior1 + prior2 + prior3 + prior4 + prior5 + prior6 + prior7 + prior8 + prior9
-    + prior10 + prior11 + prior12 + prior13 + prior14 + prior15 + prior16 + prior17 + prior18 + prior19
-    + prior20 + prior21 + prior22 + prior23 + prior24 + prior25 + prior26 + prior27)
+  set casesinperiod28 casesinperiod14 + prior14 + prior15 + prior16 + prior17
+  set casesinperiod28 casesinperiod28 + prior18 + prior19 + prior20 + prior21 + prior22
+  set casesinperiod28 casesinperiod28 + prior23 + prior24 + prior25 + prior26 + prior27
 
   set prior6_real prior5_real
   set prior5_real prior4_real
@@ -143,21 +144,6 @@ to calculateCasesInLastPeriod
   set prior1_real prior0_real
   set prior0_real new_case_real
   
-  set casesinperiod7_real (prior0_real + prior1_real + prior2_real + prior3_real + prior4_real + prior5_real + prior6_real )
-  
-  ;print prior13
-  ;print prior12
-  ;print prior11
-  ;print prior10
-  ;print prior9
-  ;print prior8
-  ;print prior7
-  ;print prior6
-  ;print prior5
-  ;print prior4
-  ;print prior3
-  ;print prior2
-  ;print prior1
-  ;print prior0
-  ;print"****************************************************"
+  set casesinperiod7_real prior0_real + prior1_real + prior2_real + prior3_real
+  set casesinperiod7_real casesinperiod7_real + prior4_real + prior5_real + prior6_real
 end

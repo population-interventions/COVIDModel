@@ -99,6 +99,29 @@ end
 ;; **** Counting
 ;; *********************************************************************************************************
 
+to setup
+  ;; allocates children to households
+  if schoolsPolicy = true [
+    ask simuls with [ agerange > 18 and agerange <= 60 ] [
+      ;; allows for upo 5% of houses to be sharehouses / care facilities, etc.
+      if count simuls with [householdUnit = [ householdUnit ] of myself ] > 2 and 95 > random 100 [
+        set householdUnit random 600
+      ]
+    ]
+    ask simuls with [ agerange > 60 ] [
+      ;; allows for older people in group homes to make up to 7% of housing units
+      if count simuls with [ householdUnit = [ householdUnit ] of myself ] > 2 and 93 < random 100 [
+        set householdUnit [ householdUnit ] of one-of simuls
+            with [ count other simuls with [ householdUnit = [ householdUnit ] of myself ] = 0 ]
+      ]
+    ]
+  ]
+end
+
+;; *********************************************************************************************************
+;; **** Counting
+;; *********************************************************************************************************
+
 to CalculateAverageContacts
   ;; calculates average contacts for simuls and average financial contacts, which are contacts with people who have positive 
   ;; cash reserves (?)

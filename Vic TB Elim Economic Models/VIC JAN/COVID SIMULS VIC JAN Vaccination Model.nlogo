@@ -110,6 +110,7 @@ globals [
   stageYesterday
 
   houseTrackedCaseTimeTable
+  houseLocationTable
   destination_patches
 
   PrimaryUpper
@@ -187,6 +188,7 @@ __includes[
 
 patches-own [
   destination ;; indicator of whether this location is a place that people might gather
+  houseIndex ;; indicator that the patch is a house.
   lastInfectionUpdate ;; Update indicator for stale simulantCount data
   infectionList ;; List of infectivities of simulants on the patch
   lastUtilTime ;; Last tick that the patch was occupied
@@ -311,7 +313,7 @@ Span
 Span
 0
 30
-30.0
+10.0
 1
 1
 NIL
@@ -509,7 +511,7 @@ superspreaders
 superspreaders
 0
 1
-0.1
+0.05
 0.01
 1
 NIL
@@ -579,7 +581,7 @@ Proportion_People_Avoid
 Proportion_People_Avoid
 0
 100
-0.0
+83.0
 .5
 1
 NIL
@@ -594,7 +596,7 @@ Proportion_Time_Avoid
 Proportion_Time_Avoid
 0
 100
-0.0
+83.0
 .5
 1
 NIL
@@ -1465,7 +1467,7 @@ Essential_Workers
 Essential_Workers
 0
 100
-100.0
+30.0
 1
 1
 NIL
@@ -1536,7 +1538,7 @@ Mask_Wearing
 Mask_Wearing
 0
 100
-50.0
+90.0
 1
 1
 NIL
@@ -1549,7 +1551,7 @@ SWITCH
 321
 schoolsPolicy
 schoolsPolicy
-0
+1
 1
 -1000
 
@@ -1887,7 +1889,7 @@ Visit_Radius
 Visit_Radius
 0
 16
-8.8
+3.5
 1
 1
 NIL
@@ -2827,7 +2829,7 @@ CHOOSER
 param_policy
 param_policy
 "AggressElim" "ModerateElim" "TightSupress" "LooseSupress" "None"
-4
+2
 
 SLIDER
 1513
@@ -3041,7 +3043,7 @@ Complacency_Bound
 Complacency_Bound
 0
 100
-0.0
+68.0
 1
 1
 NIL

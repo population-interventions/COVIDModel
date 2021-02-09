@@ -105,11 +105,26 @@ end
 
 to simul_resetlanding
   ;; now working so home locations are not in green space
-  move-to one-of simuls with [ pcolor = black and householdUnit = [ houseHoldUnit ] of myself ]
-
-  set homeLocation patch-here
-  if 50 > random 100 [
+  ifelse table:has-key? houseLocationTable householdUnit 
+  [
+    set homeLocation table:get houseLocationTable householdUnit
+  ]
+  [
+    move-to one-of patches with [ pcolor = black and houseIndex = -1 ]
+    let houseNumber householdUnit
+    ask patch-here [
+      set houseIndex houseNumber
+    ]
+    set homeLocation patch-here
+    table:put houseLocationTable householdUnit patch-here
+  ]
+  
+  ifelse 50 > random 100 
+  [
     move-to one-of patches with [ pcolor = black ]
+  ]
+  [
+     move-to homeLocation
   ]
   ;; iterates / sorts people into households
 end

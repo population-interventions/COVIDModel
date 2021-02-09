@@ -76,31 +76,11 @@ to resetlanding
   ]
 end
 
-to resethouseholdUnit
-  ;; allocates children to households
-  if schoolsPolicy = true [
-    ask simuls with [ agerange > 18 and agerange <= 60 ] [
-      ;; allows for upo 5% of houses to be sharehouses / care facilities, etc.
-      if count simuls with [householdUnit = [ householdUnit ] of myself ] > 2 and 95 > random 100 [
-        set householdUnit random 600
-      ]
-    ]
-    ask simuls with [ agerange > 60 ] [
-      ;; allows for older people in group homes to make up to 7% of housing units
-      if count simuls with [ householdUnit = [ householdUnit ] of myself ] > 2 and 93 < random 100 [
-        set householdUnit [ householdUnit ] of one-of simuls
-            with [ count other simuls with [ householdUnit = [ householdUnit ] of myself ] = 0 ]
-      ]
-    ]
-  ]
-end
-
 to calculatedailyrisk
   ;; estimates risk of death per day for the duration of the period of illness
   ;; used for stats more than calibrated to real world given most people die late in the illness period
   set dailyrisk ( riskofDeath / Illness_period )
 end
-
 
 to simul_resetPersonalVirulence
   ;; ensures that personalVirulence is within bounds
@@ -214,6 +194,67 @@ to createSimulants
   ]
 end
 
+to setup_households
+  ;; setting households up
+  ;; allocates adults to a household unit range
+  ask simuls with [ agerange > 18 and agerange <= 60 ] [
+    if 95 > random 100 [
+      set householdUnit random 600
+    ]
+  ]
+
+  ;; allocated older adults to household Units that don't include young children or teenagers
+  ask simuls with [ agerange > 60 and agerange <= 80 ] [
+    if 95 > random 100 [
+      set householdUnit random 200 + 600
+    ]
+  ]
+
+  ;; allocated older adults 80+ to household Units that don't include young children or teenagers
+  ask simuls with [ agerange > 80 ] [
+    if 95 > random 100 [
+      set householdUnit random 300 + 600
+    ]
+  ]
+
+  ;; allocates up to two adults per household
+  let houseNumber 0
+  let allocCount 0
+  ask simuls with [ agerange > 18 and agerange <= 60 ] [
+    if 95 > random 100 [
+      set householdUnit houseNumber
+      set allocCount allocCount + 1
+      if allocCount >= 2 [
+        set houseNumber houseNumber + 1
+        set allocCount 0
+      ]
+    ]
+  ]
+  
+  ;; Identifies students
+  ask simuls with [ agerange <= 18 ] [
+    if 95 > random 100 [
+      set householdUnit random houseNumber
+    ]
+  ]
+
+  ask simuls [
+    if agerange < 20 [
+      set studentFlag 1
+    ]
+  ]
+  ;; allocates children and teenagers to a household where there are adults at least 20 years older than them and there are not more than 2 adults in the house
+
+  ask simuls [
+    simul_resetlanding
+  ]
+  
+  ;; Enter values in household isolation table to save O(N) existence checks per tick
+  ask simuls [
+    table:put houseTrackedCaseTimeTable householdunit -1
+  ]
+end
+
 to setGlobals
   set anxietyFactor              0
   set NumberInfected             0
@@ -322,6 +363,7 @@ to setGlobals
   set SecondaryLower 0
   
   set houseTrackedCaseTimeTable table:make
+  set houseLocationTable table:make
 
   set meanIDTime 0
   set popDivisionTable 0 ; Table of population cohort data
@@ -419,6 +461,7 @@ to setup
   ]
   ask patches [
     set pcolor black
+    set houseIndex -1
     set lastInfectionUpdate -1
     set lastUtilTime -1
   ]
@@ -490,61 +533,8 @@ to setup
   set spatial_distance false
   set case_isolation false
 
-  ;; setting households up
-  ;; allocates adults to a household unit range
-  ask simuls with [ agerange > 18 and agerange <= 60 ] [
-    if 95 > random 100 [
-      set householdUnit random 600
-    ]
-  ]
-
-  ;; allocated older adults to household Units that don't include young children or teenagers
-  ask simuls with [ agerange > 60 and agerange <= 80 ] [
-    if 95 > random 100 [
-      set householdUnit random 200 + 600
-    ]
-  ]
-
-  ;; allocated older adults 80+ to household Units that don't include young children or teenagers
-  ask simuls with [ agerange > 80 ] [
-    if 95 > random 100 [
-      set householdUnit random 300 + 600
-    ]
-  ]
-
-  ;; allocates up to two adults per household
-  ask simuls with [ agerange > 18 and agerange <= 60 ] [
-    if 95 > random 100 [
-      if count simuls with [ householdUnit = [ householdUnit ] of myself ] > 2 [
-        set householdUnit random 600
-      ]
-    ]
-  ]
-
-  ;; Identifies students
-  ask simuls with [ agerange = 15 and agerange = 5 and studentFlag != 1 ] [
-    if 95 > random 100 [
-      set householdUnit [ householdUnit ] of one-of simuls with [ householdUnit <= 600 and agerange > ([agerange ] of myself + 20) ]
-    ]
-  ]
-
-  ask simuls [
-    if agerange < 20 [
-      set studentFlag 1
-    ]
-  ]
-  ;; allocates children and teenagers to a household where there are adults at least 20 years older than them and there are not more than 2 adults in the house
-
-  resetHouseholdUnit ;; iterates this process
-  ask simuls [
-    simul_resetlanding
-  ]
+  setup_households
   
-  ;; Enter values in household isolation table to save O(N) existence checks per tick
-  ask simuls [
-    table:put houseTrackedCaseTimeTable householdunit -1
-  ]
-
   ;; this ensures that half the people in households with existing infections have also have an infection and prevents a big spike early-on
   let init_secondry_infect secondary_cases
   ask simuls [

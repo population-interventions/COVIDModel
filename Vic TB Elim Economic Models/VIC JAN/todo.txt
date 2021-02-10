@@ -34,10 +34,11 @@ Add a parameter to multiply transmissiblity for compliant isolated infected peop
 Make a global modifier for proportion_people_avoid and proportion_time_avoid with SD 3%
 Add a parameter for non-infective period at the start (48 hours).
 Goes up to full at 5 days, as per the model.
-
 make ownComplianceWithIsolation maskWearEfficacy global
+
 casesinperiod7_real or reported?
 75% mask efficacy is two way.
+
 Fix set track_and_trace_efficiency (0.63219 - (0.07213 * ln(casesinperiod7_real)))
 fix 1b and 2
 Think about how to do overseas cases.

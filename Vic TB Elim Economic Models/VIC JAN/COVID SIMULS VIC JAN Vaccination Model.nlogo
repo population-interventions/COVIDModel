@@ -390,10 +390,10 @@ Deathcount
 14
 
 SLIDER
-64
-1239
-244
-1273
+518
+982
+698
+1016
 ReInfectionRate
 ReInfectionRate
 0
@@ -2539,7 +2539,7 @@ RAND_SEED
 RAND_SEED
 0
 1000000
-758454.0
+0.0
 1
 1
 NIL
@@ -3093,7 +3093,7 @@ SWITCH
 167
 profile_on
 profile_on
-0
+1
 1
 -1000
 

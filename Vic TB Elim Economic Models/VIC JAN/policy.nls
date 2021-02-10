@@ -155,6 +155,9 @@ to policy_loose_supress
   ]
 end
 
+to policy_none
+  set stage -1
+end
 ;;;*********************************************************************************************************************
 ;; Optimisation section
 ;;;*********************************************************************************************************************
@@ -436,6 +439,9 @@ to COVIDPolicyTriggers
     ]
     if param_policy = "LooseSupress" [
       policy_loose_supress
+    ]
+    if param_policy = "None" [
+      policy_none
     ]
   ]
 end

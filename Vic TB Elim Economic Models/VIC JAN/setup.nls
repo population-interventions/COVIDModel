@@ -478,7 +478,7 @@ to setup
     set xcor 20
     set ycor -20
   ]
-  calculateScaledBedCapacity
+  
   ask medresources [
     ask n-of Scaled_Bed_Capacity patches in-radius 5 [
       set pcolor white

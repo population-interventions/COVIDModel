@@ -385,9 +385,9 @@ HORIZONTAL
 
 MONITOR
 9
-688
-171
-745
+624
+158
+682
 Deaths
 Deathcount
 0
@@ -487,17 +487,6 @@ Media_Exposure
 NIL
 HORIZONTAL
 
-MONITOR
-10
-623
-169
-680
-Mean Days infected
-meanDaysInfected
-2
-1
-14
-
 SLIDER
 1543
 253
@@ -529,10 +518,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-10
-755
-170
-812
+9
+690
+154
+748
 % Total Infections
 numberInfected / Total_Population * 100
 2
@@ -577,7 +566,7 @@ Proportion_People_Avoid
 Proportion_People_Avoid
 0
 100
-21.0
+15.0
 .5
 1
 NIL
@@ -592,7 +581,7 @@ Proportion_Time_Avoid
 Proportion_Time_Avoid
 0
 100
-21.0
+15.0
 .5
 1
 NIL
@@ -1696,10 +1685,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-162
-817
-318
-850
+133
+819
+320
+853
 Case_Reporting_Delay
 Case_Reporting_Delay
 0
@@ -2825,7 +2814,7 @@ CHOOSER
 param_policy
 param_policy
 "AggressElim" "ModerateElim" "TightSupress" "LooseSupress" "None"
-3
+1
 
 SLIDER
 1513
@@ -3138,13 +3127,28 @@ SLIDER
 540
 940
 715
-974
+973
 Isolation_Transmission
 Isolation_Transmission
 0
 1
 0.3
 0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+134
+779
+319
+813
+Non_Infective_Time
+Non_Infective_Time
+0
+4
+2.0
+1
 1
 NIL
 HORIZONTAL

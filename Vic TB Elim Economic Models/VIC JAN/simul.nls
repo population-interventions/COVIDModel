@@ -92,11 +92,14 @@ to simul_updatepersonalvirulence
     ;print timenow
     ;print ownIncubationPeriod
     ;print ownIllnessPeriod
-    if timenow <= ownIncubationPeriod [
-      set currentVirulence ( personalVirulence * ( timenow / ownIncubationPeriod ))
+    if timenow <= Non_Infective_Time [
+      set currentVirulence 0
+    ]
+    if timenow > Non_Infective_Time and timenow <= ownIncubationPeriod [
+      set currentVirulence personalVirulence * ( (timenow - Non_Infective_Time) / (ownIncubationPeriod - Non_Infective_Time) )
     ]
     if timenow > ownIncubationPeriod [
-      set currentVirulence ( personalVirulence * ( ( ownIllnessPeriod - timenow ) / ( ownIllnessPeriod - ownIncubationPeriod )))
+      set currentVirulence personalVirulence * ( ( ownIllnessPeriod - timenow ) / ( ownIllnessPeriod - ownIncubationPeriod ))
     ]
     ;print currentVirulence
     ;set currentVirulence 0

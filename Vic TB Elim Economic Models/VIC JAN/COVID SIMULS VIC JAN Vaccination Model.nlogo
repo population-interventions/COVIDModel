@@ -392,7 +392,7 @@ MONITOR
 9
 624
 158
-682
+681
 Deaths
 Deathcount
 0
@@ -526,7 +526,7 @@ MONITOR
 9
 690
 154
-748
+747
 % Total Infections
 numberInfected / Total_Population * 100
 2
@@ -571,7 +571,7 @@ Proportion_People_Avoid
 Proportion_People_Avoid
 0
 100
-15.0
+0.0
 .5
 1
 NIL
@@ -586,7 +586,7 @@ Proportion_Time_Avoid
 Proportion_Time_Avoid
 0
 100
-15.0
+0.0
 .5
 1
 NIL
@@ -1393,24 +1393,6 @@ false
 PENS
 "default" 1.0 1 -16777216 true "" "histogram [ ownIncubationPeriod ] of simuls"
 
-PLOT
-3315
-510
-3475
-631
-Compliance
-NIL
-NIL
-80.0
-10.0
-0.0
-10.0
-true
-false
-"" ""
-PENS
-"default" 1.0 1 -16777216 true "" "histogram [ owncompliancewithisolation ] of simuls"
-
 INPUTBOX
 2665
 754
@@ -1457,7 +1439,7 @@ Essential_Workers
 Essential_Workers
 0
 100
-75.0
+100.0
 1
 1
 NIL
@@ -1528,7 +1510,7 @@ Mask_Wearing
 Mask_Wearing
 0
 100
-90.0
+50.0
 1
 1
 NIL
@@ -1693,7 +1675,7 @@ SLIDER
 133
 819
 320
-853
+852
 Case_Reporting_Delay
 Case_Reporting_Delay
 0
@@ -1703,25 +1685,6 @@ Case_Reporting_Delay
 1
 NIL
 HORIZONTAL
-
-PLOT
-3038
-797
-3293
-947
-R and Compliance Distributions 
-NIL
-NIL
-0.0
-10.0
-0.0
-10.0
-true
-false
-"" ""
-PENS
-"default" 1.0 1 -16777216 true "" "histogram [ R ] of simuls with [ color != 85 ] "
-"Compliance" 1.0 0 -2674135 true "" "histogram [ ownCompliancewithIsolation * 10 ] of simuls "
 
 MONITOR
 3035
@@ -1879,7 +1842,7 @@ Visit_Radius
 Visit_Radius
 0
 16
-7.1
+8.8
 1
 1
 NIL
@@ -2819,7 +2782,7 @@ CHOOSER
 param_policy
 param_policy
 "AggressElim" "ModerateElim" "TightSupress" "LooseSupress" "None"
-1
+4
 
 SLIDER
 1513
@@ -3033,7 +2996,7 @@ Complacency_Bound
 Complacency_Bound
 0
 100
-15.0
+0.0
 1
 1
 NIL
@@ -3147,7 +3110,7 @@ SLIDER
 134
 779
 319
-813
+812
 Non_Infective_Time
 Non_Infective_Time
 0

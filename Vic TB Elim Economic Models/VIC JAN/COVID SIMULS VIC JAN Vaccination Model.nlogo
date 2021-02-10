@@ -140,6 +140,8 @@ globals [
   global_incursionScale
   global_incursionArrivals
 
+  incursionsSeedID
+  totalOverseasIncursions
   vaccinePhaseEndDay
   vaccinePhaseIndex
   vaccineTable
@@ -1409,10 +1411,10 @@ initialassociationstrength
 Number
 
 MONITOR
-1398
-687
-1463
-732
+1395
+638
+1460
+683
 Virulence
 mean [ personalvirulence] of simuls
 1
@@ -1495,10 +1497,10 @@ NIL
 HORIZONTAL
 
 SWITCH
-1398
-372
-1535
-405
+1403
+365
+1540
+398
 tracking
 tracking
 0
@@ -1942,10 +1944,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-1397
-635
-1505
-680
+1394
+585
+1496
+630
 NIL
 currentinfections
 17
@@ -1954,9 +1956,9 @@ currentinfections
 
 MONITOR
 1620
-449
+414
 1745
-494
+459
 Average Illness time
 mean [ timenow ] of simuls with [ color = red ]
 1
@@ -2505,7 +2507,7 @@ RAND_SEED
 RAND_SEED
 0
 1000000
-642512.0
+521739.0
 1
 1
 NIL
@@ -2641,10 +2643,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-1533
-750
-1621
-795
+1403
+407
+1491
+452
 NIL
 contact_radius
 17
@@ -2718,10 +2720,10 @@ stage
 11
 
 MONITOR
-1623
-555
-1758
-600
+1624
+519
+1759
+564
 Interaction Infectivity
 transmission_average
 17
@@ -2730,9 +2732,9 @@ transmission_average
 
 MONITOR
 1620
-500
+464
 1745
-545
+509
 Virulent Interactions
 transmission_count_metric
 17
@@ -2786,7 +2788,7 @@ CHOOSER
 param_policy
 param_policy
 "AggressElim" "ModerateElim" "TightSupress" "LooseSupress" "None"
-0
+1
 
 SLIDER
 1513
@@ -2945,10 +2947,10 @@ PENS
 "default" 1.0 0 -16777216 true "" "plot transmission_average"
 
 MONITOR
-1624
-608
-1754
-653
+1625
+573
+1755
+618
 Expected New Cases
 transmission_count_metric * transmission_average
 17
@@ -3026,9 +3028,9 @@ PENS
 
 MONITOR
 1625
-662
+627
 1755
-707
+672
 Real New Cases
 new_case_real
 17
@@ -3088,8 +3090,8 @@ SLIDER
 End_Day
 End_Day
 -1
-300
--1.0
+360
+360.0
 1
 1
 NIL
@@ -3124,6 +3126,35 @@ Non_Infective_Time
 1
 NIL
 HORIZONTAL
+
+MONITOR
+1508
+628
+1610
+673
+NIL
+totalOverseasIncursions
+17
+1
+11
+
+PLOT
+1495
+677
+1763
+826
+OverseasIncursions
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+false
+"" ""
+PENS
+"default" 1.0 0 -16777216 true "" "plot totalOverseasIncursions"
 
 @#$#@#$#@
 ## WHAT IS IT?

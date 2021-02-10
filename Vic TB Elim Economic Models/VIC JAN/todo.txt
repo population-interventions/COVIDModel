@@ -1,7 +1,6 @@
 
 Run a batch of simulations that test whether choice of scale has a consistent effect on the result.
 Why is (yellowcount > redcount) a condition for scaledown?
-remove last7days_real
 
 Speedup:
  * Replace "any? other simuls-here with [ householdUnit != [ householdUnit ] of myself" in general with a "am I at my house" check?
@@ -12,18 +11,11 @@ Speedup:
 Questions
  * Ask questions about how essential workers should behave.
  * Ask questions about schools.
- * Ask questions about whether mask efficiency is supposed to be 75% for two people wearing masks, or 75%^2
- * Which unknown parameters are supposed to vary per-draw and which vary per-agent? For example maskEfficacy is currently drawn from beta 24.3 8.08 per agent.
- * Figure out whether there should be a non-infective period at the start of covid.
  * The trace efficiency equation can go negative.
  * Should people be able to be reinfected? What is the assumption here?
 
 Notes to report?
- * Scale had a big impact, the number of ICU places seemed to scale up with the population.
- * None of tracking and tracing parameters had anything to do with reported cases, they were all to do with isolation and quarantine. The case reporting was simply six days after first infection!
  * The elimination policy triggers for transitions between stages 1b and 2 tend to fluctuate. There can be fewer than 1 case per day for the last seven days, causing a drop to stage 1b, and five or more cases in the last 14 days, causing an instant reset to stage 2.
- * People were moving out of ICU the day after they were sent there.
- * The concept of ICU and quarantine was being conflated. What we have now is quarantine for everyone.
 
 Meeting notes:
  * Simple question - How are recovered people handled? Currently a recovered person has a 5% chance per day to turn into a succeptible person. They gain no vaccine-type benefit, which is very weird. They are also currently skipped over for vaccination.
@@ -35,4 +27,4 @@ casesinperiod7_real or reported?
 75% mask efficacy is two way. - Added some made up numbers.
 Fix set track_and_trace_efficiency (0.63219 - (0.07213 * ln(casesinperiod7_real)))
 fix 1b and 2
-Think about how to do overseas cases.
+Think about how to do overseas cases better than the scaled probabily method that exists for now.

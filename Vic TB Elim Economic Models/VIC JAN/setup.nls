@@ -379,6 +379,9 @@ to setGlobals
   set global_vaccineAvailible 0
   set global_vaccineType 0
   set global_vaccinePerDay 0
+  
+  set incursionsSeedID 0
+  set totalOverseasIncursions 0
   set vaccinePhaseEndDay 0
   set vaccinePhaseIndex 0
   set vaccineTable 0
@@ -413,7 +416,7 @@ to setDrawValues
   set draw_pta_modifier random-normal 0 3
   
   rngs:init ;; replacing previous log transform with beta distribution
-  let stream_id random-float 999
+  let stream_id 1
   let seed random-float 999
   rngs:set-seed stream_id seed
   
@@ -457,6 +460,7 @@ to setup
   loadPopDivisionTable
   processPopulationWorkerData
   setup_vaccineData
+  setup_overseasArrivals
   
   set resetdate 7
   

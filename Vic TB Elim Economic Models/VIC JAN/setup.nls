@@ -408,6 +408,24 @@ to setGlobals
   set drawList 0
 end
 
+to setDrawValues
+  set draw_ppa_modifier random-normal 0 3
+  set draw_pta_modifier random-normal 0 3
+  
+  rngs:init ;; replacing previous log transform with beta distribution
+  let stream_id random-float 999
+  let seed random-float 999
+  rngs:set-seed stream_id seed
+  
+  set draw_isolationCompliance rngs:rnd-beta stream_id 450.3 23.7
+  set draw_maskWearEfficacy rngs:rnd-beta stream_id 24.3 8.08
+  
+  ;show ( word "draw_ppa_modifier " draw_ppa_modifier )
+  ;show ( word "draw_pta_modifier " draw_pta_modifier )
+  ;show ( word "draw_isolationCompliance " draw_isolationCompliance )
+  ;show ( word "draw_maskWearEfficacy " draw_maskWearEfficacy )
+end
+
 ;;*******************************************************************************************************************************
 ;;** Buttons **
 ;;*******************************************************************************************************************************
@@ -417,6 +435,8 @@ to setup
   
   setGlobals
   random-seed RAND_SEED ;; Read from a behaviourSpace variable.
+  
+  setDrawValues
 
   profiler:stop
   if profile_on [

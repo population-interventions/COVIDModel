@@ -125,6 +125,11 @@ globals [
   avoidSuccess
   avoidAttempts
 
+  draw_ppa_modifier
+  draw_pta_modifier
+  draw_isolationCompliance
+  draw_maskWearEfficacy
+
   ; Vaccine phase and subphase, as well as internal index and data table.
   global_vaccinePhase
   global_vaccineSubPhase

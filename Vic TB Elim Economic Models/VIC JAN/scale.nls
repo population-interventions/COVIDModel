@@ -6,9 +6,6 @@
 to scaleup
   set scalephase scalephase + 1
   
-  print ( count simuls with [ color = red ] * (1 - 1 / Scale_Factor) )
-  print count simuls with [ color = red ]
-  
   ask n-of ( count simuls with [ color = red ] * (1 - 1 / Scale_Factor) ) simuls with [ color = red ] [
     set size 2
     set color cyan
@@ -41,7 +38,6 @@ to scaleup
   ]
 
   set contact_Radius Contact_Radius + (90 / 4)
-  print count simuls with [ color = red ]
 end
 
 to scaledown_no_hatch

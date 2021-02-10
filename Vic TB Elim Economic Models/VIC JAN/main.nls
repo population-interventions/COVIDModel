@@ -98,9 +98,9 @@ to go
   
   ;; Simulants avoid people if social distancing is enabled, and they are not essential workers (or have some other reason to be in a crowd)
   ;; Note that simulants can effect each other in this stage.
-  ask simuls [
-    simul_update_patch_house_gather
-  ]
+  ;ask simuls [
+  ;  simul_update_patch_house_gather
+  ;]
   ask simuls [
     simul_avoid
   ]

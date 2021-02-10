@@ -237,4 +237,8 @@ to go
   set days days + 1
   
   tick
+  
+  if ticks = End_Day [
+   Stop 
+  ]
 end

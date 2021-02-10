@@ -309,7 +309,7 @@ Span
 Span
 0
 30
-5.0
+10.0
 1
 1
 NIL
@@ -507,7 +507,7 @@ superspreaders
 superspreaders
 0
 1
-0.02
+0.05
 0.01
 1
 NIL
@@ -577,7 +577,7 @@ Proportion_People_Avoid
 Proportion_People_Avoid
 0
 100
-81.0
+68.0
 .5
 1
 NIL
@@ -592,7 +592,7 @@ Proportion_Time_Avoid
 Proportion_Time_Avoid
 0
 100
-81.0
+68.0
 .5
 1
 NIL
@@ -1463,7 +1463,7 @@ Essential_Workers
 Essential_Workers
 0
 100
-20.0
+30.0
 1
 1
 NIL
@@ -1885,7 +1885,7 @@ Visit_Radius
 Visit_Radius
 0
 16
-1.8
+3.5
 1
 1
 NIL
@@ -2544,7 +2544,7 @@ RAND_SEED
 RAND_SEED
 0
 1000000
-256039.0
+526570.0
 1
 1
 NIL
@@ -3039,7 +3039,7 @@ Complacency_Bound
 Complacency_Bound
 0
 100
-81.0
+68.0
 1
 1
 NIL
@@ -3118,6 +3118,21 @@ NIL
 NIL
 NIL
 1
+
+SLIDER
+969
+23
+1142
+57
+End_Day
+End_Day
+-1
+200
+39.0
+1
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?

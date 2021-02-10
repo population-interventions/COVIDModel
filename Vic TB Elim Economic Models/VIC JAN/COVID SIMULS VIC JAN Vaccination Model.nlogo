@@ -84,15 +84,6 @@ globals [
   prior27
   prior28
 
-  prior6_real
-  prior5_real
-  prior4_real
-  prior3_real
-  prior2_real
-  prior1_real
-  prior0_real
-  casesinperiod7_real
-
   new_case_real
   new_case_real_counter
 
@@ -313,7 +304,7 @@ Span
 Span
 0
 30
-10.0
+5.0
 1
 1
 NIL
@@ -399,15 +390,15 @@ Deathcount
 14
 
 SLIDER
-40
-1238
-240
-1271
+64
+1239
+244
+1273
 ReInfectionRate
 ReInfectionRate
 0
 100
-5.0
+0.0
 1
 1
 NIL
@@ -511,7 +502,7 @@ superspreaders
 superspreaders
 0
 1
-0.05
+0.02
 0.01
 1
 NIL
@@ -581,7 +572,7 @@ Proportion_People_Avoid
 Proportion_People_Avoid
 0
 100
-83.0
+81.0
 .5
 1
 NIL
@@ -596,7 +587,7 @@ Proportion_Time_Avoid
 Proportion_Time_Avoid
 0
 100
-83.0
+81.0
 .5
 1
 NIL
@@ -1452,7 +1443,7 @@ Global_Transmissability
 Global_Transmissability
 0
 1
-0.5
+1.0
 0.01
 1
 NIL
@@ -1467,7 +1458,7 @@ Essential_Workers
 Essential_Workers
 0
 100
-30.0
+20.0
 1
 1
 NIL
@@ -1708,7 +1699,7 @@ Case_Reporting_Delay
 Case_Reporting_Delay
 0
 20
-6.0
+2.0
 1
 1
 NIL
@@ -1889,7 +1880,7 @@ Visit_Radius
 Visit_Radius
 0
 16
-3.5
+1.8
 1
 1
 NIL
@@ -2829,7 +2820,7 @@ CHOOSER
 param_policy
 param_policy
 "AggressElim" "ModerateElim" "TightSupress" "LooseSupress" "None"
-2
+1
 
 SLIDER
 1513
@@ -2948,7 +2939,7 @@ Quarantine_Spaces
 Quarantine_Spaces
 0
 20000
-7400.0
+0.0
 1
 1
 NIL
@@ -3043,7 +3034,7 @@ Complacency_Bound
 Complacency_Bound
 0
 100
-68.0
+81.0
 1
 1
 NIL
@@ -3074,17 +3065,6 @@ MONITOR
 707
 Real New Cases
 new_case_real
-17
-1
-11
-
-MONITOR
-963
-148
-1082
-193
-Real cases in 7
-casesinperiod7_real
 17
 1
 11

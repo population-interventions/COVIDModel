@@ -208,6 +208,9 @@ to simul_record_patch_infectiveness
     if vaccinated = 1 [
       set localInfectiveness (localInfectiveness * (1 - selfVaccEffectiveness))
     ]
+    if isolateCompliant = 1 [
+     set localInfectiveness (localInfectiveness * Isolation_Transmission )
+    ]
     
     ;print "currentVirulence"
     ;print currentVirulence

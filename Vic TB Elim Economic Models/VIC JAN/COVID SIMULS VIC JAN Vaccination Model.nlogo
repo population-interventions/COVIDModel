@@ -309,7 +309,7 @@ Span
 Span
 0
 30
-5.0
+30.0
 1
 1
 NIL
@@ -507,7 +507,7 @@ superspreaders
 superspreaders
 0
 1
-0.02
+0.1
 0.01
 1
 NIL
@@ -577,7 +577,7 @@ Proportion_People_Avoid
 Proportion_People_Avoid
 0
 100
-81.0
+21.0
 .5
 1
 NIL
@@ -592,7 +592,7 @@ Proportion_Time_Avoid
 Proportion_Time_Avoid
 0
 100
-81.0
+21.0
 .5
 1
 NIL
@@ -1463,7 +1463,7 @@ Essential_Workers
 Essential_Workers
 0
 100
-20.0
+75.0
 1
 1
 NIL
@@ -1547,7 +1547,7 @@ SWITCH
 321
 schoolsOpen
 schoolsOpen
-1
+0
 1
 -1000
 
@@ -1885,7 +1885,7 @@ Visit_Radius
 Visit_Radius
 0
 16
-1.8
+7.1
 1
 1
 NIL
@@ -2129,10 +2129,10 @@ PENS
 "Scale" 1.0 0 -14454117 true "" "plot scalePhase"
 
 MONITOR
-964
-99
-1079
-144
+963
+133
+1078
+178
 Cases in period 7
 casesinperiod7
 0
@@ -2468,10 +2468,10 @@ NIL
 HORIZONTAL
 
 SWITCH
-1527
-1369
-1680
-1402
+988
+72
+1141
+105
 Vaccine_Available
 Vaccine_Available
 0
@@ -2825,7 +2825,7 @@ CHOOSER
 param_policy
 param_policy
 "AggressElim" "ModerateElim" "TightSupress" "LooseSupress" "None"
-2
+3
 
 SLIDER
 1513
@@ -3039,7 +3039,7 @@ Complacency_Bound
 Complacency_Bound
 0
 100
-81.0
+15.0
 1
 1
 NIL
@@ -3127,9 +3127,24 @@ SLIDER
 End_Day
 End_Day
 -1
-200
--1.0
+300
+250.0
 1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+540
+940
+715
+974
+Isolation_Transmission
+Isolation_Transmission
+0
+1
+0.3
+0.01
 1
 NIL
 HORIZONTAL

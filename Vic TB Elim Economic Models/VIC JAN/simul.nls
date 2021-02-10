@@ -233,24 +233,6 @@ to simul_update_patch_utilisation
   ]
 end
 
-to simul_update_patch_house_gather
-  let myPatch patch-here
-  let houseNumber householdUnit
-  ask myPatch [
-    ifelse lastHouseGatherTime < ticks
-    [
-      set houseGatherIndex houseNumber
-      set lastHouseGatherTime ticks
-    ]
-    [
-      ;; Check if another household is here.
-      if houseGatherIndex != houseNumber [
-        set houseGatherIndex -1
-      ]
-    ]
-  ]
-end
-
 to simul_infect
   if color = cyan [
     let mySucceptibility 1
@@ -334,7 +316,7 @@ to simul_avoid_student
       and Proportion_People_Avoid > proportion_people_avoid_draw
       and Proportion_Time_Avoid > random 100
   [
-    if any? other simuls-here with [ householdUnit != [ householdUnit ] of myself and studentFlag != 1 ] [
+    if any? other simuls-here with [ householdUnit != [ householdUnit ] of myself or studentFlag != 1 ] [
       ;; students don't isolate from each other or their household unit
       simul_move_to_empty_patch
     ]

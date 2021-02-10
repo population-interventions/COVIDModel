@@ -29,8 +29,10 @@ Meeting notes:
  * Simple question - How are recovered people handled? Currently a recovered person has a 5% chance per day to turn into a succeptible person. They gain no vaccine-type benefit, which is very weird. They are also currently skipped over for vaccination.
  * Simple question - Are the death rates in setup::setdeathrisk good?
 
+Note that whether school is open seems to be the main driver of infections. Students are probably following each other around much too often.
+
 casesinperiod7_real or reported?
-75% mask efficacy is two way.
+75% mask efficacy is two way. - Added some made up numbers.
 Fix set track_and_trace_efficiency (0.63219 - (0.07213 * ln(casesinperiod7_real)))
 fix 1b and 2
 Think about how to do overseas cases.

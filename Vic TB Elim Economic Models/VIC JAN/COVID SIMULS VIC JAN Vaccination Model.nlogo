@@ -304,7 +304,7 @@ Span
 Span
 0
 30
-5.0
+30.0
 1
 1
 NIL
@@ -393,7 +393,7 @@ SLIDER
 518
 982
 698
-1016
+1015
 ReInfectionRate
 ReInfectionRate
 0
@@ -502,7 +502,7 @@ superspreaders
 superspreaders
 0
 1
-0.02
+0.1
 0.01
 1
 NIL
@@ -572,7 +572,7 @@ Proportion_People_Avoid
 Proportion_People_Avoid
 0
 100
-81.0
+0.0
 .5
 1
 NIL
@@ -587,7 +587,7 @@ Proportion_Time_Avoid
 Proportion_Time_Avoid
 0
 100
-81.0
+0.0
 .5
 1
 NIL
@@ -1443,7 +1443,7 @@ Global_Transmissability
 Global_Transmissability
 0
 1
-1.0
+0.5
 0.01
 1
 NIL
@@ -1458,7 +1458,7 @@ Essential_Workers
 Essential_Workers
 0
 100
-20.0
+100.0
 1
 1
 NIL
@@ -1529,7 +1529,7 @@ Mask_Wearing
 Mask_Wearing
 0
 100
-90.0
+50.0
 1
 1
 NIL
@@ -1542,7 +1542,7 @@ SWITCH
 321
 schoolsPolicy
 schoolsPolicy
-1
+0
 1
 -1000
 
@@ -1880,7 +1880,7 @@ Visit_Radius
 Visit_Radius
 0
 16
-1.8
+8.8
 1
 1
 NIL
@@ -2820,7 +2820,7 @@ CHOOSER
 param_policy
 param_policy
 "AggressElim" "ModerateElim" "TightSupress" "LooseSupress" "None"
-1
+2
 
 SLIDER
 1513
@@ -3034,7 +3034,7 @@ Complacency_Bound
 Complacency_Bound
 0
 100
-81.0
+0.0
 1
 1
 NIL

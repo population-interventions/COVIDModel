@@ -384,8 +384,6 @@ to setGlobals
   set vaccineTable 0
   set global_vaccine_eff 0 ;; Effectiveness of the vaccine along the three dimensions (infection rate, transmition rate, duration)
 
-  set global_schoolActive 1 ;; Whether students ignore avoiding each other to go to school
-
   ;; log transform illness period variables
   set Illness_PeriodVariance 0
   set M 0
@@ -540,7 +538,7 @@ to setup
 
   ;;set tracking false ;; ensures this is set to false each time the model starts
   ;;set link_switch false ;; ensures this is set to false each timme the model starts
-  ;;set schoolspolicy false ;; ensures that the schools settings don't begin before the policy trigger starts
+  ;;set schoolsOpen false ;; ensures that the schools settings don't begin before the policy trigger starts
   ;;set maskPolicy false ;; that the mask policy doesn't begin before the policy trigger starts
   ;;set assignAppEss false ;; that the assigning the App to EssentialWorkers doesn't begin before the policy trigger starts
   reset-ticks

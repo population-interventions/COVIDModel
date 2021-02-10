@@ -15,7 +15,7 @@ to do_stages_tony
     set spatial_distance false
     set age_isolation 0
     set case_isolation false
-    set schoolsPolicy true
+    set schoolsOpen true
     set quarantine false
     set OS_Import_Proportion 0
     set Essential_Workers 100
@@ -43,7 +43,7 @@ to do_stages_tony
     set spatial_distance false
     set age_isolation 0
     set case_isolation true
-    set schoolsPolicy true
+    set schoolsOpen true
     set quarantine true
     set OS_Import_Proportion 0
     set Essential_Workers 100
@@ -71,7 +71,7 @@ to do_stages_tony
     set spatial_distance true
     set age_isolation 0
     set case_isolation true
-    set schoolsPolicy true
+    set schoolsOpen true
     set quarantine true
     set OS_Import_Proportion 0
     set Essential_Workers 75
@@ -100,7 +100,7 @@ to do_stages_tony
     set spatial_distance true
     set age_isolation 0
     set case_isolation true
-    set schoolsPolicy true
+    set schoolsOpen true
     set quarantine true
     set OS_Import_Proportion 0
     set Essential_Workers 50
@@ -128,7 +128,7 @@ to do_stages_tony
     set spatial_distance true
     set age_isolation 0
     set case_isolation true
-    set schoolsPolicy false
+    set schoolsOpen false
     set quarantine true
     set OS_Import_Proportion 0
     set Essential_Workers 30
@@ -156,7 +156,7 @@ to do_stages_tony
     set spatial_distance true
     set age_isolation 0
     set case_isolation true
-    set schoolsPolicy false
+    set schoolsOpen false
     set quarantine true
     set OS_Import_Proportion 0
     set Essential_Workers 20
@@ -186,7 +186,7 @@ to do_stages_28_9_20
     set spatial_distance false
     set age_isolation 0
     set case_isolation false
-    set schoolsPolicy true
+    set schoolsOpen true
     set quarantine true
     set OS_Import_Proportion 0
     set link_switch false
@@ -210,7 +210,7 @@ to do_stages_28_9_20
     set spatial_distance true
     set age_isolation 0
     set case_isolation true
-    set schoolsPolicy true
+    set schoolsOpen true
     set quarantine true
     set OS_Import_Proportion 0
     set link_switch true
@@ -234,7 +234,7 @@ to do_stages_28_9_20
     set spatial_distance true
     set age_isolation 0
     set case_isolation true
-    set schoolsPolicy true
+    set schoolsOpen true
     set quarantine true
     set OS_Import_Proportion 0
     set link_switch true
@@ -258,7 +258,7 @@ to do_stages_28_9_20
     set spatial_distance true
     set age_isolation 0
     set case_isolation true
-    set schoolsPolicy false
+    set schoolsOpen false
     set quarantine true
     set OS_Import_Proportion 0
     set link_switch true
@@ -282,7 +282,7 @@ to do_stages_28_9_20
     set spatial_distance true
     set age_isolation 0
     set case_isolation true
-    set schoolsPolicy false
+    set schoolsOpen false
     set quarantine true
     set OS_Import_Proportion 0
     set link_switch true
@@ -306,7 +306,7 @@ to do_stages_28_9_20
     set spatial_distance true
     set age_isolation 0
     set case_isolation true
-    set schoolsPolicy false
+    set schoolsOpen false
     set quarantine true
     set OS_Import_Proportion 0
     set link_switch true
@@ -335,7 +335,7 @@ to do_stages_vic
     set spatial_distance false
     set age_isolation 0
     set case_isolation false
-    set schoolsPolicy true
+    set schoolsOpen true
     set quarantine true
     set OS_Import_Proportion 0
     set link_switch false
@@ -358,7 +358,7 @@ to do_stages_vic
     set spatial_distance true
     set age_isolation 0
     set case_isolation true
-    set schoolsPolicy true
+    set schoolsOpen true
     set quarantine true
     set OS_Import_Proportion 0
     set link_switch true
@@ -381,7 +381,7 @@ to do_stages_vic
     set spatial_distance true
     set age_isolation 0
     set case_isolation true
-    set schoolsPolicy false
+    set schoolsOpen false
     set quarantine true
     set OS_Import_Proportion 0
     set link_switch true
@@ -404,7 +404,7 @@ to do_stages_vic
     set spatial_distance true
     set age_isolation 0
     set case_isolation true
-    set schoolsPolicy false
+    set schoolsOpen false
     set quarantine true
     set OS_Import_Proportion 0
     set link_switch true
@@ -427,7 +427,7 @@ to do_stages_vic
     set spatial_distance true
     set age_isolation 0
     set case_isolation true
-    set schoolsPolicy false
+    set schoolsOpen false
     set quarantine true
     set OS_Import_Proportion 0
     set link_switch true
@@ -455,7 +455,7 @@ to do_stages_31_8_2020
     set spatial_distance false
     set age_isolation 0
     set case_isolation false
-    set schoolsPolicy true
+    set schoolsOpen true
     set quarantine true
     set OS_Import_Proportion 0
     set link_switch false
@@ -487,7 +487,7 @@ to do_stages_31_8_2020
     set spatial_distance true
     set age_isolation 0
     set case_isolation true
-    set schoolsPolicy true
+    set schoolsOpen true
     set quarantine true
     set OS_Import_Proportion 0
     set link_switch true
@@ -519,7 +519,7 @@ to do_stages_31_8_2020
     set spatial_distance true
     set age_isolation 0
     set case_isolation true
-    set schoolsPolicy true
+    set schoolsOpen true
     set quarantine true
     set OS_Import_Proportion 0
     set link_switch true
@@ -551,7 +551,7 @@ to do_stages_31_8_2020
     set spatial_distance true
     set age_isolation 0
     set case_isolation true
-    set schoolsPolicy true
+    set schoolsOpen true
     set quarantine true
     set OS_Import_Proportion 0
     set link_switch true
@@ -591,7 +591,7 @@ to do_stages_31_8_2020
     set spatial_distance true
     set age_isolation 0
     set case_isolation true
-    set schoolsPolicy true
+    set schoolsOpen true
     set quarantine true
     set OS_Import_Proportion 0
     set link_switch true
@@ -632,7 +632,7 @@ to do_stages_31_8_2020
     set spatial_distance true
     set age_isolation 0
     set case_isolation true
-    set schoolsPolicy true
+    set schoolsOpen true
     set quarantine true
     set OS_Import_Proportion 0
     set link_switch true
@@ -657,7 +657,7 @@ to do_stages_31_8_2020
     set spatial_distance true
     set age_isolation 0
     set case_isolation true
-    set schoolsPolicy true
+    set schoolsOpen true
     set quarantine true
     set OS_Import_Proportion 0
     set link_switch true
@@ -682,7 +682,7 @@ to do_stages_31_8_2020
     set spatial_distance true
     set age_isolation 0
     set case_isolation true
-    set schoolsPolicy true
+    set schoolsOpen true
     set quarantine true
     set OS_Import_Proportion 0
     set link_switch true

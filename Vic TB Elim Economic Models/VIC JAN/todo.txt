@@ -30,7 +30,7 @@ Meeting notes:
  * Simple question - Are the death rates in setup::setdeathrisk good?
  * 
 
-Make schools close in stage 3 and 4 (following schoolsPolicy)
+Make schools close in stage 3 and 4 (following schoolsOpen)
 Add a parameter to multiply transmissiblity for compliant isolated infected people.
 Make a global modifier for proportion_people_avoid and proportion_time_avoid with SD 3%
 Add a parameter for non-infective period at the start (48 hours).

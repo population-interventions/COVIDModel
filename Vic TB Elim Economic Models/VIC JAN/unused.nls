@@ -101,7 +101,7 @@ end
 
 to setup
   ;; allocates children to households
-  if schoolsPolicy = true [
+  if schoolsOpen = true [
     ask simuls with [ agerange > 18 and agerange <= 60 ] [
       ;; allows for upo 5% of houses to be sharehouses / care facilities, etc.
       if count simuls with [householdUnit = [ householdUnit ] of myself ] > 2 and 95 > random 100 [
@@ -256,9 +256,9 @@ end
 to turnOnTracking
   ;; ensures that policies are enacted if their master switches are set to true at the time of the policy switch turning on
   if freewheel != true [
-    if policyTriggerOn = true and ticks >= triggerday and schoolsPolicy = true [
+    if policyTriggerOn = true and ticks >= triggerday and schoolsOpen = true [
       set tracking true
-      set SchoolsPolicy true
+      set schoolsOpen true
     ]
     if policyTriggerOn = true and ticks >= triggerday [
       set tracking true
@@ -439,7 +439,7 @@ end
 
 ;; This code was referenced in setup, but it did not do anything since it was called at a point where agerage=95 for all agents.
 to iterateAsymptomAge
-  if freeWheel = false and PolicyTriggerOn = true and schoolsPolicy = true [
+  if freeWheel = false and PolicyTriggerOn = true and schoolsOpen = true [
     ;; places proportion of people under 18 into the asymptomatic category
     ask n-of ((count simuls with [ agerange < 19 ] ) * Asymptom_Prop ) simuls with [ agerange <= 18 ] [
       set asymptom random Asymptom_Prop

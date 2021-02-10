@@ -309,7 +309,7 @@ Span
 Span
 0
 30
-10.0
+5.0
 1
 1
 NIL
@@ -403,7 +403,7 @@ ReInfectionRate
 ReInfectionRate
 0
 100
-0.0
+1.0
 1
 1
 NIL
@@ -507,7 +507,7 @@ superspreaders
 superspreaders
 0
 1
-0.05
+0.02
 0.01
 1
 NIL
@@ -577,7 +577,7 @@ Proportion_People_Avoid
 Proportion_People_Avoid
 0
 100
-68.0
+81.0
 .5
 1
 NIL
@@ -592,7 +592,7 @@ Proportion_Time_Avoid
 Proportion_Time_Avoid
 0
 100
-68.0
+81.0
 .5
 1
 NIL
@@ -1463,7 +1463,7 @@ Essential_Workers
 Essential_Workers
 0
 100
-30.0
+20.0
 1
 1
 NIL
@@ -1545,8 +1545,8 @@ SWITCH
 288
 1537
 321
-schoolsPolicy
-schoolsPolicy
+schoolsOpen
+schoolsOpen
 1
 1
 -1000
@@ -1885,7 +1885,7 @@ Visit_Radius
 Visit_Radius
 0
 16
-3.5
+1.8
 1
 1
 NIL
@@ -2544,7 +2544,7 @@ RAND_SEED
 RAND_SEED
 0
 1000000
-526570.0
+0.0
 1
 1
 NIL
@@ -2825,7 +2825,7 @@ CHOOSER
 param_policy
 param_policy
 "AggressElim" "ModerateElim" "TightSupress" "LooseSupress" "None"
-1
+2
 
 SLIDER
 1513
@@ -3039,7 +3039,7 @@ Complacency_Bound
 Complacency_Bound
 0
 100
-68.0
+81.0
 1
 1
 NIL
@@ -3095,7 +3095,7 @@ SWITCH
 13
 140
 121
-174
+173
 profile_on
 profile_on
 1
@@ -3123,12 +3123,12 @@ SLIDER
 969
 23
 1142
-57
+56
 End_Day
 End_Day
 -1
 200
-39.0
+-1.0
 1
 1
 NIL
@@ -3948,7 +3948,7 @@ set PTA random 100</setup>
     <enumeratedValueSet variable="tracking">
       <value value="true"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="schoolsPolicy">
+    <enumeratedValueSet variable="schoolsOpen">
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="link_switch">
@@ -4592,7 +4592,7 @@ set PTA random 100</setup>
     <enumeratedValueSet variable="tracking">
       <value value="true"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="schoolsPolicy">
+    <enumeratedValueSet variable="schoolsOpen">
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="link_switch">
@@ -4840,7 +4840,7 @@ set PTA random 100</setup>
       <value value="90"/>
       <value value="50"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="SchoolsPolicy">
+    <enumeratedValueSet variable="schoolsOpen">
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="App_Uptake">
@@ -5078,7 +5078,7 @@ set PTA random 100</setup>
       <value value="50"/>
       <value value="30"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="SchoolsPolicy">
+    <enumeratedValueSet variable="schoolsOpen">
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="App_Uptake">
@@ -5310,7 +5310,7 @@ set asymptomatic asymptomatic + random-normal 0 3</setup>
     <enumeratedValueSet variable="Mask_Wearing">
       <value value="90"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="SchoolsPolicy">
+    <enumeratedValueSet variable="schoolsOpen">
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="App_Uptake">
@@ -5558,7 +5558,7 @@ set App_uptake App_Uptake + random-normal 0 2</setup>
     <enumeratedValueSet variable="Mask_Wearing">
       <value value="90"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="SchoolsPolicy">
+    <enumeratedValueSet variable="schoolsOpen">
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="App_Uptake">
@@ -5760,7 +5760,7 @@ set App_uptake App_Uptake + random-normal 0 2</setup>
     <enumeratedValueSet variable="Case_Reporting_Delay">
       <value value="6"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="schoolsPolicy">
+    <enumeratedValueSet variable="schoolsOpen">
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="phwarnings">
@@ -6058,7 +6058,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="Case_Reporting_Delay">
       <value value="6"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="schoolsPolicy">
+    <enumeratedValueSet variable="schoolsOpen">
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="phwarnings">
@@ -6355,7 +6355,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="Case_Reporting_Delay">
       <value value="6"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="schoolsPolicy">
+    <enumeratedValueSet variable="schoolsOpen">
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="phwarnings">
@@ -6664,7 +6664,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="Case_Reporting_Delay">
       <value value="6"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="schoolsPolicy">
+    <enumeratedValueSet variable="schoolsOpen">
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="phwarnings">
@@ -6967,7 +6967,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="Case_Reporting_Delay">
       <value value="6"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="schoolsPolicy">
+    <enumeratedValueSet variable="schoolsOpen">
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="phwarnings">
@@ -7270,7 +7270,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="Case_Reporting_Delay">
       <value value="6"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="schoolsPolicy">
+    <enumeratedValueSet variable="schoolsOpen">
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="phwarnings">
@@ -7567,7 +7567,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="Case_Reporting_Delay">
       <value value="6"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="schoolsPolicy">
+    <enumeratedValueSet variable="schoolsOpen">
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="phwarnings">
@@ -7883,7 +7883,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="Case_Reporting_Delay">
       <value value="6"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="schoolsPolicy">
+    <enumeratedValueSet variable="schoolsOpen">
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="phwarnings">
@@ -8198,7 +8198,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="Case_Reporting_Delay">
       <value value="6"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="schoolsPolicy">
+    <enumeratedValueSet variable="schoolsOpen">
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="phwarnings">
@@ -8513,7 +8513,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="Case_Reporting_Delay">
       <value value="6"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="schoolsPolicy">
+    <enumeratedValueSet variable="schoolsOpen">
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="threetotwo">
@@ -8841,7 +8841,7 @@ set undetected_proportion undetected_proportion + random-normal 0 3</setup>
     <enumeratedValueSet variable="Case_Reporting_Delay">
       <value value="6"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="schoolsPolicy">
+    <enumeratedValueSet variable="schoolsOpen">
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="threetotwo">
@@ -9165,7 +9165,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="Case_Reporting_Delay">
       <value value="6"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="schoolsPolicy">
+    <enumeratedValueSet variable="schoolsOpen">
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="threetotwo">
@@ -9480,7 +9480,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="Case_Reporting_Delay">
       <value value="6"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="schoolsPolicy">
+    <enumeratedValueSet variable="schoolsOpen">
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="phwarnings">
@@ -9776,7 +9776,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="Case_Reporting_Delay">
       <value value="6"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="schoolsPolicy">
+    <enumeratedValueSet variable="schoolsOpen">
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="threetotwo">
@@ -10092,7 +10092,7 @@ set undetected_proportion undetected_proportion + random-normal 0 3</setup>
     <enumeratedValueSet variable="Case_Reporting_Delay">
       <value value="6"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="schoolsPolicy">
+    <enumeratedValueSet variable="schoolsOpen">
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="threetotwo">
@@ -10405,7 +10405,7 @@ set undetected_proportion undetected_proportion + random-normal 0 3</setup>
     <enumeratedValueSet variable="Case_Reporting_Delay">
       <value value="6"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="schoolsPolicy">
+    <enumeratedValueSet variable="schoolsOpen">
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="threetotwo">
@@ -10727,7 +10727,7 @@ set undetected_proportion undetected_proportion + random-normal 0 3</setup>
     <enumeratedValueSet variable="Case_Reporting_Delay">
       <value value="6"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="schoolsPolicy">
+    <enumeratedValueSet variable="schoolsOpen">
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="threetotwo">
@@ -11046,7 +11046,7 @@ set undetected_proportion undetected_proportion + random-normal 0 3</setup>
     <enumeratedValueSet variable="Case_Reporting_Delay">
       <value value="6"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="schoolsPolicy">
+    <enumeratedValueSet variable="schoolsOpen">
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="threetotwo">
@@ -11422,7 +11422,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="SchoolReturnDate">
       <value value="0"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="schoolsPolicy">
+    <enumeratedValueSet variable="schoolsOpen">
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="se_illnesspd">
@@ -11761,7 +11761,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="SchoolReturnDate">
       <value value="0"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="schoolsPolicy">
+    <enumeratedValueSet variable="schoolsOpen">
       <value value="false"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="se_illnesspd">
@@ -12101,7 +12101,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="SchoolReturnDate">
       <value value="0"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="schoolsPolicy">
+    <enumeratedValueSet variable="schoolsOpen">
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="se_illnesspd">
@@ -12441,7 +12441,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="SchoolReturnDate">
       <value value="0"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="schoolsPolicy">
+    <enumeratedValueSet variable="schoolsOpen">
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="se_illnesspd">
@@ -12781,7 +12781,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="SchoolReturnDate">
       <value value="0"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="schoolsPolicy">
+    <enumeratedValueSet variable="schoolsOpen">
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="se_illnesspd">
@@ -13121,7 +13121,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="SchoolReturnDate">
       <value value="0"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="schoolsPolicy">
+    <enumeratedValueSet variable="schoolsOpen">
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="se_illnesspd">
@@ -13461,7 +13461,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="SchoolReturnDate">
       <value value="0"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="schoolsPolicy">
+    <enumeratedValueSet variable="schoolsOpen">
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="se_illnesspd">
@@ -13800,7 +13800,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="SchoolReturnDate">
       <value value="0"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="schoolsPolicy">
+    <enumeratedValueSet variable="schoolsOpen">
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="se_illnesspd">
@@ -14143,7 +14143,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="SchoolReturnDate">
       <value value="0"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="schoolsPolicy">
+    <enumeratedValueSet variable="schoolsOpen">
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="se_illnesspd">
@@ -14487,7 +14487,7 @@ set App_uptake App_Uptake + random-normal 0 4</setup>
     <enumeratedValueSet variable="SchoolReturnDate">
       <value value="0"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="schoolsPolicy">
+    <enumeratedValueSet variable="schoolsOpen">
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="se_illnesspd">
@@ -14837,7 +14837,7 @@ set stage BaseStage</setup>
     <enumeratedValueSet variable="SchoolReturnDate">
       <value value="0"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="schoolsPolicy">
+    <enumeratedValueSet variable="schoolsOpen">
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="se_illnesspd">
@@ -15202,7 +15202,7 @@ set stage BaseStage</setup>
     <enumeratedValueSet variable="SchoolReturnDate">
       <value value="0"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="schoolsPolicy">
+    <enumeratedValueSet variable="schoolsOpen">
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="se_illnesspd">
@@ -15565,7 +15565,7 @@ set stage BaseStage</setup>
     <enumeratedValueSet variable="SchoolReturnDate">
       <value value="0"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="schoolsPolicy">
+    <enumeratedValueSet variable="schoolsOpen">
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="se_illnesspd">

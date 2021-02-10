@@ -370,6 +370,9 @@ to setGlobals
   set transmission_sum 0
   set transmission_average 0
   
+  set avoidSuccess 0
+  set avoidAttempts 0
+  
   ; Vaccine phase and subphase, as well as internal index and data table.
   set global_vaccinePhase 0
   set global_vaccineSubPhase 0

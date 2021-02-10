@@ -7,6 +7,7 @@ Speedup:
  * Replace "any? other simuls-here with [ householdUnit != [ householdUnit ] of myself" in general with a "am I at my house" check?
  * simul_visitDestination is particularly slow.
  * SIMUL_AVOID_STUDENT and SIMUL_AVOID are a bit slow.
+ * move-to one-of simuls with [...] in simul_avoid_student is responsible for 30% of the compute time.
 
 Questions
  * Ask questions about how essential workers should behave.

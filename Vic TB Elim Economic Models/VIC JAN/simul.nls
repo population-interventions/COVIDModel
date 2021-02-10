@@ -227,6 +227,24 @@ to simul_update_patch_utilisation
   ]
 end
 
+to simul_update_patch_house_gather
+  let myPatch patch-here
+  let houseNumber householdUnit
+  ask myPatch [
+    ifelse lastHouseGatherTime < ticks
+    [
+      set houseGatherIndex houseNumber
+      set lastHouseGatherTime ticks
+    ]
+    [
+      ;; Check if another household is here.
+      if houseGatherIndex != houseNumber [
+        set houseGatherIndex -1
+      ]
+    ]
+  ]
+end
+
 to simul_infect
   if color = cyan [
     let mySucceptibility 1
@@ -310,7 +328,14 @@ to simul_avoid_student
       and Proportion_People_Avoid > proportion_people_avoid_draw
       and Proportion_Time_Avoid > random 100
   [
-    if any? other simuls-here with [ householdUnit != [ householdUnit ] of myself or studentFlag != 1 ] [
+    let myPatch patch-here
+    let possiblyNeedAvoid false
+    ask myPatch [
+      if lastHouseGatherTime = ticks and houseGatherIndex = -1 [
+        set possiblyNeedAvoid true
+      ]
+    ]
+    if possiblyNeedAvoid and any? other simuls-here with [ householdUnit != [ householdUnit ] of myself and studentFlag != 1 ] [
       ;; students don't isolate from each other or their household unit
       simul_move_to_empty_patch
     ]
@@ -318,7 +343,9 @@ to simul_avoid_student
   ;; if you are a student, you avoid everyone you can except for essential workers (i.e., teachers), other students
   ;; and people from your own household
   [
+    ;; TODO. The following line is responsible for 30% of the compute time.
     move-to one-of simuls with [ essentialworkerflag = 1 or householdUnit = [ householdUnit ] of myself or studentFlag = 1 ]
+    simul_update_patch_house_gather
     simul_update_patch_utilisation
   ]
 end
@@ -336,7 +363,14 @@ to simul_avoid
       and Proportion_People_Avoid > proportion_people_avoid_draw
       and Proportion_Time_Avoid > random 100
       [
-        if any? other simuls-here with [ householdUnit != [ householdUnit ] of myself ] [
+        let myPatch patch-here
+        let possiblyNeedAvoid false
+        ask myPatch [
+          if lastHouseGatherTime = ticks and houseGatherIndex = -1 [
+            set possiblyNeedAvoid true
+          ]
+        ]
+        if possiblyNeedAvoid and any? other simuls-here with [ householdUnit != [ householdUnit ] of myself ] [
           simul_move_to_empty_patch
         ]
       ]

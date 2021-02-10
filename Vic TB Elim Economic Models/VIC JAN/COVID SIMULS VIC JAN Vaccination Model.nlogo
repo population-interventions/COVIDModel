@@ -122,6 +122,9 @@ globals [
   transmission_sum
   transmission_average
 
+  avoidSuccess
+  avoidAttempts
+
   ; Vaccine phase and subphase, as well as internal index and data table.
   global_vaccinePhase
   global_vaccineSubPhase
@@ -183,6 +186,8 @@ patches-own [
   lastInfectionUpdate ;; Update indicator for stale simulantCount data
   infectionList ;; List of infectivities of simulants on the patch
   lastUtilTime ;; Last tick that the patch was occupied
+  lastHouseGatherTime ;; Last tick that a house gathered here.
+  houseGatherIndex ;; Last house that gathered here. -1 indicates more than one house.
 ]
 @#$#@#$#@
 GRAPHICS-WINDOW
@@ -2539,7 +2544,7 @@ RAND_SEED
 RAND_SEED
 0
 1000000
-0.0
+8888.0
 1
 1
 NIL
@@ -2820,7 +2825,7 @@ CHOOSER
 param_policy
 param_policy
 "AggressElim" "ModerateElim" "TightSupress" "LooseSupress" "None"
-2
+3
 
 SLIDER
 1513
@@ -3070,10 +3075,10 @@ new_case_real
 11
 
 BUTTON
-10
-94
-118
-129
+14
+102
+119
+136
 Profile Stop
 profiler:stop \nprint profiler:report
 NIL
@@ -3087,15 +3092,32 @@ NIL
 1
 
 SWITCH
-9
-134
-118
-167
+13
+140
+121
+174
 profile_on
 profile_on
 1
 1
 -1000
+
+BUTTON
+13
+62
+120
+96
+Profile Start
+profiler:start
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
 
 @#$#@#$#@
 ## WHAT IS IT?

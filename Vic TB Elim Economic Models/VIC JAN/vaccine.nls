@@ -17,6 +17,19 @@ to setup_vaccineData
   set global_vaccineType 0
   set global_vaccinePerDay 0
   set global_vaccine_eff 0
+  set global_incursionScale 0
+  set global_incursionArrivals 0
+end
+
+to vaccine_do_incursion_based_on_phase
+  let peoplePerSimul ( Scale_Factor ^ scalephase )
+  ask n-of global_incursionArrivals simuls with [color != red and color != black] [
+    if ( draw_borderIncursionRisk * global_incursionScale / peoplePerSimul ) > random-float 1 [
+      set color red
+      set timenow 0
+      set new_case_real_counter new_case_real_counter + peoplePerSimul
+    ]
+  ]
 end
 
 to vaccine_brand_update
@@ -45,6 +58,8 @@ to vaccine_update
       set global_vaccineSubPhase item 1 phaseData
       set global_vaccinePerDay (item 3 phaseData)/(item 2 phaseData) + 0.00001 ; Floats
       set global_vaccineType item 4 phaseData
+      set global_incursionScale item 5 phaseData
+      set global_incursionArrivals item 6 phaseData
       
       vaccine_brand_update
       

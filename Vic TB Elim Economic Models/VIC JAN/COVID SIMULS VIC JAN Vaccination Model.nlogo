@@ -129,6 +129,7 @@ globals [
   draw_pta_modifier
   draw_isolationCompliance
   draw_maskWearEfficacy
+  draw_borderIncursionRisk
 
   ; Vaccine phase and subphase, as well as internal index and data table.
   global_vaccinePhase
@@ -136,6 +137,9 @@ globals [
   global_vaccineAvailible
   global_vaccineType
   global_vaccinePerDay
+  global_incursionScale
+  global_incursionArrivals
+
   vaccinePhaseEndDay
   vaccinePhaseIndex
   vaccineTable
@@ -314,7 +318,7 @@ Span
 Span
 0
 30
-30.0
+15.0
 1
 1
 NIL
@@ -571,7 +575,7 @@ Proportion_People_Avoid
 Proportion_People_Avoid
 0
 100
-15.0
+52.0
 .5
 1
 NIL
@@ -586,7 +590,7 @@ Proportion_Time_Avoid
 Proportion_Time_Avoid
 0
 100
-15.0
+52.0
 .5
 1
 NIL
@@ -1439,7 +1443,7 @@ Essential_Workers
 Essential_Workers
 0
 100
-75.0
+50.0
 1
 1
 NIL
@@ -1842,7 +1846,7 @@ Visit_Radius
 Visit_Radius
 0
 16
-7.1
+5.3
 1
 1
 NIL
@@ -2782,7 +2786,7 @@ CHOOSER
 param_policy
 param_policy
 "AggressElim" "ModerateElim" "TightSupress" "LooseSupress" "None"
-1
+0
 
 SLIDER
 1513
@@ -2996,7 +3000,7 @@ Complacency_Bound
 Complacency_Bound
 0
 100
-15.0
+52.0
 1
 1
 NIL

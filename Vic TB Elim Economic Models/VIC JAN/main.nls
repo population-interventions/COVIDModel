@@ -27,16 +27,6 @@ to-report nonesspercentage
   ]
 end
 
-
-to incursion
-  ;; randomly asks someone to become infected
-  if ticks > 0 and currentinfections = 0 and IncursionRate > random-float 100 [
-    ask one-of simuls with [ color = cyan ] [
-      set color red
-    ]
-  ]
-end
-
 to resetMetricAverages
   ifelse transmission_count > 0
   [
@@ -159,7 +149,7 @@ to go
   ]
   
   ;; Randomly turn suceptible agents into infected ones. Percentage chance = IncursionRate.
-  incursion
+  vaccine_do_incursion_based_on_phase
   
   ;;show ( word " Simul Stuff " timer " seconds ")
   ;;reset-timer

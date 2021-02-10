@@ -26,4 +26,8 @@ name is the name of the vaccine in this phase. It is used by the model to change
 
 The comment column is for human consumption. It does nothing in the model.
 
-The rate of vaccination is calculated by the model, and is simply set to population/days. This many vaccines will be offered to agents each day. This value does not need to be an integer, as fractional vaccine is carried between days, avoiding the issues that may arise with small intergers,
+The rate of vaccination is calculated by the model, and is simply set to population/days. This many vaccines will be offered to agents each day. This value does not need to be an integer, as fractional vaccine is carried between days, avoiding the issues that may arise with small intergers.
+
+incursionScale is a multiplier for the probability of any given infected arrival infecting someone in the community.
+
+infectedArrivals is the number of oppotunities availible to infect a member of the community, per day.

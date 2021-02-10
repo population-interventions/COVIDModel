@@ -5,6 +5,10 @@
 
 to scaleup
   set scalephase scalephase + 1
+  
+  print ( count simuls with [ color = red ] * (1 - 1 / Scale_Factor) )
+  print count simuls with [ color = red ]
+  
   ask n-of ( count simuls with [ color = red ] * (1 - 1 / Scale_Factor) ) simuls with [ color = red ] [
     set size 2
     set color cyan
@@ -12,10 +16,13 @@ to scaleup
     set inQuarantine 0
     set sensitivity random-float 1
     set imported 0
+    set tracked 0
+    set timenow 0
     set R 0
 
     move-to one-of patches with [ pcolor = black ]
     simul_resetSomeRandomParams
+    simul_resampleHouse ;; Check that this makes sense.
 
     set returntoschool random 100
   ]
@@ -29,11 +36,12 @@ to scaleup
     set R 0
 
     move-to one-of patches with [ pcolor = black ] ;; resetincome calculateincomeperday calculateexpenditureperday
-
     simul_resetSomeRandomParams
+    simul_resampleHouse ;; Check that this makes sense.
   ]
 
   set contact_Radius Contact_Radius + (90 / 4)
+  print count simuls with [ color = red ]
 end
 
 to scaledown_no_hatch

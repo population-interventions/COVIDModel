@@ -129,6 +129,12 @@ to simul_resetlanding
   ;; iterates / sorts people into households
 end
 
+to simul_resampleHouse
+  set householdUnit random 1000
+  table:put houseTrackedCaseTimeTable householdunit -1
+  simul_resetlanding
+end
+
 to simul_PossiblyDie
   ;; determines whether people die on the basis of poor health (not currently active)
   if inQuarantine = 0 and Severity_of_illness / Illness_Period > random 100 [

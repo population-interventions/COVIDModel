@@ -308,7 +308,8 @@ to simul_avoid_student
       and Proportion_People_Avoid + draw_ppa_modifier > proportion_people_avoid_draw
       and Proportion_Time_Avoid + draw_pta_modifier > random 100
   [
-    if any? other simuls-here with [ householdUnit != [ householdUnit ] of myself or studentFlag != 1 ] [
+    let myHouse householdUnit
+    if any? other simuls-here with [ householdUnit != myHouse or studentFlag != 1 ] [
       ;; students don't isolate from each other or their household unit
       simul_move_to_empty_patch
     ]
@@ -316,8 +317,9 @@ to simul_avoid_student
   ;; if you are a student, you avoid everyone you can except for essential workers (i.e., teachers), other students
   ;; and people from your own household
   [
-    ;; TODO. The following line is responsible for 30% of the compute time.
-    move-to one-of simuls with [ essentialworkerflag = 1 or householdUnit = [ householdUnit ] of myself or studentFlag = 1 ]
+    ;; TODO. Check performance.
+    let myHouse householdUnit
+    move-to one-of simuls with [ essentialworkerflag = 1 or householdUnit = myHouse or studentFlag = 1 ]
     simul_update_patch_utilisation
   ]
 end
@@ -335,7 +337,8 @@ to simul_avoid
       and Proportion_People_Avoid + draw_ppa_modifier > proportion_people_avoid_draw
       and Proportion_Time_Avoid + draw_pta_modifier > random 100
       [
-        if any? other simuls-here with [ householdUnit != [ householdUnit ] of myself ] [
+        let myHouse householdUnit
+        if any? other simuls-here with [ householdUnit != myHouse ] [
           simul_move_to_empty_patch
         ]
       ]

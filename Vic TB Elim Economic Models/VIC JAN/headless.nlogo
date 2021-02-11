@@ -335,7 +335,6 @@ Span
 NIL
 HORIZONTAL
 
-
 SLIDER
 40
 1202
@@ -383,7 +382,6 @@ RestrictedMovement
 NIL
 HORIZONTAL
 
-
 SLIDER
 518
 982
@@ -429,9 +427,6 @@ ProductionRate
 NIL
 HORIZONTAL
 
-
-
-
 SLIDER
 2660
 663
@@ -476,9 +471,6 @@ Severity_of_illness
 1
 NIL
 HORIZONTAL
-
-
-
 
 SLIDER
 1542
@@ -540,7 +532,6 @@ FearTrigger
 NIL
 HORIZONTAL
 
-
 SWITCH
 582
 1268
@@ -566,9 +557,6 @@ Initial
 1
 NIL
 HORIZONTAL
-
-
-
 
 INPUTBOX
 205
@@ -607,10 +595,6 @@ Triggerday
 NIL
 HORIZONTAL
 
-
-
-
-
 SLIDER
 40
 1278
@@ -625,10 +609,6 @@ Incubation_Period
 1
 NIL
 HORIZONTAL
-
-
-
-
 
 SLIDER
 1094
@@ -682,8 +662,6 @@ cruise
 1
 -1000
 
-
-
 BUTTON
 597
 1423
@@ -712,7 +690,6 @@ days_of_cash_reserves
 0
 Number
 
-
 SWITCH
 1517
 954
@@ -723,9 +700,6 @@ scale
 0
 1
 -1000
-
-
-
 
 TEXTBOX
 582
@@ -799,7 +773,6 @@ Leave Freewheel to 'on' to manipulate policy on the fly
 0.0
 1
 
-
 SLIDER
 132
 937
@@ -814,8 +787,6 @@ ICU_Required
 1
 NIL
 HORIZONTAL
-
-
 
 SLIDER
 3048
@@ -876,7 +847,6 @@ Bed_Capacity
 1
 NIL
 HORIZONTAL
-
 
 SWITCH
 1540
@@ -955,8 +925,6 @@ self_capacity
 0
 Number
 
-
-
 INPUTBOX
 2864
 474
@@ -979,7 +947,6 @@ se_incubation
 0
 Number
 
-
 INPUTBOX
 2665
 754
@@ -991,7 +958,6 @@ initialassociationstrength
 0
 Number
 
-
 SLIDER
 742
 899
@@ -1001,7 +967,7 @@ Global_Transmissability
 Global_Transmissability
 0
 1
-0.3
+0.375
 0.01
 1
 NIL
@@ -1104,8 +1070,6 @@ schoolsOpen
 1
 -1000
 
-
-
 SWITCH
 1487
 1158
@@ -1131,9 +1095,6 @@ eWAppUptake
 1
 NIL
 HORIZONTAL
-
-
-
 
 SLIDER
 945
@@ -1206,18 +1167,6 @@ Case_Reporting_Delay
 NIL
 HORIZONTAL
 
-
-
-
-
-
-
-
-
-
-
-
-
 SLIDER
 1545
 332
@@ -1247,8 +1196,6 @@ Visit_Radius
 1
 NIL
 HORIZONTAL
-
-
 
 SLIDER
 745
@@ -1291,7 +1238,6 @@ OS_Import_Proportion
 NIL
 HORIZONTAL
 
-
 SLIDER
 1544
 178
@@ -1306,9 +1252,6 @@ OS_Import_Post_Proportion
 1
 NIL
 HORIZONTAL
-
-
-
 
 SWITCH
 730
@@ -1330,7 +1273,6 @@ InitialScale
 InitialScale
 0 1 2 3 4
 0
-
 
 INPUTBOX
 2442
@@ -1386,8 +1328,6 @@ SelfGovern
 0
 1
 -1000
-
-
 
 INPUTBOX
 2528
@@ -1455,7 +1395,6 @@ LowerStudentAge
 0
 Number
 
-
 SLIDER
 2208
 1269
@@ -1485,7 +1424,6 @@ outsideRisk
 1
 NIL
 HORIZONTAL
-
 
 INPUTBOX
 2694
@@ -1530,7 +1468,6 @@ fourtothree
 1
 0
 Number
-
 
 INPUTBOX
 2618
@@ -1606,8 +1543,6 @@ Household_Attack
 NIL
 HORIZONTAL
 
-
-
 SLIDER
 328
 940
@@ -1622,7 +1557,6 @@ IncursionRate
 1
 NIL
 HORIZONTAL
-
 
 SWITCH
 1528
@@ -1671,7 +1605,6 @@ BaseStage
 0 1 2 3 4
 0
 
-
 SLIDER
 2799
 45
@@ -1697,7 +1630,6 @@ MaxStage
 0 1 2 3 4
 4
 
-
 SLIDER
 13
 15
@@ -1707,13 +1639,11 @@ RAND_SEED
 RAND_SEED
 0
 1000000
-318841.0
+9957437.0
 1
 1
 NIL
 HORIZONTAL
-
-
 
 SLIDER
 7
@@ -1815,16 +1745,6 @@ param_vacEffDays
 NIL
 HORIZONTAL
 
-
-
-
-
-
-
-
-
-
-
 TEXTBOX
 1412
 27
@@ -1865,7 +1785,7 @@ Scale_Threshold
 Scale_Threshold
 50
 500
-260.0
+240.0
 1
 1
 NIL
@@ -1885,9 +1805,6 @@ Scale_Factor
 1
 NIL
 HORIZONTAL
-
-
-
 
 TEXTBOX
 772
@@ -1954,9 +1871,6 @@ Asymptom_Trace_Mult
 NIL
 HORIZONTAL
 
-
-
-
 SLIDER
 133
 978
@@ -1986,8 +1900,6 @@ Complacency_Bound
 1
 NIL
 HORIZONTAL
-
-
 
 BUTTON
 14
@@ -2079,8 +1991,6 @@ Non_Infective_Time
 NIL
 HORIZONTAL
 
-
-
 SWITCH
 203
 624
@@ -2091,9 +2001,6 @@ track_R
 0
 1
 -1000
-
-
-
 
 @#$#@#$#@
 ## WHAT IS IT?

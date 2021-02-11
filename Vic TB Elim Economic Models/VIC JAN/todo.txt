@@ -1,6 +1,7 @@
 
 Run a batch of simulations that test whether choice of scale has a consistent effect on the result.
 Why is (yellowcount > redcount) a condition for scaledown?
+Maybe remove the sliders and inputboxes that have no impact, to reduce the size of output sheets.
 
 Speedup:
  * Replace "any? other simuls-here with [ householdUnit != [ householdUnit ] of myself" in general with a "am I at my house" check?
@@ -23,8 +24,6 @@ Meeting notes:
 
 Note that whether school is open seems to be the main driver of infections. Students are probably following each other around much too often.
 
-casesinperiod7_real or reported?
-75% mask efficacy is two way. - Added some made up numbers.
 Fix set track_and_trace_efficiency (0.63219 - (0.07213 * ln(casesinperiod7_real)))
 fix 1b and 2
 Think about how to do overseas cases better than the scaled probabily method that exists for now.

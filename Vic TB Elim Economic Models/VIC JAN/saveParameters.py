@@ -5,8 +5,10 @@ Created on Thu Feb 11 12:11:03 2021
 @author: wilsonte
 """
 
-startPart = 'GRAPHICS-WINDOW'
-endPart = '@#$#@#$#@'
+from numpy import random
+
+def listToStr(input):
+    return " ".join(str(x) for x in input)
 
 
 def FindNameAndValue(file, nameLines, valueLines):
@@ -28,7 +30,7 @@ def GetChooserValue(optionString, choice):
     return options[int(choice)]
 
 
-def ReadModelFileAndWriteParams():
+def ReadModelFileAndWriteParams(startPart, endPart, valueOverwrite):
     modelFile = open('COVID SIMULS VIC JAN Vaccination Model.nlogo', 'r')
     outputFile = open('paramFile.txt', 'w')
     foundPart = False
@@ -51,11 +53,11 @@ def ReadModelFileAndWriteParams():
                 parameters.append([name, value])
             elif line == 'SWITCH':
                 name, value = FindNameAndValue(modelFile, 5, 2)
-                if value == '1':
-                    # Confusing how NetLogo seems to store this backwards
-                    value = 'false'
-                else:
+                if int(value) == 0:
+                    # Weird how netlogo stores switches packwards.
                     value = 'true'
+                else:
+                    value = 'false'
                 parameters.append([name, value])
             elif line == 'INPUTBOX':
                 name, value = FindNameAndValue(modelFile, 5, 1)
@@ -65,10 +67,26 @@ def ReadModelFileAndWriteParams():
                 value = GetChooserValue(value, modelFile.readline().rstrip())
                 parameters.append([name, value])
     
+    modelFile.close()
+    
     parameters.sort()
     for data in parameters:
-        outputFile.write('["' + str(data[0]) + '" ' + str(data[1]) + ']\n')  
+        name, value = str(data[0]), str(data[1])
+        if valueOverwrite.get(name):
+            value = valueOverwrite[name]
+        outputFile.write('["' + name + '" ' + value + ']\n')  
+        
     outputFile.close()
-    
-    
-ReadModelFileAndWriteParams()
+  
+  
+paramValues = {
+    'rand_seed' : listToStr(random.randint(10000000, size=(100))),
+    'param_policy' : listToStr([
+        '"AggressElim"',
+        '"ModerateElim"',
+        '"TightSupress"',
+        '"LooseSupress"',
+    ])
+}
+  
+ReadModelFileAndWriteParams('GRAPHICS-WINDOW', '@#$#@#$#@', paramValues)

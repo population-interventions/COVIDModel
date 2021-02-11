@@ -423,7 +423,7 @@ ReInfectionRate
 ReInfectionRate
 0
 100
-1.0
+0.0
 1
 1
 NIL
@@ -1513,7 +1513,7 @@ SWITCH
 398
 tracking
 tracking
-1
+0
 1
 -1000
 
@@ -1526,7 +1526,7 @@ Mask_Wearing
 Mask_Wearing
 0
 100
-0.0
+50.0
 1
 1
 NIL
@@ -1653,7 +1653,7 @@ SWITCH
 361
 MaskPolicy
 MaskPolicy
-1
+0
 1
 -1000
 
@@ -2447,7 +2447,7 @@ SWITCH
 442
 Vaccine_Available
 Vaccine_Available
-1
+0
 1
 -1000
 
@@ -2517,7 +2517,7 @@ RAND_SEED
 RAND_SEED
 0
 1000000
-318841.0
+492754.0
 1
 1
 NIL
@@ -2798,7 +2798,7 @@ CHOOSER
 param_policy
 param_policy
 "AggressElim" "ModerateElim" "TightSupress" "LooseSupress" "None"
-4
+3
 
 SLIDER
 1513
@@ -3101,7 +3101,7 @@ End_Day
 End_Day
 -1
 360
-70.0
+-1.0
 1
 1
 NIL

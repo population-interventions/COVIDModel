@@ -17,13 +17,9 @@ end
 to traceadjust
   ifelse casesinperiod7 > 0
   [
-    ;; Ensure that track_and_trace_efficiency does not go negative
-    set track_and_trace_efficiency (0.63219 - (0.07213 * ln(casesinperiod7)))
-    if track_and_trace_efficiency < 0.05 [
-      set track_and_trace_efficiency 0.05 
-    ]
+    set track_and_trace_efficiency  (0.85 ^ ln(casesinperiod7)) * 0.5
   ]
   [
-    set track_and_trace_efficiency 0.6
+    set track_and_trace_efficiency 0.5
   ]
 end

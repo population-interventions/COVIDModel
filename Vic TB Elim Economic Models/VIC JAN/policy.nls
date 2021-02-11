@@ -37,12 +37,12 @@ to policy_agressive_elim
         set stage 2  
         set decisionDate ticks
       ]
-      stage >= 2 and casesinperiod7 <= 0 * 7
+      stage >= 2 and casesinperiod7 <= 0 and casesinperiod14 < 2
       [
         set stage 1  
         set decisionDate ticks
       ]
-      stage >= 1 and casesinperiod28 <= 0 * 7
+      stage >= 1 and casesinperiod28 <= 0
       [
         set stage 0  
         set decisionDate ticks
@@ -62,12 +62,12 @@ to policy_moderate_elim
       set stage 3  
       set decisionDate ticks
     ]
-    stage <= 1 and casesinperiod14 >= 5
+    stage <= 1 and casesinperiod7 > 1 * 7
     [
       set stage 2  
       set decisionDate ticks
     ]
-    stage <= 0 and casesinperiod14 >= 2
+    stage <= 0 and casesinperiod7 >= 2
     [
       set stage 1  
       set decisionDate ticks
@@ -90,7 +90,7 @@ to policy_moderate_elim
         set stage 1  
         set decisionDate ticks
       ]
-      stage >= 1 and casesinperiod7 <= 0 * 7
+      stage >= 1 and casesinperiod7 <= 0
       [
         set stage 0  
         set decisionDate ticks

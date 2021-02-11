@@ -1440,7 +1440,7 @@ Global_Transmissability
 Global_Transmissability
 0
 1
-0.3
+0.24
 0.01
 1
 NIL
@@ -2809,7 +2809,7 @@ Scale_Threshold
 Scale_Threshold
 50
 500
-260.0
+240.0
 1
 1
 NIL

@@ -66,7 +66,12 @@ to scaledown_try_to_maintain_cohort
       let my_tracked tracked
       let my_inQuarantine inQuarantine
       
-      ask n-of (Scale_Factor - 1) cohort with [ color != red or color != black ] [
+      let eligible cohort with [ color != red or color != black ]
+      if count eligible < (Scale_Factor - 1) [
+        set eligible simuls with [ color != red or color != black ]
+      ]
+      
+      ask n-of (Scale_Factor - 1) eligible [
         set color red
         set timenow my_timenow
         set caseReportTime my_caseReportTime

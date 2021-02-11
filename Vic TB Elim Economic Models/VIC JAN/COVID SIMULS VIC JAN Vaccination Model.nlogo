@@ -25,7 +25,6 @@ globals [
   AverageFinancialContacts
   ScalePhase
   Days
-  GlobalR
   CaseFatalityRate
   DeathCount
   DailyCases
@@ -110,6 +109,13 @@ globals [
   meanIDTime
 
   popDivisionTable ; Table of population cohort data
+
+  totalEndR
+  totalEndCount
+  endR_sum
+  endR_count
+  endR_mean_metric
+  average_R
 
   ; Number of agents that are workers and essential workers respectively.
   totalWorkers
@@ -196,6 +202,7 @@ patches-own [
   houseIndex ;; indicator that the patch is a house.
   lastInfectionUpdate ;; Update indicator for stale simulantCount data
   infectionList ;; List of infectivities of simulants on the patch
+  infectionCulprit ;; List of agents that cause infection. Only used of track_R is enabled.
   lastUtilTime ;; Last tick that the patch was occupied
   lastHouseGatherTime ;; Last tick that a house gathered here.
   houseGatherIndex ;; Last house that gathered here. -1 indicates more than one house.
@@ -320,7 +327,7 @@ Span
 Span
 0
 30
-15.0
+30.0
 1
 1
 NIL
@@ -474,9 +481,9 @@ count patches with [ pcolor = white ]
 
 MONITOR
 1392
-450
+460
 1561
-507
+517
 Total # Infected
 numberInfected
 0
@@ -577,7 +584,7 @@ Proportion_People_Avoid
 Proportion_People_Avoid
 0
 100
-52.0
+0.0
 .5
 1
 NIL
@@ -592,7 +599,7 @@ Proportion_Time_Avoid
 Proportion_Time_Avoid
 0
 100
-52.0
+0.0
 .5
 1
 NIL
@@ -1411,10 +1418,10 @@ initialassociationstrength
 Number
 
 MONITOR
-1395
-638
-1460
-683
+1398
+622
+1463
+667
 Virulence
 mean [ personalvirulence] of simuls
 1
@@ -1430,7 +1437,7 @@ Global_Transmissability
 Global_Transmissability
 0
 1
-0.5
+0.3
 0.01
 1
 NIL
@@ -1445,7 +1452,7 @@ Essential_Workers
 Essential_Workers
 0
 100
-50.0
+100.0
 1
 1
 NIL
@@ -1503,7 +1510,7 @@ SWITCH
 398
 tracking
 tracking
-0
+1
 1
 -1000
 
@@ -1516,7 +1523,7 @@ Mask_Wearing
 Mask_Wearing
 0
 100
-90.0
+0.0
 1
 1
 NIL
@@ -1643,7 +1650,7 @@ SWITCH
 361
 MaskPolicy
 MaskPolicy
-0
+1
 1
 -1000
 
@@ -1848,7 +1855,7 @@ Visit_Radius
 Visit_Radius
 0
 16
-5.3
+8.8
 1
 1
 NIL
@@ -1945,9 +1952,9 @@ HORIZONTAL
 
 MONITOR
 1394
-585
+573
 1496
-630
+618
 NIL
 currentinfections
 17
@@ -1955,10 +1962,10 @@ currentinfections
 11
 
 MONITOR
-1620
-414
-1745
-459
+1629
+447
+1754
+492
 Average Illness time
 mean [ timenow ] of simuls with [ color = red ]
 1
@@ -2431,13 +2438,13 @@ NIL
 HORIZONTAL
 
 SWITCH
-988
-72
-1141
-105
+1547
+409
+1700
+442
 Vaccine_Available
 Vaccine_Available
-0
+1
 1
 -1000
 
@@ -2507,7 +2514,7 @@ RAND_SEED
 RAND_SEED
 0
 1000000
-8888.0
+473430.0
 1
 1
 NIL
@@ -2644,9 +2651,9 @@ HORIZONTAL
 
 MONITOR
 1403
-407
+418
 1491
-452
+463
 NIL
 contact_radius
 17
@@ -2720,10 +2727,10 @@ stage
 11
 
 MONITOR
-1624
-519
-1759
-564
+1627
+543
+1762
+588
 Interaction Infectivity
 transmission_average
 17
@@ -2731,10 +2738,10 @@ transmission_average
 11
 
 MONITOR
-1620
-464
-1745
-509
+1629
+497
+1754
+542
 Virulent Interactions
 transmission_count_metric
 17
@@ -2788,7 +2795,7 @@ CHOOSER
 param_policy
 param_policy
 "AggressElim" "ModerateElim" "TightSupress" "LooseSupress" "None"
-1
+4
 
 SLIDER
 1513
@@ -2947,10 +2954,10 @@ PENS
 "default" 1.0 0 -16777216 true "" "plot transmission_average"
 
 MONITOR
-1625
-573
-1755
-618
+1627
+583
+1757
+628
 Expected New Cases
 transmission_count_metric * transmission_average
 17
@@ -3002,7 +3009,7 @@ Complacency_Bound
 Complacency_Bound
 0
 100
-52.0
+0.0
 1
 1
 NIL
@@ -3028,9 +3035,9 @@ PENS
 
 MONITOR
 1625
-627
+623
 1755
-672
+668
 Real New Cases
 new_case_real
 17
@@ -3091,7 +3098,7 @@ End_Day
 End_Day
 -1
 360
-360.0
+70.0
 1
 1
 NIL
@@ -3128,10 +3135,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-1508
-628
-1610
-673
+1505
+573
+1607
+618
 NIL
 totalOverseasIncursions
 17
@@ -3139,10 +3146,10 @@ totalOverseasIncursions
 11
 
 PLOT
-1495
-677
-1763
-826
+2198
+308
+2466
+457
 OverseasIncursions
 NIL
 NIL
@@ -3155,6 +3162,47 @@ false
 "" ""
 PENS
 "default" 1.0 0 -16777216 true "" "plot totalOverseasIncursions"
+
+SWITCH
+203
+624
+307
+658
+track_R
+track_R
+0
+1
+-1000
+
+PLOT
+1389
+669
+1766
+828
+Average R (black), New R (grey)
+NIL
+NIL
+0.0
+10.0
+0.0
+2.0
+true
+false
+"" ""
+PENS
+"default" 1.0 0 -16777216 true "" "ifelse totalEndCount > 0 [plot totalEndR / totalEndCount][plot 0]"
+"pen-1" 1.0 0 -7500403 true "" "plot endR_mean_metric"
+
+MONITOR
+1507
+622
+1610
+667
+NIL
+average_R
+17
+1
+11
 
 @#$#@#$#@
 ## WHAT IS IT?

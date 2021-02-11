@@ -181,6 +181,13 @@ to simul_updateIsolationResponse
   ]
 end
 
+to simul_setEndR
+    set totalEndR totalEndR + R
+    set totalEndCount totalEndCount + 1
+    set endR_sum endR_sum + R
+    set endR_count endR_count + 1
+end
+
 ;;*******************************************************************************************************************************
 ;;** Simul Once-A-Tick Functions **
 ;;*******************************************************************************************************************************
@@ -208,12 +215,16 @@ to simul_record_patch_infectiveness
     ;print localInfectiveness
     
     let myPatch patch-here
+    let thisSimul self
     ask myPatch [
       if lastInfectionUpdate < ticks [
         set infectionList []
         set lastInfectionUpdate ticks
       ]
       set infectionList lput localInfectiveness infectionList
+      if track_R [
+        table:put infectionCulprit localInfectiveness thisSimul
+      ]
     ]
   ]
 end
@@ -236,9 +247,13 @@ to simul_infect
     ]
     let myPatch patch-here
     let localInfectionList 0
+    let localInfectionCulprit 0
     ask myPatch [
       if lastInfectionUpdate >= ticks [
         set localInfectionList infectionList
+        if track_R [
+          set localInfectionCulprit infectionCulprit
+        ]
       ]
     ]
     
@@ -254,6 +269,11 @@ to simul_infect
             set color red
             set timenow 0
             set new_case_real_counter new_case_real_counter + Scale_Factor ^ scalephase
+            if track_R [
+              ask table:get localInfectionCulprit x [
+                set R R + 1
+              ]
+            ]
           ]
         ]
       ]
@@ -367,7 +387,12 @@ to simul_recover
   ;; if you are not dead at the end of your illness period, then you become recovered and turn yellow and 
   ;; don't need hospital resources, anymore
   if timenow > ownillnessperiod and color != black [
+    if track_R [
+      simul_setEndR 
+    ]
+    
     set color yellow
+    set R 0
     set inQuarantine 0
     set isolating 0
     set timenow 0
@@ -390,6 +415,10 @@ to simul_death
   ;; calculates death for individuals and adds them to a total for the population - This should not be relied upon to
   ;; esitmate deaths as it currently interacts with asymptomatic cases and undetected cases in the most recent version
   if color = red and timenow = int ownIllnessPeriod - 1 and RiskofDeath > random-float 1 [
+    if track_R [
+      simul_setEndR 
+    ]
+    
     set color black
     set pace 0
     set RequireICU 0

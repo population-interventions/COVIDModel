@@ -276,7 +276,6 @@ to setGlobals
   set AverageFinancialContacts   0
   set ScalePhase                 0
   set Days                       0
-  set GlobalR                    0
   set CaseFatalityRate           0
   set DeathCount                 0
   set DailyCases                 0
@@ -387,6 +386,13 @@ to setGlobals
   set vaccineTable 0
   set global_vaccine_eff 0 ;; Effectiveness of the vaccine along the three dimensions (infection rate, transmition rate, duration)
 
+  set totalEndR 0
+  set totalEndCount 0
+  set endR_sum 0
+  set endR_count 0
+  set endR_mean_metric 0
+  set average_R 0
+  
   ;; log transform illness period variables
   set Illness_PeriodVariance 0
   set M 0
@@ -484,6 +490,9 @@ to setup
     set houseIndex -1
     set lastInfectionUpdate -1
     set lastUtilTime -1
+    if track_R [
+      set infectionCulprit table:make
+    ]
   ]
   ;; sets a proportion of interactions outside vs inside
   ask n-of (count patches * Outside) patches [

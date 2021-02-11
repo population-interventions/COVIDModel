@@ -23,6 +23,7 @@ to do_stages_tony
     set mask_wearing 0
     set tracking false
     set superspreaders 0.1
+    set Vaccine_Available false
     ; Does nothing
     ;set App_Uptake 0
     ;set residualcautionPTA 0
@@ -51,6 +52,7 @@ to do_stages_tony
     set mask_wearing 50
     set tracking true
     set superspreaders 0.1
+    set Vaccine_Available true
     ; Does nothing
     ;set App_Uptake 0
     ;set residualcautionPTA 0
@@ -79,6 +81,7 @@ to do_stages_tony
     set mask_wearing 90
     set tracking true
     set superspreaders 0.1
+    set Vaccine_Available true
     ; Does nothing
     ;set App_Uptake 0
     ;set link_switch true
@@ -108,6 +111,7 @@ to do_stages_tony
     set mask_wearing 90
     set tracking true
     set superspreaders 0.1
+    set Vaccine_Available true
     ; Does nothing
     ;set App_Uptake 0
     ;set link_switch true
@@ -136,6 +140,7 @@ to do_stages_tony
     set mask_wearing 90
     set tracking true
     set superspreaders 0.05
+    set Vaccine_Available true
     ; Does nothing
     ;set App_Uptake 0
     ;set link_switch true
@@ -164,6 +169,7 @@ to do_stages_tony
     set mask_wearing 90
     set tracking true
     set superspreaders 0.02
+    set Vaccine_Available true
     ; Does nothing
     ;set App_Uptake 0
     ;set link_switch true

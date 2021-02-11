@@ -7,39 +7,82 @@ to scaleup
   set scalephase scalephase + 1
   
   ask n-of ( count simuls with [ color = red ] * (1 - 1 / Scale_Factor) ) simuls with [ color = red ] [
-    set size 2
-    set color cyan
-    set timenow 0
-    set inQuarantine 0
-    set sensitivity random-float 1
-    set imported 0
-    set tracked 0
-    set timenow 0
-    set R 0
-
-    move-to one-of patches with [ pcolor = black ]
-    simul_resetSomeRandomParams
-    simul_resampleHouse ;; Check that this makes sense.
-
-    set returntoschool random 100
+    simul_do_scaleup
   ]
 
   ask n-of ( count simuls with [ color = yellow ] * (1 - 1 / Scale_Factor) ) simuls with [ color = yellow ] [
-    set size 2
-    set color cyan
-    set timenow 0
-    set inQuarantine 0
-    set sensitivity random-float 1
-    set R 0
-
-    move-to one-of patches with [ pcolor = black ] ;; resetincome calculateincomeperday calculateexpenditureperday
-    simul_resetSomeRandomParams
-    simul_resampleHouse ;; Check that this makes sense.
+    simul_do_scaleup
   ]
 
   set contact_Radius Contact_Radius + (90 / 4)
 end
 
+to scaleup_try_to_maintain_cohort
+  set scalephase scalephase + 1
+  let localRedCount count simuls with [ color = red ]
+  let localYellowCount count simuls with [ color = yellow ]
+  let localFilter 0
+  
+  foreach popDivisionTable_keys [ index ->
+    let cohort table:get populationCohortCache index
+    
+    ;; random-float 1 randomly handles fractional counts. It works because ask n-of seems to round down.
+    set localFilter cohort with [ color = red ]
+    ask n-of (((count localFilter + random-float 1) * (1 - 1 / Scale_Factor))) localFilter [
+      simul_do_scaleup
+    ]
+    
+    set localFilter cohort with [ color = yellow ]
+    ask n-of (((count localFilter + random-float 1) * (1 - 1 / Scale_Factor))) localFilter [
+      simul_do_scaleup
+    ]
+  ]
+  
+  set localFilter simuls with [ color = red ]
+  let localRedCount_after count localFilter
+  if localRedCount_after * Scale_Factor > localRedCount [
+    ask n-of (localRedCount_after - localRedCount / Scale_Factor + random-float 1) localFilter [
+      simul_do_scaleup
+    ]
+  ]
+  
+  set localFilter simuls with [ color = yellow ]
+  let localYellowCount_after count localFilter
+  if localYellowCount_after * Scale_Factor > localYellowCount [
+    ask n-of (localYellowCount_after - localYellowCount / Scale_Factor + random-float 1) localFilter [
+      simul_do_scaleup
+    ]
+  ]
+  
+  set contact_Radius Contact_Radius + (90 / 4)
+end
+
+to scaledown_try_to_maintain_cohort
+  foreach popDivisionTable_keys [ index ->
+    let cohort table:get populationCohortCache index
+    ask cohort with [ color = red ] [
+      let my_timenow timenow
+      let my_caseReportTime caseReportTime
+      let my_tracked tracked
+      let my_inQuarantine inQuarantine
+      
+      ask n-of (Scale_Factor - 1) cohort with [ color != red or color != black ] [
+        set color red
+        set timenow my_timenow
+        set caseReportTime my_caseReportTime
+        set tracked my_tracked
+        set inQuarantine my_inQuarantine
+        if inQuarantine = 1 [
+          move-to one-of patches with [ pcolor = white ] 
+        ]
+      ]
+    ]
+  ]
+  
+  set contact_Radius Contact_radius - (90 / 4)
+  set scalephase scalephase - 1
+end
+  
 to scaledown_no_hatch
   ask simuls with [ color = red ] [
     let my_timenow timenow
@@ -62,62 +105,6 @@ to scaledown_no_hatch
   set contact_Radius Contact_radius - (90 / 4)
   set scalephase scalephase - 1
 end
-  
-to scaledown
-  ;; reverses the procedure above after the peak of the epidemic
-  ask simuls with [ color = red ] [
-    hatch (Scale_Factor - 1) [
-      ;; Doesn't this give them all the same household???
-      move-to one-of patches with [ pcolor = black ]
-      
-      ;; Re-randomise some things
-      simul_resetSomeRandomParams
-    ]
-  ]
-
-  set contact_Radius Contact_radius - (90 / 4)
-  set scalephase scalephase - 1
-  
-  scaledownhatch
-end
-
-to scaledownhatch
-  ;; removes excess simuls fromt the scaled-down view
-  let vaccineRemovals 0
-  let vaccineWait []
-  let vaccineEff []
-  if count simuls > Population [
-    ask n-of ( count simuls - Population ) simuls with [ color != red or color != black ] [
-      if vaccinated = 1 or vacWaitDays > 0 [
-        set vaccineWait lput vacWaitDays vaccineWait
-        set vaccineEff lput vacWaitDays vaccineEff
-        set vaccineRemovals vaccineRemovals + 1
-      ]
-      die
-    ]
-  ]
-  
-  let eligibleSimul simuls with [ color = cyan and vacWaitDays = 0 and vaccinated = 0 ]
-  if count eligibleSimul < vaccineRemovals [
-   set vaccineRemovals count eligibleSimul
-  ]
-  
-  let index 0
-  ask n-of vaccineRemovals eligibleSimul [
-    set vacWaitDays item index vaccineWait
-    set selfVaccEffectiveness item index vaccineWait
-    if vacWaitDays = 0 [
-      set shape "person"
-      set vaccinated 1
-      
-      ;; Reduce illness length
-      set ownincubationperiod ( ownincubationperiod * (1 - selfVaccEffectiveness) )
-      set ownillnessperiod (ownillnessperiod * (1 - selfVaccEffectiveness) )
-    ]
-    
-    set index index + 1
-  ]
-end
 
 to CheckScale
   ;; this function scales up the simulation at base Scale_Factor to enable a small and large-scale understanding of dynamics.
@@ -125,11 +112,13 @@ to CheckScale
   ;; assumptions in SEIR models but as it scales up, recognises that there are geographic constraints of movement of populations
   (ifelse scale = true and redCount >= Scale_Threshold and scalePhase >= 0 and ((Scale_Factor ^ (scalePhase + 1)) * Population <= Total_Population) and days > 0
     [
-      scaleup
+      ;print count simuls with [ color = red ]
+      scaleup_try_to_maintain_cohort
+      ;print count simuls with [ color = red ]
     ]
     scale = true and redCount <= Scale_Threshold / Scale_Factor and yellowcount > redcount and days > 0 and scalephase > 0
     [
-      scaledown_no_hatch
+      scaledown_try_to_maintain_cohort
     ]
   )
 end

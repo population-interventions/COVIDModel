@@ -95,6 +95,62 @@ to superSpread
   ]
 end
 
+to scaledown
+  ;; reverses the procedure above after the peak of the epidemic
+  ask simuls with [ color = red ] [
+    hatch (Scale_Factor - 1) [
+      ;; Doesn't this give them all the same household???
+      move-to one-of patches with [ pcolor = black ]
+      
+      ;; Re-randomise some things
+      simul_resetSomeRandomParams
+    ]
+  ]
+
+  set contact_Radius Contact_radius - (90 / 4)
+  set scalephase scalephase - 1
+  
+  scaledownhatch
+end
+
+to scaledownhatch
+  ;; removes excess simuls fromt the scaled-down view
+  let vaccineRemovals 0
+  let vaccineWait []
+  let vaccineEff []
+  if count simuls > Population [
+    ask n-of ( count simuls - Population ) simuls with [ color != red or color != black ] [
+      if vaccinated = 1 or vacWaitDays > 0 [
+        set vaccineWait lput vacWaitDays vaccineWait
+        set vaccineEff lput vacWaitDays vaccineEff
+        set vaccineRemovals vaccineRemovals + 1
+      ]
+      die
+    ]
+  ]
+  
+  let eligibleSimul simuls with [ color = cyan and vacWaitDays = 0 and vaccinated = 0 ]
+  if count eligibleSimul < vaccineRemovals [
+   set vaccineRemovals count eligibleSimul
+  ]
+  
+  let index 0
+  ask n-of vaccineRemovals eligibleSimul [
+    set vacWaitDays item index vaccineWait
+    set selfVaccEffectiveness item index vaccineWait
+    if vacWaitDays = 0 [
+      set shape "person"
+      set vaccinated 1
+      
+      ;; Reduce illness length
+      set ownincubationperiod ( ownincubationperiod * (1 - selfVaccEffectiveness) )
+      set ownillnessperiod (ownillnessperiod * (1 - selfVaccEffectiveness) )
+    ]
+    
+    set index index + 1
+  ]
+end
+
 ;; *********************************************************************************************************
 ;; **** Counting
 ;; *********************************************************************************************************

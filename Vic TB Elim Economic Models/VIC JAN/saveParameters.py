@@ -86,7 +86,17 @@ paramValues = {
         '"ModerateElim"',
         '"TightSupress"',
         '"LooseSupress"',
-    ])
+    ]),
+    'total_population' : '25000000',
 }
+
+paramValuesTestR = {
+    'rand_seed' : listToStr(random.randint(10000000, size=(100))),
+    'param_policy' : listToStr([
+        '"None"',
+    ]),
+    'total_population' : '25000000',
+}
+  
   
 ReadModelFileAndWriteParams('GRAPHICS-WINDOW', '@#$#@#$#@', paramValues)

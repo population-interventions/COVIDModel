@@ -96,9 +96,11 @@ end
 to loadPopDivisionTable
   let populationFileData remove-item 0 csv:from-file "population.csv"
   set popDivisionTable table:make
+  set popDivisionTable_keys []
   let i 0
   foreach populationFileData [ x -> 
     table:put popDivisionTable i x
+    set popDivisionTable_keys lput i popDivisionTable_keys
     set i i + 1
   ]
 end
@@ -145,6 +147,7 @@ to createSimulants
       set vacWaitDays 0
       set isolating 0
 
+      set cohortIndex pop_index
       set agerange item 1 cohortData
       set atsi item 2 cohortData
       set comorbidityState item 3 cohortData
@@ -191,6 +194,12 @@ to createSimulants
       set pop_index pop_index + 1
       set agentsOfThisIndex 0
     ]
+  ]
+  
+  ;; Cache the population cohorts.
+  set populationCohortCache table:make
+  foreach popDivisionTable_keys [ index ->
+    table:put populationCohortCache index simuls with [ cohortIndex = index ]
   ]
 end
 

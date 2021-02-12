@@ -293,6 +293,7 @@ to simul_infect
             set color red
             set timenow 0
             set new_case_real_counter new_case_real_counter + Scale_Factor ^ scalephase
+            array:set infectArray cohortIndex (array:item infectArray cohortIndex) + Scale_Factor ^ scalephase
             if track_R [
               ask table:get localInfectionCulprit x [
                 set R R + 1
@@ -341,6 +342,18 @@ to simul_move
       move-to homeLocation
     ]
   ]
+end
+
+to simul_visitDestination
+  ;; sets up destinations where people might gather and set off superspreader events
+  ;; reduces large gatherings by stage
+  if inQuarantine = 0 and isolateCompliant = 0 and random-float 1 < Visit_Frequency [
+    let movePatch one-of destination_patches in-radius Visit_Radius
+    if is-patch? movePatch [
+      move-to movePatch
+    ]
+  ]
+  ;; essential workers do not have the same capacity to reduce contact as non-esssential
 end
 
 to simul_avoid_student
@@ -413,6 +426,28 @@ to simul_superSpread
   ]
 end
 
+to simul_settime
+  ;; asks simuls to start counting the days since they became infected and to also possibly die
+  ;; dying this way currently not implemented but done at the end of the illness period, instead
+  if color = red [
+    set timenow timenow + 1
+    simul_PossiblyDie
+    if timenow = 1 [
+      set infectionsToday_acc infectionsToday_acc + 1
+    ]
+    if tracked = 1 and caseReportTime = ticks [
+      set casesReportedToday_acc casesReportedToday_acc + 1
+    ]
+  ]
+end
+
+to simul_recovered_lose_immunity
+  ;; if you are recovered but suceptible again, you could become reinfected
+  if color = yellow and ReinfectionRate > random 100 [
+    set color cyan
+  ]
+end
+
 to simul_recover
   ;; if you are not dead at the end of your illness period, then you become recovered and turn yellow and 
   ;; don't need hospital resources, anymore
@@ -429,23 +464,10 @@ to simul_recover
     set tracked 0
     set health (100 - agerange )
     set requireICU 0
+    array:set recoverArray cohortIndex (array:item recoverArray cohortIndex) + Scale_Factor ^ scalephase
   ]
 end
 
-to simul_settime
-  ;; asks simuls to start counting the days since they became infected and to also possibly die
-  ;; dying this way currently not implemented but done at the end of the illness period, instead
-  if color = red [
-    set timenow timenow + 1
-    simul_PossiblyDie
-    if timenow = 1 [
-      set infectionsToday_acc infectionsToday_acc + 1
-    ]
-    if tracked = 1 and caseReportTime = ticks [
-      set casesReportedToday_acc casesReportedToday_acc + 1
-    ]
-  ]
-end
 
 to simul_death
   ;; calculates death for individuals and adds them to a total for the population - This should not be relied upon to
@@ -463,13 +485,7 @@ to simul_death
     set timenow 0
     set tracked 0
     set deathcount deathcount + Scale_Factor ^ scalephase
-  ]
-end
-
-to simul_recovered_lose_immunity
-  ;; if you are recovered but suceptible again, you could become reinfected
-  if color = yellow and ReinfectionRate > random 100 [
-    set color cyan
+    array:set dieArray cohortIndex (array:item dieArray cohortIndex) + Scale_Factor ^ scalephase
   ]
 end
 
@@ -507,18 +523,6 @@ to simul_checkMask
       set wearingMask 0
     ]
   ]
-end
-
-to simul_visitDestination
-  ;; sets up destinations where people might gather and set off superspreader events
-  ;; reduces large gatherings by stage
-  if inQuarantine = 0 and isolateCompliant = 0 and random-float 1 < Visit_Frequency [
-    let movePatch one-of destination_patches in-radius Visit_Radius
-    if is-patch? movePatch [
-      move-to movePatch
-    ]
-  ]
-  ;; essential workers do not have the same capacity to reduce contact as non-esssential
 end
 
 to simul_updateHouseTrackedCase

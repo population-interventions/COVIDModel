@@ -55,7 +55,6 @@ to go
   vaccine_update
   
   ;;reset-timer
-  
   ;; All the simulants independently either move outside or back to home
   ask simuls [
     ;; Untracked people have their speed set to the current recommended speed, based on policy.
@@ -159,8 +158,9 @@ to go
   ;;show ( word " calculate Stuff " timer " seconds ")
   
   ;; counts days per tick, likely redundant at present as days are not used for anything right now.
-  set days days + 1
+  calculateDataOut
   
+  set days days + 1
   tick
   
   if ticks = End_Day [

@@ -485,6 +485,7 @@ to setup
   processPopulationWorkerData
   setup_vaccineData
   setup_overseasArrivals
+  setup_DataOut
   
   set resetdate 7
   
@@ -512,6 +513,7 @@ to setup
       set infectionCulprit table:make
     ]
   ]
+  
   ;; sets a proportion of interactions outside vs inside
   ask n-of (count patches * Outside) patches [
     set pcolor green
@@ -566,6 +568,7 @@ to setup
     set color red
     set timenow random int ownIncubationPeriod
     simul_updatepersonalvirulence
+    array:set infectArray cohortIndex (array:item infectArray cohortIndex) + 1
   ]
 
   ;; spend CalculateIncomePerday
@@ -588,6 +591,7 @@ to setup
     if init_secondry_infect > 0 and any? other simuls in-radius 2 with [ color = red ] [
       set color red
       set init_secondry_infect init_secondry_infect - 1
+      array:set infectArray cohortIndex (array:item infectArray cohortIndex) + 1
     ]
   ]
 
@@ -597,6 +601,6 @@ to setup
   ;;set maskPolicy false ;; that the mask policy doesn't begin before the policy trigger starts
   ;;set assignAppEss false ;; that the assigning the App to EssentialWorkers doesn't begin before the policy trigger starts
   reset-ticks
+  
   setupstages ;; setting up for the MJA runs
-
 end

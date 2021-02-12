@@ -1,0 +1,32 @@
+
+to setup_DataOut
+  set cohortLengthListOfZeros n-values length popDivisionTable_keys [0]
+  set infectArray array:from-list cohortLengthListOfZeros
+  set recoverArray array:from-list cohortLengthListOfZeros
+  set dieArray array:from-list cohortLengthListOfZeros
+  
+  set age_listOut []
+  set atsi_listOut []
+  set morbid_listOut []
+  
+  let index 0
+  repeat length popDivisionTable_keys [
+    let cohortData table:get popDivisionTable index
+    
+    set age_listOut lput (item 1 cohortData) age_listOut
+    set atsi_listOut lput (item 2 cohortData) atsi_listOut
+    set morbid_listOut lput (item 3 cohortData) morbid_listOut
+    
+    set index index + 1 
+  ]
+end
+
+to calculateDataOut
+  set infectArray_listOut array:to-list infectArray
+  set recoverArray_listOut array:to-list recoverArray
+  set dieArray_listOut array:to-list dieArray
+  
+  set infectArray array:from-list cohortLengthListOfZeros
+  set recoverArray array:from-list cohortLengthListOfZeros
+  set dieArray array:from-list cohortLengthListOfZeros
+end

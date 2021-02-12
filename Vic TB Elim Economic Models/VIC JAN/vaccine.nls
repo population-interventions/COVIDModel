@@ -35,6 +35,7 @@ to vaccine_do_incursion_based_on_phase
       set timenow 0
       set new_case_real_counter new_case_real_counter + peoplePerSimul
       set totalOverseasIncursions totalOverseasIncursions + peoplePerSimul
+      array:set infectArray cohortIndex (array:item infectArray cohortIndex) + peoplePerSimul
     ]
   ]
 end

@@ -292,6 +292,7 @@ to simul_infect
           if mySucceptibility * x > random-float 1 [
             set color red
             set timenow 0
+            set infectionsToday_acc infectionsToday_acc + 1
             set new_case_real_counter new_case_real_counter + Scale_Factor ^ scalephase
             array:set infectArray cohortIndex (array:item infectArray cohortIndex) + Scale_Factor ^ scalephase
             if track_R [
@@ -432,9 +433,6 @@ to simul_settime
   if color = red [
     set timenow timenow + 1
     simul_PossiblyDie
-    if timenow = 1 [
-      set infectionsToday_acc infectionsToday_acc + 1
-    ]
     if tracked = 1 and caseReportTime = ticks [
       set casesReportedToday_acc casesReportedToday_acc + 1
     ]

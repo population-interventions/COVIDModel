@@ -568,6 +568,7 @@ to setup
     set color red
     set timenow random int ownIncubationPeriod
     simul_updatepersonalvirulence
+    set infectionsToday_acc infectionsToday_acc + 1
     array:set infectArray cohortIndex (array:item infectArray cohortIndex) + 1
   ]
 
@@ -590,7 +591,9 @@ to setup
   ask simuls [
     if init_secondry_infect > 0 and any? other simuls in-radius 2 with [ color = red ] [
       set color red
+      set timenow random int ownIncubationPeriod
       set init_secondry_infect init_secondry_infect - 1
+      set infectionsToday_acc infectionsToday_acc + 1
       array:set infectArray cohortIndex (array:item infectArray cohortIndex) + 1
     ]
   ]

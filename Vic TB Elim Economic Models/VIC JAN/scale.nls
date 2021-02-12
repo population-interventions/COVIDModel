@@ -87,7 +87,7 @@ to scaledown_try_to_maintain_cohort
   set contact_Radius Contact_radius - (90 / 4)
   set scalephase scalephase - 1
 end
-  
+
 to scaledown_no_hatch
   ask simuls with [ color = red ] [
     let my_timenow timenow

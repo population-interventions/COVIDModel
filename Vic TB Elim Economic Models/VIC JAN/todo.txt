@@ -13,6 +13,8 @@ Questions
 
 Make a document tracking the use of randomness. Overseas incursions currently has a dedicated random stream.
 
+MAKE saveParameter.py PUT RAND_SEED AT THE TOP OF THE FILE.
+
 == Yellow and Black Scaling ==
 The way that recovered and dead people are handled seems problematic. 
  * Recovered people are scaled on scaleUp but not scaleDown

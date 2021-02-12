@@ -25,7 +25,7 @@ to calculateDataOut
   set infectArray_listOut array:to-list infectArray
   set recoverArray_listOut array:to-list recoverArray
   set dieArray_listOut array:to-list dieArray
-  
+
   set infectArray array:from-list cohortLengthListOfZeros
   set recoverArray array:from-list cohortLengthListOfZeros
   set dieArray array:from-list cohortLengthListOfZeros

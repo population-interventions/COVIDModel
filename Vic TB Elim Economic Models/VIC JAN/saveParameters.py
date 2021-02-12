@@ -30,7 +30,17 @@ def GetChooserValue(optionString, choice):
     return options[int(choice)]
 
 
+def LowerKeys(myDict):
+    if not myDict:
+        return False
+    outdict = {}
+    for k, v in myDict.items():
+        outdict[k.lower()] = v
+    return outdict
+
+
 def ReadModelFileAndWriteParams(startPart, endPart, valueOverwrite):
+    valueOverwrite = LowerKeys(valueOverwrite)
     modelFile = open('COVID SIMULS VIC JAN Vaccination Model.nlogo', 'r')
     outputFile = open('paramFile.txt', 'w')
     foundPart = False
@@ -98,5 +108,21 @@ paramValuesTestR = {
     'total_population' : '25000000',
 }
   
+paramValuesBigRunTest = {
+    'rand_seed' : listToStr(random.randint(10000000, size=(100))),
+    'total_population' : '25000000',
+    'param_policy' : listToStr([
+        '"AggressElim"',
+        '"ModerateElim"',
+        '"TightSupress"',
+        '"LooseSupress"',
+    ]),
+    'param_vac_uptake' : listToStr([75, 90]),
+    'param_vac2_tran_reduct' : listToStr([60, 75, 90]),
+    'Global_Transmissability' : listToStr([0.32, 0.51]),
+    'case_reporting_delay' : listToStr([2, 5]),
+    'non_infective_Time' : listToStr([0, 2]),
+    'scale_threshold' : listToStr([240, 320]),
+}
   
-ReadModelFileAndWriteParams('GRAPHICS-WINDOW', '@#$#@#$#@', paramValues)
+ReadModelFileAndWriteParams('GRAPHICS-WINDOW', '@#$#@#$#@', paramValuesBigRunTest)

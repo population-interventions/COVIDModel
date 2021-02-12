@@ -149,8 +149,9 @@ globals [
   global_vaccineAvailible
   global_vaccineType
   global_vaccinePerDay
-  global_incursionScale
-  global_incursionArrivals
+  global_incursionScale ;; Scale applied to the underlying probability, from the csv
+  global_incursionArrivals ;; Number of arrivals, read from csv
+  global_incursionRisk ;; Scale multiplied by the underlying probability.
 
   incursionsSeedID
   totalOverseasIncursions
@@ -333,7 +334,7 @@ Span
 Span
 0
 30
-15.0
+30.0
 1
 1
 NIL
@@ -486,10 +487,10 @@ count patches with [ pcolor = white ]
 11
 
 MONITOR
-1392
-460
-1561
-517
+2202
+467
+2371
+524
 Total # Infected
 numberInfected
 0
@@ -590,7 +591,7 @@ Proportion_People_Avoid
 Proportion_People_Avoid
 0
 100
-52.0
+0.0
 .5
 1
 NIL
@@ -605,7 +606,7 @@ Proportion_Time_Avoid
 Proportion_Time_Avoid
 0
 100
-52.0
+0.0
 .5
 1
 NIL
@@ -697,10 +698,10 @@ PENS
 "default" 1.0 1 -2674135 true "" "Histogram [ agerange ] of simuls with [ color = black ] "
 
 PLOT
-1758
-172
+1757
+207
 2025
-295
+356
 Infection Proportional Growth Rate
 Time
 Growth rate
@@ -843,10 +844,10 @@ NIL
 HORIZONTAL
 
 PLOT
-1760
-34
-2025
-166
+1755
+39
+2024
+201
 Age (black), Vaccinated (green)
 NIL
 NIL
@@ -1167,10 +1168,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-2235
-940
-2389
-989
+2259
+938
+2413
+987
 ICU Beds Needed
 ICUBedsRequired
 0
@@ -1356,10 +1357,10 @@ PotentialContacts
 11
 
 PLOT
-2029
-35
-2302
-163
+2030
+43
+2300
+201
 Distribution of Illness pd
 NIL
 NIL
@@ -1396,10 +1397,10 @@ se_incubation
 Number
 
 PLOT
-2409
-107
-2649
-232
+2352
+128
+2592
+253
 Dist_Incubation_Pd
 NIL
 NIL
@@ -1459,7 +1460,7 @@ Essential_Workers
 Essential_Workers
 0
 100
-50.0
+100.0
 1
 1
 NIL
@@ -1530,7 +1531,7 @@ Mask_Wearing
 Mask_Wearing
 0
 100
-90.0
+50.0
 1
 1
 NIL
@@ -1862,7 +1863,7 @@ Visit_Radius
 Visit_Radius
 0
 16
-5.3
+8.8
 1
 1
 NIL
@@ -2521,7 +2522,7 @@ RAND_SEED
 RAND_SEED
 0
 1000000
-8888.0
+628019.0
 1
 1
 NIL
@@ -2756,10 +2757,10 @@ transmission_count_metric
 11
 
 PLOT
-1775
-454
-2182
-628
+1780
+537
+2187
+711
 Potential transmission interactions per day (scaled)
 NIL
 NIL
@@ -2802,7 +2803,7 @@ CHOOSER
 param_policy
 param_policy
 "AggressElim" "ModerateElim" "TightSupress" "LooseSupress" "None"
-1
+3
 
 SLIDER
 1513
@@ -2857,10 +2858,10 @@ People in Model
 11
 
 PLOT
-1768
-632
-2248
-846
+1782
+714
+2247
+872
 Case Tracking (scaled)
 NIL
 NIL
@@ -2943,10 +2944,10 @@ NIL
 HORIZONTAL
 
 PLOT
-1774
-298
-2183
-448
+1778
+384
+2187
+534
 Average Interaction Infectivity
 NIL
 NIL
@@ -2972,10 +2973,10 @@ transmission_count_metric * transmission_average
 11
 
 PLOT
-1779
-858
-2183
-1035
+1780
+873
+2244
+1021
 States (raw)
 NIL
 NIL
@@ -3016,17 +3017,17 @@ Complacency_Bound
 Complacency_Bound
 0
 100
-52.0
+0.0
 1
 1
 NIL
 HORIZONTAL
 
 PLOT
-2029
-170
-2308
-290
+2359
+262
+2638
+382
 Distribution of currentVirulence
 NIL
 NIL
@@ -3075,7 +3076,7 @@ SWITCH
 173
 profile_on
 profile_on
-0
+1
 1
 -1000
 
@@ -3142,10 +3143,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-1505
-573
-1607
-618
+1395
+470
+1552
+515
 NIL
 totalOverseasIncursions
 17
@@ -3153,10 +3154,10 @@ totalOverseasIncursions
 11
 
 PLOT
-2198
-308
-2466
-457
+1757
+100
+2219
+360
 OverseasIncursions
 NIL
 NIL
@@ -3165,10 +3166,12 @@ NIL
 0.0
 10.0
 true
-false
+true
 "" ""
 PENS
-"default" 1.0 0 -16777216 true "" "plot totalOverseasIncursions"
+"Incursions" 1.0 0 -16777216 true "" "plot totalOverseasIncursions"
+"People" 1.0 0 -7500403 true "" "plot global_incursionArrivals"
+"% Chance" 1.0 0 -2674135 true "" "plot global_incursionRisk * 100"
 
 SWITCH
 203
@@ -3177,7 +3180,7 @@ SWITCH
 657
 track_R
 track_R
-0
+1
 1
 -1000
 
@@ -3212,10 +3215,10 @@ average_R
 11
 
 PLOT
-2190
-467
-2469
-627
+2199
+465
+2478
+625
 Cohorts and infections
 NIL
 NIL

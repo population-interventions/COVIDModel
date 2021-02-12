@@ -1,5 +1,3 @@
-
-Run a batch of simulations that test whether choice of scale has a consistent effect on the result.
 Why is (yellowcount > redcount) a condition for scaledown?
 Maybe remove the sliders and inputboxes that have no impact, to reduce the size of output sheets.
 
@@ -7,23 +5,27 @@ Speedup:
  * Replace "any? other simuls-here with [ householdUnit != [ householdUnit ] of myself" in general with a "am I at my house" check?
  * simul_visitDestination is particularly slow.
  * SIMUL_AVOID_STUDENT and SIMUL_AVOID are a bit slow.
- * move-to one-of simuls with [...] in simul_avoid_student is responsible for 30% of the compute time.
 
 Questions
  * Ask questions about how essential workers should behave.
  * Ask questions about schools.
- * The trace efficiency equation can go negative.
  * Should people be able to be reinfected? What is the assumption here?
 
-Notes to report?
- * The elimination policy triggers for transitions between stages 1b and 2 tend to fluctuate. There can be fewer than 1 case per day for the last seven days, causing a drop to stage 1b, and five or more cases in the last 14 days, causing an instant reset to stage 2.
+Make a document tracking the use of randomness. Overseas incursions currently has a dedicated random stream.
 
-Meeting notes:
- * Simple question - How are recovered people handled? Currently a recovered person has a 5% chance per day to turn into a succeptible person. They gain no vaccine-type benefit, which is very weird. They are also currently skipped over for vaccination.
- * Simple question - Are the death rates in setup::setdeathrisk good?
+== Yellow and Black Scaling ==
+The way that recovered and dead people are handled seems problematic. 
+ * Recovered people are scaled on scaleUp but not scaleDown
+ * Dead people are not scaled at all.
+Run the 'LooseSupress' policy. The result is often around 0.3% of the population being infected, but 50% of the simulants are yellow for the last 180 days (which are spent at scale zero). This makes the population significantly more resistent to reinfection and overseas infection. The Elim policies are "worse" for overseas infection because they don't have a large pool of yellow simulants to block it. 
 
-Note that whether school is open seems to be the main driver of infections. Students are probably following each other around much too often.
+Every time the model goes down through a scale (at factor 4) the following approximately happens:
+ * 60 red turn into 240 red.
+ * N yellow stay as N yellow.
+ * 180 red turn into 180 yellow until 60 red remain.
+ * The cycle repeats with the next scale.
+So 180 yellow are gained each scale down.
 
-Fix set track_and_trace_efficiency (0.63219 - (0.07213 * ln(casesinperiod7_real)))
-fix 1b and 2
-Think about how to do overseas cases better than the scaled probabily method that exists for now.
+A simple workaround is to set a high rate of yellow people turning back into cyan people, as was done with reinfection rate. I think it is better to view this as the rate at which people diffuse around the wider population (replacing recovered people with succeptible people) rather than a single person becoming succeptible again. The number of yellow people couldbe bounded below by the total proportion of people who have recovered in the overall population. The model is meant to be simulating the pandemic around the active spots, the cases, so it makes sense for recovered people to filter out into the wider community (and out of the current slice).
+
+If one person dies it doesn't make sense for the population to be permanently smaller when the model scales up through three scales. Maybe dead people should be replaced with live ones after some time as well.

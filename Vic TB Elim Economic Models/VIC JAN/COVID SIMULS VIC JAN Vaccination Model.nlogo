@@ -1444,7 +1444,7 @@ Global_Transmissability
 Global_Transmissability
 0
 1
-0.3
+0.32
 0.01
 1
 NIL
@@ -2521,7 +2521,7 @@ RAND_SEED
 RAND_SEED
 0
 1000000
-8888.0
+299517.0
 1
 1
 NIL
@@ -2736,11 +2736,11 @@ stage
 MONITOR
 1630
 547
-1765
+1759
 592
 Interaction Infectivity
 transmission_average
-17
+6
 1
 11
 
@@ -2967,7 +2967,7 @@ MONITOR
 640
 Expected New Cases
 transmission_count_metric * transmission_average
-17
+6
 1
 11
 

@@ -474,12 +474,11 @@ to setup
   if profile_on [
     profiler:start
   ]
-  resetMetricAverages
+  resetAccumulators
 
   rngs:init
 
   ;;import-drawing "Background1.png" ;; imports MSD image
-
   set days 0 ; used to count days
 
   loadPopDivisionTable

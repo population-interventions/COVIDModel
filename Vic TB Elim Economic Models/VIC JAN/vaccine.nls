@@ -30,7 +30,7 @@ to vaccine_do_incursion_based_on_phase
   let peoplePerSimul ( Scale_Factor ^ scalephase )
   set global_incursionRisk ( draw_borderIncursionRisk * global_incursionScale )
   ask n-of global_incursionArrivals simuls with [color != red and color != black] [
-    if global_incursionRisk > peoplePerSimul * ( rngs:rnd-beta incursionsSeedID 1 1 ) and random peoplePerSimul = 0 [
+    if global_incursionRisk > peoplePerSimul * ( rngs:rnd-beta incursionsSeedID 1 1 ) [
       set color red
       set timenow 0
       set new_case_real_counter new_case_real_counter + peoplePerSimul

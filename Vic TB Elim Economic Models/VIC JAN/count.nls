@@ -42,7 +42,7 @@ to updateCounts
   set scaledPopulation Population * Scale_Factor ^ scalephase
 end
 
-to resetMetricAverages
+to resetAccumulators
   ifelse transmission_count > 0
   [
     set transmission_average transmission_sum / transmission_count

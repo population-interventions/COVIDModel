@@ -1,11 +1,6 @@
 
 casesReportedToday:
- - Equal to number of people infected Case_Reporting_Delay days ago.
- - NONE OF THE BELOW MATTERS FOR POLCIY SETTINGS
-
-inQuarantine:
- - Infected and tracked agents move to a white patch if there is space.
- - Compared to Quarantine_Spots
+ - Equal to number of people tracked Case_Reporting_Delay days ago.
 
 tracked:
  - Only applied to infected agents.
@@ -29,6 +24,10 @@ isolating:
 ====================================
 ==== OUTDATED ====
 ====================================
+
+casesReportedToday:
+ - Equal to number of people infected Case_Reporting_Delay days ago.
+ - NONE OF THE BELOW MATTERS FOR POLCIY SETTINGS
 
 IDTime:
  - Looks like an output metric.

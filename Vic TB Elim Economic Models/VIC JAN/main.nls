@@ -154,7 +154,7 @@ to go
   traceadjust
 
   ;; Zero count- and average-style metrics for gathering throughout the next step
-  resetMetricAverages
+  resetAccumulators
   
   ;;show ( word " calculate Stuff " timer " seconds ")
   

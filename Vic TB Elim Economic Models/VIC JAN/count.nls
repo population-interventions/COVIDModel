@@ -2,19 +2,86 @@
 ;;** Counting things, often with scale involved **
 ;;*******************************************************************************************************************************
 
-to countred
-  ;; as per code
+to updateRawCounts
+  ;; Cache number of infected (red) suceptible (blue (actually cyan)) and recovered (yellow) agents
   set redCount count simuls with [ color = red ]
-end
-
-to countblue
-  ;; as per code
-  set blueCount count simuls with [ color = cyan ]
-end
-
-to countyellow
-  ;; as per code
   set yellowcount count simuls with [ color = yellow ]
+end
+
+to updateCounts
+  set infectionsYesterday infectionsToday
+  ;; this considers ALL cases - not just the reported ones
+  ;set infectionsToday ( count simuls with [ color = red and timenow = 1 ] )
+  set infectionsToday infectionsToday_acc
+  if infectionsYesterday != 0 [
+    set InfectionChange ( infectionsToday / infectionsYesterday )
+  ]
+  
+  ;; Sets the day for reporting new cases at 6 (adjustable) days after testing+tracking.
+  ;; (abstracted here as just tracking) this flows through to daily cases.
+  ;let casesToday count simuls with [ color = red and tracked = 1 and caseReportTime = ticks ]
+  set casesReportedToday casesReportedToday_acc * Scale_Factor ^ scalephase
+  
+  ;; population scaling function
+  set Scaled_Population Population * Scale_Factor ^ scalephase
+ 
+  ;; scales the number of patches in the environment that represents Australian bed capacity
+  set scaled_Bed_Capacity ( Hospital_Beds_In_Australia / Population )
+  
+  ;; calculates the number of infected people in the population
+  set currentInfections redcount * Scale_Factor ^ scalephase
+
+  ;; calculates the number of people infected and recorded today
+  set cumulativeInfected cumulativeInfected + infectionsToday
+  ;; calculates death rate per infected person over the course of the pandemic
+  if Deathcount > 0 and cumulativeInfected > 0 [
+    set casefatalityrate ( Deathcount / cumulativeInfected )
+  ]
+  
+  ;; calculates the scaled population for working with smaller environments
+  set scaledPopulation Population * Scale_Factor ^ scalephase
+end
+
+to resetMetricAverages
+  ifelse transmission_count > 0
+  [
+    set transmission_average transmission_sum / transmission_count
+  ]
+  [
+    set transmission_average 0
+  ]
+  set transmission_count_metric transmission_count * Scale_Factor ^ scalephase
+  set transmission_count 0
+  set transmission_sum 0
+  
+  set infectionsToday_acc 0
+  set casesReportedToday_acc 0
+  
+  set new_case_real new_case_real_counter
+  set new_case_real_counter 0
+ 
+  if endR_count > 0 [
+    set endR_mean_metric endR_sum / endR_count
+    set endR_sum 0
+    set endR_count 0
+  ]
+  
+  ifelse totalEndCount > 0
+  [
+    set average_R totalEndR / totalEndCount
+  ]
+  [
+    set average_R 0
+  ]
+  ;show ( word " avoidFails " (avoidAttempts - avoidSuccess) ", avoidSuccess " avoidSuccess)
+  ;set avoidSuccess 0
+  ;set avoidAttempts 0
+  
+  ;print "moveCount"
+  ;print moveCount
+  ;print foundUseCount
+  ;set moveCount 0
+  ;set foundUseCount 0
 end
 
 to calculateCasesInLastPeriod
@@ -48,10 +115,7 @@ to calculateCasesInLastPeriod
   set prior3 prior2
   set prior2 prior1
   set prior1 prior0
-  set prior0 dailyCases
-end
-
-to calculateCasesInLastPeriod_2
+  set prior0 casesReportedToday
   
   set casesinperiod7 prior0 + prior1 + prior2 + prior3
   set casesinperiod7 casesinperiod7 + prior4 + prior5 + prior6

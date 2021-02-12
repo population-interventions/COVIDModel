@@ -1,5 +1,5 @@
 
-dailyCases:
+casesReportedToday:
  - Equal to number of people infected Case_Reporting_Delay days ago.
  - NONE OF THE BELOW MATTERS FOR POLCIY SETTINGS
 

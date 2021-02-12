@@ -27,45 +27,6 @@ to-report nonesspercentage
   ]
 end
 
-to resetMetricAverages
-  ifelse transmission_count > 0
-  [
-    set transmission_average transmission_sum / transmission_count
-  ]
-  [
-    set transmission_average 0
-  ]
-  set transmission_count_metric transmission_count * Scale_Factor ^ scalephase
-  set transmission_count 0
-  set transmission_sum 0
-  
-  set new_case_real new_case_real_counter
-  set new_case_real_counter 0
- 
-  if endR_count > 0 [
-    set endR_mean_metric endR_sum / endR_count
-    set endR_sum 0
-    set endR_count 0
-  ]
-  
-  ifelse totalEndCount > 0
-  [
-    set average_R totalEndR / totalEndCount
-  ]
-  [
-    set average_R 0
-  ]
-  ;show ( word " avoidFails " (avoidAttempts - avoidSuccess) ", avoidSuccess " avoidSuccess)
-  ;set avoidSuccess 0
-  ;set avoidAttempts 0
-  
-  ;print "moveCount"
-  ;print moveCount
-  ;print foundUseCount
-  ;set moveCount 0
-  ;set foundUseCount 0
-end
-
 
 ;;*******************************************************************************************************************************
 ;;** Buttons **
@@ -176,11 +137,6 @@ to go
   ;;show ( word " Simul Stuff " timer " seconds ")
   ;;reset-timer
   
-  ;; Cache number of infected (red) suceptible (blue (actually cyan)) and recovered (yellow) agents
-  set redCount count simuls with [ color = red ]
-  set blueCount count simuls with [ color = cyan ]
-  set yellowcount count simuls with [ color = yellow ]
-
   if proportion_people_avoid > Complacency_Bound [
     set proportion_people_avoid proportion_people_avoid - 1
   ]
@@ -188,53 +144,16 @@ to go
     set proportion_time_avoid proportion_time_avoid - 1
   ]
 
-  set YesterdayInfections TodayInfections
-  ;; this considers ALL cases - not just the reported ones
-  set TodayInfections ( count simuls with [ color = red and timenow = 1 ] )
-  if YesterdayInfections != 0 [
-    set InfectionChange ( TodayInfections / YesterdayInfections )
-  ]
-  
-  ;; Sets the day for reporting new cases at 6 (adjustable) days after testing+tracking.
-  ;; (abstracted here as just tracking) this flows through to daily cases.
-  let casestoday count simuls with [ color = red and tracked = 1 and caseReportTime = ticks ]
-  set dailyCases casestoday * Scale_Factor ^ scalephase
-  
-  ;; population scaling function
-  set Scaled_Population ( count simuls ) * Scale_Factor ^ scalephase
-
-  let needsICU count simuls with [ color = red and requireICU = 1 ]
-  set ICUBedsRequired needsICU * Scale_Factor ^ scalephase
- 
-  ;; scales the number of patches in the environment that represents Australian bed capacity
-  set scaled_Bed_Capacity ( Hospital_Beds_In_Australia / 2500 )
-  
-  ;; calculates the number of infected people in the population
-  set currentInfections redcount * Scale_Factor ^ scalephase
-
-  ;; calculates the number of people infected and recorded today
-  set cumulativeInfected cumulativeInfected + todayInfected
-  ;; calculates death rate per infected person over the course of the pandemic
-  if Deathcount > 0 and cumulativeInfected > 0 [
-    set casefatalityrate ( Deathcount / cumulativeInfected )
-  ]
-  
-  ;; calculates the number of people infected and recorded today for use in conjunction with yesterday's estimate for calculation of daily growth (see below)
-  ;; this only considers reported cases - must adjust undetected cases if you want to report all infections
-  set todayInfected dailycases
-  
-  ;; calculates the scaled population for working with smaller environments
-  set scaledPopulation Population * Scale_Factor ^ scalephase
+  updateRawCounts
+  updateCounts
   
   ;; Set casesinperiod7, which is only detected cases. Also sets casesinperiod14 and casesinperiod28.
-  
   calculateCasesInLastPeriod
-  calculateCasesInLastPeriod_2
   
   ;; set track_and_trace_efficiency based on the number of recent cases.
   traceadjust
 
-  ;; Zero count- and average-style metrics for gaterhing throughout the next step
+  ;; Zero count- and average-style metrics for gathering throughout the next step
   resetMetricAverages
   
   ;;show ( word " calculate Stuff " timer " seconds ")

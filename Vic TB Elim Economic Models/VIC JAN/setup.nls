@@ -275,8 +275,9 @@ end
 to setGlobals
   set anxietyFactor              0
   set InfectionChange            0
-  set TodayInfections            0
-  set YesterdayInfections        0
+  set infectionsToday            0
+  set infectionsToday_acc        0
+  set infectionsYesterday        0
   set five                       0
   set fifteen                    0
   set twentyfive                 0
@@ -294,17 +295,16 @@ to setGlobals
   set Days                       0
   set CaseFatalityRate           0
   set DeathCount                 0
-  set DailyCases                 0
+  set casesReportedToday         0
+  set casesReportedToday_acc     0
   set Scaled_Population          0
   set ICUBedsRequired            0
   set scaled_Bed_Capacity        0
   set currentInfections          0
   set eliminationDate            0
   set PotentialContacts          0
-  set bluecount                  0
   set yellowcount                0
   set redcount                   0
-  set todayInfected              0
   set cumulativeInfected         0
   set scaledPopulation           0
   set MeanR                      0

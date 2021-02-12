@@ -7,8 +7,9 @@ extensions [ rngs profiler csv table ]
 globals [
   anxietyFactor
   InfectionChange
-  TodayInfections
-  YesterdayInfections
+  infectionsToday
+  infectionsToday_acc ; Accumulator for infectionsToday
+  infectionsYesterday
   five
   fifteen
   twentyfive
@@ -26,17 +27,16 @@ globals [
   Days
   CaseFatalityRate
   DeathCount
-  DailyCases
+  casesReportedToday
+  casesReportedToday_acc ; Accumulator for casesReportedToday
   Scaled_Population
   ICUBedsRequired
   scaled_Bed_Capacity
   currentInfections
   eliminationDate
   PotentialContacts
-  bluecount
   yellowcount
   redcount
-  todayInfected
   cumulativeInfected
   scaledPopulation
   MeanR
@@ -888,7 +888,7 @@ MONITOR
 1552
 561
 Reported Inf Today
-DailyCases
+casesReportedToday
 0
 1
 12
@@ -1050,7 +1050,7 @@ MONITOR
 1390
 832
 1497
-882
+881
 Scale Exponent
 scalePhase
 17
@@ -2521,7 +2521,7 @@ RAND_SEED
 RAND_SEED
 0
 1000000
-705314.0
+8888.0
 1
 1
 NIL
@@ -3653,9 +3653,8 @@ NetLogo 6.2.0
     <go>go</go>
     <timeLimit steps="360"/>
     <metric>ticks</metric>
-    <metric>numberInfected</metric>
     <metric>deathcount</metric>
-    <metric>DailyCases</metric>
+    <metric>casesReportedToday</metric>
     <metric>Essential_Workers</metric>
     <metric>scale</metric>
     <metric>stage</metric>
@@ -3683,7 +3682,7 @@ NetLogo 6.2.0
     <metric>ticks</metric>
     <metric>numberInfected</metric>
     <metric>deathcount</metric>
-    <metric>DailyCases</metric>
+    <metric>casesReportedToday</metric>
     <metric>Essential_Workers</metric>
     <metric>scale</metric>
     <metric>stage</metric>

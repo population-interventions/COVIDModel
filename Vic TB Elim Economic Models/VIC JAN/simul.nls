@@ -438,6 +438,12 @@ to simul_settime
   if color = red [
     set timenow timenow + 1
     simul_PossiblyDie
+    if timenow = 1 [
+      set infectionsToday_acc infectionsToday_acc + 1
+    ]
+    if tracked = 1 and caseReportTime = ticks [
+      set casesReportedToday_acc casesReportedToday_acc + 1
+    ]
   ]
 end
 

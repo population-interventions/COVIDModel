@@ -103,6 +103,10 @@ globals [
   houseLocationTable
   destination_patches
 
+  houseStudentMoveCache ;; Cache of agentset that a student from household N can move to as part of school.
+  houseStudentMoveCache_lastUpdate ;; When each agentset was last updated, or set to -1 to indicate it needs an update.
+  houseStudentMoveCache_staleTime ;; If an agentset was updated before staleTime, regenerate it.
+
   PrimaryUpper
   SecondaryLower
 
@@ -329,7 +333,7 @@ Span
 Span
 0
 30
-30.0
+15.0
 1
 1
 NIL
@@ -423,7 +427,7 @@ ReInfectionRate
 ReInfectionRate
 0
 100
-0.0
+1.0
 1
 1
 NIL
@@ -586,7 +590,7 @@ Proportion_People_Avoid
 Proportion_People_Avoid
 0
 100
-0.0
+52.0
 .5
 1
 NIL
@@ -601,7 +605,7 @@ Proportion_Time_Avoid
 Proportion_Time_Avoid
 0
 100
-0.0
+52.0
 .5
 1
 NIL
@@ -1440,7 +1444,7 @@ Global_Transmissability
 Global_Transmissability
 0
 1
-0.24
+0.3
 0.01
 1
 NIL
@@ -1455,7 +1459,7 @@ Essential_Workers
 Essential_Workers
 0
 100
-100.0
+50.0
 1
 1
 NIL
@@ -1526,7 +1530,7 @@ Mask_Wearing
 Mask_Wearing
 0
 100
-50.0
+90.0
 1
 1
 NIL
@@ -1858,7 +1862,7 @@ Visit_Radius
 Visit_Radius
 0
 16
-8.8
+5.3
 1
 1
 NIL
@@ -2517,7 +2521,7 @@ RAND_SEED
 RAND_SEED
 0
 1000000
-492754.0
+8888.0
 1
 1
 NIL
@@ -2798,7 +2802,7 @@ CHOOSER
 param_policy
 param_policy
 "AggressElim" "ModerateElim" "TightSupress" "LooseSupress" "None"
-3
+1
 
 SLIDER
 1513
@@ -3012,7 +3016,7 @@ Complacency_Bound
 Complacency_Bound
 0
 100
-0.0
+52.0
 1
 1
 NIL
@@ -3071,7 +3075,7 @@ SWITCH
 173
 profile_on
 profile_on
-1
+0
 1
 -1000
 
@@ -3101,7 +3105,7 @@ End_Day
 End_Day
 -1
 360
--1.0
+360.0
 1
 1
 NIL
@@ -3723,7 +3727,7 @@ NetLogo 6.2.0
       <value value="9"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="end_day">
-      <value value="70"/>
+      <value value="-1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="ess_w_risk_reduction">
       <value value="50"/>
@@ -3873,7 +3877,7 @@ NetLogo 6.2.0
       <value value="37"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="param_policy">
-      <value value="&quot;None&quot;"/>
+      <value value="&quot;ModerateElim&quot;"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="param_transmit_scale">
       <value value="1.25"/>

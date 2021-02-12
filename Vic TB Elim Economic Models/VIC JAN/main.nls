@@ -78,6 +78,15 @@ to go
   
   ;; Set a list of policy parameters (span (speed), tracking, mask_wearning etc..) based on current stage and stage reset timers
   setupstages
+  if stageHasChanged = 1 [
+    set houseStudentMoveCache_staleTime ticks
+    ask simuls [
+      ;; Set EssentialWorkerFlag based on proportion of population that is an essential worker (uses Essential_Workers (0-100) policy param)
+      simul_EssentialWorkerID 
+    ]
+    set stageHasChanged 0 
+  ]
+  
   ;; Set lockdown stage and easing date, bases mostly on casesinperiod7
   CovidPolicyTriggers
   
@@ -156,8 +165,6 @@ to go
     simul_checkICU
     ;; Randomly start tracking infected people based on track_and_trace_efficiency.
     simul_traceme
-    ;; Set EssentialWorkerFlag based on proportion of population that is an essential worker (uses Essential_Workers (0-100) policy param)
-    simul_EssentialWorkerID
     
     ;; Randomly vaccinate people according to uptake and stage.
     simul_vaccinate_me

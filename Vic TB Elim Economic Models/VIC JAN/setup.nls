@@ -262,6 +262,14 @@ to setup_households
   ask simuls [
     table:put houseTrackedCaseTimeTable householdunit -1
   ]
+  
+  set houseNumber 0
+  repeat 1000 [
+    table:put houseStudentMoveCache_lastUpdate houseNumber -1
+    set houseNumber houseNumber + 1
+  ]
+  set houseStudentMoveCache_staleTime 0
+  
 end
 
 to setGlobals
@@ -363,7 +371,10 @@ to setGlobals
   
   set houseTrackedCaseTimeTable table:make
   set houseLocationTable table:make
-
+  set houseStudentMoveCache table:make
+  set houseStudentMoveCache_lastUpdate table:make
+  set houseStudentMoveCache_staleTime 0
+  
   set meanIDTime 0
   set popDivisionTable 0 ; Table of population cohort data
 
@@ -460,7 +471,7 @@ to setup
   
   setDrawValues
 
-  profiler:stop
+  profiler:reset
   if profile_on [
     profiler:start
   ]

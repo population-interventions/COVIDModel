@@ -713,6 +713,7 @@ to setupstages
   if selfgovern = true [
     if prev_stage != stage [
       do_stages_tony
+      set stageHasChanged 1
       set prev_stage stage
     ]
   ]

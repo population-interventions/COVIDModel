@@ -132,8 +132,13 @@ to simul_resetlanding
 end
 
 to simul_resampleHouse
+  table:put houseStudentMoveCache_lastUpdate householdunit -1
+  
   set householdUnit random 1000
+  
+  table:put houseStudentMoveCache_lastUpdate householdunit -1
   table:put houseTrackedCaseTimeTable householdunit -1
+  
   simul_resetlanding
 end
 
@@ -357,8 +362,14 @@ to simul_avoid_student
   ;; and people from your own household
   [
     ;; TODO. Check performance.
-    let myHouse householdUnit
-    move-to one-of simuls with [ essentialworkerflag = 1 or householdUnit = myHouse or studentFlag = 1 ]
+    if table:get houseStudentMoveCache_lastUpdate householdUnit < houseStudentMoveCache_staleTime [
+      let myHouse householdUnit
+      table:put houseStudentMoveCache_lastUpdate householdUnit ticks
+      table:put houseStudentMoveCache householdUnit simuls with [ essentialworkerflag = 1 or householdUnit = myHouse or studentFlag = 1 ]
+    ]
+    move-to one-of table:get houseStudentMoveCache householdUnit
+    ;let myHouse householdUnit
+    ;move-to one-of simuls with [ essentialworkerflag = 1 or householdUnit = myHouse or studentFlag = 1 ]
     simul_update_patch_utilisation
   ]
 end

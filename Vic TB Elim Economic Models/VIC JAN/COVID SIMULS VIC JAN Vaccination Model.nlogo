@@ -419,10 +419,10 @@ Deathcount
 14
 
 SLIDER
-518
-982
-698
-1015
+542
+980
+722
+1013
 ReInfectionRate
 ReInfectionRate
 0
@@ -1481,9 +1481,9 @@ NIL
 HORIZONTAL
 
 SLIDER
-332
+330
 980
-507
+505
 1013
 Ess_W_Risk_Reduction
 Ess_W_Risk_Reduction
@@ -2393,9 +2393,9 @@ count simuls with [ studentFlag = 1 ]
 11
 
 SLIDER
-328
+330
 940
-517
+519
 973
 IncursionRate
 IncursionRate
@@ -2928,10 +2928,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-537
-899
-724
-932
+539
+902
+726
+935
 Asymptom_Trace_Mult
 Asymptom_Trace_Mult
 0
@@ -2989,8 +2989,9 @@ true
 PENS
 "Isolating" 1.0 0 -12345184 true "" "plot count simuls with [color = cyan and isolating = 1]"
 "Infected" 1.0 0 -2674135 true "" "plot count simuls with [color = red]"
-"Tracked" 1.0 0 -987046 true "" "plot count simuls with [color = red and tracked = 1]"
+"Tracked" 1.0 0 -5825686 true "" "plot count simuls with [color = red and tracked = 1]"
 "Qr'tine" 1.0 0 -13840069 true "" "plot count simuls with [color = red and inQuarantine = 1]"
+"Recovered" 1.0 0 -1184463 true "" "plot count simuls with [color = yellow]"
 
 SLIDER
 133

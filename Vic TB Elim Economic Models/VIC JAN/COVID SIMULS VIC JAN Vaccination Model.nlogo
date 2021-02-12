@@ -6,7 +6,6 @@ extensions [ rngs profiler csv table ]
 
 globals [
   anxietyFactor
-  NumberInfected
   InfectionChange
   TodayInfections
   YesterdayInfections
@@ -343,8 +342,8 @@ HORIZONTAL
 PLOT
 2682
 99
-3224
-331
+3087
+272
 Susceptible, Infected and Recovered - 000's
 Days from March 10th
 Numbers of people
@@ -428,7 +427,7 @@ ReInfectionRate
 ReInfectionRate
 0
 100
-1.0
+0.0
 1
 1
 NIL
@@ -492,7 +491,7 @@ MONITOR
 2371
 524
 Total # Infected
-numberInfected
+cumulativeInfected
 0
 1
 14
@@ -548,16 +547,16 @@ MONITOR
 154
 747
 % Total Infections
-numberInfected / Total_Population * 100
+cumulativeInfected / Total_Population * 100
 2
 1
 14
 
 MONITOR
-1028
-308
-1158
-353
+965
+307
+1095
+352
 Case Fatality Rate %
 caseFatalityRate * 100
 2
@@ -680,10 +679,10 @@ NIL
 HORIZONTAL
 
 PLOT
-2793
-335
-3200
-457
+2778
+283
+3185
+405
 Estimated count of deceased across age ranges (not scaled)
 NIL
 NIL
@@ -844,10 +843,10 @@ NIL
 HORIZONTAL
 
 PLOT
-1755
-39
-2024
-201
+1757
+40
+2026
+202
 Age (black), Vaccinated (green)
 NIL
 NIL
@@ -866,8 +865,8 @@ PENS
 PLOT
 957
 740
-1373
-996
+1380
+997
 Active (red) and Total (blue) Infections ICU Beds (black)
 NIL
 NIL
@@ -880,14 +879,14 @@ false
 "" "\n"
 PENS
 "Current Cases" 1.0 1 -7858858 true "" "plot currentInfections "
-"Total Infected" 1.0 0 -13345367 true "" "plot NumberInfected "
+"Total Infected" 1.0 0 -13345367 true "" "plot cumulativeInfected"
 "ICU Beds Required" 1.0 0 -16777216 true "" "plot ICUBedsRequired "
 
 MONITOR
-1395
-518
-1559
-567
+1388
+512
+1552
+561
 Reported Inf Today
 DailyCases
 0
@@ -1026,10 +1025,10 @@ count simuls with [ color = red ]
 11
 
 SWITCH
-1517
-954
-1610
-987
+1513
+959
+1606
+992
 scale
 scale
 0
@@ -1050,8 +1049,8 @@ Days
 MONITOR
 1390
 832
-1504
-881
+1497
+882
 Scale Exponent
 scalePhase
 17
@@ -1076,7 +1075,7 @@ TEXTBOX
 1413
 Day 1 - Dec 21st, 2020
 12
-15.0
+0.0
 1
 
 SLIDER
@@ -1426,10 +1425,10 @@ initialassociationstrength
 Number
 
 MONITOR
-1398
-622
-1463
-667
+1384
+618
+1449
+663
 Virulence
 mean [ personalvirulence] of simuls
 1
@@ -1959,10 +1958,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-1394
-573
-1496
-618
+1388
+567
+1490
+612
 NIL
 currentinfections
 17
@@ -2003,10 +2002,10 @@ Complacency
 -1000
 
 CHOOSER
-1515
-905
-1608
-950
+1510
+909
+1603
+954
 InitialScale
 InitialScale
 0 1 2 3 4
@@ -2467,10 +2466,10 @@ BaseStage
 0
 
 MONITOR
-8
-568
-97
-613
+10
+758
+99
+803
 Mean ID Time
 meanIDTime
 1
@@ -2522,7 +2521,7 @@ RAND_SEED
 RAND_SEED
 0
 1000000
-628019.0
+705314.0
 1
 1
 NIL
@@ -2658,10 +2657,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-1403
-418
-1491
-463
+1397
+412
+1485
+457
 NIL
 contact_radius
 17
@@ -2724,10 +2723,10 @@ Track_and_Trace_Efficiency
 11
 
 MONITOR
-960
-307
-1017
-352
+1387
+667
+1444
+712
 NIL
 stage
 17
@@ -2735,10 +2734,10 @@ stage
 11
 
 MONITOR
-1627
-543
-1762
-588
+1630
+547
+1765
+592
 Interaction Infectivity
 transmission_average
 17
@@ -2806,10 +2805,10 @@ param_policy
 3
 
 SLIDER
-1513
-830
-1650
-863
+1509
+834
+1646
+867
 Scale_Threshold
 Scale_Threshold
 50
@@ -2821,10 +2820,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1513
-867
-1651
-900
+1509
+872
+1647
+905
 Scale_Factor
 Scale_Factor
 2
@@ -2838,7 +2837,7 @@ HORIZONTAL
 MONITOR
 1389
 890
-1503
+1497
 935
 Person per Simul
 (Scale_Factor ^ scalephase)
@@ -2849,7 +2848,7 @@ Person per Simul
 MONITOR
 1390
 943
-1503
+1500
 988
 People in Model
 (Population * Scale_Factor ^ scalephase)
@@ -2962,10 +2961,10 @@ PENS
 "default" 1.0 0 -16777216 true "" "plot transmission_average"
 
 MONITOR
-1627
-583
-1757
-628
+1628
+595
+1758
+640
 Expected New Cases
 transmission_count_metric * transmission_average
 17
@@ -3042,10 +3041,10 @@ PENS
 "default" 0.05 1 -16777216 true "" "histogram [ currentVirulence ] of simuls with [ color = red ]"
 
 MONITOR
-1625
-623
-1755
-668
+1629
+644
+1759
+689
 Real New Cases
 new_case_real
 17
@@ -3143,10 +3142,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-1395
-470
-1552
-515
+1388
+463
+1545
+508
 NIL
 totalOverseasIncursions
 17
@@ -3154,10 +3153,10 @@ totalOverseasIncursions
 11
 
 PLOT
-1757
-100
-2219
-360
+2035
+212
+2325
+361
 OverseasIncursions
 NIL
 NIL
@@ -3174,21 +3173,21 @@ PENS
 "% Chance" 1.0 0 -2674135 true "" "plot global_incursionRisk * 100"
 
 SWITCH
-203
-624
-307
-657
+1389
+740
+1493
+773
 track_R
 track_R
-1
+0
 1
 -1000
 
 PLOT
-1389
-669
-1766
-828
+1508
+703
+1775
+823
 Average R (black), New R (grey)
 NIL
 NIL
@@ -3204,10 +3203,10 @@ PENS
 "pen-1" 1.0 0 -7500403 true "" "plot endR_mean_metric"
 
 MONITOR
-1507
-622
-1610
-667
+1390
+777
+1493
+822
 NIL
 average_R
 17
@@ -3232,6 +3231,17 @@ false
 PENS
 "default" 1.0 1 -16777216 true "" "histogram [ cohortIndex ] of simuls"
 "pen-1" 1.0 0 -5298144 true "" "histogram [ cohortIndex ] of simuls with [ color = red ]"
+
+MONITOR
+10
+565
+160
+622
+Total Infected
+cumulativeInfected
+17
+1
+14
 
 @#$#@#$#@
 ## WHAT IS IT?

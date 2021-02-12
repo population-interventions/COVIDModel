@@ -274,7 +274,6 @@ end
 
 to setGlobals
   set anxietyFactor              0
-  set NumberInfected             0
   set InfectionChange            0
   set TodayInfections            0
   set YesterdayInfections        0

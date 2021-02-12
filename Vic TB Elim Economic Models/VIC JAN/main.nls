@@ -188,18 +188,13 @@ to go
     set proportion_time_avoid proportion_time_avoid - 1
   ]
 
-  set numberinfected cumulativeInfected
   set YesterdayInfections TodayInfections
-
   ;; this considers ALL cases - not just the reported ones
   set TodayInfections ( count simuls with [ color = red and timenow = 1 ] )
   if YesterdayInfections != 0 [
     set InfectionChange ( TodayInfections / YesterdayInfections )
   ]
-  ;; calculates death rate per infected person over the course of the pandemic
-  if Deathcount > 0 and numberinfected > 0 [
-    set casefatalityrate ( Deathcount / numberInfected )
-  ]
+  
   ;; Sets the day for reporting new cases at 6 (adjustable) days after testing+tracking.
   ;; (abstracted here as just tracking) this flows through to daily cases.
   let casestoday count simuls with [ color = red and tracked = 1 and caseReportTime = ticks ]
@@ -219,6 +214,10 @@ to go
 
   ;; calculates the number of people infected and recorded today
   set cumulativeInfected cumulativeInfected + todayInfected
+  ;; calculates death rate per infected person over the course of the pandemic
+  if Deathcount > 0 and cumulativeInfected > 0 [
+    set casefatalityrate ( Deathcount / cumulativeInfected )
+  ]
   
   ;; calculates the number of people infected and recorded today for use in conjunction with yesterday's estimate for calculation of daily growth (see below)
   ;; this only considers reported cases - must adjust undetected cases if you want to report all infections

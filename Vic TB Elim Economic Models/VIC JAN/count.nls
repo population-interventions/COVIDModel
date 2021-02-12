@@ -12,7 +12,7 @@ to updateCounts
   set infectionsYesterday infectionsToday
   ;; this considers ALL cases - not just the reported ones
   ;set infectionsToday ( count simuls with [ color = red and timenow = 1 ] )
-  set infectionsToday infectionsToday_acc
+  set infectionsToday infectionsToday_acc * Scale_Factor ^ scalephase
   if infectionsYesterday != 0 [
     set InfectionChange ( infectionsToday / infectionsYesterday )
   ]

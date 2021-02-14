@@ -345,7 +345,7 @@ Span
 Span
 0
 30
-5.0
+30.0
 1
 1
 NIL
@@ -532,7 +532,7 @@ superspreaders
 superspreaders
 0
 1
-0.02
+0.1
 0.01
 1
 NIL
@@ -602,7 +602,7 @@ Proportion_People_Avoid
 Proportion_People_Avoid
 0
 100
-83.0
+15.0
 .5
 1
 NIL
@@ -617,7 +617,7 @@ Proportion_Time_Avoid
 Proportion_Time_Avoid
 0
 100
-83.0
+15.0
 .5
 1
 NIL
@@ -1471,7 +1471,7 @@ Essential_Workers
 Essential_Workers
 0
 100
-20.0
+75.0
 1
 1
 NIL
@@ -1555,7 +1555,7 @@ SWITCH
 321
 schoolsOpen
 schoolsOpen
-1
+0
 1
 -1000
 
@@ -1874,7 +1874,7 @@ Visit_Radius
 Visit_Radius
 0
 16
-1.8
+7.1
 1
 1
 NIL
@@ -1903,10 +1903,10 @@ sum [ R ] of simuls with [ color != 85 and R > 2] / sum [ R ] of simuls with [ c
 11
 
 SLIDER
-745
-942
-947
-975
+742
+938
+944
+971
 Asymptomatic_Trans
 Asymptomatic_Trans
 0
@@ -2840,7 +2840,7 @@ Scale_Factor
 Scale_Factor
 2
 10
-5.0
+4.0
 1
 1
 NIL
@@ -3029,7 +3029,7 @@ Complacency_Bound
 Complacency_Bound
 0
 100
-81.0
+15.0
 1
 1
 NIL
@@ -3148,7 +3148,7 @@ Non_Infective_Time
 Non_Infective_Time
 0
 4
-0.0
+2.0
 1
 1
 NIL
@@ -3255,6 +3255,21 @@ cumulativeInfected
 17
 1
 14
+
+SLIDER
+130
+860
+320
+893
+Symtomatic_Present_Day
+Symtomatic_Present_Day
+-1
+20
+6.0
+1
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?

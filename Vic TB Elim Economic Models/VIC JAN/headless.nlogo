@@ -345,12 +345,11 @@ Span
 Span
 0
 30
-5.0
+30.0
 1
 1
 NIL
 HORIZONTAL
-
 
 SLIDER
 40
@@ -399,7 +398,6 @@ RestrictedMovement
 NIL
 HORIZONTAL
 
-
 SLIDER
 542
 980
@@ -445,9 +443,6 @@ ProductionRate
 NIL
 HORIZONTAL
 
-
-
-
 SLIDER
 2660
 663
@@ -472,7 +467,7 @@ superspreaders
 superspreaders
 0
 1
-0.02
+0.1
 0.01
 1
 NIL
@@ -493,9 +488,6 @@ Severity_of_illness
 NIL
 HORIZONTAL
 
-
-
-
 SLIDER
 1542
 57
@@ -505,7 +497,7 @@ Proportion_People_Avoid
 Proportion_People_Avoid
 0
 100
-83.0
+0.0
 .5
 1
 NIL
@@ -520,7 +512,7 @@ Proportion_Time_Avoid
 Proportion_Time_Avoid
 0
 100
-83.0
+0.0
 .5
 1
 NIL
@@ -556,7 +548,6 @@ FearTrigger
 NIL
 HORIZONTAL
 
-
 SWITCH
 582
 1268
@@ -582,9 +573,6 @@ Initial
 1
 NIL
 HORIZONTAL
-
-
-
 
 INPUTBOX
 205
@@ -623,10 +611,6 @@ Triggerday
 NIL
 HORIZONTAL
 
-
-
-
-
 SLIDER
 40
 1248
@@ -641,10 +625,6 @@ Incubation_Period
 1
 NIL
 HORIZONTAL
-
-
-
-
 
 SLIDER
 1094
@@ -698,8 +678,6 @@ cruise
 1
 -1000
 
-
-
 BUTTON
 597
 1423
@@ -728,7 +706,6 @@ days_of_cash_reserves
 0
 Number
 
-
 SWITCH
 1513
 959
@@ -739,9 +716,6 @@ scale
 0
 1
 -1000
-
-
-
 
 TEXTBOX
 582
@@ -815,7 +789,6 @@ Leave Freewheel to 'on' to manipulate policy on the fly
 0.0
 1
 
-
 SLIDER
 1158
 1393
@@ -830,8 +803,6 @@ ICU_Required
 1
 NIL
 HORIZONTAL
-
-
 
 SLIDER
 3048
@@ -892,7 +863,6 @@ Bed_Capacity
 1
 NIL
 HORIZONTAL
-
 
 SWITCH
 1540
@@ -971,8 +941,6 @@ self_capacity
 0
 Number
 
-
-
 INPUTBOX
 2864
 474
@@ -995,7 +963,6 @@ se_incubation
 0
 Number
 
-
 INPUTBOX
 2665
 754
@@ -1007,7 +974,6 @@ initialassociationstrength
 0
 Number
 
-
 SLIDER
 742
 899
@@ -1017,7 +983,7 @@ Global_Transmissability
 Global_Transmissability
 0
 1
-0.32
+0.51
 0.01
 1
 NIL
@@ -1032,7 +998,7 @@ Essential_Workers
 Essential_Workers
 0
 100
-20.0
+100.0
 1
 1
 NIL
@@ -1103,7 +1069,7 @@ Mask_Wearing
 Mask_Wearing
 0
 100
-90.0
+50.0
 1
 1
 NIL
@@ -1116,11 +1082,9 @@ SWITCH
 321
 schoolsOpen
 schoolsOpen
-1
+0
 1
 -1000
-
-
 
 SWITCH
 1487
@@ -1147,9 +1111,6 @@ eWAppUptake
 1
 NIL
 HORIZONTAL
-
-
-
 
 SLIDER
 945
@@ -1216,23 +1177,11 @@ Case_Reporting_Delay
 Case_Reporting_Delay
 0
 20
-2.0
+5.0
 1
 1
 NIL
 HORIZONTAL
-
-
-
-
-
-
-
-
-
-
-
-
 
 SLIDER
 1545
@@ -1258,13 +1207,11 @@ Visit_Radius
 Visit_Radius
 0
 16
-1.8
+8.8
 1
 1
 NIL
 HORIZONTAL
-
-
 
 SLIDER
 745
@@ -1307,7 +1254,6 @@ OS_Import_Proportion
 NIL
 HORIZONTAL
 
-
 SLIDER
 1544
 178
@@ -1322,9 +1268,6 @@ OS_Import_Post_Proportion
 1
 NIL
 HORIZONTAL
-
-
-
 
 SWITCH
 730
@@ -1346,7 +1289,6 @@ InitialScale
 InitialScale
 0 1 2 3 4
 0
-
 
 INPUTBOX
 2442
@@ -1402,8 +1344,6 @@ SelfGovern
 0
 1
 -1000
-
-
 
 INPUTBOX
 2528
@@ -1471,7 +1411,6 @@ LowerStudentAge
 0
 Number
 
-
 SLIDER
 2208
 1269
@@ -1501,7 +1440,6 @@ outsideRisk
 1
 NIL
 HORIZONTAL
-
 
 INPUTBOX
 2694
@@ -1546,7 +1484,6 @@ fourtothree
 1
 0
 Number
-
 
 INPUTBOX
 2618
@@ -1622,8 +1559,6 @@ Household_Attack
 NIL
 HORIZONTAL
 
-
-
 SLIDER
 330
 940
@@ -1638,7 +1573,6 @@ IncursionRate
 1
 NIL
 HORIZONTAL
-
 
 SWITCH
 1528
@@ -1687,7 +1621,6 @@ BaseStage
 0 1 2 3 4
 0
 
-
 SLIDER
 2799
 45
@@ -1713,7 +1646,6 @@ MaxStage
 0 1 2 3 4
 4
 
-
 SLIDER
 13
 15
@@ -1723,13 +1655,11 @@ RAND_SEED
 RAND_SEED
 0
 1000000
-1061485.0
+5016193.0
 1
 1
 NIL
 HORIZONTAL
-
-
 
 SLIDER
 7
@@ -1765,7 +1695,7 @@ param_vac_uptake
 param_vac_uptake
 60
 90
-75.0
+90.0
 15
 1
 NIL
@@ -1810,7 +1740,7 @@ param_vac2_tran_reduct
 param_vac2_tran_reduct
 50
 90
-60.0
+75.0
 5
 1
 NIL
@@ -1830,16 +1760,6 @@ param_vacEffDays
 1
 NIL
 HORIZONTAL
-
-
-
-
-
-
-
-
-
-
 
 TEXTBOX
 1412
@@ -1870,7 +1790,7 @@ CHOOSER
 param_policy
 param_policy
 "AggressElim" "ModerateElim" "TightSupress" "LooseSupress" "None"
-2
+3
 
 SLIDER
 1509
@@ -1901,9 +1821,6 @@ Scale_Factor
 1
 NIL
 HORIZONTAL
-
-
-
 
 TEXTBOX
 772
@@ -1970,9 +1887,6 @@ Asymptom_Trace_Mult
 NIL
 HORIZONTAL
 
-
-
-
 SLIDER
 133
 978
@@ -1997,13 +1911,11 @@ Complacency_Bound
 Complacency_Bound
 0
 100
-81.0
+0.0
 1
 1
 NIL
 HORIZONTAL
-
-
 
 BUTTON
 14
@@ -2089,13 +2001,11 @@ Non_Infective_Time
 Non_Infective_Time
 0
 4
-0.0
+2.0
 1
 1
 NIL
 HORIZONTAL
-
-
 
 SWITCH
 1389
@@ -2107,10 +2017,6 @@ track_R
 1
 1
 -1000
-
-
-
-
 
 @#$#@#$#@
 ## WHAT IS IT?

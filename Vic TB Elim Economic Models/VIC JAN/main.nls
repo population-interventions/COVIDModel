@@ -113,6 +113,8 @@ to go
   ask simuls [
     ;; if you are not dead at the end of your illness period, then you become recovered and turn yellow. Don't need hospital resources anymore.
     simul_recover
+    ;; Randomly start tracking infected people based on track_and_trace_efficiency.
+    simul_traceme
     ;; Increment illness time and possibly lose 'health' due to it. It is unclear what health is for.
     simul_settime
     ;; Possibly die if infected.
@@ -123,8 +125,6 @@ to go
 
     ;; Set infected people to always require ICU after their incubation period???
     simul_checkICU
-    ;; Randomly start tracking infected people based on track_and_trace_efficiency.
-    simul_traceme
     
     ;; Randomly vaccinate people according to uptake and stage.
     simul_vaccinate_me

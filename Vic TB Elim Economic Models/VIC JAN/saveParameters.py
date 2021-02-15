@@ -11,6 +11,13 @@ def listToStr(input):
     return " ".join(str(x) for x in input)
 
 
+def MoveMatchToPos(data, match, pos):
+    for i in range(len(data)):
+        if data[i][0] == match:
+            data[i], data[pos] = data[pos], data[i]
+            return
+
+
 def FindNameAndValue(file, nameLines, valueLines):
     foundName = False
     while True:
@@ -39,7 +46,7 @@ def LowerKeys(myDict):
     return outdict
 
 
-def ReadModelFileAndWriteParams(startPart, endPart, valueOverwrite):
+def ReadModelFileAndWriteParams(startPart, endPart, valueOverwrite, topOfFile=[]):
     valueOverwrite = LowerKeys(valueOverwrite)
     modelFile = open('COVID SIMULS VIC JAN Vaccination Model.nlogo', 'r')
     outputFile = open('paramFile.txt', 'w')
@@ -80,12 +87,16 @@ def ReadModelFileAndWriteParams(startPart, endPart, valueOverwrite):
     modelFile.close()
     
     parameters.sort()
+    for i in range(len(topOfFile)):
+        MoveMatchToPos(parameters, topOfFile[i].lower(), i)
+    
     for data in parameters:
         name, value = str(data[0]), str(data[1])
         if valueOverwrite.get(name):
             value = valueOverwrite[name]
         outputFile.write('["' + name + '" ' + value + ']\n')  
         
+    
     outputFile.close()
   
   
@@ -124,5 +135,9 @@ paramValuesBigRunTest = {
     'non_infective_Time' : listToStr([0, 2]),
     'scale_threshold' : listToStr([240, 320]),
 }
-  
-ReadModelFileAndWriteParams('GRAPHICS-WINDOW', '@#$#@#$#@', paramValuesBigRunTest)
+topOfFile = [
+    'rand_seed',
+    'param_policy',
+]
+
+ReadModelFileAndWriteParams('GRAPHICS-WINDOW', '@#$#@#$#@', paramValuesBigRunTest, topOfFile=topOfFile)

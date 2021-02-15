@@ -13,8 +13,6 @@ Questions
 
 Make a document tracking the use of randomness. Overseas incursions currently has a dedicated random stream.
 
-MAKE saveParameter.py PUT RAND_SEED AT THE TOP OF THE FILE.
-
 Remember to pivot to make draws.
 
 == Yellow and Black Scaling ==

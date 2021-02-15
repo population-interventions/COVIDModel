@@ -1480,10 +1480,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-330
-980
-505
-1013
+332
+940
+507
+973
 Ess_W_Risk_Reduction
 Ess_W_Risk_Reduction
 0
@@ -1699,7 +1699,7 @@ Case_Reporting_Delay
 Case_Reporting_Delay
 0
 20
-2.0
+0.0
 1
 1
 NIL
@@ -2392,10 +2392,10 @@ count simuls with [ studentFlag = 1 ]
 11
 
 SLIDER
-330
-940
-519
-973
+44
+1292
+233
+1325
 IncursionRate
 IncursionRate
 0
@@ -2978,15 +2978,15 @@ PENS
 "Recovered" 1.0 0 -1184463 true "" "plot count simuls with [color = yellow]"
 
 SLIDER
-133
-978
-318
-1011
+139
+939
+324
+972
 Gather_Location_Count
 Gather_Location_Count
 0
 1000
-100.0
+85.0
 1
 1
 NIL
@@ -3120,7 +3120,7 @@ Non_Infective_Time
 Non_Infective_Time
 0
 4
-2.0
+0.0
 1
 1
 NIL
@@ -3258,7 +3258,7 @@ SLIDER
 128
 898
 323
-932
+931
 Recovered_Match_Rate
 Recovered_Match_Rate
 0

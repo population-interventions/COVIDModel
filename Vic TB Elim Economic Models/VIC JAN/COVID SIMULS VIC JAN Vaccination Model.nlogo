@@ -27,6 +27,8 @@ globals [
   Days
   CaseFatalityRate
   DeathCount
+  recovercount
+  recoverProportion ; Proportion of the living population that has recovered.
   casesReportedToday
   casesReportedToday_acc ; Accumulator for casesReportedToday
   Scaled_Population
@@ -254,9 +256,9 @@ ticks
 30.0
 
 BUTTON
-218
+219
 95
-282
+283
 129
 NIL
 setup
@@ -420,30 +422,15 @@ NIL
 HORIZONTAL
 
 MONITOR
-9
-624
-158
-681
+13
+594
+162
+651
 Deaths
 Deathcount
 0
 1
 14
-
-SLIDER
-542
-980
-722
-1013
-ReInfectionRate
-ReInfectionRate
-0
-100
-1.0
-1
-1
-NIL
-HORIZONTAL
 
 SLIDER
 2660
@@ -554,10 +541,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-9
-690
-154
-747
+13
+659
+158
+716
 % Total Infections
 cumulativeInfected / Total_Population * 100
 2
@@ -602,7 +589,7 @@ Proportion_People_Avoid
 Proportion_People_Avoid
 0
 100
-15.0
+0.0
 .5
 1
 NIL
@@ -617,7 +604,7 @@ Proportion_Time_Avoid
 Proportion_Time_Avoid
 0
 100
-15.0
+0.0
 .5
 1
 NIL
@@ -1471,7 +1458,7 @@ Essential_Workers
 Essential_Workers
 0
 100
-75.0
+100.0
 1
 1
 NIL
@@ -1542,7 +1529,7 @@ Mask_Wearing
 Mask_Wearing
 0
 100
-90.0
+50.0
 1
 1
 NIL
@@ -1874,7 +1861,7 @@ Visit_Radius
 Visit_Radius
 0
 16
-7.1
+8.8
 1
 1
 NIL
@@ -2478,10 +2465,10 @@ BaseStage
 0
 
 MONITOR
-10
-758
-99
-803
+13
+728
+102
+773
 Mean ID Time
 meanIDTime
 1
@@ -2533,7 +2520,7 @@ RAND_SEED
 RAND_SEED
 0
 1000000
-1061485.0
+434783.0
 1
 1
 NIL
@@ -2568,36 +2555,21 @@ false
 PENS
 "default" 1.0 0 -16777216 true "" "plot count simuls with [ shape = \"person\" ]"
 
-SLIDER
-7
-188
-182
-221
-param_transmit_scale
-param_transmit_scale
-1
-1.5
-1.25
-0.25
-1
-NIL
-HORIZONTAL
-
 TEXTBOX
-12
-402
-180
-469
+18
+364
+186
+431
 Vaccine rollout and vaccine used per phase set in vaccine.csv.
 14
 0.0
 1
 
 SLIDER
-8
-228
-180
-261
+13
+185
+185
+218
 param_vac_uptake
 param_vac_uptake
 60
@@ -2609,25 +2581,25 @@ NIL
 HORIZONTAL
 
 SLIDER
-8
-270
-182
-303
+13
+227
+187
+260
 param_vac2_morb_eff
 param_vac2_morb_eff
 60
 80
-60.0
+70.0
 10
 1
 NIL
 HORIZONTAL
 
 SLIDER
-8
-312
-177
-345
+13
+269
+182
+302
 param_vac1_tran_reduct
 param_vac1_tran_reduct
 50
@@ -2639,25 +2611,25 @@ NIL
 HORIZONTAL
 
 SLIDER
-7
-355
-180
-388
+12
+312
+185
+345
 param_vac2_tran_reduct
 param_vac2_tran_reduct
 50
 90
-60.0
+75.0
 5
 1
 NIL
 HORIZONTAL
 
 SLIDER
-9
-467
-181
-500
+13
+437
+185
+470
 param_vacEffDays
 param_vacEffDays
 0
@@ -2807,14 +2779,14 @@ secondary_cases
 Number
 
 CHOOSER
-10
-508
-183
-553
+13
+478
+186
+523
 param_policy
 param_policy
 "AggressElim" "ModerateElim" "TightSupress" "LooseSupress" "None"
-2
+0
 
 SLIDER
 1509
@@ -2825,7 +2797,7 @@ Scale_Threshold
 Scale_Threshold
 50
 500
-240.0
+250.0
 1
 1
 NIL
@@ -3029,7 +3001,7 @@ Complacency_Bound
 Complacency_Bound
 0
 100
-15.0
+0.0
 1
 1
 NIL
@@ -3246,10 +3218,10 @@ PENS
 "pen-1" 1.0 0 -5298144 true "" "histogram [ cohortIndex ] of simuls with [ color = red ]"
 
 MONITOR
-10
-565
-160
-622
+13
+534
+163
+591
 Total Infected
 cumulativeInfected
 17
@@ -3267,6 +3239,32 @@ Symtomatic_Present_Day
 20
 6.0
 1
+1
+NIL
+HORIZONTAL
+
+MONITOR
+165
+659
+320
+716
+% Living Recovered
+recoverProportion * 100
+2
+1
+14
+
+SLIDER
+128
+898
+323
+932
+Recovered_Match_Rate
+Recovered_Match_Rate
+0
+0.1
+0.042
+0.001
 1
 NIL
 HORIZONTAL

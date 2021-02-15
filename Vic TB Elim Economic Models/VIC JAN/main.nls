@@ -19,6 +19,20 @@ to SendToQuarantine
   ]
 end
 
+to ShiftRecoveredTowardsTotalProportion
+  if Recovered_Match_Rate > 0 [
+    set recoverProportion recoverCount / (total_population - deathCount)
+    let repYellowCount ceiling (Population * recoverProportion)
+    let yellowSet simuls with [ color = yellow ]
+    let yellowSetCount count yellowSet
+    if repYellowCount < yellowSetCount [
+      ask n-of (Recovered_Match_Rate * (yellowSetCount - repYellowCount) + random-float 1) yellowSet [
+        set color cyan
+      ]
+    ]
+  ]
+end
+
 ;;;;;;;;;;;;*********END OF TTI FUNCTIONS******* ;;;;;;;;;;;;;
 
 to-report nonesspercentage
@@ -109,19 +123,18 @@ to go
     simul_isolateAndTrackFromHouseHold
   ]
   
+  ;; Recovered people filter out of the simulated population to move the proportion of recovered people towards the proportion in the total population.
+  ;; In effect some recovered agents become succeptible again.
+  ShiftRecoveredTowardsTotalProportion
+  
   ;; Simulants do a bunch of non-interactive housekeeping.
   ask simuls [
-    ;; if you are not dead at the end of your illness period, then you become recovered and turn yellow. Don't need hospital resources anymore.
-    simul_recover
     ;; Randomly start tracking infected people based on track_and_trace_efficiency.
     simul_traceme
     ;; Increment illness time and possibly lose 'health' due to it. It is unclear what health is for.
     simul_settime
-    ;; Possibly die if infected.
-    simul_death
-    
-    ;; Recovered people can randomly become succeptible again.
-    simul_recovered_lose_immunity
+    ;; if you are not dead at the end of your illness period, then you become recovered and turn yellow. Don't need hospital resources anymore.
+    simul_end_infection
 
     ;; Set infected people to always require ICU after their incubation period???
     simul_checkICU

@@ -439,53 +439,39 @@ to simul_settime
   ]
 end
 
-to simul_recovered_lose_immunity
-  ;; if you are recovered but suceptible again, you could become reinfected
-  if color = yellow and ReinfectionRate > random 100 [
-    set color cyan
-  ]
-end
-
-to simul_recover
-  ;; if you are not dead at the end of your illness period, then you become recovered and turn yellow and 
-  ;; don't need hospital resources, anymore
+to simul_end_infection
+  ;; Recover or die at the end of infectious period.
   if timenow > ownillnessperiod and color != black [
     if track_R [
       simul_setEndR 
     ]
     
+    array:set recoverArray cohortIndex (array:item recoverArray cohortIndex) + Scale_Factor ^ scalephase
+  ]
+  if color = red and timenow > ownillnessperiod [
+    ifelse RiskofDeath > random-float 1
+    [
+      set deathcount deathcount + Scale_Factor ^ scalephase
+      array:set dieArray cohortIndex (array:item dieArray cohortIndex) + Scale_Factor ^ scalephase 
+    ]
+    [
+      set recovercount recovercount + Scale_Factor ^ scalephase
+      array:set recoverArray cohortIndex (array:item recoverArray cohortIndex) + Scale_Factor ^ scalephase
+    ]
+    
+    ;; May as well set color to yellow since dead and infected people have a similar effect on the simulation.
+    ;; Very few people die in the low scales as a proportion of the total population.
     set color yellow
     set R 0
+    set requireICU 0
     set inQuarantine 0
     set isolating 0
     set timenow 0
     set tracked 0
     set health (100 - agerange )
-    set requireICU 0
-    array:set recoverArray cohortIndex (array:item recoverArray cohortIndex) + Scale_Factor ^ scalephase
   ]
 end
 
-
-to simul_death
-  ;; calculates death for individuals and adds them to a total for the population - This should not be relied upon to
-  ;; esitmate deaths as it currently interacts with asymptomatic cases and undetected cases in the most recent version
-  if color = red and timenow = int ownIllnessPeriod - 1 and RiskofDeath > random-float 1 [
-    if track_R [
-      simul_setEndR 
-    ]
-    
-    set color black
-    set pace 0
-    set RequireICU 0
-    set inQuarantine 0
-    set isolating 0
-    set timenow 0
-    set tracked 0
-    set deathcount deathcount + Scale_Factor ^ scalephase
-    array:set dieArray cohortIndex (array:item dieArray cohortIndex) + Scale_Factor ^ scalephase
-  ]
-end
 
 to simul_checkICU
   ;; estimates if someone needs and ICU bed

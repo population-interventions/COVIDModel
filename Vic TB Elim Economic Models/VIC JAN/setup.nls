@@ -295,6 +295,8 @@ to setGlobals
   set Days                       0
   set CaseFatalityRate           0
   set DeathCount                 0
+  set recovercount               0
+  set recoverProportion          0
   set casesReportedToday         0
   set casesReportedToday_acc     0
   set Scaled_Population          0

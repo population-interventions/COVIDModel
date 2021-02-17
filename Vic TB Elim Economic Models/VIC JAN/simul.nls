@@ -188,28 +188,28 @@ to simul_updateIsolationResponse
 end
 
 to simul_setEndR
-    set totalEndR totalEndR + R
-    set totalEndCount totalEndCount + 1
-    set endR_sum endR_sum + R
-    set endR_count endR_count + 1
+  set totalEndR totalEndR + R
+  set totalEndCount totalEndCount + 1
+  set endR_sum endR_sum + R
+  set endR_count endR_count + 1
 end
 
 to simul_do_scaleup
-      set size 2
-      set color cyan
-      set timenow 0
-      set inQuarantine 0
-      set sensitivity random-float 1
-      set imported 0
-      set tracked 0
-      set timenow 0
-      set R 0
-      
-      move-to one-of patches with [ pcolor = black ]
-      simul_resetSomeRandomParams
-      simul_resampleHouse ;; Check that this makes sense.
-      
-      set returntoschool random 100
+  set size 2
+  set color cyan
+  set timenow 0
+  set inQuarantine 0
+  set sensitivity random-float 1
+  set imported 0
+  set tracked 0
+  set timenow 0
+  set R 0
+  
+  move-to one-of patches with [ pcolor = black ]
+  simul_resetSomeRandomParams
+  simul_resampleHouse ;; Check that this makes sense.
+  
+  set returntoschool random 100
 end
 
 ;;*******************************************************************************************************************************

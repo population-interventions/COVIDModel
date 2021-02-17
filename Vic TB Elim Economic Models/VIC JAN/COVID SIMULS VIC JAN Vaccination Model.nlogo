@@ -347,7 +347,7 @@ Span
 Span
 0
 30
-30.0
+10.0
 1
 1
 NIL
@@ -519,7 +519,7 @@ superspreaders
 superspreaders
 0
 1
-0.1
+0.05
 0.01
 1
 NIL
@@ -589,7 +589,7 @@ Proportion_People_Avoid
 Proportion_People_Avoid
 0
 100
-0.0
+77.0
 .5
 1
 NIL
@@ -604,7 +604,7 @@ Proportion_Time_Avoid
 Proportion_Time_Avoid
 0
 100
-0.0
+77.0
 .5
 1
 NIL
@@ -1458,7 +1458,7 @@ Essential_Workers
 Essential_Workers
 0
 100
-100.0
+30.0
 1
 1
 NIL
@@ -1529,7 +1529,7 @@ Mask_Wearing
 Mask_Wearing
 0
 100
-50.0
+90.0
 1
 1
 NIL
@@ -1542,7 +1542,7 @@ SWITCH
 321
 schoolsOpen
 schoolsOpen
-0
+1
 1
 -1000
 
@@ -1699,7 +1699,7 @@ Case_Reporting_Delay
 Case_Reporting_Delay
 0
 20
-0.0
+2.0
 1
 1
 NIL
@@ -1861,7 +1861,7 @@ Visit_Radius
 Visit_Radius
 0
 16
-8.8
+3.5
 1
 1
 NIL
@@ -1968,10 +1968,10 @@ currentinfections
 11
 
 MONITOR
-1629
-447
-1754
-492
+1632
+450
+1757
+495
 Average Illness time
 mean [ timenow ] of simuls with [ color = red ]
 1
@@ -2641,10 +2641,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-1397
-412
-1485
-457
+1467
+620
+1555
+665
 NIL
 contact_radius
 17
@@ -2718,10 +2718,10 @@ stage
 11
 
 MONITOR
-1630
-547
-1759
-592
+1632
+550
+1761
+595
 Interaction Infectivity
 transmission_average
 6
@@ -2729,10 +2729,10 @@ transmission_average
 11
 
 MONITOR
-1629
-497
-1754
-542
+1632
+500
+1757
+545
 Virulent Interactions
 transmission_count_metric
 17
@@ -2786,7 +2786,7 @@ CHOOSER
 param_policy
 param_policy
 "AggressElim" "ModerateElim" "TightSupress" "LooseSupress" "None"
-0
+2
 
 SLIDER
 1509
@@ -2945,10 +2945,10 @@ PENS
 "default" 1.0 0 -16777216 true "" "plot transmission_average"
 
 MONITOR
-1628
-595
-1758
-640
+1630
+598
+1760
+643
 Expected New Cases
 transmission_count_metric * transmission_average
 6
@@ -3001,7 +3001,7 @@ Complacency_Bound
 Complacency_Bound
 0
 100
-0.0
+68.0
 1
 1
 NIL
@@ -3026,10 +3026,10 @@ PENS
 "default" 0.05 1 -16777216 true "" "histogram [ currentVirulence ] of simuls with [ color = red ]"
 
 MONITOR
-1629
-644
-1759
-689
+1632
+648
+1762
+693
 Real New Cases
 new_case_real
 17
@@ -3120,7 +3120,7 @@ Non_Infective_Time
 Non_Infective_Time
 0
 4
-0.0
+2.0
 1
 1
 NIL
@@ -3164,7 +3164,7 @@ SWITCH
 773
 track_R
 track_R
-1
+0
 1
 -1000
 

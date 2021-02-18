@@ -232,8 +232,8 @@ patches-own [
 GRAPHICS-WINDOW
 323
 62
-947
-889
+948
+789
 -1
 -1
 10.1
@@ -248,8 +248,8 @@ GRAPHICS-WINDOW
 1
 -30
 30
--40
-40
+-35
+35
 1
 1
 1
@@ -590,7 +590,7 @@ Proportion_People_Avoid
 Proportion_People_Avoid
 0
 100
-15.0
+0.0
 .5
 1
 NIL
@@ -605,7 +605,7 @@ Proportion_Time_Avoid
 Proportion_Time_Avoid
 0
 100
-15.0
+0.0
 .5
 1
 NIL
@@ -742,7 +742,7 @@ INPUTBOX
 313
 525
 total_population
-2.5E7
+6.359E7
 1
 0
 Number
@@ -1444,7 +1444,7 @@ Global_Transmissability
 Global_Transmissability
 0
 1
-0.64
+0.6
 0.01
 1
 NIL
@@ -1459,7 +1459,7 @@ Essential_Workers
 Essential_Workers
 0
 100
-75.0
+100.0
 1
 1
 NIL
@@ -1514,10 +1514,10 @@ SWITCH
 1403
 359
 1538
-393
+392
 tracking
 tracking
-0
+1
 1
 -1000
 
@@ -1530,7 +1530,7 @@ Mask_Wearing
 Mask_Wearing
 0
 100
-90.0
+0.0
 1
 1
 NIL
@@ -1657,7 +1657,7 @@ SWITCH
 355
 MaskPolicy
 MaskPolicy
-0
+1
 1
 -1000
 
@@ -1862,7 +1862,7 @@ Visit_Radius
 Visit_Radius
 0
 16
-7.1
+8.8
 1
 1
 NIL
@@ -2448,10 +2448,10 @@ SWITCH
 1545
 410
 1730
-444
+443
 Vaccine_Available
 Vaccine_Available
-0
+1
 1
 -1000
 
@@ -2521,7 +2521,7 @@ RAND_SEED
 RAND_SEED
 0
 1000000
-318841.0
+705314.0
 1
 1
 NIL
@@ -2787,7 +2787,7 @@ CHOOSER
 param_policy
 param_policy
 "AggressElim" "ModerateElim" "TightSupress" "LooseSupress" "None" "Stage 1" "Stage 1b" "Stage 2" "Stage 3" "Stage 4"
-1
+4
 
 SLIDER
 1509
@@ -3002,7 +3002,7 @@ Complacency_Bound
 Complacency_Bound
 0
 100
-15.0
+0.0
 1
 1
 NIL
@@ -3090,8 +3090,8 @@ SLIDER
 End_Day
 End_Day
 -1
-360
--1.0
+365
+50.0
 1
 1
 NIL
@@ -3274,10 +3274,10 @@ SWITCH
 13
 355
 187
-389
+388
 param_trigger_loosen
 param_trigger_loosen
-0
+1
 1
 -1000
 

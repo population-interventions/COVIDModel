@@ -140,4 +140,13 @@ topOfFile = [
     'param_policy',
 ]
 
-ReadModelFileAndWriteParams('GRAPHICS-WINDOW', '@#$#@#$#@', paramValuesBigRunTest, topOfFile=topOfFile)
+paramValuesTestR = {
+    'rand_seed' : listToStr(random.randint(10000000, size=(50))),
+    'param_policy' : listToStr([
+        '"None"',
+    ]),
+    'Global_Transmissability' : listToStr([0.3, 0.4, 0.5, 0.6]),
+    'total_population' : '25000000',
+}
+
+ReadModelFileAndWriteParams('GRAPHICS-WINDOW', '@#$#@#$#@', paramValuesTestR, topOfFile=topOfFile)

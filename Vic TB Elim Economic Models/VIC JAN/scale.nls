@@ -23,6 +23,17 @@ to scaleup_try_to_maintain_cohort
   let localYellowCount count simuls with [ color = yellow ]
   let localFilter 0
   
+  let R_average_before 0
+  if track_R [
+    let R_agg 0
+    let R_count 0
+    ask simuls with [ color = red ] [
+      set R_agg R_agg + R
+      set R_count R_count + 1
+    ]
+    set R_average_before R_agg / R_count
+  ]
+  
   foreach popDivisionTable_keys [ index ->
     let cohort table:get populationCohortCache index
     
@@ -51,6 +62,21 @@ to scaleup_try_to_maintain_cohort
   if localYellowCount_after * Scale_Factor > localYellowCount [
     ask n-of (localYellowCount_after - localYellowCount / Scale_Factor + random-float 1) localFilter [
       simul_do_scaleup
+    ]
+  ]
+  
+  if track_R [
+    let R_agg 0
+    let R_count 0
+    ask simuls with [ color = red ] [
+      set R_agg R_agg + R
+      set R_count R_count + 1
+    ]
+    let R_average_after R_agg / R_count
+    ;;show ( word "Before " R_average_before ", After " R_average_after )
+    let R_scale R_average_before / R_average_after
+    ask simuls with [ color = red ] [
+      set R R * R_scale
     ]
   ]
   

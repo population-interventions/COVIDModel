@@ -137,7 +137,7 @@ to go
     simul_end_infection
 
     ;; Set infected people to always require ICU after their incubation period???
-    simul_checkICU
+    ;simul_checkICU
     
     ;; Randomly vaccinate people according to uptake and stage.
     simul_vaccinate_me
@@ -176,7 +176,7 @@ to go
   set days days + 1
   tick
   
-  if ticks = End_Day [
+  if ticks = End_Day or (end_R_reported >= 0 and totalEndCount >= end_R_reported )[
    Stop 
   ]
 end

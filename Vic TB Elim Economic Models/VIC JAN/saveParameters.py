@@ -158,4 +158,4 @@ paramValuesTestR_2 = {
     'total_population' : '25000000',
 }
 
-ReadModelFileAndWriteParams('GRAPHICS-WINDOW', '@#$#@#$#@', paramValuesTestR_2, topOfFile=topOfFile)
+ReadModelFileAndWriteParams('GRAPHICS-WINDOW', '@#$#@#$#@', paramValuesTestR, topOfFile=topOfFile)

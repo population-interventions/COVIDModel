@@ -13,7 +13,9 @@ Questions
 
 Make a document tracking the use of randomness. Overseas incursions currently has a dedicated random stream.
 
-Remember to pivot to make draws.
+Remember to unstack to make draws. Pivot for summaries.
+Think about how avoiding works. The chance of someone being left alone is higher than their personal chance of trying to avoid people (since others may avoid them).
+Think about how isolating people no longer avoid, so may well have a higher chance to interact with people. This seems wrong.
 
 == Yellow and Black Scaling ==
 The way that recovered and dead people are handled seems problematic. 

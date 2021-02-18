@@ -17,10 +17,26 @@ def Process(path, name):
     df = df[['rand_seed', 'average_R', 'global_transmissability']]
     
     df = df.set_index(['rand_seed', 'global_transmissability'])
+    
     df = df.unstack(level=-1)
     df.columns = df.columns.get_level_values(1)
     df.to_csv(path + name + '_process.csv')
     df.describe().to_csv(path + name + '_metric.csv')
     print(df.describe())
+    
+def ProcessVariableEnd(path, name):
+    df = pd.read_csv(path + name + '.csv', header=6)
+    df = df[['rand_seed', 'average_R', 'global_transmissability', 'totalEndCount']]
+    df = df[['rand_seed', 'average_R', 'global_transmissability', 'totalEndCount']]
+    
+    df = df.set_index(['rand_seed', 'global_transmissability'])
+    
+    df = df.unstack(level=-1)
+    df.to_csv(path + name + '_process.csv')
+    df.describe().to_csv(path + name + '_metric.csv')
+    
+    print((df['average_R'] * df['totalEndCount']).sum() / df['totalEndCount'].sum())
+    print(df.describe())
+    
     
 Process('Output/R calc test 2/', 'headless R Test 4-table')

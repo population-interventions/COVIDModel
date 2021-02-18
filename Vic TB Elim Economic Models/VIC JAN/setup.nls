@@ -322,6 +322,7 @@ to setGlobals
   set cashposition               0
   set Objfunction                0
   set decisionDate               0
+  set policyTriggerScale         1
   set prior0                     0
   set prior1                     0
   set prior2                     0

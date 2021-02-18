@@ -54,6 +54,7 @@ globals [
   cashposition
   Objfunction ;; seeks to minimise the damage - totalinfection * stage * currentInfections
   decisionDate ;; a date (ticks) when policy decsions were made
+  policyTriggerScale
   prior0
   prior1
   prior2
@@ -347,7 +348,7 @@ Span
 Span
 0
 30
-10.0
+30.0
 1
 1
 NIL
@@ -422,10 +423,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-13
-594
-162
-651
+18
+644
+167
+701
 Deaths
 Deathcount
 0
@@ -519,7 +520,7 @@ superspreaders
 superspreaders
 0
 1
-0.05
+0.1
 0.01
 1
 NIL
@@ -541,10 +542,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-13
-659
-158
-716
+18
+709
+163
+766
 % Total Infections
 cumulativeInfected / Total_Population * 100
 2
@@ -589,7 +590,7 @@ Proportion_People_Avoid
 Proportion_People_Avoid
 0
 100
-77.0
+15.0
 .5
 1
 NIL
@@ -604,7 +605,7 @@ Proportion_Time_Avoid
 Proportion_Time_Avoid
 0
 100
-77.0
+15.0
 .5
 1
 NIL
@@ -882,9 +883,9 @@ PENS
 "ICU Beds Required" 1.0 0 -16777216 true "" "plot ICUBedsRequired "
 
 MONITOR
-1388
+1394
 512
-1552
+1558
 561
 Reported Inf Today
 casesReportedToday
@@ -1424,9 +1425,9 @@ initialassociationstrength
 Number
 
 MONITOR
-1384
+1390
 618
-1449
+1455
 663
 Virulence
 mean [ personalvirulence] of simuls
@@ -1443,7 +1444,7 @@ Global_Transmissability
 Global_Transmissability
 0
 1
-0.32
+0.64
 0.01
 1
 NIL
@@ -1458,7 +1459,7 @@ Essential_Workers
 Essential_Workers
 0
 100
-30.0
+75.0
 1
 1
 NIL
@@ -1511,9 +1512,9 @@ HORIZONTAL
 
 SWITCH
 1403
-365
-1540
-398
+359
+1538
+393
 tracking
 tracking
 0
@@ -1537,12 +1538,12 @@ HORIZONTAL
 
 SWITCH
 1402
-288
+282
 1537
-321
+315
 schoolsOpen
 schoolsOpen
-1
+0
 1
 -1000
 
@@ -1651,9 +1652,9 @@ HORIZONTAL
 
 SWITCH
 1402
-328
+322
 1536
-361
+355
 MaskPolicy
 MaskPolicy
 0
@@ -1861,7 +1862,7 @@ Visit_Radius
 Visit_Radius
 0
 16
-3.5
+7.1
 1
 1
 NIL
@@ -1957,9 +1958,9 @@ NIL
 HORIZONTAL
 
 MONITOR
-1388
+1394
 567
-1490
+1496
 612
 NIL
 currentinfections
@@ -2444,10 +2445,10 @@ NIL
 HORIZONTAL
 
 SWITCH
-1547
-409
-1700
-442
+1545
+410
+1730
+444
 Vaccine_Available
 Vaccine_Available
 0
@@ -2465,10 +2466,10 @@ BaseStage
 0
 
 MONITOR
-13
-728
-102
-773
+18
+778
+107
+823
 Mean ID Time
 meanIDTime
 1
@@ -2520,7 +2521,7 @@ RAND_SEED
 RAND_SEED
 0
 1000000
-434783.0
+318841.0
 1
 1
 NIL
@@ -2556,10 +2557,10 @@ PENS
 "default" 1.0 0 -16777216 true "" "plot count simuls with [ shape = \"person\" ]"
 
 TEXTBOX
-18
-364
-186
-431
+23
+414
+191
+481
 Vaccine rollout and vaccine used per phase set in vaccine.csv.
 14
 0.0
@@ -2626,10 +2627,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-13
-437
-185
-470
+18
+487
+190
+520
 param_vacEffDays
 param_vacEffDays
 0
@@ -2641,10 +2642,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-1467
-620
-1555
-665
+1473
+619
+1561
+664
 NIL
 contact_radius
 17
@@ -2652,10 +2653,10 @@ contact_radius
 11
 
 MONITOR
-1398
-133
-1535
-178
+1399
+132
+1536
+177
 NIL
 spatial_distance
 17
@@ -2664,9 +2665,9 @@ spatial_distance
 
 MONITOR
 1400
-183
+180
 1534
-228
+225
 NIL
 case_isolation
 17
@@ -2674,10 +2675,10 @@ case_isolation
 11
 
 MONITOR
-1403
-235
-1536
-280
+1402
+230
+1535
+275
 NIL
 quarantine
 17
@@ -2707,9 +2708,9 @@ Track_and_Trace_Efficiency
 11
 
 MONITOR
-1387
+1393
 667
-1444
+1450
 712
 NIL
 stage
@@ -2779,14 +2780,14 @@ secondary_cases
 Number
 
 CHOOSER
-13
-478
-186
-523
+18
+528
+191
+573
 param_policy
 param_policy
-"AggressElim" "ModerateElim" "TightSupress" "LooseSupress" "None"
-2
+"AggressElim" "ModerateElim" "TightSupress" "LooseSupress" "None" "Stage 1" "Stage 1b" "Stage 2" "Stage 3" "Stage 4"
+1
 
 SLIDER
 1509
@@ -3001,7 +3002,7 @@ Complacency_Bound
 Complacency_Bound
 0
 100
-68.0
+15.0
 1
 1
 NIL
@@ -3127,9 +3128,9 @@ NIL
 HORIZONTAL
 
 MONITOR
-1388
+1394
 463
-1545
+1551
 508
 NIL
 totalOverseasIncursions
@@ -3218,10 +3219,10 @@ PENS
 "pen-1" 1.0 0 -5298144 true "" "histogram [ cohortIndex ] of simuls with [ color = red ]"
 
 MONITOR
-13
-534
-163
-591
+18
+584
+168
+641
 Total Infected
 cumulativeInfected
 17
@@ -3245,9 +3246,9 @@ HORIZONTAL
 
 MONITOR
 165
-659
+709
 320
-716
+766
 % Living Recovered
 recoverProportion * 100
 2
@@ -3268,6 +3269,28 @@ Recovered_Match_Rate
 1
 NIL
 HORIZONTAL
+
+SWITCH
+13
+355
+187
+389
+param_trigger_loosen
+param_trigger_loosen
+0
+1
+-1000
+
+MONITOR
+1403
+398
+1537
+443
+NIL
+policyTriggerScale
+17
+1
+11
 
 @#$#@#$#@
 ## WHAT IS IT?

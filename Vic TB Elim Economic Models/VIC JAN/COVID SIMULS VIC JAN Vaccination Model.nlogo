@@ -348,7 +348,7 @@ Span
 Span
 0
 30
-30.0
+15.0
 1
 1
 NIL
@@ -590,7 +590,7 @@ Proportion_People_Avoid
 Proportion_People_Avoid
 0
 100
-0.0
+52.0
 .5
 1
 NIL
@@ -605,7 +605,7 @@ Proportion_Time_Avoid
 Proportion_Time_Avoid
 0
 100
-0.0
+52.0
 .5
 1
 NIL
@@ -742,7 +742,7 @@ INPUTBOX
 313
 525
 total_population
-6.359E7
+6359000.0
 1
 0
 Number
@@ -1436,10 +1436,10 @@ mean [ personalvirulence] of simuls
 11
 
 SLIDER
-742
-899
-948
-932
+13
+443
+195
+477
 Global_Transmissability
 Global_Transmissability
 0
@@ -1459,7 +1459,7 @@ Essential_Workers
 Essential_Workers
 0
 100
-100.0
+50.0
 1
 1
 NIL
@@ -1517,7 +1517,7 @@ SWITCH
 392
 tracking
 tracking
-1
+0
 1
 -1000
 
@@ -1530,7 +1530,7 @@ Mask_Wearing
 Mask_Wearing
 0
 100
-0.0
+90.0
 1
 1
 NIL
@@ -1657,7 +1657,7 @@ SWITCH
 355
 MaskPolicy
 MaskPolicy
-1
+0
 1
 -1000
 
@@ -1862,7 +1862,7 @@ Visit_Radius
 Visit_Radius
 0
 16
-8.8
+5.3
 1
 1
 NIL
@@ -2451,7 +2451,7 @@ SWITCH
 442
 Vaccine_Available
 Vaccine_Available
-1
+0
 1
 -1000
 
@@ -2557,10 +2557,10 @@ PENS
 "default" 1.0 0 -16777216 true "" "plot count simuls with [ shape = \"person\" ]"
 
 TEXTBOX
-23
-414
-191
-481
+20
+480
+188
+547
 Vaccine rollout and vaccine used per phase set in vaccine.csv.
 14
 0.0
@@ -2597,10 +2597,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-13
-269
-182
-302
+14
+270
+183
+303
 param_vac1_tran_reduct
 param_vac1_tran_reduct
 50
@@ -2612,10 +2612,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-12
-312
-185
-345
+13
+309
+186
+342
 param_vac2_tran_reduct
 param_vac2_tran_reduct
 50
@@ -2627,10 +2627,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-18
-487
-190
-520
+15
+545
+187
+578
 param_vacEffDays
 param_vacEffDays
 0
@@ -2780,14 +2780,14 @@ secondary_cases
 Number
 
 CHOOSER
-18
-528
-191
-573
+14
+395
+187
+440
 param_policy
 param_policy
 "AggressElim" "ModerateElim" "TightSupress" "LooseSupress" "None" "Stage 1" "Stage 1b" "Stage 2" "Stage 3" "Stage 4"
-4
+0
 
 SLIDER
 1555
@@ -3002,7 +3002,7 @@ Complacency_Bound
 Complacency_Bound
 0
 100
-0.0
+52.0
 1
 1
 NIL
@@ -3091,7 +3091,7 @@ End_Day
 End_Day
 -1
 365
-50.0
+330.0
 1
 1
 NIL
@@ -3271,10 +3271,10 @@ NIL
 HORIZONTAL
 
 SWITCH
-13
-355
-187
-388
+14
+352
+188
+385
 param_trigger_loosen
 param_trigger_loosen
 1

@@ -360,12 +360,13 @@ end
 to simul_avoid
   ;; so, if the social distancing policies are on and you are distancing at this time and you are not part of an age-isolated
   ;; group and you are not an EssentialWorkerPriority, then if there is anyone near you, move away if you can.
-  ;; Isolating people still avoid anyone who wanders into their home? No.
-  if inQuarantine = 0 and isolateCompliant = 0 [
+  ;; isolateCompliant = 1 people avoid people who wander into their home so they don't paradoxically have a higher probability
+  ;; of meeting people.
+  if inQuarantine = 0 [
     ;; if you are an essential worker, you can only reduce your
     ;; contacts when you are not at work assuming 8 hours work, 8 hours rest, 8 hours recreation - rest doesn't count for anyone, hence it is
     ;; set at 50 on the input slider. People don't isolate from others in their household unit
-    (ifelse (EssentialWorkerFlag = 1 or Ess_W_Risk_Reduction > random 100)
+    (ifelse (EssentialWorkerFlag = 0 or Ess_W_Risk_Reduction > random 100)
       and Spatial_Distance = true and AgeRange > Age_Isolation
       and Proportion_People_Avoid + draw_ppa_modifier > proportion_people_avoid_draw
       and Proportion_Time_Avoid + draw_pta_modifier > random 100

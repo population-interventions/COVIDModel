@@ -51,6 +51,8 @@ to go
   ;; Check whether to scale up, which occurs when 10% of the agents are infected.
   CheckScale
   
+  ;reset-timer
+  
   ;; Set a list of policy parameters (span (speed), tracking, mask_wearning etc..) based on current stage and stage reset timers
   setupstages
   if stageHasChanged = 1 [
@@ -146,8 +148,8 @@ to go
   ;; Randomly turn suceptible agents into infected ones. Percentage chance = IncursionRate.
   vaccine_do_incursion_based_on_phase
   
-  ;;show ( word " Simul Stuff " timer " seconds ")
-  ;;reset-timer
+  ;show ( word " Simul Stuff " timer " seconds " ticks )
+  ;reset-timer
   
   if proportion_people_avoid > Complacency_Bound [
     set proportion_people_avoid proportion_people_avoid - 1
@@ -168,7 +170,7 @@ to go
   ;; Zero count- and average-style metrics for gathering throughout the next step
   resetAccumulators
   
-  ;;show ( word " calculate Stuff " timer " seconds ")
+  ;show ( word " calculate Stuff " timer " seconds " ticks )
   
   ;; counts days per tick, likely redundant at present as days are not used for anything right now.
   calculateDataOut

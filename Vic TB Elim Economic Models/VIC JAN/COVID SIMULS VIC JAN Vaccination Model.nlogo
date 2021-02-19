@@ -85,6 +85,11 @@ globals [
   prior27
   prior28
 
+  fiveDayAverage
+  fiveDayAverageProp
+  fiveDayAvChangeAv
+  fiveDayAvChangeCount
+
   new_case_real
   new_case_real_counter
 
@@ -348,7 +353,7 @@ Span
 Span
 0
 30
-10.0
+5.0
 1
 1
 NIL
@@ -460,7 +465,7 @@ superspreaders
 superspreaders
 0
 1
-0.05
+0.02
 0.01
 1
 NIL
@@ -515,7 +520,7 @@ Proportion_People_Avoid
 Proportion_People_Avoid
 0
 100
-68.0
+90.0
 .5
 1
 NIL
@@ -530,7 +535,7 @@ Proportion_Time_Avoid
 Proportion_Time_Avoid
 0
 100
-68.0
+90.0
 .5
 1
 NIL
@@ -663,10 +668,10 @@ PENS
 "pen-2" 1.0 0 -2674135 true "" "histogram [ agerange ] of simuls with [ color = red ]"
 
 PLOT
-1005
-754
-1429
-998
+1004
+749
+1422
+988
 Active (red) and Total (blue) Infections ICU Beds (black)
 NIL
 NIL
@@ -935,7 +940,7 @@ Global_Transmissability
 Global_Transmissability
 0
 1
-0.67
+0.42
 0.01
 1
 NIL
@@ -950,7 +955,7 @@ Essential_Workers
 Essential_Workers
 0
 100
-30.0
+20.0
 1
 1
 NIL
@@ -1230,7 +1235,7 @@ Visit_Radius
 Visit_Radius
 0
 16
-3.5
+1.8
 1
 1
 NIL
@@ -1539,7 +1544,7 @@ RAND_SEED
 RAND_SEED
 0
 10000000
-6425121.0
+8357488.0
 1
 1
 NIL
@@ -1831,7 +1836,7 @@ Scale_Factor
 Scale_Factor
 2
 10
-2.0
+4.0
 1
 1
 NIL
@@ -1882,9 +1887,9 @@ PENS
 
 TEXTBOX
 772
-1088
+1120
 1160
-1116
+1148
 ----- Everything below this line should (hopefully) be ignored. -----
 11
 0.0
@@ -2005,7 +2010,7 @@ Complacency_Bound
 Complacency_Bound
 0
 100
-68.0
+90.0
 1
 1
 NIL
@@ -2094,7 +2099,7 @@ End_Day
 End_Day
 -1
 365
-552.0
+105.0
 1
 1
 NIL

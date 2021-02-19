@@ -67,15 +67,6 @@ to setEssentialWorkerPriority
   ]
 end
 
-
-to resetlanding
-  ;; ensures that resources don't start on top of one another in the model
-  if any? other resources-here [
-    set ycor one-of [ -30 -10 10 30 ]
-    resetlanding
-  ]
-end
-
 to calculatedailyrisk
   ;; estimates risk of death per day for the duration of the period of illness
   ;; used for stats more than calibrated to real world given most people die late in the illness period
@@ -517,49 +508,12 @@ to setup
     ]
   ]
   
-  ;; sets a proportion of interactions outside vs inside
-  ask n-of (count patches * Outside) patches [
-    set pcolor green
-  ]
   ;; a beta function for testing locating many people in one place at a single time
   ask n-of Gather_Location_Count patches with [ pcolor = black ] [
     set pcolor grey
     set destination 1
   ]
   set destination_patches patches with [ destination = 1 ]
-
-  ;; setting up the hospital
-  ask n-of 1 patches [
-    sprout-medresources 1
-  ]
-  ask medresources [
-    set color white
-    set shape "Health care"
-    set size 1.5
-    set xcor 20
-    set ycor -20
-  ]
-  
-  ask medresources [
-    ask n-of Scaled_Bed_Capacity patches in-radius 5 [
-      set pcolor white
-    ]
-  ]
-  ask n-of Available_Resources patches [
-    sprout-resources 1
-  ]
-
-  ;; sets up resources that people want to purchase
-  ask resources [
-    set color white
-    set shape "square"
-    set size 5
-    set volume one-of [2.5 5 7.5 10 ]
-    resize
-    set xcor -20
-    set ycor one-of [-30 -10 10 30 ]
-    resetlanding
-  ]
 
   createSimulants
 
@@ -577,7 +531,6 @@ to setup
 
   ;; spend CalculateIncomePerday
   ask simuls [
-    set health (100 - Agerange + random-normal 0 2)
     calculateDailyrisk
   ]
 

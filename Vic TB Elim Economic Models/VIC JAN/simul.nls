@@ -5,7 +5,6 @@
 breed [ simuls simul ]
 
 simuls-own [
-  health ;; baseline health of the individual
   inQuarantine ;; whether the person is in ICU or not
   sensitivity ;; person's sensitivity to news about the pandemic
   R ;; the estimated RNaught of individuals
@@ -140,23 +139,6 @@ to simul_resampleHouse
   table:put houseTrackedCaseTimeTable householdunit -1
   
   simul_resetlanding
-end
-
-to simul_PossiblyDie
-  ;; determines whether people die on the basis of poor health (not currently active)
-  if inQuarantine = 0 and Severity_of_illness / Illness_Period > random 100 [
-    set health health - Severity_of_Illness
-  ]
-  if inQuarantine = 1 and Severity_of_illness / Illness_Period > random 100 [
-    set health health - Severity_of_Illness / Treatment_Benefit
-  ]
-end
-
-to simul_avoidICUs
-  ;; makes sure that simulswho have not been sent to hospital stay outside
-  if [ pcolor ] of patch-here = white and inQuarantine = 0 [
-    move-to min-one-of patches with [ pcolor = black ] [ distance myself ]
-  ]
 end
 
 to simul_move_to_empty_patch
@@ -319,24 +301,12 @@ to simul_move
         ;; contact radius defines how large the circle of contacts for the person is.
         set heading heading + Contact_Radius + random 45 - random 45
         forward random pace
-        simul_avoidICUs
       ]
 
-      ;; non-compliant people continue to move around the environment unless they are very sick
-      if color = red and health > random 100 [
+      ;; non-compliant people continue to move around the environment
+      if color = red [
         set heading heading + random 90 - random 90
         forward random pace
-      ]
-
-      ;; steers people away from the hospital
-      if color = red and Quarantine = false [
-        simul_avoidICUs
-      ]
-
-      ;; hides deceased simuls from remaining simuls, preventing interaction
-      if color = black [
-        move-to one-of MedResources
-        ;; this considers how mobile people are
       ]
     ]
     [
@@ -387,7 +357,6 @@ to simul_avoid
       ]
       [
         ;; otherwise just avoid ICU (we already moved)
-        simul_avoidICUs
         simul_update_patch_utilisation
     ])
   ]
@@ -398,7 +367,6 @@ to simul_superSpread
   if inQuarantine = 0 and isolateCompliant = 0 and superspreaders > random-float 1 [
     forward world-width / 2
     move-to patch-here
-    simul_avoidICUs
   ]
 end
 
@@ -407,7 +375,6 @@ to simul_settime
   ;; dying this way currently not implemented but done at the end of the illness period, instead
   if color = red [
     set timenow timenow + 1
-    simul_PossiblyDie
     if tracked = 1 and caseReportTime = ticks [
       set casesReportedToday_acc casesReportedToday_acc + 1
     ]
@@ -443,20 +410,6 @@ to simul_end_infection
     set isolating 0
     set timenow 0
     set tracked 0
-    set health (100 - agerange )
-  ]
-end
-
-
-to simul_checkICU
-  ;; estimates if someone needs and ICU bed
-  if color = red and RequireICU_draw < ICU_Required and timenow >= ownIncubationPeriod [
-    if tracked = 0 or caseReportTime > ticks[
-      set caseReportTime ticks ;; Report instantly.
-    ]
-    set tracked 1 ;; Lets say that someone becomes tracked when they go to ICU
-    set requireICU 1
-    ;; By setting them to tracked they will end up in quarantine
   ]
 end
 

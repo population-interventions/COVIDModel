@@ -24,9 +24,6 @@ to updateCounts
   
   ;; population scaling function
   set Scaled_Population Population * Scale_Factor ^ scalephase
- 
-  ;; scales the number of patches in the environment that represents Australian bed capacity
-  set scaled_Bed_Capacity ( Hospital_Beds_In_Australia / Population )
   
   ;; calculates the number of infected people in the population
   set currentInfections redcount * Scale_Factor ^ scalephase

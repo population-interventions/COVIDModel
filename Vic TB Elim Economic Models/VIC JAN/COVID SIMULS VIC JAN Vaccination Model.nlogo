@@ -205,12 +205,10 @@ __includes[
   "main.nls"
   "simul.nls"
   "setup.nls"
-  "packages.nls"
   "scale.nls"
   "stages.nls"
   "policy.nls"
   "trace.nls"
-  "resources.nls"
   "count.nls"
   "vaccine.nls"
   "debug.nls"
@@ -230,10 +228,10 @@ patches-own [
 ]
 @#$#@#$#@
 GRAPHICS-WINDOW
-323
-62
-987
-727
+324
+74
+988
+739
 -1
 -1
 10.1
@@ -348,7 +346,7 @@ Span
 Span
 0
 30
-15.0
+30.0
 1
 1
 NIL
@@ -407,61 +405,16 @@ NIL
 NIL
 1
 
-SLIDER
-2662
-539
-2849
-572
-RestrictedMovement
-RestrictedMovement
-0
-1
-0.0
-.01
-1
-NIL
-HORIZONTAL
-
 MONITOR
 18
-644
+678
 167
-701
+735
 Deaths
 Deathcount
 0
 1
 14
-
-SLIDER
-2660
-47
-2792
-80
-Available_Resources
-Available_Resources
-0
-4
-0.0
-1
-1
-NIL
-HORIZONTAL
-
-SLIDER
-2658
-464
-2847
-497
-ProductionRate
-ProductionRate
-0
-100
-5.0
-1
-1
-NIL
-HORIZONTAL
 
 MONITOR
 2487
@@ -497,21 +450,6 @@ cumulativeInfected
 14
 
 SLIDER
-2660
-663
-2847
-696
-Media_Exposure
-Media_Exposure
-1
-100
-50.0
-1
-1
-NIL
-HORIZONTAL
-
-SLIDER
 1589
 253
 1768
@@ -526,26 +464,11 @@ superspreaders
 NIL
 HORIZONTAL
 
-SLIDER
-2664
-614
-2849
-647
-Severity_of_illness
-Severity_of_illness
-0
-100
-16.0
-1
-1
-NIL
-HORIZONTAL
-
 MONITOR
 18
-709
-163
-766
+740
+167
+797
 % Total Infections
 cumulativeInfected / Total_Population * 100
 2
@@ -590,7 +513,7 @@ Proportion_People_Avoid
 Proportion_People_Avoid
 0
 100
-52.0
+0.0
 .5
 1
 NIL
@@ -605,38 +528,8 @@ Proportion_Time_Avoid
 Proportion_Time_Avoid
 0
 100
-52.0
+0.0
 .5
-1
-NIL
-HORIZONTAL
-
-SLIDER
-2658
-424
-2848
-457
-Treatment_Benefit
-Treatment_Benefit
-0
-10
-4.0
-1
-1
-NIL
-HORIZONTAL
-
-SLIDER
-2662
-499
-2849
-532
-FearTrigger
-FearTrigger
-0
-100
-50.0
-1
 1
 NIL
 HORIZONTAL
@@ -651,32 +544,6 @@ mean [ R ] of simuls with [ color = red and timenow = int Illness_Period ]
 2
 1
 11
-
-SWITCH
-582
-1268
-707
-1301
-policytriggeron
-policytriggeron
-1
-1
--1000
-
-SLIDER
-2664
-579
-2849
-612
-Initial
-Initial
-0
-100
-1.0
-1
-1
-NIL
-HORIZONTAL
 
 PLOT
 2778
@@ -715,10 +582,10 @@ PENS
 "default" 1.0 0 -16777216 true "" "if ticks > 1 [ plot ( InfectionChange ) * 10 ]"
 
 MONITOR
-2488
-574
-2620
-619
+2403
+633
+2535
+678
 Infection Growth %
 infectionchange
 2
@@ -747,21 +614,6 @@ total_population
 0
 Number
 
-SLIDER
-582
-1308
-708
-1341
-Triggerday
-Triggerday
-0
-1000
-1.0
-1
-1
-NIL
-HORIZONTAL
-
 MONITOR
 1009
 254
@@ -772,60 +624,6 @@ AverageContacts
 2
 1
 11
-
-PLOT
-1917
-1217
-2192
-1339
-Close contacts and Mobility
-NIL
-NIL
-0.0
-10.0
-0.0
-1.0
-true
-false
-"" ""
-PENS
-"Contacts" 1.0 0 -16777216 true "" "if ticks > 0 [ plot mean [ contacts ] of simuls with [ color != black  ] ] "
-
-PLOT
-3134
-458
-3294
-578
-R0
-Time
-R
-0.0
-10.0
-0.0
-3.0
-true
-false
-"" ""
-PENS
-"R" 1.0 0 -16777216 true "" "if count simuls with [ timenow = int ownIllnessPeriod ] > 0 [ plot MeanR ]"
-
-PLOT
-3313
-375
-3513
-495
-Population
-NIL
-NIL
-0.0
-10.0
-0.0
-10.0
-true
-false
-"" ""
-PENS
-"default" 1.0 0 -16777216 true "" "plot count simuls"
 
 SLIDER
 40
@@ -863,10 +661,10 @@ PENS
 "pen-2" 1.0 0 -2674135 true "" "histogram [ agerange ] of simuls with [ color = red ]"
 
 PLOT
-1003
-739
-1426
-996
+1005
+754
+1429
+998
 Active (red) and Total (blue) Infections ICU Beds (black)
 NIL
 NIL
@@ -912,21 +710,6 @@ PENS
 "New Cases" 1.0 1 -5298144 true "" "plot (Scale_Factor ^ scalephase) * (count simuls with [ color = red and timenow = Case_Reporting_Delay ])"
 
 SLIDER
-1094
-1259
-1294
-1292
-Diffusion_Adjustment
-Diffusion_Adjustment
-1
-100
-9.0
-1
-1
-NIL
-HORIZONTAL
-
-SLIDER
 1635
 19
 1769
@@ -941,39 +724,6 @@ Age_Isolation
 NIL
 HORIZONTAL
 
-SWITCH
-2853
-1250
-2957
-1283
-stimulus
-stimulus
-1
-1
--1000
-
-SWITCH
-2853
-1293
-2957
-1326
-cruise
-cruise
-1
-1
--1000
-
-MONITOR
-3553
-484
-3706
-533
-Stimulus
-Sum [ value ] of packages * -1 * (Total_Population / Population )
-0
-1
-12
-
 MONITOR
 3348
 847
@@ -984,34 +734,6 @@ objFunction
 2
 1
 14
-
-BUTTON
-597
-1423
-703
-1458
-Stop Stimulus
-ask packages [ die ] 
-NIL
-1
-T
-OBSERVER
-NIL
-NIL
-NIL
-NIL
-1
-
-INPUTBOX
-3552
-349
-3707
-411
-days_of_cash_reserves
-30.0
-1
-0
-Number
 
 MONITOR
 1708
@@ -1057,57 +779,6 @@ scalePhase
 1
 12
 
-MONITOR
-3043
-585
-3298
-634
-Negative $ Reserves
-count simuls with [ shape = \"star\" ] / count simuls
-2
-1
-12
-
-TEXTBOX
-582
-1390
-707
-1413
-Day 1 - Dec 21st, 2020
-12
-0.0
-1
-
-SLIDER
-920
-1344
-1123
-1377
-WFH_Capacity
-WFH_Capacity
-0
-100
-29.9
-.1
-1
-NIL
-HORIZONTAL
-
-SLIDER
-577
-1130
-717
-1163
-TimeLockDownOff
-TimeLockDownOff
-0
-300
-28.0
-1
-1
-NIL
-HORIZONTAL
-
 SWITCH
 1380
 1389
@@ -1151,21 +822,6 @@ count simuls
 1
 11
 
-SLIDER
-1158
-1393
-1341
-1426
-ICU_Required
-ICU_Required
-0
-1
-0.1
-0.01
-1
-NIL
-HORIZONTAL
-
 MONITOR
 2305
 938
@@ -1177,85 +833,6 @@ ICUBedsRequired
 1
 12
 
-PLOT
-3004
-777
-3341
-902
-ICU Beds Available vs Required
-NIL
-NIL
-0.0
-10.0
-0.0
-10.0
-true
-true
-"" ""
-PENS
-"Required" 1.0 0 -16777216 true "" "plot ICUBedsRequired"
-"Spare" 1.0 0 -5298144 true "" "plot ICU_Beds_in_Australia - ICUBedsRequired "
-
-SLIDER
-3048
-978
-3257
-1011
-Mean_Individual_Income
-Mean_Individual_Income
-0
-100000
-60000.0
-5000
-1
-NIL
-HORIZONTAL
-
-SLIDER
-1159
-1355
-1343
-1388
-ICU_Beds_in_Australia
-ICU_Beds_in_Australia
-0
-20000
-7400.0
-50
-1
-NIL
-HORIZONTAL
-
-SLIDER
-920
-1305
-1125
-1338
-Hospital_Beds_in_Australia
-Hospital_Beds_in_Australia
-0
-200000
-65000.0
-5000
-1
-NIL
-HORIZONTAL
-
-SLIDER
-2660
-703
-2850
-736
-Bed_Capacity
-Bed_Capacity
-0
-20
-9.0
-1
-1
-NIL
-HORIZONTAL
-
 MONITOR
 2577
 742
@@ -1266,83 +843,6 @@ count links / count simuls with [ color = red ]
 0
 1
 12
-
-SWITCH
-1540
-1293
-1674
-1326
-link_switch
-link_switch
-1
-1
--1000
-
-INPUTBOX
-2667
-819
-2822
-879
-maxv
-1.0
-1
-0
-Number
-
-INPUTBOX
-2667
-889
-2822
-949
-minv
-0.0
-1
-0
-Number
-
-INPUTBOX
-2837
-957
-2992
-1017
-phwarnings
-0.8
-1
-0
-Number
-
-INPUTBOX
-2670
-959
-2825
-1019
-saliency_of_experience
-1.0
-1
-0
-Number
-
-INPUTBOX
-2825
-753
-2980
-813
-care_attitude
-0.5
-1
-0
-Number
-
-INPUTBOX
-2829
-819
-2984
-879
-self_capacity
-0.8
-1
-0
-Number
 
 MONITOR
 2868
@@ -1396,10 +896,10 @@ se_incubation
 Number
 
 PLOT
-2352
-128
-2592
-253
+2382
+130
+2622
+255
 Dist_Incubation_Pd
 NIL
 NIL
@@ -1413,17 +913,6 @@ false
 PENS
 "default" 1.0 1 -16777216 true "" "histogram [ ownIncubationPeriod ] of simuls"
 
-INPUTBOX
-2665
-754
-2820
-814
-initialassociationstrength
-0.0
-1
-0
-Number
-
 MONITOR
 1435
 618
@@ -1436,15 +925,15 @@ mean [ personalvirulence] of simuls
 11
 
 SLIDER
-13
-443
-195
-477
+12
+448
+189
+481
 Global_Transmissability
 Global_Transmissability
 0
 1
-0.5
+0.42
 0.01
 1
 NIL
@@ -1459,52 +948,22 @@ Essential_Workers
 Essential_Workers
 0
 100
-50.0
+100.0
 1
 1
 NIL
 HORIZONTAL
 
 SLIDER
-577
-1168
-717
-1201
-SeedTicks
-SeedTicks
-0
-100
-15.0
-1
-1
-NIL
-HORIZONTAL
-
-SLIDER
-332
-940
-507
-973
+552
+872
+749
+905
 Ess_W_Risk_Reduction
 Ess_W_Risk_Reduction
 0
 100
 50.0
-1
-1
-NIL
-HORIZONTAL
-
-SLIDER
-763
-1135
-939
-1168
-App_Uptake
-App_Uptake
-0
-100
-0.0
 1
 1
 NIL
@@ -1530,7 +989,7 @@ Mask_Wearing
 Mask_Wearing
 0
 100
-90.0
+50.0
 1
 1
 NIL
@@ -1576,32 +1035,6 @@ false
 PENS
 "default" 1.0 1 -16777216 true "" "Histogram [ agerange ] of simuls with [ color != 85  ]"
 
-SWITCH
-1487
-1158
-1621
-1191
-AssignAppEss
-AssignAppEss
-0
-1
--1000
-
-SLIDER
-935
-1219
-1063
-1252
-eWAppUptake
-eWAppUptake
-0
-1
-0.0
-.01
-1
-NIL
-HORIZONTAL
-
 MONITOR
 2445
 754
@@ -1635,21 +1068,6 @@ studentInfections / 2500
 1
 11
 
-SLIDER
-945
-1135
-1077
-1168
-SchoolReturnDate
-SchoolReturnDate
-0
-100
-3.0
-1
-1
-NIL
-HORIZONTAL
-
 SWITCH
 1448
 322
@@ -1662,40 +1080,10 @@ MaskPolicy
 -1000
 
 SLIDER
-718
-1270
-898
-1303
-ResidualCautionPPA
-ResidualCautionPPA
-0
-100
-81.0
-1
-1
-NIL
-HORIZONTAL
-
-SLIDER
-718
-1310
-897
-1343
-ResidualCautionPTA
-ResidualCautionPTA
-0
-100
-81.0
-1
-1
-NIL
-HORIZONTAL
-
-SLIDER
-133
-819
-320
-852
+324
+909
+519
+942
 Case_Reporting_Delay
 Case_Reporting_Delay
 0
@@ -1705,17 +1093,6 @@ Case_Reporting_Delay
 1
 NIL
 HORIZONTAL
-
-MONITOR
-3035
-663
-3093
-708
-R Sum
-sum [ r ] of simuls with [ color != 85 ]
-1
-1
-11
 
 MONITOR
 3198
@@ -1746,17 +1123,6 @@ MONITOR
 708
 =4
 sum [ r ] of simuls with [ color != 85  and R = 4]
-17
-1
-11
-
-MONITOR
-3092
-663
-3142
-708
-=1
-sum [ r ] of simuls with [ color != 85  and R = 1]
 17
 1
 11
@@ -1862,7 +1228,7 @@ Visit_Radius
 Visit_Radius
 0
 16
-5.3
+8.8
 1
 1
 NIL
@@ -1891,30 +1257,19 @@ sum [ R ] of simuls with [ color != 85 and R > 2] / sum [ R ] of simuls with [ c
 11
 
 SLIDER
-742
-938
-944
-971
+324
+827
+522
+861
 Asymptomatic_Trans
 Asymptomatic_Trans
 0
 1
-0.58
+0.5
 .01
 1
 NIL
 HORIZONTAL
-
-SWITCH
-582
-1220
-727
-1253
-OS_Import_Switch
-OS_Import_Switch
-0
-1
--1000
 
 SLIDER
 1590
@@ -1990,17 +1345,6 @@ ICUBedsRequired
 1
 15
 
-SWITCH
-730
-1360
-864
-1393
-Complacency
-Complacency
-1
-1
--1000
-
 CHOOSER
 1555
 909
@@ -2031,50 +1375,6 @@ PENS
 "14" 1.0 0 -7500403 true "" "plot casesinperiod14"
 "28" 1.0 0 -2674135 true "" "plot casesinperiod28"
 
-INPUTBOX
-2442
-1137
-2522
-1198
-zerotoone
-1.0
-1
-0
-Number
-
-INPUTBOX
-2442
-1198
-2522
-1259
-onetotwo
-35.0
-1
-0
-Number
-
-INPUTBOX
-2439
-1263
-2522
-1323
-twotothree
-56.0
-1
-0
-Number
-
-INPUTBOX
-2439
-1323
-2521
-1384
-threetofour
-210.0
-1
-0
-Number
-
 SWITCH
 1379
 1344
@@ -2089,8 +1389,8 @@ SelfGovern
 PLOT
 1004
 614
-1421
-734
+1422
+738
 Stage (red) and Scale (blue)
 NIL
 NIL
@@ -2116,175 +1416,6 @@ casesinperiod7
 1
 11
 
-INPUTBOX
-2528
-1137
-2610
-1198
-JudgeDay1
-2.0
-1
-0
-Number
-
-INPUTBOX
-2529
-1205
-2612
-1266
-JudgeDay2
-2.0
-1
-0
-Number
-
-INPUTBOX
-2529
-1267
-2611
-1328
-JudgeDay3
-2.0
-1
-0
-Number
-
-INPUTBOX
-2529
-1330
-2611
-1391
-JudgeDay4
-2.0
-1
-0
-Number
-
-INPUTBOX
-2864
-602
-3020
-663
-UpperStudentAge
-18.0
-1
-0
-Number
-
-INPUTBOX
-2865
-673
-3021
-734
-LowerStudentAge
-4.0
-1
-0
-Number
-
-PLOT
-3399
-83
-3579
-233
-Objective Function
-NIL
-NIL
-0.0
-10.0
-0.0
-10.0
-true
-false
-"" ""
-PENS
-"default" 1.0 0 -2674135 true "" "plot Objfunction"
-
-SLIDER
-2208
-1269
-2381
-1302
-Outside
-Outside
-0
-1
-0.0
-.01
-1
-NIL
-HORIZONTAL
-
-SLIDER
-2208
-1307
-2381
-1340
-outsideRisk
-outsideRisk
-0
-100
-37.0
-1
-1
-NIL
-HORIZONTAL
-
-MONITOR
-2222
-1217
-2305
-1262
-Green space
-count patches with [ pcolor = green ]
-0
-1
-11
-
-INPUTBOX
-2694
-1138
-2767
-1199
-onetozero
-0.0
-1
-0
-Number
-
-INPUTBOX
-2698
-1198
-2770
-1259
-twotoone
-1.0
-1
-0
-Number
-
-INPUTBOX
-2697
-1263
-2767
-1324
-threetotwo
-35.0
-1
-0
-Number
-
-INPUTBOX
-2697
-1323
-2769
-1384
-fourtothree
-105.0
-1
-0
-Number
-
 MONITOR
 1708
 879
@@ -2295,80 +1426,6 @@ count simuls with [ color = yellow ]
 0
 1
 11
-
-INPUTBOX
-2618
-1140
-2688
-1200
-JudgeDay1_d
-1.0
-1
-0
-Number
-
-INPUTBOX
-2619
-1198
-2693
-1258
-Judgeday2_d
-1.0
-1
-0
-Number
-
-INPUTBOX
-2618
-1263
-2695
-1323
-Judgeday3_d
-1.0
-1
-0
-Number
-
-INPUTBOX
-2618
-1328
-2693
-1388
-Judgeday4_d
-1.0
-1
-0
-Number
-
-SLIDER
-912
-1395
-1110
-1428
-Undetected_Proportion
-Undetected_Proportion
-0
-100
-28.0
-1
-1
-NIL
-HORIZONTAL
-
-SLIDER
-2668
-13
-2841
-46
-Household_Attack
-Household_Attack
-0
-100
-30.0
-1
-1
-NIL
-HORIZONTAL
 
 MONITOR
 3314
@@ -2388,32 +1445,6 @@ MONITOR
 989
 Students
 count simuls with [ studentFlag = 1 ]
-0
-1
-11
-
-SLIDER
-44
-1292
-233
-1325
-IncursionRate
-IncursionRate
-0
-100
-0.0
-1
-1
-NIL
-HORIZONTAL
-
-MONITOR
-3008
-14
-3123
-59
-Last Decision Date
-DecisionDate
 0
 1
 11
@@ -2466,30 +1497,15 @@ BaseStage
 0
 
 MONITOR
-18
-778
-107
-823
+17
+879
+106
+924
 Mean ID Time
 meanIDTime
 1
 1
 11
-
-SLIDER
-2799
-45
-2972
-78
-GoldStandard
-GoldStandard
-0
-100
-100.0
-1
-1
-NIL
-HORIZONTAL
 
 CHOOSER
 1665
@@ -2521,7 +1537,7 @@ RAND_SEED
 RAND_SEED
 0
 10000000
-7681159.0
+4492754.0
 1
 1
 NIL
@@ -2557,20 +1573,20 @@ PENS
 "default" 1.0 0 -16777216 true "" "plot count simuls with [ shape = \"person\" ]"
 
 TEXTBOX
-20
-480
-188
-547
+22
+500
+190
+567
 Vaccine rollout and vaccine used per phase set in vaccine.csv.
 14
 0.0
 1
 
 SLIDER
-13
-185
-185
-218
+12
+189
+187
+222
 param_vac_uptake
 param_vac_uptake
 60
@@ -2582,10 +1598,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-13
-227
-187
-260
+12
+232
+186
+265
 param_vac2_morb_eff
 param_vac2_morb_eff
 60
@@ -2597,10 +1613,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-14
-270
-183
-303
+12
+274
+186
+307
 param_vac1_tran_reduct
 param_vac1_tran_reduct
 50
@@ -2612,10 +1628,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-13
-309
-186
-342
+12
+314
+185
+347
 param_vac2_tran_reduct
 param_vac2_tran_reduct
 50
@@ -2627,10 +1643,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-15
-545
-187
-578
+17
+565
+189
+598
 param_vacEffDays
 param_vacEffDays
 0
@@ -2686,10 +1702,10 @@ quarantine
 11
 
 MONITOR
-1324
-1165
-1482
-1210
+1382
+1163
+1540
+1208
 NIL
 Asymptom_Prop
 17
@@ -2780,14 +1796,14 @@ secondary_cases
 Number
 
 CHOOSER
-14
-395
-187
-440
+13
+399
+186
+444
 param_policy
 param_policy
-"AggressElim" "ModerateElim" "TightSupress" "LooseSupress" "None" "Stage 1" "Stage 1b" "Stage 2" "Stage 3" "Stage 4"
-0
+"AggressElim" "ModerateElim" "TightSupress" "LooseSupress" "None" "Stage 1" "Stage 1b" "Stage 2" "Stage 3" "Stage 4" "LockdownCalibrate"
+10
 
 SLIDER
 1555
@@ -2883,10 +1899,10 @@ Permanent yet straightforward variables
 1
 
 SLIDER
-329
-898
-524
-931
+324
+747
+519
+780
 Asymptom_Prop
 Asymptom_Prop
 0
@@ -2898,25 +1914,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1158
-1313
-1345
-1346
-Quarantine_Spaces
-Quarantine_Spaces
-0
-20000
-0.0
-1
-1
-NIL
-HORIZONTAL
-
-SLIDER
-539
-902
-726
-935
+324
+787
+519
+820
 Asymptom_Trace_Mult
 Asymptom_Trace_Mult
 0
@@ -2979,10 +1980,10 @@ PENS
 "Recovered" 1.0 0 -1184463 true "" "plot count simuls with [color = yellow]"
 
 SLIDER
-139
-939
-324
-972
+552
+790
+749
+823
 Gather_Location_Count
 Gather_Location_Count
 0
@@ -3002,17 +2003,17 @@ Complacency_Bound
 Complacency_Bound
 0
 100
-52.0
+0.0
 1
 1
 NIL
 HORIZONTAL
 
 PLOT
-2359
-262
-2638
-382
+2384
+264
+2663
+384
 Distribution of currentVirulence
 NIL
 NIL
@@ -3091,32 +2092,32 @@ End_Day
 End_Day
 -1
 365
-330.0
+-1.0
 1
 1
 NIL
 HORIZONTAL
 
 SLIDER
-540
-940
-715
-973
+549
+912
+747
+945
 Isolation_Transmission
 Isolation_Transmission
 0
 1
-0.5
+0.48
 0.01
 1
 NIL
 HORIZONTAL
 
 SLIDER
-134
-779
-319
-812
+324
+870
+521
+903
 Non_Infective_Time
 Non_Infective_Time
 0
@@ -3220,9 +2221,9 @@ PENS
 
 MONITOR
 18
-584
+618
 168
-641
+675
 Total Infected
 cumulativeInfected
 17
@@ -3230,10 +2231,10 @@ cumulativeInfected
 14
 
 SLIDER
-130
-860
-320
-893
+324
+949
+519
+982
 Symtomatic_Present_Day
 Symtomatic_Present_Day
 -1
@@ -3245,10 +2246,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-165
-709
-320
-766
+18
+808
+173
+865
 % Living Recovered
 recoverProportion * 100
 2
@@ -3256,10 +2257,10 @@ recoverProportion * 100
 14
 
 SLIDER
-128
-898
-323
-931
+552
+749
+747
+782
 Recovered_Match_Rate
 Recovered_Match_Rate
 0
@@ -3271,10 +2272,10 @@ NIL
 HORIZONTAL
 
 SWITCH
-14
-352
-188
-385
+13
+357
+187
+390
 param_trigger_loosen
 param_trigger_loosen
 1
@@ -8158,6 +7159,390 @@ NetLogo 6.2.0
     </enumeratedValueSet>
     <enumeratedValueSet variable="zerotoone">
       <value value="1"/>
+    </enumeratedValueSet>
+  </experiment>
+  <experiment name="R Test 6" repetitions="1" runMetricsEveryStep="false">
+    <setup>setup</setup>
+    <go>go</go>
+    <timeLimit steps="50"/>
+    <metric>average_R</metric>
+    <metric>global_transmissability</metric>
+    <metric>days</metric>
+    <metric>totalEndCount</metric>
+    <enumeratedValueSet variable="rand_seed">
+      <value value="8563913"/>
+      <value value="6896081"/>
+      <value value="8716250"/>
+      <value value="1658925"/>
+      <value value="8654084"/>
+      <value value="7393609"/>
+      <value value="9381344"/>
+      <value value="4166503"/>
+      <value value="9076277"/>
+      <value value="5962964"/>
+      <value value="7551446"/>
+      <value value="5019062"/>
+      <value value="1273485"/>
+      <value value="1221929"/>
+      <value value="2253595"/>
+      <value value="4496908"/>
+      <value value="7619605"/>
+      <value value="1191248"/>
+      <value value="9216649"/>
+      <value value="1369885"/>
+      <value value="7788712"/>
+      <value value="6304168"/>
+      <value value="176547"/>
+      <value value="5291681"/>
+      <value value="434216"/>
+      <value value="9852827"/>
+      <value value="1774684"/>
+      <value value="671169"/>
+      <value value="1903216"/>
+      <value value="5474805"/>
+      <value value="5716310"/>
+      <value value="8568364"/>
+      <value value="3025053"/>
+      <value value="7733996"/>
+      <value value="2410303"/>
+      <value value="3885689"/>
+      <value value="9920582"/>
+      <value value="2756468"/>
+      <value value="9718357"/>
+      <value value="816329"/>
+      <value value="410162"/>
+      <value value="5527966"/>
+      <value value="2077027"/>
+      <value value="6438798"/>
+      <value value="5295616"/>
+      <value value="7074381"/>
+      <value value="6084160"/>
+      <value value="5550393"/>
+      <value value="2175221"/>
+      <value value="4845149"/>
+      <value value="8373644"/>
+      <value value="3697281"/>
+      <value value="2546131"/>
+      <value value="8949630"/>
+      <value value="3935774"/>
+      <value value="3570422"/>
+      <value value="2130541"/>
+      <value value="7944259"/>
+      <value value="1998246"/>
+      <value value="2067692"/>
+      <value value="3582592"/>
+      <value value="5806468"/>
+      <value value="5862888"/>
+      <value value="8517383"/>
+      <value value="9677374"/>
+      <value value="1940396"/>
+      <value value="4883575"/>
+      <value value="1125619"/>
+      <value value="3468620"/>
+      <value value="346306"/>
+      <value value="8232219"/>
+      <value value="7527415"/>
+      <value value="4728619"/>
+      <value value="3014992"/>
+      <value value="6590573"/>
+      <value value="57224"/>
+      <value value="4165770"/>
+      <value value="1813686"/>
+      <value value="5890220"/>
+      <value value="7326997"/>
+      <value value="6263591"/>
+      <value value="3759550"/>
+      <value value="2145363"/>
+      <value value="9764416"/>
+      <value value="3456748"/>
+      <value value="4578601"/>
+      <value value="1992488"/>
+      <value value="4297778"/>
+      <value value="674374"/>
+      <value value="3108278"/>
+      <value value="4663499"/>
+      <value value="2051238"/>
+      <value value="2054032"/>
+      <value value="9382671"/>
+      <value value="6406051"/>
+      <value value="8370371"/>
+      <value value="363530"/>
+      <value value="422305"/>
+      <value value="2072156"/>
+      <value value="5759048"/>
+      <value value="3771331"/>
+      <value value="9632598"/>
+      <value value="3490102"/>
+      <value value="864202"/>
+      <value value="1428404"/>
+      <value value="4072490"/>
+      <value value="8768881"/>
+      <value value="9336010"/>
+      <value value="5180397"/>
+      <value value="4602021"/>
+      <value value="6786942"/>
+      <value value="758893"/>
+      <value value="801352"/>
+      <value value="4517400"/>
+      <value value="8887614"/>
+      <value value="4711872"/>
+      <value value="6626431"/>
+      <value value="3104745"/>
+      <value value="5782726"/>
+      <value value="7783986"/>
+      <value value="8241791"/>
+      <value value="7964588"/>
+      <value value="6140779"/>
+      <value value="3036013"/>
+      <value value="3091196"/>
+      <value value="5828723"/>
+      <value value="4875104"/>
+      <value value="6859490"/>
+      <value value="850548"/>
+      <value value="8656630"/>
+      <value value="188520"/>
+      <value value="7735064"/>
+      <value value="6825451"/>
+      <value value="901356"/>
+      <value value="396370"/>
+      <value value="5102901"/>
+      <value value="5163986"/>
+      <value value="8842354"/>
+      <value value="6120839"/>
+      <value value="5314122"/>
+      <value value="6028398"/>
+      <value value="9356948"/>
+      <value value="1947169"/>
+      <value value="8653404"/>
+      <value value="4231004"/>
+      <value value="1761979"/>
+      <value value="1679089"/>
+      <value value="5383870"/>
+      <value value="2130504"/>
+      <value value="6123973"/>
+      <value value="763399"/>
+      <value value="2749683"/>
+      <value value="4810649"/>
+      <value value="841673"/>
+      <value value="823366"/>
+      <value value="5345757"/>
+      <value value="5243304"/>
+      <value value="3132595"/>
+      <value value="3980837"/>
+      <value value="964068"/>
+      <value value="7597837"/>
+      <value value="9042112"/>
+      <value value="6474595"/>
+      <value value="1605999"/>
+      <value value="7914647"/>
+      <value value="2320165"/>
+      <value value="8942886"/>
+      <value value="2405567"/>
+      <value value="9427839"/>
+      <value value="2599922"/>
+      <value value="2813896"/>
+      <value value="2436690"/>
+      <value value="946951"/>
+      <value value="6250263"/>
+      <value value="4063839"/>
+      <value value="4999281"/>
+      <value value="9516212"/>
+      <value value="4388825"/>
+      <value value="5111180"/>
+      <value value="881856"/>
+      <value value="2941710"/>
+      <value value="5274810"/>
+      <value value="2191147"/>
+      <value value="5279744"/>
+      <value value="6818620"/>
+      <value value="4779642"/>
+      <value value="5934851"/>
+      <value value="8237963"/>
+      <value value="8676343"/>
+      <value value="7886200"/>
+      <value value="6143099"/>
+      <value value="7887499"/>
+      <value value="5986512"/>
+      <value value="1887681"/>
+      <value value="5588224"/>
+      <value value="2519155"/>
+      <value value="2499893"/>
+      <value value="8516189"/>
+      <value value="6306344"/>
+      <value value="9754863"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="param_policy">
+      <value value="&quot;None&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="asymptom_trace_mult">
+      <value value="0.33"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="asymptomatic_trans">
+      <value value="0.5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="basestage">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="case_reporting_delay">
+      <value value="2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="complacency_bound">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="end_day">
+      <value value="50"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="end_r_reported">
+      <value value="-1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="ess_w_risk_reduction">
+      <value value="50"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="essential_workers">
+      <value value="100"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="freewheel">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="gather_location_count">
+      <value value="85"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="global_transmissability">
+      <value value="0.4"/>
+      <value value="0.525"/>
+      <value value="0.67"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="illness_period">
+      <value value="21.2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="incubation_period">
+      <value value="4.7"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial_cases">
+      <value value="2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initialscale">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="isolate">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="isolation_transmission">
+      <value value="0.5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="lockdown_off">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="mask_efficacy_mult">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="mask_wearing">
+      <value value="50"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="maskpolicy">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="maxstage">
+      <value value="4"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="non_infective_time">
+      <value value="2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="os_import_post_proportion">
+      <value value="0.68"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="os_import_proportion">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="asymptom_prop">
+      <value value="0.33"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="param_trigger_loosen">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="param_vac1_tran_reduct">
+      <value value="90"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="param_vac2_morb_eff">
+      <value value="70"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="param_vac2_tran_reduct">
+      <value value="75"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="param_vac_uptake">
+      <value value="75"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="param_vaceffdays">
+      <value value="21"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="population">
+      <value value="2500"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="profile_on">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="proportion_people_avoid">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="proportion_time_avoid">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="age_isolation">
+      <value value="0"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="recovered_match_rate">
+      <value value="0.042"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="scale">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="scale_factor">
+      <value value="4"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="scale_threshold">
+      <value value="240"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="schoolsopen">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="se_illnesspd">
+      <value value="4"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="se_incubation">
+      <value value="2.25"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="secondary_cases">
+      <value value="8"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="selfgovern">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="span">
+      <value value="30"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="superspreaders">
+      <value value="0.1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="symtomatic_present_day">
+      <value value="6"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="total_population">
+      <value value="25000000"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="track_r">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="tracking">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="vaccine_available">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="visit_frequency">
+      <value value="0.1428"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="visit_radius">
+      <value value="8.8"/>
     </enumeratedValueSet>
   </experiment>
 </experiments>

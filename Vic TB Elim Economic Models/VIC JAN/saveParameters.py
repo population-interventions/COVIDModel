@@ -141,7 +141,7 @@ topOfFile = [
 ]
 
 paramValuesTestR = {
-    'rand_seed' : listToStr(random.randint(10000000, size=(2000))),
+    'rand_seed' : listToStr(random.randint(10000000, size=(200))),
     'param_policy' : listToStr([
         '"None"',
     ]),
@@ -150,12 +150,12 @@ paramValuesTestR = {
 }
 
 paramValuesTestR_2 = {
-    'rand_seed' : listToStr(random.randint(10000000, size=(200))),
+    'rand_seed' : listToStr(random.randint(10000000, size=(500))),
     'param_policy' : listToStr([
         '"None"',
     ]),
-    'Global_Transmissability' : listToStr([0.36, 0.48, 0.6]),
+    'Global_Transmissability' : listToStr([0.42, 0.56, 0.67]),
     'total_population' : '25000000',
 }
 
-ReadModelFileAndWriteParams('GRAPHICS-WINDOW', '@#$#@#$#@', paramValuesTestR, topOfFile=topOfFile)
+ReadModelFileAndWriteParams('GRAPHICS-WINDOW', '@#$#@#$#@', paramValuesTestR_2, topOfFile=topOfFile)

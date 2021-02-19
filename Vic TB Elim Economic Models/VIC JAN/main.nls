@@ -1,24 +1,4 @@
 
-to SendToQuarantine
-  ;; send people to quarantine if they have been identified
-  if Quarantine = true [
-    let freeSpots Quarantine_Spaces - (count simuls with [ inQuarantine = 1 ]) * Scale_Factor ^ scalephase
-    if freeSpots > 0 [
-      ;; Moves simuls to quarantine if they are known to be sick (checked by caseReportTime <= ticks)
-      ;; Previously they would isolate, which has interactions with household and imperfect compliance, while quarantine is perfect.
-      let rawFreeSpots int freeSpots / (Scale_Factor ^ scalephase)
-      let eligible simuls with [ color = red and inQuarantine = 0 and tracked = 1 and caseReportTime <= ticks ]
-      if count eligible < rawFreeSpots [
-       set rawFreeSpots count eligible 
-      ]
-      ask n-of rawFreeSpots eligible [
-        set inQuarantine 1
-        move-to one-of patches with [ pcolor = white ]
-      ]
-    ]
-  ]
-end
-
 to ShiftRecoveredTowardsTotalProportion
   if Recovered_Match_Rate > 0 [
     set recoverProportion recoverCount / (total_population - deathCount)
@@ -113,9 +93,6 @@ to go
     simul_infect
   ]
   
-  ;; Send people to quarantine if they have been identified and there is space.
-  SendToQuarantine
-  
   ;; Simulants isolate based on household cases.
   ask simuls [
     simul_updateHouseTrackedCase
@@ -148,7 +125,7 @@ to go
   ;; Randomly turn suceptible agents into infected ones. Percentage chance = IncursionRate.
   vaccine_do_incursion_based_on_phase
   
-  ;show ( word " Simul Stuff " timer " seconds " ticks )
+  ;show ( word " Simul Stuff " timer " seconds ")
   ;reset-timer
   
   if proportion_people_avoid > Complacency_Bound [
@@ -170,7 +147,7 @@ to go
   ;; Zero count- and average-style metrics for gathering throughout the next step
   resetAccumulators
   
-  ;show ( word " calculate Stuff " timer " seconds " ticks )
+  ;show ( word " calculate Stuff " timer " seconds ")
   
   ;; counts days per tick, likely redundant at present as days are not used for anything right now.
   calculateDataOut

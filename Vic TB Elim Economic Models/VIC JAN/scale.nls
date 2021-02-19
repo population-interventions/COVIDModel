@@ -91,6 +91,7 @@ to scaledown_try_to_maintain_cohort
       let my_caseReportTime caseReportTime
       let my_tracked tracked
       let my_inQuarantine inQuarantine
+      let my_R R
       
       let eligible cohort with [ color != red or color != black ]
       if count eligible < (Scale_Factor - 1) [
@@ -103,6 +104,7 @@ to scaledown_try_to_maintain_cohort
         set caseReportTime my_caseReportTime
         set tracked my_tracked
         set inQuarantine my_inQuarantine
+        set R my_R
         if inQuarantine = 1 [
           move-to one-of patches with [ pcolor = white ] 
         ]

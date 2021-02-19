@@ -150,12 +150,17 @@ paramValuesTestR = {
 }
 
 paramValuesTestR_2 = {
-    'rand_seed' : listToStr(random.randint(10000000, size=(500))),
+    'rand_seed' : listToStr(random.randint(10000000, size=(1500))),
     'param_policy' : listToStr([
-        '"None"',
+        '"StageCal None"',
+        '"StageCal_1"',
+        '"StageCal_1b"',
+        '"StageCal_2"',
+        '"StageCal_3"',
+        '"StageCal_4"',
     ]),
-    'Global_Transmissability' : listToStr([0.42, 0.56, 0.67]),
-    'total_population' : '25000000',
+    'Global_Transmissability' : listToStr([0.36, 0.39, 0.42, 0.45, 0.48, 0.51, 0.54, 0.56, 0.59, 0.61, 0.64, 0.67, 0.7, 0.73]),
+    'total_population' : '2500000000',
 }
 
 ReadModelFileAndWriteParams('GRAPHICS-WINDOW', '@#$#@#$#@', paramValuesTestR_2, topOfFile=topOfFile)

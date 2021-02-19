@@ -48,7 +48,7 @@ to do_stages_tony
     set OS_Import_Proportion 0
     set Essential_Workers 100
     set maskPolicy true
-    set mask_wearing 50
+    set mask_wearing 40
     set tracking true
     set superspreaders 0.1
     ; Does nothing
@@ -76,7 +76,7 @@ to do_stages_tony
     set OS_Import_Proportion 0
     set Essential_Workers 75
     set maskPolicy true
-    set mask_wearing 90
+    set mask_wearing 60
     set tracking true
     set superspreaders 0.1
     ; Does nothing
@@ -105,7 +105,7 @@ to do_stages_tony
     set OS_Import_Proportion 0
     set Essential_Workers 50
     set maskPolicy true
-    set mask_wearing 90
+    set mask_wearing 80
     set tracking true
     set superspreaders 0.1
     ; Does nothing
@@ -133,7 +133,7 @@ to do_stages_tony
     set OS_Import_Proportion 0
     set Essential_Workers 30
     set maskPolicy true
-    set mask_wearing 90
+    set mask_wearing 80
     set tracking true
     set superspreaders 0.05
     ; Does nothing
@@ -161,7 +161,7 @@ to do_stages_tony
     set OS_Import_Proportion 0
     set Essential_Workers 20
     set maskPolicy true
-    set mask_wearing 90
+    set mask_wearing 80
     set tracking true
     set superspreaders 0.02
     ; Does nothing

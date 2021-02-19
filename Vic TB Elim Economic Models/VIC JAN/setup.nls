@@ -390,6 +390,7 @@ to setGlobals
   set drawList 0
   
   set houseTotal 800 ;; Parameter
+  set R_measure_time -1
 end
 
 to setDrawValues
@@ -404,7 +405,7 @@ to setDrawValues
   set draw_isolationCompliance rngs:rnd-beta stream_id 450.3 23.7
   ;set draw_maskWearEfficacy rngs:rnd-beta stream_id 24.3 8.08
   ;; SqRoot of above
-  set draw_maskWearEfficacy rngs:rnd-beta stream_id 52 48
+  set draw_maskWearEfficacy rngs:rnd-beta stream_id 40 60
   
   set draw_borderIncursionRisk ( rngs:rnd-beta stream_id 2 8 ) * 0.02
   
@@ -465,9 +466,7 @@ to setup
     set houseIndex -1
     set lastInfectionUpdate -1
     set lastUtilTime -1
-    if track_R [
-      set infectionCulprit table:make
-    ]
+    set infectionCulprit table:make
   ]
   
   ;; a beta function for testing locating many people in one place at a single time

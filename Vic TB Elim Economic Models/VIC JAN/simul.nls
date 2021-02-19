@@ -133,7 +133,7 @@ end
 to simul_resampleHouse
   table:put houseStudentMoveCache_lastUpdate householdunit -1
   
-  set householdUnit random 1000
+  set householdUnit random houseTotal
   
   table:put houseStudentMoveCache_lastUpdate householdunit -1
   table:put houseTrackedCaseTimeTable householdunit -1
@@ -141,6 +141,28 @@ to simul_resampleHouse
   simul_resetlanding
 end
 
+to simul_resampleHouse_infected
+  table:put houseStudentMoveCache_lastUpdate householdunit -1
+  
+  set householdUnit random 90
+  
+  table:put houseStudentMoveCache_lastUpdate householdunit -1
+  table:put houseTrackedCaseTimeTable householdunit -1
+  
+  simul_resetlanding
+end
+  
+to simul_resampleHouse_not_infected
+  table:put houseStudentMoveCache_lastUpdate householdunit -1
+  
+  set householdUnit 80 + random 720 
+  
+  table:put houseStudentMoveCache_lastUpdate householdunit -1
+  table:put houseTrackedCaseTimeTable householdunit -1
+  
+  simul_resetlanding
+end
+  
 to simul_move_to_empty_patch
   let movePatch one-of neighbors with [ lastUtilTime < ticks ]
   if is-patch? movePatch [

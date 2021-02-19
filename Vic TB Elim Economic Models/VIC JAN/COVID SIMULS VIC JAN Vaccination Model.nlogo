@@ -198,6 +198,8 @@ globals [
   age_listOut
   atsi_listOut
   morbid_listOut
+
+  houseTotal ;; Parameter
 ]
 
 
@@ -346,7 +348,7 @@ Span
 Span
 0
 30
-30.0
+10.0
 1
 1
 NIL
@@ -458,7 +460,7 @@ superspreaders
 superspreaders
 0
 1
-0.1
+0.05
 0.01
 1
 NIL
@@ -513,7 +515,7 @@ Proportion_People_Avoid
 Proportion_People_Avoid
 0
 100
-0.0
+68.0
 .5
 1
 NIL
@@ -528,7 +530,7 @@ Proportion_Time_Avoid
 Proportion_Time_Avoid
 0
 100
-0.0
+68.0
 .5
 1
 NIL
@@ -564,10 +566,10 @@ PENS
 "default" 1.0 1 -2674135 true "" "Histogram [ agerange ] of simuls with [ color = black ] "
 
 PLOT
-1803
-207
-2071
-356
+1805
+212
+2073
+361
 Infection Proportional Growth Rate
 Time
 Growth rate
@@ -823,10 +825,10 @@ count simuls
 11
 
 MONITOR
-2305
-938
 2459
-987
+825
+2613
+874
 ICU Beds Needed
 ICUBedsRequired
 0
@@ -856,10 +858,10 @@ PotentialContacts
 11
 
 PLOT
-2075
-43
-2345
-201
+2080
+42
+2369
+204
 Distribution of Illness pd
 NIL
 NIL
@@ -933,7 +935,7 @@ Global_Transmissability
 Global_Transmissability
 0
 1
-0.42
+0.67
 0.01
 1
 NIL
@@ -948,7 +950,7 @@ Essential_Workers
 Essential_Workers
 0
 100
-100.0
+30.0
 1
 1
 NIL
@@ -989,7 +991,7 @@ Mask_Wearing
 Mask_Wearing
 0
 100
-50.0
+90.0
 1
 1
 NIL
@@ -1002,7 +1004,7 @@ SWITCH
 315
 schoolsOpen
 schoolsOpen
-0
+1
 1
 -1000
 
@@ -1228,7 +1230,7 @@ Visit_Radius
 Visit_Radius
 0
 16
-8.8
+3.5
 1
 1
 NIL
@@ -1335,10 +1337,10 @@ mean [ timenow ] of simuls with [ color = red ]
 11
 
 MONITOR
-2518
-872
-2623
-933
+2459
+889
+2564
+950
 ICU Beds
 ICUBedsRequired
 0
@@ -1439,10 +1441,10 @@ count simuls with [ timenow = 2 ]
 11
 
 MONITOR
-2492
-944
-2557
-989
+2459
+959
+2524
+1004
 Students
 count simuls with [ studentFlag = 1 ]
 0
@@ -1482,7 +1484,7 @@ SWITCH
 442
 Vaccine_Available
 Vaccine_Available
-0
+1
 1
 -1000
 
@@ -1537,7 +1539,7 @@ RAND_SEED
 RAND_SEED
 0
 10000000
-4492754.0
+6425121.0
 1
 1
 NIL
@@ -1829,7 +1831,7 @@ Scale_Factor
 Scale_Factor
 2
 10
-4.0
+2.0
 1
 1
 NIL
@@ -1858,10 +1860,10 @@ People in Model
 11
 
 PLOT
-1828
-714
-2293
-872
+1825
+717
+2290
+875
 Case Tracking (scaled)
 NIL
 NIL
@@ -1958,10 +1960,10 @@ transmission_count_metric * transmission_average
 11
 
 PLOT
-1825
-873
-2289
-1021
+1828
+880
+2292
+1028
 States (raw)
 NIL
 NIL
@@ -2003,7 +2005,7 @@ Complacency_Bound
 Complacency_Bound
 0
 100
-0.0
+68.0
 1
 1
 NIL
@@ -2092,7 +2094,7 @@ End_Day
 End_Day
 -1
 365
--1.0
+552.0
 1
 1
 NIL
@@ -2107,7 +2109,7 @@ Isolation_Transmission
 Isolation_Transmission
 0
 1
-0.48
+0.3
 0.01
 1
 NIL
@@ -2140,10 +2142,10 @@ totalOverseasIncursions
 11
 
 PLOT
-2080
-212
-2370
-361
+2082
+213
+2372
+362
 OverseasIncursions
 NIL
 NIL

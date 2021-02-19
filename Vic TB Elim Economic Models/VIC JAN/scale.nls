@@ -84,6 +84,8 @@ to scaleup_try_to_maintain_cohort
 end
 
 to scaledown_try_to_maintain_cohort
+  let localRedCount count simuls with [ color = red ]
+  
   foreach popDivisionTable_keys [ index ->
     let cohort table:get populationCohortCache index
     ask cohort with [ color = red ] [
@@ -110,8 +112,21 @@ to scaledown_try_to_maintain_cohort
     ]
   ]
   
+  ask simuls [
+    ifelse color = red
+    [
+      simul_resampleHouse_infected
+    ]
+    [
+      simul_resampleHouse_not_infected
+    ]
+  ]
+  
   set contact_Radius Contact_radius - (90 / 4)
   set scalephase scalephase - 1
+  
+  let newRedCount count simuls with [ color = red ]
+  show ( word "Before " localRedCount ", After " newRedCount )
 end
 
 to scaledown_no_hatch

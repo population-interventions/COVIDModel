@@ -14,3 +14,9 @@ Four types of files:
  - bau file
  - covid file
  - pif files?
+ 
+ 0.42        0.56        0.67
+
+
+Stage 1b - Average R 1.05 for 0.42 tansmiss
+Stage 2  - Average R 1.0  for 0.67 transmiss

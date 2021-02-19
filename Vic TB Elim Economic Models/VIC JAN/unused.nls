@@ -59,6 +59,56 @@ to go
   countSchoolInfections
 end
 
+
+  ;; allocates adults to a household unit range
+  ask simuls with [ agerange > 18 and agerange <= 60 ] [
+    if 95 > random 100 [
+      set householdUnit random 600
+    ]
+  ]
+
+  ;; allocated older adults to household Units that don't include young children or teenagers
+  ask simuls with [ agerange > 60 and agerange <= 80 ] [
+    if 95 > random 100 [
+      set householdUnit random 200 + 600
+    ]
+  ]
+
+  ;; allocated older adults 80+ to household Units that don't include young children or teenagers
+  ask simuls with [ agerange > 80 ] [
+    if 95 > random 100 [
+      set householdUnit random 300 + 600
+    ]
+  ]
+
+  ;; allocates up to two adults per household
+  let houseNumber 0
+  let allocCount 0
+  ask simuls with [ agerange > 18 and agerange <= 60 ] [
+    if 95 > random 100 [
+      set householdUnit houseNumber
+      set allocCount allocCount + 1
+      if allocCount >= 2 [
+        set houseNumber houseNumber + 1
+        set allocCount 0
+      ]
+    ]
+  ]
+  
+  ;; Identifies students
+  ask simuls with [ agerange <= 18 ] [
+    if 95 > random 100 [
+      set householdUnit random houseNumber
+    ]
+  ]
+
+  ;; allocates children and teenagers to a household where there are adults at least 20 years older than them and there are not more than 2 adults in the house
+  ask simuls [
+    if agerange < 20 [
+      set studentFlag 1
+    ]
+  ]
+
 to superSpread
   if count simuls with [ color = red and tracked = 0 ] > 1 and Case_Isolation = false [
     if Superspreaders > random 100 [

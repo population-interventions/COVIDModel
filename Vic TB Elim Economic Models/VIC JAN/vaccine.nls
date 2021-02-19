@@ -27,15 +27,18 @@ to setup_overseasArrivals
 end
 
 to vaccine_do_incursion_based_on_phase
-  let peoplePerSimul ( Scale_Factor ^ scalephase )
-  set global_incursionRisk ( draw_borderIncursionRisk * global_incursionScale )
-  ask n-of global_incursionArrivals simuls with [color != red and color != black] [
-    if global_incursionRisk > peoplePerSimul * ( rngs:rnd-beta incursionsSeedID 1 1 ) [
-      set color red
-      set timenow 0
-      set new_case_real_counter new_case_real_counter + peoplePerSimul
-      set totalOverseasIncursions totalOverseasIncursions + peoplePerSimul
-      array:set infectArray cohortIndex (array:item infectArray cohortIndex) + peoplePerSimul
+  ;; Don't incursion in calibration runs
+  if Vaccine_Available [
+    let peoplePerSimul ( Scale_Factor ^ scalephase )
+    set global_incursionRisk ( draw_borderIncursionRisk * global_incursionScale )
+    ask n-of global_incursionArrivals simuls with [color != red and color != black] [
+      if global_incursionRisk > peoplePerSimul * ( rngs:rnd-beta incursionsSeedID 1 1 ) [
+        set color red
+        set timenow 0
+        set new_case_real_counter new_case_real_counter + peoplePerSimul
+        set totalOverseasIncursions totalOverseasIncursions + peoplePerSimul
+        array:set infectArray cohortIndex (array:item infectArray cohortIndex) + peoplePerSimul
+      ]
     ]
   ]
 end

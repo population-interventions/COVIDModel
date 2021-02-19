@@ -176,14 +176,14 @@ end
 to policy_lockdown_calibrate
   if ticks = 0 
   [
-    set stage 0 
+    set stage 1 
     set End_Day -1
   ]
   if stage <= 3 and casesinperiod14 > 14 * 300
   [
-    set stage 4  
+    set stage 4
     set decisionDate ticks
-    set End_Day ticks + 30
+    set End_Day ticks + 400
   ]
 end
 
@@ -193,40 +193,51 @@ end
 to COVIDPolicyTriggers
   if selfgovern = true [
     if param_trigger_loosen [
-     update_policy_trigger_scale 
+      update_policy_trigger_scale 
     ]
     if param_policy = "AggressElim" [
       policy_agressive_elim
+      set Vaccine_Available true
     ]
     if param_policy = "ModerateElim" [
       policy_moderate_elim
+      set Vaccine_Available true
     ]
     if param_policy = "TightSupress" [
       policy_tight_supress
+      set Vaccine_Available true
     ]
     if param_policy = "LooseSupress" [
       policy_loose_supress
+      set Vaccine_Available true
     ]
     if param_policy = "None" [
       policy_none
+      set Vaccine_Available false
     ]
     if param_policy = "Stage 1" [
       set stage 0
+      set Vaccine_Available false
     ]
     if param_policy = "Stage 1b" [
       set stage 1 
+      set Vaccine_Available false
     ]
     if param_policy = "Stage 2" [
       set stage 2 
+      set Vaccine_Available false
     ]
     if param_policy = "Stage 3" [
       set stage 3 
+      set Vaccine_Available false
     ]
     if param_policy = "Stage 4" [
       set stage 4 
+      set Vaccine_Available false
     ]
     if param_policy = "LockdownCalibrate" [
       policy_lockdown_calibrate
+      set Vaccine_Available false
     ]
   ]
 end

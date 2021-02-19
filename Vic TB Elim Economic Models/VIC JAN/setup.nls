@@ -196,55 +196,10 @@ end
 
 to setup_households
   ;; setting households up
-  ;; allocates adults to a household unit range
-  ask simuls with [ agerange > 18 and agerange <= 60 ] [
-    if 95 > random 100 [
-      set householdUnit random 600
-    ]
-  ]
-
-  ;; allocated older adults to household Units that don't include young children or teenagers
-  ask simuls with [ agerange > 60 and agerange <= 80 ] [
-    if 95 > random 100 [
-      set householdUnit random 200 + 600
-    ]
-  ]
-
-  ;; allocated older adults 80+ to household Units that don't include young children or teenagers
-  ask simuls with [ agerange > 80 ] [
-    if 95 > random 100 [
-      set householdUnit random 300 + 600
-    ]
-  ]
-
-  ;; allocates up to two adults per household
-  let houseNumber 0
-  let allocCount 0
-  ask simuls with [ agerange > 18 and agerange <= 60 ] [
-    if 95 > random 100 [
-      set householdUnit houseNumber
-      set allocCount allocCount + 1
-      if allocCount >= 2 [
-        set houseNumber houseNumber + 1
-        set allocCount 0
-      ]
-    ]
+  ask simuls [
+      set householdUnit random houseTotal
   ]
   
-  ;; Identifies students
-  ask simuls with [ agerange <= 18 ] [
-    if 95 > random 100 [
-      set householdUnit random houseNumber
-    ]
-  ]
-
-  ask simuls [
-    if agerange < 20 [
-      set studentFlag 1
-    ]
-  ]
-  ;; allocates children and teenagers to a household where there are adults at least 20 years older than them and there are not more than 2 adults in the house
-
   ask simuls [
     simul_resetlanding
   ]
@@ -254,8 +209,8 @@ to setup_households
     table:put houseTrackedCaseTimeTable householdunit -1
   ]
   
-  set houseNumber 0
-  repeat 1000 [
+  let houseNumber 0
+  repeat houseTotal [
     table:put houseStudentMoveCache_lastUpdate houseNumber -1
     set houseNumber houseNumber + 1
   ]
@@ -428,6 +383,8 @@ to setGlobals
   set drawNumber 0
   set drawRandomSeed 0
   set drawList 0
+  
+  set houseTotal 800 ;; Parameter
 end
 
 to setDrawValues

@@ -192,7 +192,7 @@ to simul_updateIsolationResponse
 end
 
 to simul_setEndR
-  print R_measure_time
+  ;print R_measure_time
   if R_measure_time < ticks [
     set totalEndR totalEndR + R
     set totalEndCount totalEndCount + 1

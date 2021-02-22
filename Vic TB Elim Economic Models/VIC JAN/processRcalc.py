@@ -27,7 +27,7 @@ def Process(path, name):
     print(df.describe())
 
 
-def ProcessVariableEnd(path, nameList, doAverageOverAllSimul):
+def ProcessVariableEnd(path, nameList):
     name = nameList[0]
     interestingColumns = ['rand_seed', 'average_R', 'param_policy', 'global_transmissability', 'totalEndCount']
     df = pd.DataFrame(columns=interestingColumns)
@@ -51,14 +51,16 @@ def ProcessVariableEnd(path, nameList, doAverageOverAllSimul):
     print(df.describe())
     
 
-def MakePlot(path, name, grouping):
+def MakePlot(path, name):
     df = pd.read_csv(path + name + '.csv', index_col=0, header=[0, 1, 2], skipinitialspace=True)
     df = df.drop('totalEndCount', axis=1, level=0)
+    
     transmit_vals = list(dict.fromkeys([v[1] for v in df.columns]))
-    #print(df)
+    policy_vals = list(dict.fromkeys([v[2] for v in df.columns]))
     #print(transmit_vals)
 
     dataCount = len(df.columns)
+    print(policy_vals)
     
     sns.set_theme(style="ticks", palette="pastel")
     sns.set_style("ticks", {"xtick.major.size": 60})
@@ -67,12 +69,12 @@ def MakePlot(path, name, grouping):
     plt = sns.boxplot(data=df, fliersize=1.8, showmeans=True,
                       meanprops={"marker":"+","markerfacecolor":"black", "markeredgecolor":"black"})
     #plt = sns.swarmplot(data=df, color=".25")
-    plt.set(xlim=(-1, dataCount + 1), ylim=(-0.2, 19.2))
+    plt.set(xlim=(-1, dataCount + 1), ylim=(-0.2, 9.2))
     sns.despine(ax=ax, offset=10)
     
     plt.set_xticklabels([''] * dataCount)
-    plt.xaxis.set_major_locator(ticker.FixedLocator([i*grouping - 0.5 for i in range(len(transmit_vals))]))
-    plt.xaxis.set_minor_locator(ticker.FixedLocator([i*grouping + 2.5 for i in range(len(transmit_vals))]))
+    plt.xaxis.set_major_locator(ticker.FixedLocator([i*len(policy_vals) - 0.5 for i in range(len(transmit_vals))]))
+    plt.xaxis.set_minor_locator(ticker.FixedLocator([i*len(policy_vals) + 2.5 for i in range(len(transmit_vals))]))
     plt.xaxis.set_minor_formatter(ticker.FixedFormatter(transmit_vals))
     
     
@@ -88,8 +90,8 @@ def MakePlot(path, name, grouping):
     pyplot.xlabel("Transmissability", fontsize=48)
     pyplot.ylabel("R", fontsize=48)
     
-    ax.set_yticks(range(20))
-    ax.set_yticks([i/5 for i in range(100)], minor=True)
+    ax.set_yticks(range(10))
+    ax.set_yticks([i/5 for i in range(50)], minor=True)
     
     ax.axhline(y=1, linewidth=2.2, zorder=0, color='r')
     ax.axhline(y=2.5, linewidth=2.2, zorder=0, color='r')
@@ -99,6 +101,9 @@ def MakePlot(path, name, grouping):
     ax.grid(which='minor', alpha=0.4, linewidth=1.5, zorder=-1, axis="y")
     ax.grid(which='major', alpha=0.7, linewidth=2, zorder=-1)
 
+nameNumber = 5
+#nameStr = 'COVID SIMULS VIC JAN Vaccination Model R test 7-table' + str(nameNumber)
+nameStr = 'headless R test 7-table' + str(nameNumber)
 
-#ProcessVariableEnd('Output/R calc big/', ['headless Big R Test-table', 'headless Big R Test-table_batch_2'])
-MakePlot('Output/R calc big/', 'headless Big R Test-table_process', 6)
+ProcessVariableEnd('Output/R calc test 3/', [nameStr])
+MakePlot('Output/R calc test 3/', nameStr + '_process')

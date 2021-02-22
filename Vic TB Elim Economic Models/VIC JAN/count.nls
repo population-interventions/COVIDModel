@@ -104,7 +104,7 @@ to outputLockdownCalibrate
         set fiveDayAvChangeAv fiveDayAverageProp
         set fiveDayAvChangeCount 1 
       ]
-      print fiveDayAvChangeAv
+      ;print fiveDayAvChangeAv
     ]
   ]
     

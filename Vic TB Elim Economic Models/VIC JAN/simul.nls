@@ -451,14 +451,12 @@ end
 
 to simul_checkMask
   ;; identifies people who waear a mask
-  if maskPolicy = true [
-    ifelse wearsMask <= mask_Wearing and patch-here != homelocation
-    [
-      set wearingMask 1
-    ]
-    [
-      set wearingMask 0
-    ]
+  ifelse maskPolicy and wearsMask <= mask_Wearing and patch-here != homelocation
+  [
+    set wearingMask 1
+  ]
+  [
+    set wearingMask 0
   ]
 end
 

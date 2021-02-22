@@ -17,6 +17,16 @@ Remember to unstack to make draws. Pivot for summaries.
 Think about how avoiding works. The chance of someone being left alone is higher than their personal chance of trying to avoid people (since others may avoid them).
 Think about how isolating people no longer avoid, so may well have a higher chance to interact with people. This seems wrong.
 
+== Calibration ==
+
+Stage 4 R_0 of reduction of 8%-9% per day
+Stage 3 and stage 2 straddle R_0 = 1
+Stage 0 at R_0 equal to 2.5
+Stages 1, 1b and 2 spaced between 0 and 3.
+
+Change avoidance parameter as first call.
+Reduce usage or percentage effect?
+
 == Yellow and Black Scaling ==
 The way that recovered and dead people are handled seems problematic. 
  * Recovered people are scaled on scaleUp but not scaleDown

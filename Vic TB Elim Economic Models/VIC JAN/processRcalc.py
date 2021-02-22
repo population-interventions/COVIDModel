@@ -25,7 +25,8 @@ def Process(path, name):
     df.to_csv(path + name + '_process.csv')
     df.describe().to_csv(path + name + '_metric.csv')
     print(df.describe())
-    
+
+
 def ProcessVariableEnd(path, nameList, doAverageOverAllSimul):
     name = nameList[0]
     interestingColumns = ['rand_seed', 'average_R', 'param_policy', 'global_transmissability', 'totalEndCount']
@@ -63,7 +64,8 @@ def MakePlot(path, name, grouping):
     sns.set_style("ticks", {"xtick.major.size": 60})
     
     fig, ax = pyplot.subplots(figsize=(48.5, 40))
-    plt = sns.boxplot(data=df, fliersize=1.8)
+    plt = sns.boxplot(data=df, fliersize=1.8, showmeans=True,
+                      meanprops={"marker":"+","markerfacecolor":"black", "markeredgecolor":"black"})
     #plt = sns.swarmplot(data=df, color=".25")
     plt.set(xlim=(-1, dataCount + 1), ylim=(-0.2, 19.2))
     sns.despine(ax=ax, offset=10)

@@ -163,4 +163,18 @@ paramValuesTestR_2 = {
     'total_population' : '2500000000',
 }
 
-ReadModelFileAndWriteParams('GRAPHICS-WINDOW', '@#$#@#$#@', paramValuesTestR_2, topOfFile=topOfFile)
+paramValuesTestR_small = {
+    'rand_seed' : listToStr(random.randint(10000000, size=(200))),
+    'param_policy' : listToStr([
+        '"StageCal None"',
+        '"StageCal_1"',
+        '"StageCal_1b"',
+        '"StageCal_2"',
+        '"StageCal_3"',
+        '"StageCal_4"',
+    ]),
+    'Global_Transmissability' : listToStr([0.36, 0.39, 0.42]),
+    'total_population' : '2500000000',
+}
+
+ReadModelFileAndWriteParams('GRAPHICS-WINDOW', '@#$#@#$#@', paramValuesTestR_small, topOfFile=topOfFile)

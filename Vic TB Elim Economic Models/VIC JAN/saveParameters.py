@@ -150,7 +150,7 @@ paramValuesTestR = {
 }
 
 paramValuesTestR_2 = {
-    'rand_seed' : listToStr(random.randint(10000000, size=(1500))),
+    'rand_seed' : listToStr(random.randint(10000000, size=(2000))),
     'param_policy' : listToStr([
         '"StageCal None"',
         '"StageCal_1"',

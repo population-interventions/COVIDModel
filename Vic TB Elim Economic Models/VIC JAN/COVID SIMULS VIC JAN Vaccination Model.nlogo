@@ -354,7 +354,7 @@ Span
 Span
 0
 30
-30.0
+15.0
 1
 1
 NIL
@@ -521,7 +521,7 @@ Proportion_People_Avoid
 Proportion_People_Avoid
 0
 100
-15.0
+52.0
 .5
 1
 NIL
@@ -536,7 +536,7 @@ Proportion_Time_Avoid
 Proportion_Time_Avoid
 0
 100
-15.0
+52.0
 .5
 1
 NIL
@@ -941,7 +941,7 @@ Global_Transmissability
 Global_Transmissability
 0
 1
-0.36
+0.59
 0.01
 1
 NIL
@@ -956,7 +956,7 @@ Essential_Workers
 Essential_Workers
 0
 100
-75.0
+50.0
 1
 1
 NIL
@@ -997,7 +997,7 @@ Mask_Wearing
 Mask_Wearing
 0
 100
-60.0
+80.0
 1
 1
 NIL
@@ -1236,7 +1236,7 @@ Visit_Radius
 Visit_Radius
 0
 16
-7.1
+5.3
 1
 1
 NIL
@@ -1545,7 +1545,7 @@ RAND_SEED
 RAND_SEED
 0
 10000000
-7718895.0
+5120773.0
 1
 1
 NIL
@@ -1811,7 +1811,7 @@ CHOOSER
 param_policy
 param_policy
 "AggressElim" "ModerateElim" "TightSupress" "LooseSupress" "None" "Stage 1" "Stage 1b" "Stage 2" "Stage 3" "Stage 4" "StageCal None" "StageCal_1" "StageCal_1b" "StageCal_2" "StageCal_3" "StageCal_4"
-12
+13
 
 SLIDER
 1555
@@ -2011,7 +2011,7 @@ Complacency_Bound
 Complacency_Bound
 0
 100
-15.0
+52.0
 1
 1
 NIL
@@ -2100,7 +2100,7 @@ End_Day
 End_Day
 -1
 365
-82.0
+70.0
 1
 1
 NIL

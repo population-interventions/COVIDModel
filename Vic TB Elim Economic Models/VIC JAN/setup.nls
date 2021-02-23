@@ -304,7 +304,18 @@ to setGlobals
   set real_prior2                0
   set real_prior3                0
   set real_prior4                0
+  set real_prior5                0
+  set real_prior6                0
+
+  set slope_prior0               0
+  set slope_prior1               0
+  set slope_prior2               0
+  set slope_prior3               0
+  set slope_prior4               0
+  set slope_prior5               0
+  set slope_prior6               0
   
+  set slope                      0
   set slopeCount                 0
   set slopeSum                   0
   set slopeAverage               0

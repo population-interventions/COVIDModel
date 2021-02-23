@@ -90,7 +90,18 @@ globals [
   real_prior2
   real_prior3
   real_prior4
+  real_prior5
+  real_prior6
 
+  slope_prior0
+  slope_prior1
+  slope_prior2
+  slope_prior3
+  slope_prior4
+  slope_prior5
+  slope_prior6
+
+  slope
   slopeCount
   slopeSum
   slopeAverage
@@ -359,7 +370,7 @@ Span
 Span
 0
 30
-5.0
+30.0
 1
 1
 NIL
@@ -471,7 +482,7 @@ superspreaders
 superspreaders
 0
 1
-0.03
+0.1
 0.01
 1
 NIL
@@ -526,7 +537,7 @@ Proportion_People_Avoid
 Proportion_People_Avoid
 0
 100
-78.0
+10.0
 .5
 1
 NIL
@@ -541,7 +552,7 @@ Proportion_Time_Avoid
 Proportion_Time_Avoid
 0
 100
-78.0
+10.0
 .5
 1
 NIL
@@ -946,7 +957,7 @@ Global_Transmissability
 Global_Transmissability
 0
 1
-0.42
+0.26
 0.01
 1
 NIL
@@ -961,7 +972,7 @@ Essential_Workers
 Essential_Workers
 0
 100
-20.0
+100.0
 1
 1
 NIL
@@ -1002,7 +1013,7 @@ Mask_Wearing
 Mask_Wearing
 0
 100
-80.0
+35.0
 1
 1
 NIL
@@ -1015,7 +1026,7 @@ SWITCH
 315
 schoolsOpen
 schoolsOpen
-1
+0
 1
 -1000
 
@@ -1241,7 +1252,7 @@ Visit_Radius
 Visit_Radius
 0
 16
-1.8
+8.8
 1
 1
 NIL
@@ -1550,7 +1561,7 @@ RAND_SEED
 RAND_SEED
 0
 10000000
-7826087.0
+3091787.0
 1
 1
 NIL
@@ -1815,7 +1826,7 @@ CHOOSER
 444
 param_policy
 param_policy
-"AggressElim" "ModerateElim" "TightSupress" "LooseSupress" "None" "Stage 1" "Stage 1b" "Stage 2" "Stage 3" "Stage 4" "StageCal None" "StageCal Isolate" "StageCal_1" "StageCal_1b" "StageCal_2" "StageCal_3" "StageCal_4" "StageCal_4_Slope"
+"AggressElim" "ModerateElim" "TightSupress" "LooseSupress" "None" "Stage 1" "Stage 1b" "Stage 2" "Stage 3" "Stage 4" "StageCal None" "StageCal Isolate" "StageCal_1" "StageCal_1b" "StageCal_2" "StageCal_3" "StageCal_4"
 16
 
 SLIDER
@@ -2016,7 +2027,7 @@ Complacency_Bound
 Complacency_Bound
 0
 100
-78.0
+5.0
 1
 1
 NIL
@@ -2105,7 +2116,7 @@ End_Day
 End_Day
 -1
 365
-71.0
+91.0
 1
 1
 NIL
@@ -2333,15 +2344,35 @@ totalEndCount
 11
 
 MONITOR
-877
-794
-979
-839
-NIL
-slopeAverage
-17
+917
+752
+1022
+797
+slopeAverage %
+slopeAverage * 100
+3
 1
 11
+
+PLOT
+769
+808
+1026
+958
+slope %
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+false
+"" ""
+PENS
+"default" 1.0 0 -16777216 true "" "plot slopeAverage * 100"
+"pen-1" 1.0 0 -7500403 true "" "plot slope * 100"
+"pen-2" 1.0 0 -2674135 true "" "plot slope_prior0 / 20"
 
 @#$#@#$#@
 ## WHAT IS IT?
@@ -13559,6 +13590,7 @@ NetLogo 6.2.0
     <metric>scalephase</metric>
     <metric>cumulativeInfected</metric>
     <metric>infectionsToday</metric>
+    <metric>slopeAverage</metric>
     <enumeratedValueSet variable="rand_seed">
       <value value="9678787"/>
       <value value="9676644"/>

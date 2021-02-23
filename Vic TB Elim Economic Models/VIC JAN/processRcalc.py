@@ -29,7 +29,10 @@ def Process(path, name):
 
 def ProcessVariableEnd(path, nameList):
     name = nameList[0]
-    interestingColumns = ['rand_seed', 'average_R', 'param_policy', 'global_transmissability', 'totalEndCount']
+    interestingColumns = [
+        'rand_seed', 'average_R', 'param_policy', 
+        'global_transmissability', 'totalEndCount', 'slopeAverage'
+    ]
     df = pd.DataFrame(columns=interestingColumns)
     for v in nameList:
         pdf = pd.read_csv(path + v + '.csv', header=6)
@@ -40,10 +43,8 @@ def ProcessVariableEnd(path, nameList):
     
     df.to_csv(path + name + '_merge.csv')
     
-    print(df)
     df = df.unstack(level=-1)
     df = df.unstack(level=-1)
-    print(df)
     df.to_csv(path + name + '_process.csv')
     df.describe().to_csv(path + name + '_metric.csv')
     
@@ -51,16 +52,21 @@ def ProcessVariableEnd(path, nameList):
     print(df.describe())
     
 
-def MakePlot(path, name):
+def MakePlot(path, name, varName,
+        yDomain=(-0.2, 9.2),
+        ymajticks=False,
+        yminticks=False,
+        hlines=False):
     df = pd.read_csv(path + name + '.csv', index_col=0, header=[0, 1, 2], skipinitialspace=True)
-    df = df.drop('totalEndCount', axis=1, level=0)
+    
+    unwantedTop = list(dict.fromkeys([v[0] for v in df.columns if v[0] != varName]))
+    df = df.drop(unwantedTop, axis=1, level=0)
     
     transmit_vals = list(dict.fromkeys([v[1] for v in df.columns]))
     policy_vals = list(dict.fromkeys([v[2] for v in df.columns]))
     #print(transmit_vals)
 
     dataCount = len(df.columns)
-    print(policy_vals)
     
     sns.set_theme(style="ticks", palette="pastel")
     sns.set_style("ticks", {"xtick.major.size": 60})
@@ -69,7 +75,7 @@ def MakePlot(path, name):
     plt = sns.boxplot(data=df, fliersize=1.8, showmeans=True,
                       meanprops={"marker":"+","markerfacecolor":"black", "markeredgecolor":"black"})
     #plt = sns.swarmplot(data=df, color=".25")
-    plt.set(xlim=(-1, dataCount + 1), ylim=(-0.2, 9.2))
+    plt.set(xlim=(-1, dataCount + 1), ylim=yDomain)
     sns.despine(ax=ax, offset=10)
     
     plt.set_xticklabels([''] * dataCount)
@@ -88,23 +94,34 @@ def MakePlot(path, name):
         tick.label.set_fontsize(32) 
         
     pyplot.xlabel("Transmissability", fontsize=48)
-    pyplot.ylabel("R", fontsize=48)
+    pyplot.ylabel(varName, fontsize=48)
     
-    ax.set_yticks(range(10))
-    ax.set_yticks([i/5 for i in range(50)], minor=True)
+    if ymajticks:
+        ax.set_yticks(ymajticks)
+    if yminticks:
+        ax.set_yticks(yminticks, minor=True)
     
-    ax.axhline(y=1, linewidth=2.2, zorder=0, color='r')
-    ax.axhline(y=2.5, linewidth=2.2, zorder=0, color='r')
-    ax.axhline(y=2.5*1.25, linewidth=2.2, zorder=0, color='r')
-    ax.axhline(y=2.5*1.5, linewidth=2.2, zorder=0, color='r')
+    if hlines:
+        for v in hlines:
+            ax.axhline(y=v, linewidth=2.2, zorder=0, color='r')
     
     ax.grid(which='minor', alpha=0.4, linewidth=1.5, zorder=-1, axis="y")
     ax.grid(which='major', alpha=0.7, linewidth=2, zorder=-1)
 
-nameNumber = '6'
+nameNumber = '11'
 namePath = 'R calc 4'
 #nameStr = 'COVID SIMULS VIC JAN Vaccination Model R test 7-table' + str(nameNumber)
 nameStr = 'headless find_2.5-table' + nameNumber
 
 ProcessVariableEnd('Output/' + namePath + '/', [nameStr])
-MakePlot('Output/' + namePath + '/', nameStr + '_process')
+MakePlot('Output/' + namePath + '/', nameStr + '_process', 'average_R',
+    yDomain=(-0.2, 9.2),
+    ymajticks=range(10),
+    yminticks=[i/5 for i in range(50)],
+    hlines=[1, 2.5, 2.5*1.25, 2.5*1.5]
+)
+MakePlot('Output/' + namePath + '/', nameStr + '_process', 'slopeAverage',
+    yDomain=(-0.3, 0.3),
+    ymajticks=[i/10 - 0.3 for i in range(7)],
+    yminticks=[i/50 - 0.3 for i in range(35)]
+)

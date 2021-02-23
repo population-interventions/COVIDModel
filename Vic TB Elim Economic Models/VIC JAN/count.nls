@@ -82,22 +82,33 @@ to resetAccumulators
 end
 
 to outputLockdownCalibrate
+  set real_prior6 real_prior5
+  set real_prior5 real_prior4
   set real_prior4 real_prior3
   set real_prior3 real_prior2
   set real_prior2 real_prior1
   set real_prior1 real_prior0
   set real_prior0 infectionsToday
   
-  if decisionDate >= 25 and real_prior0 > 0 and real_prior1 > 0 and real_prior2 > 0 and real_prior3 > 0 and real_prior4 > 0 [
-    show ( word "4: " real_prior4 ", 3: " real_prior3 ", 2: " real_prior2 ", 1: " real_prior1 ", 0: " real_prior0 )
-    
-    let linearRegress matrix:forecast-linear-growth ( list ln(real_prior4) ln(real_prior3) ln(real_prior2) ln(real_prior1) ln(real_prior0) )
-    let slope item 2 linearRegress
+  set slope_prior6 slope_prior5
+  set slope_prior5 slope_prior4
+  set slope_prior4 slope_prior3
+  set slope_prior3 slope_prior2
+  set slope_prior2 slope_prior1
+  set slope_prior1 slope_prior0
+  set slope_prior0 (real_prior0 + real_prior1 + real_prior2 + real_prior3 + real_prior4 + real_prior5 + real_prior6) / 7
+  
+  if ticks - decisionDate >= 21 and ticks - decisionDate < 42 and
+      decisionDate > 0 and (slope_prior0 > 0 and slope_prior1 > 0 and 
+      slope_prior2 > 0 and slope_prior3 > 0 and slope_prior4 > 0 and slope_prior5 > 0 and slope_prior6 > 0)  [
+    ;show ( word "4: " slope_prior4 ", 3: " slope_prior3 ", 2: " slope_prior2 ", 1: " slope_prior1 ", 0: " slope_prior0 )
+    let linearRegress matrix:forecast-linear-growth ( list ln(slope_prior6) ln(slope_prior5) ln(slope_prior4) ln(slope_prior3) ln(slope_prior2) ln(slope_prior1) ln(slope_prior0) )
+    set slope exp(item 2 linearRegress) - 1
     
     set slopeCount slopeCount + 1
     set slopeSum slopeSum + slope
     set slopeAverage slopeSum / slopeCount
-    show ( word slopeAverage ", " slope )
+    ;show ( word (ticks - decisionDate) ", average: " slopeAverage ", " slope )
   ]
 end
 

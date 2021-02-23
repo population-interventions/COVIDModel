@@ -190,6 +190,7 @@ to policy_stage_calibrate_none
     set End_Day ticks + 46
     set track_R True
     set R_measure_time ticks + 25
+    set decisionDate ticks
   ]
 end
 
@@ -206,6 +207,7 @@ to policy_stage_calibrate_isolate
     set End_Day ticks + 46
     set track_R True
     set R_measure_time ticks + 25
+    set decisionDate ticks
   ]
 end
 
@@ -222,6 +224,7 @@ to policy_stage_calibrate_1
     set End_Day ticks + 46
     set track_R True
     set R_measure_time ticks + 25
+    set decisionDate ticks
   ]
 end
 
@@ -238,6 +241,7 @@ to policy_stage_calibrate_1b
     set End_Day ticks + 46
     set track_R True
     set R_measure_time ticks + 25
+    set decisionDate ticks
   ]
 end
 
@@ -254,6 +258,7 @@ to policy_stage_calibrate_2
     set End_Day ticks + 46
     set track_R True
     set R_measure_time ticks + 25
+    set decisionDate ticks
   ]
 end
 
@@ -270,6 +275,7 @@ to policy_stage_calibrate_3
     set End_Day ticks + 46
     set track_R True
     set R_measure_time ticks + 25
+    set decisionDate ticks
   ]
 end
 
@@ -286,6 +292,24 @@ to policy_stage_calibrate_4
     set End_Day ticks + 46
     set track_R True
     set R_measure_time ticks + 25
+    set decisionDate ticks
+  ]
+end
+
+to policy_stage_calibrate_4_slope
+  if ticks = 0 
+  [
+    set stage 0 
+    set End_Day -1
+    set track_R False
+  ]
+  if End_Day = -1 and casesinperiod14 > 14 * 300
+  [
+    set stage 4
+    set End_Day ticks + 46
+    set track_R True
+    set R_measure_time ticks + 25
+    set decisionDate ticks
   ]
 end
 
@@ -363,6 +387,10 @@ to COVIDPolicyTriggers
     ]
     if param_policy = "StageCal_4" [
       policy_stage_calibrate_4
+      set Vaccine_Available false
+    ]
+    if param_policy = "StageCal_4_Slope" [
+      policy_stage_calibrate_4_slope
       set Vaccine_Available false
     ]
   ]

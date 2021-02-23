@@ -299,10 +299,15 @@ to setGlobals
   set prior27                    0
   set prior28                    0
   
-  set fiveDayAverage             0
-  set fiveDayAverageProp         0
-  set fiveDayAvChangeAv          0
-  set fiveDayAvChangeCount       0
+  set real_prior0                0
+  set real_prior1                0
+  set real_prior2                0
+  set real_prior3                0
+  set real_prior4                0
+  
+  set slopeCount                 0
+  set slopeSum                   0
+  set slopeAverage               0
   
   set new_case_real 0
   set new_case_real_counter 0

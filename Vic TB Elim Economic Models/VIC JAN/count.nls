@@ -82,33 +82,23 @@ to resetAccumulators
 end
 
 to outputLockdownCalibrate
-  let newFiveDayAverage (prior0 + prior1 + prior2 + prior3 + prior4) / 5
-  ifelse fiveDayAverage > 0
-  [
-    set fiveDayAverageProp ( newFiveDayAverage / fiveDayAverage - 1 ) * 100
-  ]
-  [
-     set fiveDayAverageProp 0
-  ]
+  set real_prior4 real_prior3
+  set real_prior3 real_prior2
+  set real_prior2 real_prior1
+  set real_prior1 real_prior0
+  set real_prior0 infectionsToday
   
-  if decisionDate > 0 [
-   show ( word "Time: " (ticks - decisionDate) ", Old: " fiveDayAverage ", New:" newFiveDayAverage ", % Change: " fiveDayAverageProp)
-    if (ticks - decisionDate) > 7 [
-      ifelse fiveDayAvChangeCount > 0
-      [
-        let fullVal fiveDayAvChangeAv * fiveDayAvChangeCount
-        set fiveDayAvChangeCount fiveDayAvChangeCount + 1
-        set fiveDayAvChangeAv ( fullVal + fiveDayAverageProp ) / fiveDayAvChangeCount
-      ]
-      [
-        set fiveDayAvChangeAv fiveDayAverageProp
-        set fiveDayAvChangeCount 1 
-      ]
-      ;print fiveDayAvChangeAv
-    ]
-  ]
+  if decisionDate >= 25 and real_prior0 > 0 and real_prior1 > 0 and real_prior2 > 0 and real_prior3 > 0 and real_prior4 > 0 [
+    show ( word "4: " real_prior4 ", 3: " real_prior3 ", 2: " real_prior2 ", 1: " real_prior1 ", 0: " real_prior0 )
     
-  set fiveDayAverage newFiveDayAverage
+    let linearRegress matrix:forecast-linear-growth ( list ln(real_prior4) ln(real_prior3) ln(real_prior2) ln(real_prior1) ln(real_prior0) )
+    let slope item 2 linearRegress
+    
+    set slopeCount slopeCount + 1
+    set slopeSum slopeSum + slope
+    set slopeAverage slopeSum / slopeCount
+    show ( word slopeAverage ", " slope )
+  ]
 end
 
 to calculateCasesInLastPeriod
@@ -154,5 +144,6 @@ to calculateCasesInLastPeriod
   set casesinperiod28 casesinperiod28 + prior18 + prior19 + prior20 + prior21 + prior22
   set casesinperiod28 casesinperiod28 + prior23 + prior24 + prior25 + prior26 + prior27
   
-  ;;outputLockdownCalibrate
+  ;; Do not run this unless you need to, is probably slow.
+  outputLockdownCalibrate
 end

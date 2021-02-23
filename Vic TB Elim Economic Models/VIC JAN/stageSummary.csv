@@ -1,0 +1,12 @@
+Stage,0,1,1b,2,3,4,Comment
+span,30,30,24,15,10,5,Span is how far a simulant randomly moves in one step
+Visit_Radius,8.8,8.8,8.8,5.3,3.5,1.8,How far a simulant searches for a nearby shopping centre (etc..) to visit. Happens after moving.
+Visit_Frequency,0.1428,0.1428,0.1428,0.1428,0.1428,0.1428,How often a simulant searches for nearby shopping centres to visit.
+PPA,0%,10%,45%,58%,68%,90%,The proportion of people that try (at all) to avoid others.
+PTA,0%,10%,45%,58%,68%,90%,The proportion of time that people-avoiders try to avoid others.
+Complacency,0%,5%,36%,46%,56%,84%,PPA and PTA are set at the start of a stage and drop by 1% per day down to this bound.
+Isolation,FALSE,TRUE,TRUE,TRUE,TRUE,TRUE,Whether tracked cases are isolated as well as their household.
+Essential Workers,100%,100%,70%,50%,30%,20%,What proportion of the workforce is considered to be essential.
+Mask Wearing,0%,30%,60%,70%,70%,80%,The proportion of people that always wear a mask (except when at home).
+Tracking,FALSE,TRUE,TRUE,TRUE,TRUE,TRUE,Whether the tracking system is in use.
+Superspread,10%,10%,10%,10%,7%,4%,This many people are randomly teleported halfway around the world each day.

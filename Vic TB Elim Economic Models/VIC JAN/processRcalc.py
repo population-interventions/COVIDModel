@@ -115,9 +115,9 @@ nameStr = 'headless find_2.5-table' + nameNumber
 
 ProcessVariableEnd('Output/' + namePath + '/', [nameStr])
 MakePlot('Output/' + namePath + '/', nameStr + '_process', 'average_R',
-    yDomain=(-0.2, 9.2),
-    ymajticks=range(10),
-    yminticks=[i/5 for i in range(50)],
+    yDomain=(-0.2, 6.2),
+    ymajticks=range(7),
+    yminticks=[i/5 for i in range(35)],
     hlines=[1, 2.5, 2.5*1.25, 2.5*1.5]
 )
 MakePlot('Output/' + namePath + '/', nameStr + '_process', 'slopeAverage',

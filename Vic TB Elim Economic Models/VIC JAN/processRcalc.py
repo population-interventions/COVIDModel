@@ -108,20 +108,20 @@ def MakePlot(path, name, varName,
     ax.grid(which='minor', alpha=0.4, linewidth=1.5, zorder=-1, axis="y")
     ax.grid(which='major', alpha=0.7, linewidth=2, zorder=-1)
 
-nameNumber = '11'
+nameNumber = '13_noTrack'
 namePath = 'R calc 4'
 #nameStr = 'COVID SIMULS VIC JAN Vaccination Model R test 7-table' + str(nameNumber)
 nameStr = 'headless find_2.5-table' + nameNumber
 
 ProcessVariableEnd('Output/' + namePath + '/', [nameStr])
+MakePlot('Output/' + namePath + '/', nameStr + '_process', 'slopeAverage',
+    yDomain=(-0.3, 0.3),
+    ymajticks=[i/10 - 0.3 for i in range(7)],
+    yminticks=[i/50 - 0.3 for i in range(35)]
+)
 MakePlot('Output/' + namePath + '/', nameStr + '_process', 'average_R',
     yDomain=(-0.2, 6.2),
     ymajticks=range(7),
     yminticks=[i/5 for i in range(35)],
     hlines=[1, 2.5, 2.5*1.25, 2.5*1.5]
-)
-MakePlot('Output/' + namePath + '/', nameStr + '_process', 'slopeAverage',
-    yDomain=(-0.3, 0.3),
-    ymajticks=[i/10 - 0.3 for i in range(7)],
-    yminticks=[i/50 - 0.3 for i in range(35)]
 )

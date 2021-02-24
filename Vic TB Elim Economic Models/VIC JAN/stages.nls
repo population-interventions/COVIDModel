@@ -64,9 +64,9 @@ to do_stages_tony
     set span 30
     set Visit_Radius 8.8
     set Visit_Frequency 0.1428
-    set proportion_people_avoid 10
-    set proportion_time_avoid 10
-    set Complacency_Bound 5
+    set proportion_people_avoid 15
+    set proportion_time_avoid 15
+    set Complacency_Bound 10
     set case_isolation true
     set schoolsOpen true
     set quarantine true
@@ -91,10 +91,10 @@ to do_stages_tony
     ;; Stage 1b
     set span 24
     set Visit_Radius 8.8
-    set Visit_Frequency 0.1428
-    set proportion_people_avoid 45
-    set proportion_time_avoid 45
-    set Complacency_Bound 36
+    set Visit_Frequency 0.14
+    set proportion_people_avoid 50
+    set proportion_time_avoid 50
+    set Complacency_Bound 40
     set case_isolation true
     set schoolsOpen true
     set quarantine true
@@ -103,7 +103,7 @@ to do_stages_tony
     set maskPolicy true
     set mask_wearing 60
     set tracking true
-    set superspreaders 0.1
+    set superspreaders 0.09
     ; Does nothing
     set spatial_distance true
     set age_isolation 0
@@ -119,11 +119,11 @@ to do_stages_tony
 
   if stage = 2 [
     set span 15
-    set Visit_Radius 5.3
-    set Visit_Frequency 0.1428
-    set proportion_people_avoid 58
-    set proportion_time_avoid 58
-    set Complacency_Bound 46
+    set Visit_Radius 4.5
+    set Visit_Frequency 0.13
+    set proportion_people_avoid 65
+    set proportion_time_avoid 65
+    set Complacency_Bound 52
     set case_isolation true
     set schoolsOpen true
     set quarantine true
@@ -132,7 +132,7 @@ to do_stages_tony
     set maskPolicy true
     set mask_wearing 70
     set tracking true
-    set superspreaders 0.1
+    set superspreaders 0.07
     ; Does nothing
     set spatial_distance true
     set age_isolation 0
@@ -147,11 +147,11 @@ to do_stages_tony
 
   if stage = 3 [
     set span 10
-    set Visit_Radius 3.5
-    set Visit_Frequency 0.1428
-    set proportion_people_avoid 68
-    set proportion_time_avoid 68
-    set Complacency_Bound 56
+    set Visit_Radius 3.0
+    set Visit_Frequency 0.12
+    set proportion_people_avoid 75
+    set proportion_time_avoid 75
+    set Complacency_Bound 62
     set case_isolation true
     set schoolsOpen false
     set quarantine true
@@ -160,7 +160,7 @@ to do_stages_tony
     set maskPolicy true
     set mask_wearing 70
     set tracking true
-    set superspreaders 0.07
+    set superspreaders 0.05
     ; Does nothing
     set spatial_distance true
     set age_isolation 0
@@ -176,10 +176,10 @@ to do_stages_tony
   if stage = 4 [
     set span 5
     set Visit_Radius 1.8
-    set Visit_Frequency 0.1428
+    set Visit_Frequency 0.11
     set proportion_people_avoid 90
     set proportion_time_avoid 90
-    set Complacency_Bound 84
+    set Complacency_Bound 85
     set case_isolation true
     set schoolsOpen false
     set quarantine true
@@ -188,7 +188,7 @@ to do_stages_tony
     set maskPolicy true
     set mask_wearing 80
     set tracking true
-    set superspreaders 0.04
+    set superspreaders 0.03
     ; Does nothing
     set spatial_distance true
     set age_isolation 0

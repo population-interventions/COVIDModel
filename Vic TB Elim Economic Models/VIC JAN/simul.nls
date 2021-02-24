@@ -182,7 +182,7 @@ end
 to simul_updateIsolationResponse
   set pace span
   set isolateCompliant 0
-  if ((Case_Isolation and isolating = 1) or (tracked = 1)) [
+  if (Case_Isolation and (isolating = 1 or tracked = 1)) [
     if draw_isolationCompliance < random-float 1 [
       move-to homelocation
       set pace 0

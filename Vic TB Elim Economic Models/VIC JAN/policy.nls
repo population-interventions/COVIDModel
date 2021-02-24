@@ -177,118 +177,23 @@ to policy_none
   set stage -1
 end
 
-to policy_stage_calibrate_none
+to policy_stage [ toStage ]
+  set Vaccine_Available false
   if ticks = 0 
   [
     set stage 0 
     set End_Day -1
     set track_R False
   ]
+  
+  if End_Day > 0 [
+    ;; Overwrite things just set in stages
+    set case_isolation false
+  ]
+  
   if End_Day = -1 and casesinperiod14 > 14 * 50
   [
-    set stage -1
-    set End_Day ticks + 46
-    set track_R True
-    set R_measure_time ticks + 25
-    set decisionDate ticks
-  ]
-end
-
-to policy_stage_calibrate_isolate
-  if ticks = 0 
-  [
-    set stage 0 
-    set End_Day -1
-    set track_R False
-  ]
-  if End_Day = -1 and casesinperiod14 > 14 * 50
-  [
-    set stage -0.5
-    set End_Day ticks + 46
-    set track_R True
-    set R_measure_time ticks + 25
-    set decisionDate ticks
-  ]
-end
-
-to policy_stage_calibrate_1
-  if ticks = 0 
-  [
-    set stage 0 
-    set End_Day -1
-    set track_R False
-  ]
-  if End_Day = -1 and casesinperiod14 > 14 * 50
-  [
-    set stage 0
-    set End_Day ticks + 46
-    set track_R True
-    set R_measure_time ticks + 25
-    set decisionDate ticks
-  ]
-end
-
-to policy_stage_calibrate_1b
-  if ticks = 0 
-  [
-    set stage 0 
-    set End_Day -1
-    set track_R False
-  ]
-  if End_Day = -1 and casesinperiod14 > 14 * 50
-  [
-    set stage 1
-    set End_Day ticks + 46
-    set track_R True
-    set R_measure_time ticks + 25
-    set decisionDate ticks
-  ]
-end
-
-to policy_stage_calibrate_2
-  if ticks = 0 
-  [
-    set stage 0 
-    set End_Day -1
-    set track_R False
-  ]
-  if End_Day = -1 and casesinperiod14 > 14 * 50
-  [
-    set stage 2
-    set End_Day ticks + 46
-    set track_R True
-    set R_measure_time ticks + 25
-    set decisionDate ticks
-  ]
-end
-
-to policy_stage_calibrate_3
-  if ticks = 0 
-  [
-    set stage 0 
-    set End_Day -1
-    set track_R False
-  ]
-  if End_Day = -1 and casesinperiod14 > 14 * 50
-  [
-    set stage 3
-    set End_Day ticks + 46
-    set track_R True
-    set R_measure_time ticks + 25
-    set decisionDate ticks
-  ]
-end
-
-to policy_stage_calibrate_4
-  if ticks = 0 
-  [
-    set stage 0 
-    set End_Day -1
-    set track_R False
-  ]
-  if End_Day = -1 and casesinperiod14 > 14 * 50
-  [
-    set stage 4
+    set stage toStage
     set End_Day ticks + 46
     set track_R True
     set R_measure_time ticks + 25
@@ -345,32 +250,25 @@ to COVIDPolicyTriggers
       set Vaccine_Available false
     ]
     if param_policy = "StageCal None" [
-      policy_stage_calibrate_none
-      set Vaccine_Available false
+      policy_stage -1
     ]
     if param_policy = "StageCal Isolate" [
-      policy_stage_calibrate_isolate
-      set Vaccine_Available false
+      policy_stage -0.5
     ]
     if param_policy = "StageCal_1" [
-      policy_stage_calibrate_1
-      set Vaccine_Available false
+      policy_stage 0
     ]
     if param_policy = "StageCal_1b" [
-      policy_stage_calibrate_1b
-      set Vaccine_Available false
+      policy_stage 1
     ]
     if param_policy = "StageCal_2" [
-      policy_stage_calibrate_2
-      set Vaccine_Available false
+      policy_stage 2
     ]
     if param_policy = "StageCal_3" [
-      policy_stage_calibrate_3
-      set Vaccine_Available false
+      policy_stage 3
     ]
     if param_policy = "StageCal_4" [
-      policy_stage_calibrate_4
-      set Vaccine_Available false
+      policy_stage 4
     ]
   ]
 end

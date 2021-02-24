@@ -320,6 +320,13 @@ to setGlobals
   set slopeSum                   0
   set slopeAverage               0
   
+  set trackCount                 0
+  set trackSum                   0
+  set trackAverage               0
+  set infectedTrackCount         0
+  set infectedTrackSum           0
+  set infectedTrackAverage       0
+  
   set new_case_real 0
   set new_case_real_counter 0
   

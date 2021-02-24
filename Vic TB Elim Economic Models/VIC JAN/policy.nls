@@ -188,7 +188,7 @@ to policy_stage [ toStage ]
   
   if End_Day > 0 [
     ;; Overwrite things just set in stages
-    set case_isolation false
+    ;set case_isolation false
   ]
   
   if End_Day = -1 and casesinperiod14 > 14 * 50

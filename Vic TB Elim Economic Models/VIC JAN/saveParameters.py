@@ -198,9 +198,11 @@ paramValuesBigRunTest = {
     'non_infective_Time' : listToStr([0, 2]),
     'scale_threshold' : listToStr([240, 320]),
 }
+
 topOfFile = [
     'rand_seed',
     'param_policy',
+    'Global_Transmissability',
 ]
 
 paramValuesTestR = {
@@ -227,7 +229,7 @@ paramValuesTestR_2 = {
 }
 
 paramValuesTestR_small = {**defaultParams, **{
-    'rand_seed' : listToStr(random.randint(10000000, size=(2000))),
+    'rand_seed' : listToStr(random.randint(10000000, size=(10000))),
     'param_policy' : listToStr([
         '"StageCal None"',
         #'"StageCal Isolate"',

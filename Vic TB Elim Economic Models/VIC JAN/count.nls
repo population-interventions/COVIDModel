@@ -109,6 +109,17 @@ to outputLockdownCalibrate
     set slopeSum slopeSum + slope
     set slopeAverage slopeSum / slopeCount
     ;show ( word (ticks - decisionDate) ", average: " slopeAverage ", " slope )
+    
+    
+    set trackCount trackCount + 1
+    set trackSum trackSum + track_and_trace_efficiency
+    set trackAverage trackSum / trackCount
+    
+    if redCount > 0 [
+      set infectedTrackCount infectedTrackCount + 1
+      set infectedTrackSum infectedTrackSum + ((count simuls with [color = red and tracked = 1]) / redCount)
+      set infectedTrackAverage infectedTrackSum / infectedTrackCount
+    ]
   ]
 end
 

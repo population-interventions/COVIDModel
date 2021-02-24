@@ -18,6 +18,12 @@ def MoveMatchToPos(data, match, pos):
             return
 
 
+def ToNetlogoStr(data):
+    for i in data:
+        data[i] = str(data[i]).lower()
+    return data
+
+
 def FindNameAndValue(file, nameLines, valueLines):
     foundName = False
     while True:
@@ -99,6 +105,63 @@ def ReadModelFileAndWriteParams(startPart, endPart, valueOverwrite, topOfFile=[]
     
     outputFile.close()
   
+defaultParams = ToNetlogoStr({
+    'asymptom_trace_mult' : 0.33,
+    'asymptomatic_trans' : 0.5,
+    'basestage' : 0,
+    'case_reporting_delay' : 2.0,
+    'complacency_bound' : 5.0,
+    'end_day' : 91.0,
+    'end_r_reported' : -1.0,
+    'ess_w_risk_reduction' : 50.0,
+    'essential_workers' : 100.0,
+    'freewheel' : False,
+    'gather_location_count' : 85.0,
+    'illness_period' : 21.2,
+    'incubation_period' : 4.7,
+    'initial_cases' : 5.0,
+    'initialscale' : 0,
+    'isolate' : True,
+    'isolation_transmission' : 0.5,
+    'lockdown_off' : True,
+    'mask_efficacy_mult' : 1.0,
+    'mask_wearing' : 35.0,
+    'maskpolicy' : True,
+    'maxstage' : 4,
+    'non_infective_time' : 2.0,
+    'os_import_post_proportion' : 0.68,
+    'os_import_proportion' : 0.0,
+    'asymptom_prop' : 0.33,
+    'param_trigger_loosen' : False,
+    'param_vac1_tran_reduct' : 90.0,
+    'param_vac2_morb_eff' : 70.0,
+    'param_vac2_tran_reduct' : 75.0,
+    'param_vac_uptake' : 75.0,
+    'param_vaceffdays' : 21.0,
+    'population' : 2500.0,
+    'profile_on' : False,
+    'proportion_people_avoid' : 10.0,
+    'proportion_time_avoid' : 10.0,
+    'age_isolation' : 0.0,
+    'recovered_match_rate' : 0.042,
+    'scale' : True,
+    'scale_factor' : 4.0,
+    'scale_threshold' : 240.0,
+    'schoolsopen' : True,
+    'se_illnesspd' : 4.0,
+    'se_incubation' : 2.25,
+    'secondary_cases' : 20.0,
+    'selfgovern' : True,
+    'span' : 30.0,
+    'superspreaders' : 0.1,
+    'symtomatic_present_day' : 6.0,
+    'track_r' : True,
+    'tracking' : True,
+    'vaccine_available' : False,
+    'visit_frequency' : 0.1428,
+    'visit_radius' : 8.8,
+})
+
   
 paramValues = {
     'rand_seed' : listToStr(random.randint(10000000, size=(100))),
@@ -163,7 +226,7 @@ paramValuesTestR_2 = {
     'total_population' : '2500000000',
 }
 
-paramValuesTestR_small = {
+paramValuesTestR_small = {**defaultParams, **{
     'rand_seed' : listToStr(random.randint(10000000, size=(2000))),
     'param_policy' : listToStr([
         '"StageCal None"',
@@ -180,6 +243,6 @@ paramValuesTestR_small = {
         0.405,
     ]),
     'total_population' : '2500000000',
-}
+}}
 
 ReadModelFileAndWriteParams('GRAPHICS-WINDOW', '@#$#@#$#@', paramValuesTestR_small, topOfFile=topOfFile)

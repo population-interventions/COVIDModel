@@ -57,6 +57,8 @@ to go
     simul_updateIsolationResponse
     ;; Move around, or not. It's random.
     simul_move
+    ;; Spread before visting nearby destinations or avoiding
+    simul_superSpread
     ;; Some people who are near a destination to move to that destination.
     simul_visitDestination
   ]
@@ -70,10 +72,6 @@ to go
   ;; Note that simulants can effect each other in this stage.
   ask simuls [
     simul_avoid
-  ]
-  
-  ask simuls [
-    simul_superSpread
   ]
   
   ;; Simulants update how effective they are at spreading or receiving the virus, then add their infectiveness to the patch infectiveness

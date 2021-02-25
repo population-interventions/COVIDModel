@@ -186,11 +186,6 @@ to policy_stage [ toStage ]
     set track_R False
   ]
   
-  if End_Day > 0 [
-    ;; Overwrite things just set in stages
-    ;set case_isolation calibrate_isolate
-  ]
-  
   if End_Day = -1 and casesinperiod14 >= calibrate_stage_switch
   [
     set stage toStage
@@ -252,8 +247,8 @@ to COVIDPolicyTriggers
     if param_policy = "StageCal None" [
       policy_stage -1
     ]
-    if param_policy = "StageCal Isolate" [
-      policy_stage -0.5
+    if param_policy = "StageCal Test" [
+      policy_stage -2
     ]
     if param_policy = "StageCal_1" [
       policy_stage 0

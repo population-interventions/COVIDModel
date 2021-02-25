@@ -343,7 +343,7 @@ end
 to simul_visitDestination
   ;; sets up destinations where people might gather and set off superspreader events
   ;; reduces large gatherings by stage
-  if inQuarantine = 0 and isolateCompliant = 0 and random-float 1 < Visit_Frequency [
+  if inQuarantine = 0 and isolateCompliant = 0 and Visit_Frequency > random-float 1  [
     let movePatch one-of destination_patches in-radius Visit_Radius
     if is-patch? movePatch [
       move-to movePatch
@@ -361,8 +361,7 @@ to simul_avoid
     ;; if you are an essential worker, you can only reduce your
     ;; contacts when you are not at work assuming 8 hours work, 8 hours rest, 8 hours recreation - rest doesn't count for anyone, hence it is
     ;; set at 50 on the input slider. People don't isolate from others in their household unit
-    (ifelse (EssentialWorkerFlag = 0 or Ess_W_Risk_Reduction > random 100)
-      and Spatial_Distance = true and AgeRange > Age_Isolation
+    (ifelse (EssentialWorkerFlag = 0 or Ess_W_Risk_Reduction > random 100) and Spatial_Distance = true
       and Proportion_People_Avoid + draw_ppa_modifier > proportion_people_avoid_draw
       and Proportion_Time_Avoid + draw_pta_modifier > random 100
       [
@@ -461,6 +460,7 @@ to simul_checkMask
 end
 
 to simul_updateHouseTrackedCase
+  ;; Add and Case_Reporting_Delay <= ticks to only isolate with confirmed cases in a household.
   if color = red and tracked = 1 [
     table:put houseTrackedCaseTimeTable householdunit ticks
   ]

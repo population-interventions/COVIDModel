@@ -32,7 +32,7 @@ def ProcessVariableEnd(path, nameList):
     interestingColumns = [
         'rand_seed', 'average_R', 'param_policy', 
         'global_transmissibility', 'totalEndCount', 'slopeAverage',
-        'trackAverage', 'infectedTrackAverage'
+        'trackAverage', 'infectedTrackAverage', 'testName',
     ]
     df = pd.DataFrame(columns=interestingColumns)
     for v in nameList:
@@ -40,17 +40,26 @@ def ProcessVariableEnd(path, nameList):
         pdf = pdf[interestingColumns]
         df  = df.append(pdf)
     
-    df = df.set_index(['rand_seed', 'param_policy', 'global_transmissibility'])
+    desiredIndex = ['rand_seed', 'param_policy', 'global_transmissibility']
+    inTest = (len(df['testName'].unique()) > 1)
+    if inTest:
+        desiredIndex.append('testName')
+        #df['testName'] = df['testName'].str.replace('\*', '')
+    else:
+        df = df.drop(colums=['testName'])
+    
+    df = df.set_index(desiredIndex)
     
     df.to_csv(path + name + '_merge.csv')
     
-    #print(df[df.duplicated(keep='last')])
-    df = df.drop_duplicates() # Sometimes the random numbers collide.
+    # Sometimes the random numbers collide.
+    df = df[~df.index.duplicated(keep='first')]
     
     df = df.unstack(level=-1)
     df = df.unstack(level=-1)
     df.to_csv(path + name + '_process.csv')
-    df.describe().to_csv(path + name + '_metric.csv')
+    df_desc = df.describe()
+    df_desc.to_csv(path + name + '_metric.csv')
     
     #print((df['average_R'] * df['totalEndCount']).sum() / df['totalEndCount'].sum())
     print(df.describe())
@@ -60,12 +69,15 @@ def MakePlot(path, name, varName,
         yDomain=(-0.2, 9.2),
         ymajticks=False,
         yminticks=False,
-        hlines=False):
+        hlines=False,
+        width=48.5
+        ):
     df = pd.read_csv(path + name + '.csv', index_col=0, header=[0, 1, 2], skipinitialspace=True)
     
     unwantedTop = list(dict.fromkeys([v[0] for v in df.columns if v[0] != varName]))
     df = df.drop(unwantedTop, axis=1, level=0)
     
+    xLabel = df.columns.names[1]
     transmit_vals = list(dict.fromkeys([v[1] for v in df.columns]))
     policy_vals = list(dict.fromkeys([v[2] for v in df.columns]))
     #print(transmit_vals)
@@ -75,7 +87,7 @@ def MakePlot(path, name, varName,
     sns.set_theme(style="ticks", palette="pastel")
     sns.set_style("ticks", {"xtick.major.size": 60})
     
-    fig, ax = pyplot.subplots(figsize=(48.5, 40))
+    fig, ax = pyplot.subplots(figsize=(width, 40))
     plt = sns.boxplot(data=df, fliersize=1.8, showmeans=True,
                       meanprops={"marker":"+","markerfacecolor":"black", "markeredgecolor":"black"})
     #plt = sns.swarmplot(data=df, color=".25")
@@ -96,7 +108,7 @@ def MakePlot(path, name, varName,
     for tick in ax.yaxis.get_major_ticks():
         tick.label.set_fontsize(32) 
         
-    pyplot.xlabel("Transmissibility", fontsize=48)
+    pyplot.xlabel(xLabel, fontsize=48)
     pyplot.ylabel(varName, fontsize=48)
     
     if ymajticks:
@@ -111,23 +123,27 @@ def MakePlot(path, name, varName,
     ax.grid(which='minor', alpha=0.4, linewidth=1.5, zorder=-1, axis="y")
     ax.grid(which='major', alpha=0.7, linewidth=2, zorder=-1)
 
-nameNumber = '16'
+nameNumber = '17'
 namePath = 'R calc 4'
 #nameStr = 'COVID SIMULS VIC JAN Vaccination Model R test 7-table' + str(nameNumber)
 nameStr = 'headless find_2.5-table' + nameNumber
 #nameStr = 'headless find_2.5 high track-table' + nameNumber
 
+namePath = 'StageTest'
+nameStr = 'headless stageTest-table_3'
+
 ProcessVariableEnd('Output/' + namePath + '/', [nameStr])
-MakePlot('Output/' + namePath + '/', nameStr + '_process', 'slopeAverage',
-    yDomain=(-0.3, 0.3),
-    ymajticks=[i/10 - 0.3 for i in range(7)],
-    yminticks=[i/50 - 0.3 for i in range(35)]
-)
+#MakePlot('Output/' + namePath + '/', nameStr + '_process', 'slopeAverage',
+#    yDomain=(-0.3, 0.3),
+#    ymajticks=[i/10 - 0.3 for i in range(7)],
+#    yminticks=[i/50 - 0.3 for i in range(35)]
+#)
 MakePlot('Output/' + namePath + '/', nameStr + '_process', 'average_R',
     yDomain=(-0.2, 6.2),
     ymajticks=range(7),
     yminticks=[i/5 for i in range(35)],
-    hlines=[1, 2.5, 2.5*1.25, 2.5*1.5]
+    hlines=[1, 2.5, 2.5*1.25, 2.5*1.5],
+    width=100
 )
 #MakePlot('Output/' + namePath + '/', nameStr + '_process', 'trackAverage',
 #    yDomain=(0, 1),

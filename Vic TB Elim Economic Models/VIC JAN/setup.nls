@@ -320,6 +320,9 @@ to setGlobals
   set slopeSum                   0
   set slopeAverage               0
   
+  set testName                   ""
+  set traceMult                  1
+  
   set trackCount                 0
   set trackSum                   0
   set trackAverage               0

@@ -110,9 +110,7 @@ defaultParams = {
     'asymptom_trace_mult' : 0.33,
     'asymptomatic_trans' : 0.5,
     'basestage' : 0,
-    'calibrate_isolate' : True,
     'calibrate_stage_switch' : 701,
-    'calibrate_trace_override' : -0.1,
     'case_reporting_delay' : 2.0,
     'complacency_bound' : 5.0,
     'end_day' : 91.0,
@@ -248,7 +246,6 @@ paramValuesTestR_small = {**defaultParams, **{
         0.335,
         0.405,
     ]),
-    'calibrate_isolate' : True,
     'calibrate_stage_switch' : 701,
     'total_population' : '2500000000',
 }}
@@ -269,10 +266,19 @@ paramValuesTestR_high_track = {**defaultParams, **{
         0.335,
         0.405,
     ]),
-    'calibrate_isolate' : True,
     'calibrate_stage_switch' : 701,
-    'calibrate_trace_override' : -0.1,
     'total_population' : '2500000000',
 }}
 
-ReadModelFileAndWriteParams('GRAPHICS-WINDOW', '@#$#@#$#@', paramValuesTestR_high_track, topOfFile=topOfFile)
+paramValuesTestR_stageTest = {**defaultParams, **{
+    'rand_seed' : listToStr(random.randint(10000000, size=(10000))),
+    'param_policy' : listToStr([
+        '"StageCal Test"',
+    ]),
+    'Global_Transmissibility' : listToStr([
+        0.26,
+    ]),
+    'stage_test_index' : listToStr(range(20)),
+    'total_population' : '2500000000',
+}}
+ReadModelFileAndWriteParams('GRAPHICS-WINDOW', '@#$#@#$#@', paramValuesTestR_stageTest, topOfFile=topOfFile)

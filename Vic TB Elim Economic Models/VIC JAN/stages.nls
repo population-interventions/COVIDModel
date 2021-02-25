@@ -70,7 +70,7 @@ to do_stages_test
     set spatial_distance true
   ]
   if stage_test_index = 11 [
-    set testName "P50 EssWork 60"
+    set testName "P50 Ework 60"
     set Essential_Workers 60
     set proportion_people_avoid 50
     set proportion_time_avoid 50
@@ -78,7 +78,7 @@ to do_stages_test
     set spatial_distance true
   ]
   if stage_test_index = 12 [
-    set testName "P50 EssWork 20"
+    set testName "P50 Ework 20"
     set Essential_Workers 20
     set proportion_people_avoid 50
     set proportion_time_avoid 50
@@ -150,6 +150,10 @@ to do_stages_test
   if stage_test_index = 26 [
     set testName "VisitFreq 0.1"
     set Visit_Frequency 0.1
+  ]
+  if stage_test_index = 27 [
+    set testName "Spl Dist"
+    set spatial_distance true
   ]
 end
 

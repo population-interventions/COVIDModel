@@ -442,7 +442,7 @@ Proportion_People_Avoid
 Proportion_People_Avoid
 0
 100
-0.0
+50.0
 .5
 1
 NIL
@@ -457,7 +457,7 @@ Proportion_Time_Avoid
 Proportion_Time_Avoid
 0
 100
-0.0
+50.0
 .5
 1
 NIL
@@ -850,7 +850,7 @@ RAND_SEED
 RAND_SEED
 0
 10000000
-2420204.0
+6784798.0
 1
 1
 NIL
@@ -1076,7 +1076,7 @@ Complacency_Bound
 Complacency_Bound
 0
 100
-0.0
+50.0
 1
 1
 NIL
@@ -1136,7 +1136,7 @@ End_Day
 End_Day
 -1
 365
--1.0
+81.0
 1
 1
 NIL
@@ -1179,7 +1179,7 @@ SWITCH
 772
 track_R
 track_R
-1
+0
 1
 -1000
 
@@ -1263,7 +1263,7 @@ stage_test_index
 stage_test_index
 0
 30
-9.0
+23.0
 1
 1
 NIL

@@ -44,7 +44,7 @@ def ProcessVariableEnd(path, nameList):
     inTest = (len(df['testName'].unique()) > 1)
     if inTest:
         desiredIndex.append('testName')
-        #df['testName'] = df['testName'].str.replace('\*', '')
+        df['testName'] = df['testName'].str.replace('EssWork', 'Ework')
     else:
         df = df.drop(colums=['testName'])
     

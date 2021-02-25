@@ -27,13 +27,13 @@ to do_stages_test
     set Visit_Radius 20
   ]
   if stage_test_index = 3 [
-    set testName "VisitFreq 0.8"
-    set Visit_Frequency 0.8
+    set testName "VisitFreq 0.2"
+    set Visit_Frequency 0.2
   ]
   if stage_test_index = 4 [
-    set testName "Visit 20 F 0.8"
+    set testName "Visit 20 F 0.2"
     set Visit_Radius 20
-    set Visit_Frequency 0.8
+    set Visit_Frequency 0.2
   ]
   if stage_test_index = 5 [
     set testName "PPA20 C20"

@@ -257,12 +257,12 @@ paramValuesTestR_high_track = {**defaultParams, **{
     'rand_seed' : listToStr(random.randint(10000000, size=(10000))),
     'param_policy' : listToStr([
         '"StageCal None"',
-        #'"StageCal Isolate"',
-        '"StageCal_1"',
-        '"StageCal_1b"',
-        '"StageCal_2"',
-        '"StageCal_3"',
-        '"StageCal_4"',
+        '"StageCal Isolate"',
+        #'"StageCal_1"',
+        #'"StageCal_1b"',
+        #'"StageCal_2"',
+        #'"StageCal_3"',
+        #'"StageCal_4"',
     ]),
     'Global_Transmissability' : listToStr([
         0.26,
@@ -271,7 +271,7 @@ paramValuesTestR_high_track = {**defaultParams, **{
     ]),
     'calibrate_isolate' : True,
     'calibrate_stage_switch' : 701,
-    'calibrate_trace_override' : 0.9,
+    'calibrate_trace_override' : -0.1,
     'total_population' : '2500000000',
 }}
 

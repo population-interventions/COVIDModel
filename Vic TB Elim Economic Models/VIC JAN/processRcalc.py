@@ -109,11 +109,11 @@ def MakePlot(path, name, varName,
     ax.grid(which='minor', alpha=0.4, linewidth=1.5, zorder=-1, axis="y")
     ax.grid(which='major', alpha=0.7, linewidth=2, zorder=-1)
 
-nameNumber = '15'
+nameNumber = '16'
 namePath = 'R calc 4'
 #nameStr = 'COVID SIMULS VIC JAN Vaccination Model R test 7-table' + str(nameNumber)
-#nameStr = 'headless find_2.5-table' + nameNumber
-nameStr = 'headless find_2.5 high track-table' + nameNumber
+nameStr = 'headless find_2.5-table' + nameNumber
+#nameStr = 'headless find_2.5 high track-table' + nameNumber
 
 ProcessVariableEnd('Output/' + namePath + '/', [nameStr])
 MakePlot('Output/' + namePath + '/', nameStr + '_process', 'slopeAverage',

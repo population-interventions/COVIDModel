@@ -19,7 +19,7 @@ to do_stages_tony
     set Essential_Workers 100
     set maskPolicy false
     set mask_wearing 0
-    set tracking false
+    set tracking true
     set superspreaders 0.1
     ; Does nothing
     set spatial_distance false

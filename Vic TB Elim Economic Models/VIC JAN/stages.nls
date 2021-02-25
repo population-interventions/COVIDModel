@@ -140,7 +140,7 @@ to do_stages_test
   ]
   if stage_test_index = 24 [
     set testName "Span 80"
-    set span 5
+    set span 80
   ]
   if stage_test_index = 25 [
     set testName "Iso T x4"

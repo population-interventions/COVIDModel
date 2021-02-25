@@ -1136,7 +1136,7 @@ End_Day
 End_Day
 -1
 365
-79.0
+-1.0
 1
 1
 NIL
@@ -1179,7 +1179,7 @@ SWITCH
 772
 track_R
 track_R
-0
+1
 1
 -1000
 
@@ -1263,7 +1263,7 @@ stage_test_index
 stage_test_index
 0
 30
-22.0
+9.0
 1
 1
 NIL

@@ -13,12 +13,12 @@ import seaborn as sns
 
 def Process(path, name):
     df = pd.read_csv(path + name + '.csv', header=6)
-    df = df[['rand_seed', '[step]', 'average_R', 'global_transmissability']]
+    df = df[['rand_seed', '[step]', 'average_R', 'global_transmissibility']]
     lastStep = df['[step]'].max()
     df = df[df['[step]'] == lastStep]
-    df = df[['rand_seed', 'average_R', 'global_transmissability']]
+    df = df[['rand_seed', 'average_R', 'global_transmissibility']]
     
-    df = df.set_index(['rand_seed', 'global_transmissability'])
+    df = df.set_index(['rand_seed', 'global_transmissibility'])
     
     df = df.unstack(level=-1)
     df.columns = df.columns.get_level_values(1)
@@ -31,7 +31,7 @@ def ProcessVariableEnd(path, nameList):
     name = nameList[0]
     interestingColumns = [
         'rand_seed', 'average_R', 'param_policy', 
-        'global_transmissability', 'totalEndCount', 'slopeAverage',
+        'global_transmissibility', 'totalEndCount', 'slopeAverage',
         'trackAverage', 'infectedTrackAverage'
     ]
     df = pd.DataFrame(columns=interestingColumns)
@@ -40,9 +40,12 @@ def ProcessVariableEnd(path, nameList):
         pdf = pdf[interestingColumns]
         df  = df.append(pdf)
     
-    df = df.set_index(['rand_seed', 'param_policy', 'global_transmissability'])
+    df = df.set_index(['rand_seed', 'param_policy', 'global_transmissibility'])
     
     df.to_csv(path + name + '_merge.csv')
+    
+    #print(df[df.duplicated(keep='last')])
+    df = df.drop_duplicates() # Sometimes the random numbers collide.
     
     df = df.unstack(level=-1)
     df = df.unstack(level=-1)
@@ -81,9 +84,8 @@ def MakePlot(path, name, varName,
     
     plt.set_xticklabels([''] * dataCount)
     plt.xaxis.set_major_locator(ticker.FixedLocator([i*len(policy_vals) - 0.5 for i in range(len(transmit_vals))]))
-    plt.xaxis.set_minor_locator(ticker.FixedLocator([i*len(policy_vals) + 2.5 for i in range(len(transmit_vals))]))
+    plt.xaxis.set_minor_locator(ticker.FixedLocator([(i + 0.5)*len(policy_vals) - 0.5 for i in range(len(transmit_vals))]))
     plt.xaxis.set_minor_formatter(ticker.FixedFormatter(transmit_vals))
-    
     
     for tick in ax.xaxis.get_minor_ticks():
         tick.label.set_fontsize(32) 
@@ -94,7 +96,7 @@ def MakePlot(path, name, varName,
     for tick in ax.yaxis.get_major_ticks():
         tick.label.set_fontsize(32) 
         
-    pyplot.xlabel("Transmissability", fontsize=48)
+    pyplot.xlabel("Transmissibility", fontsize=48)
     pyplot.ylabel(varName, fontsize=48)
     
     if ymajticks:

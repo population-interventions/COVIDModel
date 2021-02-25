@@ -47,7 +47,7 @@ def Process(chunk: pd.DataFrame, outputStaticData):
         'param_transmit_scale',
         # These may be useful at some point
         'asymptom_prop', 'asymptom_trace_mult', 'asymptomatic_trans', 'case_reporting_delay', 'ess_w_risk_reduction',
-        'gather_location_count', 'global_transmissability', 'illness_period', 'incubation_period', 'isolation_transmission',
+        'gather_location_count', 'global_transmissibility', 'illness_period', 'incubation_period', 'isolation_transmission',
         'mask_efficacy_mult', 'non_infective_time', 'reinfectionrate',
         # Parameters
         'param_vaceffdays',

@@ -197,7 +197,7 @@ paramValuesBigRunTest = {
     ]),
     'param_vac_uptake' : listToStr([75, 90]),
     'param_vac2_tran_reduct' : listToStr([60, 75, 90]),
-    'Global_Transmissability' : listToStr([0.32, 0.51]),
+    'Global_Transmissibility' : listToStr([0.32, 0.51]),
     'case_reporting_delay' : listToStr([2, 5]),
     'non_infective_Time' : listToStr([0, 2]),
     'scale_threshold' : listToStr([240, 320]),
@@ -206,7 +206,7 @@ paramValuesBigRunTest = {
 topOfFile = [
     'rand_seed',
     'param_policy',
-    'Global_Transmissability',
+    'Global_Transmissibility',
 ]
 
 paramValuesTestR = {
@@ -214,7 +214,7 @@ paramValuesTestR = {
     'param_policy' : listToStr([
         '"None"',
     ]),
-    'Global_Transmissability' : listToStr([0.4, 0.525, 0.67]),
+    'Global_Transmissibility' : listToStr([0.4, 0.525, 0.67]),
     'total_population' : '25000000',
 }
 
@@ -228,7 +228,7 @@ paramValuesTestR_2 = {
         '"StageCal_3"',
         '"StageCal_4"',
     ]),
-    'Global_Transmissability' : listToStr([0.36, 0.39, 0.42, 0.45, 0.48, 0.51, 0.54, 0.56, 0.59, 0.61, 0.64, 0.67, 0.7, 0.73]),
+    'Global_Transmissibility' : listToStr([0.36, 0.39, 0.42, 0.45, 0.48, 0.51, 0.54, 0.56, 0.59, 0.61, 0.64, 0.67, 0.7, 0.73]),
     'total_population' : '2500000000',
 }
 
@@ -243,7 +243,7 @@ paramValuesTestR_small = {**defaultParams, **{
         '"StageCal_3"',
         '"StageCal_4"',
     ]),
-    'Global_Transmissability' : listToStr([
+    'Global_Transmissibility' : listToStr([
         0.26,
         0.335,
         0.405,
@@ -264,7 +264,7 @@ paramValuesTestR_high_track = {**defaultParams, **{
         #'"StageCal_3"',
         #'"StageCal_4"',
     ]),
-    'Global_Transmissability' : listToStr([
+    'Global_Transmissibility' : listToStr([
         0.26,
         0.335,
         0.405,

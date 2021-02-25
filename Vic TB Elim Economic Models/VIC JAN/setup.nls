@@ -76,10 +76,10 @@ end
 to simul_resetPersonalVirulence
   ;; ensures that personalVirulence is within bounds
   if personalVirulence > 100 [
-    set personalVirulence random-normal global_Transmissability 2.5
+    set personalVirulence random-normal global_Transmissibility 2.5
   ]
   if personalVirulence < 0 [
-    set personalVirulence random-normal global_Transmissability 2.5
+    set personalVirulence random-normal global_Transmissibility 2.5
   ]
 end
 
@@ -149,7 +149,7 @@ to createSimulants
 
       move-to one-of patches with [ pcolor = black ]
 
-      set personalVirulence random-normal Global_Transmissability 0.025
+      set personalVirulence random-normal Global_Transmissibility 0.025
       if personalVirulence > 1 [
         set personalVirulence 1
       ]

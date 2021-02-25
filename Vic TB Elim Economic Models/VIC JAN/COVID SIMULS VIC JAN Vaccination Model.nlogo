@@ -547,7 +547,7 @@ Proportion_People_Avoid
 Proportion_People_Avoid
 0
 100
-15.0
+0.0
 .5
 1
 NIL
@@ -562,7 +562,7 @@ Proportion_Time_Avoid
 Proportion_Time_Avoid
 0
 100
-15.0
+0.0
 .5
 1
 NIL
@@ -1023,7 +1023,7 @@ Mask_Wearing
 Mask_Wearing
 0
 100
-30.0
+0.0
 1
 1
 NIL
@@ -1109,7 +1109,7 @@ SWITCH
 355
 MaskPolicy
 MaskPolicy
-0
+1
 1
 -1000
 
@@ -1571,7 +1571,7 @@ RAND_SEED
 RAND_SEED
 0
 10000000
-7908692.0
+6901109.0
 1
 1
 NIL
@@ -1837,7 +1837,7 @@ CHOOSER
 param_policy
 param_policy
 "AggressElim" "ModerateElim" "TightSupress" "LooseSupress" "None" "Stage 1" "Stage 1b" "Stage 2" "Stage 3" "Stage 4" "StageCal None" "StageCal Test" "StageCal_1" "StageCal_1b" "StageCal_2" "StageCal_3" "StageCal_4"
-11
+10
 
 SLIDER
 1589
@@ -2037,7 +2037,7 @@ Complacency_Bound
 Complacency_Bound
 0
 100
-10.0
+0.0
 1
 1
 NIL
@@ -2126,7 +2126,7 @@ End_Day
 End_Day
 -1
 365
--1.0
+78.0
 1
 1
 NIL
@@ -2200,7 +2200,7 @@ SWITCH
 772
 track_R
 track_R
-1
+0
 1
 -1000
 
@@ -54416,6 +54416,9 @@ NetLogo 6.2.0
       <value value="22"/>
       <value value="23"/>
       <value value="24"/>
+      <value value="25"/>
+      <value value="26"/>
+      <value value="27"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="superspreaders">
       <value value="0.1"/>

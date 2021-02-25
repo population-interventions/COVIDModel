@@ -37,16 +37,18 @@ def ProcessVariableEnd(path, nameList):
     df = pd.DataFrame(columns=interestingColumns)
     for v in nameList:
         pdf = pd.read_csv(path + v + '.csv', header=6)
+        if 'testName' not in pdf.columns:
+            interestingColumns = filter(lambda x: x != 'testName', interestingColumns)
         pdf = pdf[interestingColumns]
         df  = df.append(pdf)
     
     desiredIndex = ['rand_seed', 'param_policy', 'global_transmissibility']
-    inTest = (len(df['testName'].unique()) > 1)
+    inTest = ('testName' in df.columns and (len(df['testName'].unique()) > 1))
     if inTest:
         desiredIndex.append('testName')
         df['testName'] = df['testName'].str.replace('EssWork', 'Ework')
     else:
-        df = df.drop(colums=['testName'])
+        df = df.drop(columns=['testName'])
     
     df = df.set_index(desiredIndex)
     
@@ -123,16 +125,20 @@ def MakePlot(path, name, varName,
     ax.grid(which='minor', alpha=0.4, linewidth=1.5, zorder=-1, axis="y")
     ax.grid(which='major', alpha=0.7, linewidth=2, zorder=-1)
 
-nameNumber = '17'
+nameNumber = '16'
 namePath = 'R calc 4'
 #nameStr = 'COVID SIMULS VIC JAN Vaccination Model R test 7-table' + str(nameNumber)
 nameStr = 'headless find_2.5-table' + nameNumber
 #nameStr = 'headless find_2.5 high track-table' + nameNumber
 
-namePath = 'StageTest'
-nameStr = 'headless stageTest-table_3'
+#namePath = 'StageTest'
+#nameStr = 'headless stageTest-table_3'
 
-ProcessVariableEnd('Output/' + namePath + '/', [nameStr])
+#namePath = 'R regress'
+#nameStr = 'COVID SIMULS VIC JAN Vaccination Model singleTest-table'
+
+
+#ProcessVariableEnd('Output/' + namePath + '/', [nameStr])
 #MakePlot('Output/' + namePath + '/', nameStr + '_process', 'slopeAverage',
 #    yDomain=(-0.3, 0.3),
 #    ymajticks=[i/10 - 0.3 for i in range(7)],

@@ -134,6 +134,10 @@ to do_stages_test
     set traceMult 4
     set case_isolation true
   ]
+  if stage_test_index = 26 [
+    set testName "VisitFreq 0.1"
+    set Visit_Frequency 0.1
+  ]
 end
 
 

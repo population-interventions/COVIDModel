@@ -53261,6 +53261,7 @@ NetLogo 6.2.0
       <value value="23"/>
       <value value="24"/>
       <value value="25"/>
+      <value value="26"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="superspreaders">
       <value value="0.1"/>

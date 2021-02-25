@@ -31,7 +31,8 @@ def ProcessVariableEnd(path, nameList):
     name = nameList[0]
     interestingColumns = [
         'rand_seed', 'average_R', 'param_policy', 
-        'global_transmissability', 'totalEndCount', 'slopeAverage'
+        'global_transmissability', 'totalEndCount', 'slopeAverage',
+        'trackAverage', 'infectedTrackAverage'
     ]
     df = pd.DataFrame(columns=interestingColumns)
     for v in nameList:
@@ -108,10 +109,11 @@ def MakePlot(path, name, varName,
     ax.grid(which='minor', alpha=0.4, linewidth=1.5, zorder=-1, axis="y")
     ax.grid(which='major', alpha=0.7, linewidth=2, zorder=-1)
 
-nameNumber = '13_noTrack'
+nameNumber = '15'
 namePath = 'R calc 4'
 #nameStr = 'COVID SIMULS VIC JAN Vaccination Model R test 7-table' + str(nameNumber)
-nameStr = 'headless find_2.5-table' + nameNumber
+#nameStr = 'headless find_2.5-table' + nameNumber
+nameStr = 'headless find_2.5 high track-table' + nameNumber
 
 ProcessVariableEnd('Output/' + namePath + '/', [nameStr])
 MakePlot('Output/' + namePath + '/', nameStr + '_process', 'slopeAverage',
@@ -125,3 +127,13 @@ MakePlot('Output/' + namePath + '/', nameStr + '_process', 'average_R',
     yminticks=[i/5 for i in range(35)],
     hlines=[1, 2.5, 2.5*1.25, 2.5*1.5]
 )
+#MakePlot('Output/' + namePath + '/', nameStr + '_process', 'trackAverage',
+#    yDomain=(0, 1),
+#    ymajticks=[i/5 for i in range(5)],
+#    yminticks=[i/25 for i in range(25)]
+#)
+#MakePlot('Output/' + namePath + '/', nameStr + '_process', 'infectedTrackAverage',
+#    yDomain=(0, 1),
+#    ymajticks=[i/5 for i in range(5)],
+#    yminticks=[i/25 for i in range(25)]
+#)

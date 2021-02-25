@@ -16,11 +16,17 @@ to simul_traceme
 end
 
 to traceadjust
-  ifelse casesinperiod7 > 0
+  ifelse calibrate_trace_override >= 0 and End_Day > 0 
   [
-    set track_and_trace_efficiency  (0.85 ^ ln(casesinperiod7)) * 0.5
+      set track_and_trace_efficiency calibrate_trace_override
   ]
   [
-    set track_and_trace_efficiency 0.5
+    ifelse casesinperiod7 > 0
+    [
+      set track_and_trace_efficiency  (0.85 ^ ln(casesinperiod7)) * 0.5
+    ]
+    [
+      set track_and_trace_efficiency 0.5
+    ]
   ]
 end

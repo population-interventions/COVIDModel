@@ -148,6 +148,7 @@ to go
   resetAccumulators
   
   ;show ( word " calculate Stuff " timer " seconds ")
+  ;print count simuls with [ isolateCompliant = 1 ]
   
   ;; counts days per tick, likely redundant at present as days are not used for anything right now.
   calculateDataOut

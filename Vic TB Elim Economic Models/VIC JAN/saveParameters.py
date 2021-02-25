@@ -20,7 +20,8 @@ def MoveMatchToPos(data, match, pos):
 
 def ToNetlogoStr(data):
     for i in data:
-        data[i] = str(data[i]).lower()
+        if type(data[i]) is not str:
+            data[i] = str(data[i]).lower()
     return data
 
 
@@ -53,7 +54,7 @@ def LowerKeys(myDict):
 
 
 def ReadModelFileAndWriteParams(startPart, endPart, valueOverwrite, topOfFile=[]):
-    valueOverwrite = LowerKeys(valueOverwrite)
+    valueOverwrite = ToNetlogoStr(LowerKeys(valueOverwrite))
     modelFile = open('COVID SIMULS VIC JAN Vaccination Model.nlogo', 'r')
     outputFile = open('paramFile.txt', 'w')
     foundPart = False
@@ -105,10 +106,13 @@ def ReadModelFileAndWriteParams(startPart, endPart, valueOverwrite, topOfFile=[]
     
     outputFile.close()
   
-defaultParams = ToNetlogoStr({
+defaultParams = {
     'asymptom_trace_mult' : 0.33,
     'asymptomatic_trans' : 0.5,
     'basestage' : 0,
+    'calibrate_isolate' : True,
+    'calibrate_stage_switch' : 701,
+    'calibrate_trace_override' : -0.1,
     'case_reporting_delay' : 2.0,
     'complacency_bound' : 5.0,
     'end_day' : 91.0,
@@ -160,7 +164,7 @@ defaultParams = ToNetlogoStr({
     'vaccine_available' : False,
     'visit_frequency' : 0.1428,
     'visit_radius' : 8.8,
-})
+}
 
   
 paramValues = {
@@ -244,7 +248,31 @@ paramValuesTestR_small = {**defaultParams, **{
         0.335,
         0.405,
     ]),
+    'calibrate_isolate' : True,
+    'calibrate_stage_switch' : 701,
     'total_population' : '2500000000',
 }}
 
-ReadModelFileAndWriteParams('GRAPHICS-WINDOW', '@#$#@#$#@', paramValuesTestR_small, topOfFile=topOfFile)
+paramValuesTestR_high_track = {**defaultParams, **{
+    'rand_seed' : listToStr(random.randint(10000000, size=(10000))),
+    'param_policy' : listToStr([
+        '"StageCal None"',
+        #'"StageCal Isolate"',
+        '"StageCal_1"',
+        '"StageCal_1b"',
+        '"StageCal_2"',
+        '"StageCal_3"',
+        '"StageCal_4"',
+    ]),
+    'Global_Transmissability' : listToStr([
+        0.26,
+        0.335,
+        0.405,
+    ]),
+    'calibrate_isolate' : True,
+    'calibrate_stage_switch' : 701,
+    'calibrate_trace_override' : 0.9,
+    'total_population' : '2500000000',
+}}
+
+ReadModelFileAndWriteParams('GRAPHICS-WINDOW', '@#$#@#$#@', paramValuesTestR_high_track, topOfFile=topOfFile)

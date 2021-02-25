@@ -326,12 +326,14 @@ to simul_move
         ;; contact radius defines how large the circle of contacts for the person is.
         set heading heading + Contact_Radius + random 45 - random 45
         forward random pace
+        move-to patch-here
       ]
 
       ;; non-compliant people continue to move around the environment
       if color = red [
         set heading heading + random 90 - random 90
         forward random pace
+        move-to patch-here
       ]
     ]
     [

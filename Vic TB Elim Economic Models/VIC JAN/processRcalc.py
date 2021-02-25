@@ -134,11 +134,10 @@ nameStr = 'headless find_2.5-table' + nameNumber
 #namePath = 'StageTest'
 #nameStr = 'headless stageTest-table_3'
 
-#namePath = 'R regress'
-#nameStr = 'COVID SIMULS VIC JAN Vaccination Model singleTest-table'
+namePath = 'R regress'
+nameStr = '55566792746ada8e5fd4b6c8efe14d2c736ad9f1_change'
 
-
-#ProcessVariableEnd('Output/' + namePath + '/', [nameStr])
+ProcessVariableEnd('Output/' + namePath + '/', [nameStr])
 #MakePlot('Output/' + namePath + '/', nameStr + '_process', 'slopeAverage',
 #    yDomain=(-0.3, 0.3),
 #    ymajticks=[i/10 - 0.3 for i in range(7)],

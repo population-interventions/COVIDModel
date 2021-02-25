@@ -1834,7 +1834,7 @@ CHOOSER
 param_policy
 param_policy
 "AggressElim" "ModerateElim" "TightSupress" "LooseSupress" "None" "Stage 1" "Stage 1b" "Stage 2" "Stage 3" "Stage 4" "StageCal None" "StageCal Isolate" "StageCal_1" "StageCal_1b" "StageCal_2" "StageCal_3" "StageCal_4"
-14
+12
 
 SLIDER
 1589
@@ -2123,7 +2123,7 @@ End_Day
 End_Day
 -1
 365
--1.0
+159.0
 1
 1
 NIL
@@ -2197,7 +2197,7 @@ SWITCH
 772
 track_R
 track_R
-1
+0
 1
 -1000
 
@@ -2427,7 +2427,7 @@ calibrate_trace_override
 calibrate_trace_override
 -0.1
 1
-0.9
+-0.1
 0.01
 1
 NIL

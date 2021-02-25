@@ -148,7 +148,7 @@ to go
   resetAccumulators
   
   ;show ( word " calculate Stuff " timer " seconds ")
-  ;print count simuls with [ isolateCompliant = 1 ]
+  ;show ( word " isolate Red " count simuls with [ isolateCompliant = 1 and color = red ] ", Red " count simuls with [ color = red ] ", isolate Blue " count simuls with [ isolateCompliant = 1 and color = cyan ] ", Blue " count simuls with [ color = cyan ])
   
   ;; counts days per tick, likely redundant at present as days are not used for anything right now.
   calculateDataOut

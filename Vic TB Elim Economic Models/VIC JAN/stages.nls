@@ -17,6 +17,7 @@ to do_stages_test
   set tracking true
   set spatial_distance false
   set reduce_contact false
+  set Contact_Radius 0
   set traceMult 1
   set testName "None"
   
@@ -103,7 +104,7 @@ to do_stages_test
     set mask_wearing 100
   ]
   if stage_test_index = 16 [
-    set testName "SSpread 0"
+    set testName "SSprd 0.0"
     set superspreaders 0
   ]
   if stage_test_index = 17 [
@@ -119,17 +120,17 @@ to do_stages_test
     set superspreaders 0.4
   ]
   if stage_test_index = 20 [
-    set testName "Iso T x1.5"
+    set testName "Iso T1.5"
     set traceMult 1.5
     set case_isolation true
   ]
   if stage_test_index = 21 [
-    set testName "Iso T x2"
+    set testName "Iso T2"
     set traceMult 2
     set case_isolation true
   ]
   if stage_test_index = 22 [
-    set testName "Iso T x0.5"
+    set testName "Iso T0.5"
     set traceMult 0.5
     set case_isolation true
   ]
@@ -145,7 +146,7 @@ to do_stages_test
     set span 80
   ]
   if stage_test_index = 25 [
-    set testName "Iso T x4"
+    set testName "Iso T4"
     set traceMult 4
     set case_isolation true
   ]
@@ -154,8 +155,9 @@ to do_stages_test
     set Visit_Frequency 0.1
   ]
   if stage_test_index = 27 [
-    set testName "Red Con"
+    set testName "rCont 0"
     set reduce_contact true
+    set Contact_Radius 0
   ]
   if stage_test_index = 28 [
     set testName "PA20 C0"
@@ -190,8 +192,9 @@ to do_stages_test
     set Complacency_Bound -30
   ]
   if stage_test_index = 32 [
-    set testName "P50 RedCon"
+    set testName "P50 rCt20"
     set reduce_contact true
+    set Contact_Radius 20
     set spatial_distance true
     set proportion_people_avoid 50
     set proportion_time_avoid 50
@@ -202,10 +205,36 @@ to do_stages_test
     set superspreaders 1
   ]
   if stage_test_index = 34 [
-    set testName "RedCon Iso1"
+    set testName "rCt20 Iso1"
+    set Contact_Radius 20
     set traceMult 1
     set case_isolation true
     set reduce_contact true
+  ]
+  if stage_test_index = 35 [
+    set testName "Iso T0.01"
+    set traceMult 0.01
+    set case_isolation true
+  ]
+  if stage_test_index = 36 [
+    set testName "rCont 20"
+    set reduce_contact true
+    set Contact_Radius 20
+  ]
+  if stage_test_index = 37 [
+    set testName "rCont 50"
+    set reduce_contact true
+    set Contact_Radius 50
+  ]
+  if stage_test_index = 38 [
+    set testName "rCont 70"
+    set reduce_contact true
+    set Contact_Radius 70
+  ]
+  if stage_test_index = 39 [
+    set testName "rCont 99"
+    set reduce_contact true
+    set Contact_Radius 99
   ]
 end
 

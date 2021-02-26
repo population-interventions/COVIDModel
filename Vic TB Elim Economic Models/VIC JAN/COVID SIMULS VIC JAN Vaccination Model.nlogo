@@ -119,6 +119,8 @@ globals [
   new_case_real
   new_case_real_counter
 
+  test_acc
+
   ;; These used to be dynamic controls with conflicting variable names.
   reduce_contact
   spatial_distance
@@ -493,7 +495,7 @@ superspreaders
 superspreaders
 0
 1
-0.1
+1.0
 0.01
 1
 NIL
@@ -1572,7 +1574,7 @@ RAND_SEED
 RAND_SEED
 0
 10000000
-6650024.0
+5362319.0
 1
 1
 NIL
@@ -1838,7 +1840,7 @@ CHOOSER
 param_policy
 param_policy
 "AggressElim" "ModerateElim" "TightSupress" "LooseSupress" "None" "Stage 1" "Stage 1b" "Stage 2" "Stage 3" "Stage 4" "StageCal None" "StageCal Test" "StageCal_1" "StageCal_1b" "StageCal_2" "StageCal_3" "StageCal_4"
-10
+11
 
 SLIDER
 1589
@@ -2127,7 +2129,7 @@ End_Day
 End_Day
 -1
 365
-79.0
+81.0
 1
 1
 NIL
@@ -2419,8 +2421,8 @@ SLIDER
 stage_test_index
 stage_test_index
 0
-30
-14.0
+45
+33.0
 1
 1
 NIL

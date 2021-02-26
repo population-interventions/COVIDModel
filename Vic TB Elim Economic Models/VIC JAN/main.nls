@@ -31,6 +31,7 @@ to go
   ;; Check whether to scale up, which occurs when 10% of the agents are infected.
   CheckScale
   
+  ;;set test_acc 0
   ;reset-timer
   
   ;; Set a list of policy parameters (span (speed), tracking, mask_wearning etc..) based on current stage and stage reset timers

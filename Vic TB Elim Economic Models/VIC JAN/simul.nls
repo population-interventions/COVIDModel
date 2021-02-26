@@ -391,6 +391,7 @@ end
 
 to simul_superSpread
   if inQuarantine = 0 and isolateCompliant = 0 and superspreaders > random-float 1 [
+    set heading random 360
     forward world-width / 2
     move-to patch-here
   ]

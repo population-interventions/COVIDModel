@@ -14,7 +14,7 @@ to scaleup
     simul_do_scaleup
   ]
 
-  set contact_Radius Contact_Radius + (90 / 4)
+  ;set contact_Radius Contact_Radius + (90 / 4)
 end
 
 to scaleup_try_to_maintain_cohort
@@ -80,7 +80,7 @@ to scaleup_try_to_maintain_cohort
     ]
   ]
   
-  set contact_Radius Contact_Radius + (90 / 4)
+  ;set contact_Radius Contact_Radius + (90 / 4)
 end
 
 to scaledown_try_to_maintain_cohort
@@ -123,7 +123,7 @@ to scaledown_try_to_maintain_cohort
     ]
   ]
   
-  set contact_Radius Contact_radius - (90 / 4)
+  ;set contact_Radius Contact_radius - (90 / 4)
   set scalephase scalephase - 1
 end
 
@@ -146,7 +146,7 @@ to scaledown_no_hatch
     ]
   ]
   
-  set contact_Radius Contact_radius - (90 / 4)
+  ;set contact_Radius Contact_radius - (90 / 4)
   set scalephase scalephase - 1
 end
 

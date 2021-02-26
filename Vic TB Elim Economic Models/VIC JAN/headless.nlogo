@@ -119,6 +119,8 @@ globals [
   new_case_real
   new_case_real_counter
 
+  test_acc
+
   ;; These used to be dynamic controls with conflicting variable names.
   reduce_contact
   spatial_distance
@@ -420,25 +422,25 @@ NIL
 1
 
 SLIDER
-1624
-253
-1803
-286
+1629
+294
+1808
+327
 superspreaders
 superspreaders
 0
 1
-0.4
+1.0
 0.01
 1
 NIL
 HORIZONTAL
 
 SLIDER
-1623
-57
-1805
-90
+1625
+54
+1807
+87
 Proportion_People_Avoid
 Proportion_People_Avoid
 0
@@ -450,10 +452,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1623
-92
-1806
-125
+1625
+89
+1808
+122
 Proportion_Time_Avoid
 Proportion_Time_Avoid
 0
@@ -502,10 +504,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1669
-19
-1803
-52
+1672
+17
+1806
+50
 Age_Isolation
 Age_Isolation
 0
@@ -597,10 +599,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1624
-214
-1802
-247
+1629
+255
+1807
+288
 Essential_Workers
 Essential_Workers
 0
@@ -690,10 +692,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1624
-332
-1806
-365
+1629
+373
+1811
+406
 Visit_Frequency
 Visit_Frequency
 0
@@ -705,10 +707,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1624
-369
-1807
-402
+1629
+410
+1812
+443
 Visit_Radius
 Visit_Radius
 0
@@ -735,10 +737,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1624
-294
-1804
-327
+1629
+335
+1809
+368
 OS_Import_Proportion
 OS_Import_Proportion
 0
@@ -750,10 +752,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1624
-178
-1801
-211
+1629
+219
+1806
+252
 OS_Import_Post_Proportion
 OS_Import_Post_Proportion
 0
@@ -812,10 +814,10 @@ NIL
 HORIZONTAL
 
 SWITCH
-1624
-409
-1809
-442
+20
+560
+192
+593
 Vaccine_Available
 Vaccine_Available
 1
@@ -851,7 +853,7 @@ RAND_SEED
 RAND_SEED
 0
 10000000
-4457953.0
+5362319.0
 1
 1
 NIL
@@ -928,10 +930,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-17
-565
-189
+19
 598
+191
+631
 param_vacEffDays
 param_vacEffDays
 0
@@ -1069,10 +1071,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-1624
-134
-1806
-167
+1627
+183
+1809
+216
 Complacency_Bound
 Complacency_Bound
 0
@@ -1137,7 +1139,7 @@ End_Day
 End_Day
 -1
 365
-79.0
+81.0
 1
 1
 NIL
@@ -1241,10 +1243,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-20
-877
-195
+22
 910
+197
+943
 calibrate_stage_switch
 calibrate_stage_switch
 0
@@ -1256,15 +1258,15 @@ NIL
 HORIZONTAL
 
 SLIDER
-22
-918
-195
-951
+24
+952
+197
+985
 stage_test_index
 stage_test_index
 0
-30
-19.0
+45
+33.0
 1
 1
 NIL
@@ -53271,6 +53273,11 @@ NetLogo 6.2.0
       <value value="32"/>
       <value value="33"/>
       <value value="34"/>
+      <value value="35"/>
+      <value value="36"/>
+      <value value="37"/>
+      <value value="38"/>
+      <value value="39"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="superspreaders">
       <value value="0.1"/>

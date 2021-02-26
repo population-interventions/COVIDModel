@@ -495,7 +495,7 @@ superspreaders
 superspreaders
 0
 1
-1.0
+0.1
 0.01
 1
 NIL
@@ -993,9 +993,9 @@ HORIZONTAL
 
 SLIDER
 555
-914
+825
 752
-947
+858
 Ess_W_Risk_Reduction
 Ess_W_Risk_Reduction
 0
@@ -1516,7 +1516,7 @@ SWITCH
 20
 560
 192
-594
+593
 Vaccine_Available
 Vaccine_Available
 1
@@ -1574,7 +1574,7 @@ RAND_SEED
 RAND_SEED
 0
 10000000
-5362319.0
+4492754.0
 1
 1
 NIL
@@ -2017,10 +2017,10 @@ PENS
 "Recovered" 1.0 0 -1184463 true "" "plot count simuls with [color = yellow]"
 
 SLIDER
-555
-832
-752
-865
+557
+785
+754
+818
 Gather_Location_Count
 Gather_Location_Count
 0
@@ -2136,10 +2136,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-553
-954
-751
-987
+554
+865
+752
+898
 Isolation_Transmission
 Isolation_Transmission
 0
@@ -2267,21 +2267,6 @@ cumulativeInfected
 1
 14
 
-SLIDER
-328
-992
-523
-1025
-Symtomatic_Present_Day
-Symtomatic_Present_Day
--1
-20
-6.0
-1
-1
-NIL
-HORIZONTAL
-
 MONITOR
 19
 835
@@ -2294,10 +2279,10 @@ recoverProportion * 100
 14
 
 SLIDER
-555
-792
-750
-825
+557
+745
+752
+778
 Recovered_Match_Rate
 Recovered_Match_Rate
 0
@@ -2422,7 +2407,7 @@ stage_test_index
 stage_test_index
 0
 45
-33.0
+25.0
 1
 1
 NIL
@@ -2438,6 +2423,51 @@ reduce_contact
 17
 1
 11
+
+SLIDER
+552
+908
+725
+942
+sympt_present_prop
+sympt_present_prop
+0
+1
+0.66
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+552
+948
+725
+982
+sympt_present_min
+sympt_present_min
+0
+12
+6.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+550
+988
+723
+1022
+sympt_present_max
+sympt_present_max
+0
+12
+9.0
+1
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?
@@ -54440,6 +54470,13 @@ NetLogo 6.2.0
       <value value="32"/>
       <value value="33"/>
       <value value="34"/>
+      <value value="35"/>
+      <value value="36"/>
+      <value value="37"/>
+      <value value="38"/>
+      <value value="39"/>
+      <value value="40"/>
+      <value value="41"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="superspreaders">
       <value value="0.1"/>

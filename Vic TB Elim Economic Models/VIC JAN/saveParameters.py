@@ -156,7 +156,6 @@ defaultParams = {
     'selfgovern' : True,
     'span' : 30.0,
     'superspreaders' : 0.1,
-    'symtomatic_present_day' : 6.0,
     'track_r' : True,
     'tracking' : True,
     'vaccine_available' : False,

@@ -389,6 +389,7 @@ Span
 NIL
 HORIZONTAL
 
+
 SLIDER
 40
 1202
@@ -421,6 +422,10 @@ NIL
 NIL
 1
 
+
+
+
+
 SLIDER
 1629
 294
@@ -430,11 +435,14 @@ superspreaders
 superspreaders
 0
 1
-1.0
+0.1
 0.01
 1
 NIL
 HORIZONTAL
+
+
+
 
 SLIDER
 1625
@@ -466,6 +474,10 @@ Proportion_Time_Avoid
 NIL
 HORIZONTAL
 
+
+
+
+
 INPUTBOX
 205
 332
@@ -488,6 +500,7 @@ total_population
 0
 Number
 
+
 SLIDER
 40
 1248
@@ -502,6 +515,10 @@ Incubation_Period
 1
 NIL
 HORIZONTAL
+
+
+
+
 
 SLIDER
 1672
@@ -518,6 +535,8 @@ Age_Isolation
 NIL
 HORIZONTAL
 
+
+
 SWITCH
 1594
 959
@@ -528,6 +547,8 @@ scale
 0
 1
 -1000
+
+
 
 SWITCH
 1380
@@ -561,6 +582,11 @@ Leave Freewheel to 'on' to manipulate policy on the fly
 0.0
 1
 
+
+
+
+
+
 INPUTBOX
 2864
 474
@@ -582,6 +608,8 @@ se_incubation
 1
 0
 Number
+
+
 
 SLIDER
 12
@@ -615,9 +643,9 @@ HORIZONTAL
 
 SLIDER
 555
-914
+825
 752
-947
+858
 Ess_W_Risk_Reduction
 Ess_W_Risk_Reduction
 0
@@ -665,6 +693,11 @@ schoolsOpen
 1
 -1000
 
+
+
+
+
+
 SWITCH
 1483
 322
@@ -690,6 +723,16 @@ Case_Reporting_Delay
 1
 NIL
 HORIZONTAL
+
+
+
+
+
+
+
+
+
+
 
 SLIDER
 1629
@@ -721,6 +764,8 @@ Visit_Radius
 NIL
 HORIZONTAL
 
+
+
 SLIDER
 328
 869
@@ -751,6 +796,7 @@ OS_Import_Proportion
 NIL
 HORIZONTAL
 
+
 SLIDER
 1629
 219
@@ -766,6 +812,9 @@ OS_Import_Post_Proportion
 NIL
 HORIZONTAL
 
+
+
+
 CHOOSER
 1589
 909
@@ -775,6 +824,7 @@ InitialScale
 InitialScale
 0 1 2 3 4
 0
+
 
 SWITCH
 1379
@@ -786,6 +836,11 @@ SelfGovern
 0
 1
 -1000
+
+
+
+
+
 
 SWITCH
 1528
@@ -834,6 +889,7 @@ BaseStage
 0 1 2 3 4
 0
 
+
 CHOOSER
 1665
 1215
@@ -844,6 +900,7 @@ MaxStage
 0 1 2 3 4
 4
 
+
 SLIDER
 13
 15
@@ -853,11 +910,13 @@ RAND_SEED
 RAND_SEED
 0
 10000000
-5362319.0
+4492754.0
 1
 1
 NIL
 HORIZONTAL
+
+
 
 TEXTBOX
 22
@@ -944,6 +1003,16 @@ param_vacEffDays
 NIL
 HORIZONTAL
 
+
+
+
+
+
+
+
+
+
+
 TEXTBOX
 1493
 27
@@ -1005,6 +1074,9 @@ Scale_Factor
 NIL
 HORIZONTAL
 
+
+
+
 TEXTBOX
 772
 1120
@@ -1055,11 +1127,14 @@ Asymptom_Trace_Mult
 NIL
 HORIZONTAL
 
+
+
+
 SLIDER
-555
-832
-752
-865
+557
+785
+754
+818
 Gather_Location_Count
 Gather_Location_Count
 0
@@ -1084,6 +1159,8 @@ Complacency_Bound
 1
 NIL
 HORIZONTAL
+
+
 
 BUTTON
 14
@@ -1146,10 +1223,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-553
-954
-751
-987
+554
+865
+752
+898
 Isolation_Transmission
 Isolation_Transmission
 0
@@ -1175,6 +1252,8 @@ Non_Infective_Time
 NIL
 HORIZONTAL
 
+
+
 SWITCH
 1469
 739
@@ -1186,26 +1265,16 @@ track_R
 1
 -1000
 
-SLIDER
-328
-992
-523
-1025
-Symtomatic_Present_Day
-Symtomatic_Present_Day
--1
-20
-6.0
-1
-1
-NIL
-HORIZONTAL
+
+
+
+
 
 SLIDER
-555
-792
-750
-825
+557
+745
+752
+778
 Recovered_Match_Rate
 Recovered_Match_Rate
 0
@@ -1227,6 +1296,7 @@ param_trigger_loosen
 1
 -1000
 
+
 SLIDER
 1044
 53
@@ -1241,6 +1311,10 @@ End_R_Reported
 1
 NIL
 HORIZONTAL
+
+
+
+
 
 SLIDER
 22
@@ -1266,7 +1340,53 @@ stage_test_index
 stage_test_index
 0
 45
-33.0
+25.0
+1
+1
+NIL
+HORIZONTAL
+
+
+SLIDER
+552
+908
+725
+942
+sympt_present_prop
+sympt_present_prop
+0
+1
+0.66
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+552
+948
+725
+982
+sympt_present_min
+sympt_present_min
+0
+12
+6.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+550
+988
+723
+1022
+sympt_present_max
+sympt_present_max
+0
+12
+9.0
 1
 1
 NIL
@@ -53278,6 +53398,8 @@ NetLogo 6.2.0
       <value value="37"/>
       <value value="38"/>
       <value value="39"/>
+      <value value="40"/>
+      <value value="41"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="superspreaders">
       <value value="0.1"/>

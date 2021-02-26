@@ -3,11 +3,11 @@ directed-link-breed [red-links red-link]
 
 to simul_traceme
   ;; this represents the standard tracking and tracing regime - undetected people are not tracked
-  ;; Symtomatic people automatically trace themselves on Symtomatic_Present_Day of their infection (with the day of infection being day 0) 
+  ;; Symtomatic people automatically trace themselves on symtomatic_present_day of their infection (with the day of infection being day 0) 
   if color = red and tracking = true and tracked != 1 [
     if color = red and tracked = 0 and (
         (asymptomaticFlag = 1 and Asymptom_Trace_Mult * track_and_trace_efficiency > random-float 1)
-        or (asymptomaticFlag = 0 and (timenow = Symtomatic_Present_Day or track_and_trace_efficiency > random-float 1))) [
+        or (asymptomaticFlag = 0 and ((symtomatic_present_day > -1 and timenow >= symtomatic_present_day) or track_and_trace_efficiency > random-float 1))) [
       set caseReportTime ticks + Case_Reporting_Delay
       set tracked 1
       set IDTime timenow

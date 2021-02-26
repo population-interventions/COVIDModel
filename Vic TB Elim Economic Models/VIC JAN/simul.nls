@@ -24,6 +24,7 @@ simuls-own [
   tracked ;; whether the person has been tracked by the health system
   asymptomaticFlag ;; indicator identifying Asymptomatic cases
   asymptomatic_draw ;; Determines whether the agent will be asymptomatic
+  symtomatic_present_day ;; When the simulant self-presents (if at all)
   
   proportion_people_avoid_draw ;; Determines whether this agent heeds avoiding at various lockdown stages
 
@@ -402,7 +403,7 @@ to simul_settime
   ;; dying this way currently not implemented but done at the end of the illness period, instead
   if color = red [
     set timenow timenow + 1
-    if tracked = 1 and caseReportTime = ticks [
+    if tracked = 1 and caseReportTime >= ticks [
       set casesReportedToday_acc casesReportedToday_acc + 1
     ]
   ]

@@ -164,6 +164,16 @@ to createSimulants
       if asymptomatic_draw < Asymptom_Prop [
         set asymptomaticFlag 1
       ]
+      
+      ifelse asymptomaticFlag = 0 and sympt_present_prop > random-float 1
+      [
+        set symtomatic_present_day sympt_present_min + random (sympt_present_max - sympt_present_min)
+      ]
+      [
+        set symtomatic_present_day -1
+      ]
+      ;print symtomatic_present_day
+      
 
       set requireICU 0
       set requireICU_draw random-float 1

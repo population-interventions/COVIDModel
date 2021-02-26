@@ -46,7 +46,7 @@ def ProcessVariableEnd(path, nameList):
     inTest = ('testName' in df.columns and (len(df['testName'].unique()) > 1))
     if inTest:
         desiredIndex.append('testName')
-        df['testName'] = df['testName'].str.replace('EssWork', 'Ework')
+        #df['testName'] = df['testName'].str.replace('EssWork', 'Ework')
     else:
         df = df.drop(columns=['testName'])
     
@@ -134,7 +134,7 @@ nameStr = 'headless find_2.5-table' + nameNumber
 #nameStr = 'headless find_2.5 high track-table' + nameNumber
 
 namePath = 'StageTest'
-nameStr = 'headless stageTest-table_5'
+nameStr = 'headless stageTest-table_6'
 
 #namePath = 'R regress'
 #nameStr = '55566792746ada8e5fd4b6c8efe14d2c736ad9f1_change'
@@ -150,7 +150,7 @@ MakePlot('Output/' + namePath + '/', nameStr + '_process', 'average_R',
     ymajticks=range(5),
     yminticks=[i/5 for i in range(25)],
     hlines=[1, 2.5, 2.5*1.25, 2.5*1.5],
-    width=120
+    width=140
 )
 #MakePlot('Output/' + namePath + '/', nameStr + '_process', 'trackAverage',
 #    yDomain=(0, 1),

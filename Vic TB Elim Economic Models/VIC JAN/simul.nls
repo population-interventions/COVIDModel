@@ -319,23 +319,10 @@ to simul_move
   ;; describes the circumstances under which people can move and infect one another
   if ticks > 1 and inQuarantine = 0 and isolateCompliant = 0 [
     ;; this is assigned per agent so day and night are not aligned across people - this is deliberate
-    let randombinary random 2
-
-    ifelse randombinary = 1
+    ifelse random 2 = 1
     [
-      if (color != red or color != black) and reduce_contact = false [
-        ;; contact radius defines how large the circle of contacts for the person is.
-        set heading heading + Contact_Radius + random 45 - random 45
-        forward random pace
-        move-to patch-here
-      ]
-
-      ;; non-compliant people continue to move around the environment
-      if color = red [
-        set heading heading + random 90 - random 90
-        forward random pace
-        move-to patch-here
-      ]
+      set heading (heading - 90) + random 180
+      jump random pace
     ]
     [
       move-to homeLocation
@@ -392,9 +379,7 @@ end
 
 to simul_superSpread
   if inQuarantine = 0 and isolateCompliant = 0 and superspreaders > random-float 1 [
-    set heading random 360
-    forward world-width / 2
-    move-to patch-here
+    move-to one-of destination_patches
   ]
 end
 

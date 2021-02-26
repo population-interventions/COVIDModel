@@ -265,13 +265,13 @@ patches-own [
 ]
 @#$#@#$#@
 GRAPHICS-WINDOW
-324
-74
-988
-739
+337
+64
+1009
+737
 -1
 -1
-10.1
+6.224
 1
 10
 1
@@ -281,10 +281,10 @@ GRAPHICS-WINDOW
 1
 1
 1
--32
-32
--32
-32
+-42
+42
+-42
+42
 1
 1
 1
@@ -383,7 +383,7 @@ Span
 Span
 0
 30
-30.0
+10.0
 1
 1
 NIL
@@ -495,7 +495,7 @@ superspreaders
 superspreaders
 0
 1
-0.1
+0.04
 0.01
 1
 NIL
@@ -1574,7 +1574,7 @@ RAND_SEED
 RAND_SEED
 0
 10000000
-4492754.0
+2946860.0
 1
 1
 NIL
@@ -2024,8 +2024,8 @@ SLIDER
 Gather_Location_Count
 Gather_Location_Count
 0
-1000
-85.0
+500
+90.0
 1
 1
 NIL
@@ -2129,7 +2129,7 @@ End_Day
 End_Day
 -1
 365
-81.0
+68.0
 1
 1
 NIL
@@ -2407,7 +2407,7 @@ stage_test_index
 stage_test_index
 0
 45
-25.0
+19.0
 1
 1
 NIL
@@ -2428,7 +2428,7 @@ SLIDER
 552
 908
 725
-942
+941
 sympt_present_prop
 sympt_present_prop
 0
@@ -2443,7 +2443,7 @@ SLIDER
 552
 948
 725
-982
+981
 sympt_present_min
 sympt_present_min
 0
@@ -2458,7 +2458,7 @@ SLIDER
 550
 988
 723
-1022
+1021
 sympt_present_max
 sympt_present_max
 0
@@ -44094,7 +44094,6 @@ NetLogo 6.2.0
     </enumeratedValueSet>
     <enumeratedValueSet variable="param_policy">
       <value value="&quot;StageCal None&quot;"/>
-      <value value="&quot;StageCal Test&quot;"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="global_transmissibility">
       <value value="0.26"/>

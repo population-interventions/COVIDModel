@@ -334,6 +334,7 @@ to setGlobals
   set new_case_real_counter 0
   
   ;; These used to be dynamic controls with conflicting variable names.
+  set reduce_contact false
   set spatial_distance 0
   set case_isolation 0
   set quarantine 0

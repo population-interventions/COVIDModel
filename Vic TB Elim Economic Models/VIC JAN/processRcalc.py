@@ -125,17 +125,19 @@ def MakePlot(path, name, varName,
     ax.grid(which='minor', alpha=0.4, linewidth=1.5, zorder=-1, axis="y")
     ax.grid(which='major', alpha=0.7, linewidth=2, zorder=-1)
 
+
+
 nameNumber = '16'
 namePath = 'R calc 4'
 #nameStr = 'COVID SIMULS VIC JAN Vaccination Model R test 7-table' + str(nameNumber)
 nameStr = 'headless find_2.5-table' + nameNumber
 #nameStr = 'headless find_2.5 high track-table' + nameNumber
 
-#namePath = 'StageTest'
-#nameStr = 'headless stageTest-table_3'
+namePath = 'StageTest'
+nameStr = 'headless stageTest-table_4'
 
-namePath = 'R regress'
-nameStr = '55566792746ada8e5fd4b6c8efe14d2c736ad9f1_change'
+#namePath = 'R regress'
+#nameStr = '55566792746ada8e5fd4b6c8efe14d2c736ad9f1_change'
 
 ProcessVariableEnd('Output/' + namePath + '/', [nameStr])
 #MakePlot('Output/' + namePath + '/', nameStr + '_process', 'slopeAverage',
@@ -144,11 +146,11 @@ ProcessVariableEnd('Output/' + namePath + '/', [nameStr])
 #    yminticks=[i/50 - 0.3 for i in range(35)]
 #)
 MakePlot('Output/' + namePath + '/', nameStr + '_process', 'average_R',
-    yDomain=(-0.2, 6.2),
-    ymajticks=range(7),
-    yminticks=[i/5 for i in range(35)],
+    yDomain=(-0.2, 4.2),
+    ymajticks=range(5),
+    yminticks=[i/5 for i in range(25)],
     hlines=[1, 2.5, 2.5*1.25, 2.5*1.5],
-    width=100
+    width=120
 )
 #MakePlot('Output/' + namePath + '/', nameStr + '_process', 'trackAverage',
 #    yDomain=(0, 1),

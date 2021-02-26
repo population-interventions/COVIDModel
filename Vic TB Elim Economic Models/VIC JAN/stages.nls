@@ -15,6 +15,8 @@ to do_stages_test
   set mask_wearing 0
   set superspreaders 0.1
   set tracking true
+  set spatial_distance false
+  set reduce_contact false
   set traceMult 1
   set testName "None"
   
@@ -36,25 +38,25 @@ to do_stages_test
     set Visit_Frequency 0.2
   ]
   if stage_test_index = 5 [
-    set testName "PPA20 C20"
+    set testName "PA20 C20"
+    set spatial_distance true
     set proportion_people_avoid 20
     set proportion_time_avoid 20
     set Complacency_Bound 20
-    set spatial_distance true
   ]
   if stage_test_index = 7 [
-    set testName "PPA70 C70"
+    set testName "PA70 C70"
+    set spatial_distance true
     set proportion_people_avoid 70
     set proportion_time_avoid 70
     set Complacency_Bound 70
-    set spatial_distance true
   ]
   if stage_test_index = 8 [
-    set testName "PPA70 C0"
+    set testName "PA70 C0"
+    set spatial_distance true
     set proportion_people_avoid 70
     set proportion_time_avoid 70
     set Complacency_Bound 0
-    set spatial_distance true
   ]
   if stage_test_index = 9 [
     set testName "Iso T x1"
@@ -63,27 +65,27 @@ to do_stages_test
   ]
   if stage_test_index = 10 [
     set testName "P50 !Sch"
+    set spatial_distance true
     set proportion_people_avoid 50
     set proportion_time_avoid 50
     set Complacency_Bound 50
     set schoolsOpen false
-    set spatial_distance true
   ]
   if stage_test_index = 11 [
-    set testName "P50 Ework 60"
+    set testName "P50 Ewk 60"
     set Essential_Workers 60
+    set spatial_distance true
     set proportion_people_avoid 50
     set proportion_time_avoid 50
     set Complacency_Bound 50
-    set spatial_distance true
   ]
   if stage_test_index = 12 [
-    set testName "P50 Ework 20"
+    set testName "P50 Ewk 20"
     set Essential_Workers 20
+    set spatial_distance true
     set proportion_people_avoid 50
     set proportion_time_avoid 50
     set Complacency_Bound 50
-    set spatial_distance true
   ]
   if stage_test_index = 13 [
     set testName "Mask 040"
@@ -105,15 +107,15 @@ to do_stages_test
     set superspreaders 0
   ]
   if stage_test_index = 17 [
-    set testName "SSpread 0.05"
+    set testName "SSprd 0.05"
     set superspreaders 0.05
   ]
   if stage_test_index = 18 [
-    set testName "SSpread 0.2"
+    set testName "SSprd 0.2"
     set superspreaders 0.2
   ]
   if stage_test_index = 19 [
-    set testName "SSpread 0.4"
+    set testName "SSprd 0.4"
     set superspreaders 0.4
   ]
   if stage_test_index = 20 [
@@ -132,11 +134,11 @@ to do_stages_test
     set case_isolation true
   ]
   if stage_test_index = 23 [
-    set testName "PPA50 C50"
+    set testName "PA50 C50"
+    set spatial_distance true
     set proportion_people_avoid 50
     set proportion_time_avoid 50
     set Complacency_Bound 50
-    set spatial_distance true
   ]
   if stage_test_index = 24 [
     set testName "Span 80"
@@ -152,8 +154,58 @@ to do_stages_test
     set Visit_Frequency 0.1
   ]
   if stage_test_index = 27 [
-    set testName "Spl Dist"
+    set testName "Red Con"
+    set reduce_contact true
+  ]
+  if stage_test_index = 28 [
+    set testName "PA20 C0"
     set spatial_distance true
+    set proportion_people_avoid 20
+    set proportion_time_avoid 20
+    set Complacency_Bound 0
+  ]
+  if stage_test_index = 29 [
+    set testName "P50 V20 F0.2"
+    set Visit_Radius 20
+    set Visit_Frequency 0.2
+    set spatial_distance true
+    set proportion_people_avoid 50
+    set proportion_time_avoid 50
+    set Complacency_Bound 50
+  ]
+  if stage_test_index = 30 [
+    set testName "P50 Iso T1"
+    set traceMult 1
+    set case_isolation true
+    set spatial_distance true
+    set proportion_people_avoid 50
+    set proportion_time_avoid 50
+    set Complacency_Bound 50
+  ]
+  if stage_test_index = 31 [
+    set testName "PA-30 C-30"
+    set spatial_distance true
+    set proportion_people_avoid -30
+    set proportion_time_avoid -30
+    set Complacency_Bound -30
+  ]
+  if stage_test_index = 32 [
+    set testName "P50 RedCon"
+    set reduce_contact true
+    set spatial_distance true
+    set proportion_people_avoid 50
+    set proportion_time_avoid 50
+    set Complacency_Bound 50
+  ]
+  if stage_test_index = 33 [
+    set testName "SSprd 1.0"
+    set superspreaders 1
+  ]
+  if stage_test_index = 34 [
+    set testName "RedCon Iso1"
+    set traceMult 1
+    set case_isolation true
+    set reduce_contact true
   ]
 end
 
@@ -180,6 +232,7 @@ to do_stages_tony
     set superspreaders 0.1
     set tracking true
     set spatial_distance false
+    set reduce_contact false
     ; Does nothing
     ;set spatial_distance false
     ;set age_isolation 0
@@ -212,6 +265,7 @@ to do_stages_tony
     set tracking true
     set superspreaders 0.1
     set spatial_distance true
+    set reduce_contact true
     ; Does nothing
     ;set App_Uptake 0
     ;set age_isolation 0
@@ -240,6 +294,7 @@ to do_stages_tony
     set tracking true
     set superspreaders 0.09
     set spatial_distance true
+    set reduce_contact true
     ; Does nothing
     ;set age_isolation 0
     ;set App_Uptake 0
@@ -269,6 +324,7 @@ to do_stages_tony
     set tracking true
     set superspreaders 0.07
     set spatial_distance true
+    set reduce_contact true
     ; Does nothing
     ;set age_isolation 0
     ;set App_Uptake 0
@@ -297,6 +353,7 @@ to do_stages_tony
     set tracking true
     set superspreaders 0.05
     set spatial_distance true
+    set reduce_contact true
     ; Does nothing
     ;set age_isolation 0
     ;set App_Uptake 0
@@ -324,6 +381,8 @@ to do_stages_tony
     set mask_wearing 80
     set tracking true
     set superspreaders 0.03
+    set spatial_distance true
+    set reduce_contact true
     ; Does nothing
     ;set age_isolation 0
     ;set App_Uptake 0

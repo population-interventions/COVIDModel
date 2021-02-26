@@ -322,7 +322,7 @@ to simul_move
 
     ifelse randombinary = 1
     [
-      if (color != red or color != black) and spatial_Distance = false [
+      if (color != red or color != black) and reduce_contact = false [
         ;; contact radius defines how large the circle of contacts for the person is.
         set heading heading + Contact_Radius + random 45 - random 45
         forward random pace

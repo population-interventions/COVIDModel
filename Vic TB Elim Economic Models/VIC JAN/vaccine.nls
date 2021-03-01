@@ -35,6 +35,8 @@ to vaccine_do_incursion_based_on_phase
       if global_incursionRisk > peoplePerSimul * ( rngs:rnd-beta incursionsSeedID 1 1 ) [
         set color red
         set timenow 0
+        set isolating 0
+        set noticeOwnInfection 0
         set new_case_real_counter new_case_real_counter + peoplePerSimul
         set totalOverseasIncursions totalOverseasIncursions + peoplePerSimul
         array:set infectArray cohortIndex (array:item infectArray cohortIndex) + peoplePerSimul

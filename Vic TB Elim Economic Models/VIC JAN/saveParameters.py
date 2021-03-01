@@ -109,8 +109,10 @@ def ReadModelFileAndWriteParams(startPart, endPart, valueOverwrite, topOfFile=[]
 
 topOfFile = [
     'rand_seed',
+    'Gather_Location_Count',
     'param_policy',
     'Global_Transmissibility',
+    'stage_test_index'
 ]
 
 defaultParams = {
@@ -151,15 +153,6 @@ paramValuesBigRunTest = {
     'case_reporting_delay' : listToStr([2, 5]),
     'non_infective_Time' : listToStr([0, 2]),
     'scale_threshold' : listToStr([240, 320]),
-}
-
-paramValuesTestR = {
-    'rand_seed' : listToStr(random.randint(10000000, size=(200))),
-    'param_policy' : listToStr([
-        '"None"',
-    ]),
-    'Global_Transmissibility' : listToStr([0.4, 0.525, 0.67]),
-    'total_population' : '25000000',
 }
 
 paramValuesTestR_2 = {
@@ -217,19 +210,31 @@ paramValuesTestR_high_track = {**defaultParams, **{
 }}
 
 paramValuesTestR_stageTest = {**defaultParams, **{
-    'rand_seed' : listToStr(random.randint(10000000, size=(2000))),
+    'rand_seed' : listToStr(random.randint(10000000, size=(500))),
     'param_policy' : listToStr([
         '"StageCal Test"',
     ]),
     'Global_Transmissibility' : listToStr([
-        0.22,
-        0.26,
-        0.30,
-        0.335,
-        0.37,
-        0.405,
+        0.3,
+        0.33,
+        0.36,
+        0.39,
+        0.42,
+        0.45,
+        0.48,
     ]),
-    'stage_test_index' : listToStr(range(46)),
+    'Gather_Location_Count' : listToStr([90, 180, 270, 360, 450]),
+    'stage_test_index' : listToStr([0, 41, 42, 48, 49, 50, 51, 52, 53, 54]),
     'total_population' : '2500000000',
 }}
+
+paramValuesTestSingleR = {
+    'rand_seed' : listToStr(random.randint(10000000, size=(200))),
+    'param_policy' : listToStr([
+        '"StageCal_1"',
+    ]),
+    'Global_Transmissibility' : listToStr([0.26]),
+    'total_population' : '25000000',
+}
+
 ReadModelFileAndWriteParams('GRAPHICS-WINDOW', '@#$#@#$#@', paramValuesTestR_stageTest, topOfFile=topOfFile)

@@ -63,6 +63,7 @@ simuls-own [
 
   isolateCompliant ;; Is the person currently isolating this tick (because they are succeptible and isolating, or infected and tracked)
   isolating ;; is a succeptible person supposed to be isolating?
+  noticeOwnInfection ;; Has the person noticed that they are sick and are now being tracked and isolated of their own volition?
   IDTime ;; days into infection the person is identified as a case
 
   contacts7 ;; contacts from seven days ago
@@ -183,11 +184,22 @@ end
 to simul_updateIsolationResponse
   set pace span
   set isolateCompliant 0
-  if (Case_Isolation and (isolating = 1 or tracked = 1)) [
-    if draw_isolationCompliance > random-float 1 [
-      move-to homelocation
-      set pace 0
-      set isolateCompliant 1
+  
+  if (Case_Isolation and (isolating = 1 or tracked = 1)) or (isolate_on_inf_notice and noticeOwnInfection = 1)[
+    ifelse isolating = 1 and color = cyan
+    [
+      if draw_isolationCompliance * Household_Iso_Factor > random-float 1 [
+        move-to homelocation
+        set pace 0
+        set isolateCompliant 1
+      ]
+    ]
+    [
+      if draw_isolationCompliance * Infect_Iso_Factor > random-float 1 [
+        move-to homelocation
+        set pace 0
+        set isolateCompliant 1
+      ]
     ]
   ]
 end
@@ -206,11 +218,12 @@ to simul_do_scaleup
   set size 2
   set color cyan
   set timenow 0
+  set noticeOwnInfection 0
   set inQuarantine 0
   set sensitivity random-float 1
   set imported 0
   set tracked 0
-  set timenow 0
+  set isolating 0
   set R 0
   
   move-to one-of patches with [ pcolor = black ]
@@ -299,6 +312,7 @@ to simul_infect
           
           if mySucceptibility * x > random-float 1 [
             set color red
+            set isolating 0
             set timenow 0
             set infectionsToday_acc infectionsToday_acc + 1
             set new_case_real_counter new_case_real_counter + Scale_Factor ^ scalephase
@@ -418,10 +432,11 @@ to simul_end_infection
     ;; Very few people die in the low scales as a proportion of the total population.
     set color yellow
     set R 0
+    set timenow 0
+    set noticeOwnInfection 0
     set requireICU 0
     set inQuarantine 0
     set isolating 0
-    set timenow 0
     set tracked 0
   ]
 end

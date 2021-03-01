@@ -68,12 +68,19 @@ def ProcessVariableEnd(path, nameList):
     
 
 def MakePlot(path, name, varName,
+        yTop=False,
         yDomain=(-0.2, 9.2),
         ymajticks=False,
         yminticks=False,
         hlines=False,
         width=48.5
         ):
+    
+    if yTop:
+        yDomain = (-0.2, yTop - 0.8)
+        ymajticks = range(yTop)
+        yminticks = [i/5 for i in range(int(5*yTop))]
+    
     df = pd.read_csv(path + name + '.csv', index_col=0, header=[0, 1, 2], skipinitialspace=True)
     
     unwantedTop = list(dict.fromkeys([v[0] for v in df.columns if v[0] != varName]))
@@ -133,8 +140,8 @@ namePath = 'R calc 4'
 nameStr = 'headless find_2.5-table' + nameNumber
 #nameStr = 'headless find_2.5 high track-table' + nameNumber
 
-namePath = 'StageTest'
-nameStr = 'headless stageTest-table_weekend1'
+namePath = 'StageTest3'
+nameStr = 'headless stageTest_big2-table'
 
 #namePath = 'R regress'
 #nameStr = '55566792746ada8e5fd4b6c8efe14d2c736ad9f1_change'
@@ -146,11 +153,9 @@ ProcessVariableEnd('Output/' + namePath + '/', [nameStr])
 #    yminticks=[i/50 - 0.3 for i in range(35)]
 #)
 MakePlot('Output/' + namePath + '/', nameStr + '_process', 'average_R',
-    yDomain=(-0.2, 4.2),
-    ymajticks=range(5),
-    yminticks=[i/5 for i in range(25)],
+    yTop=5,
     hlines=[1, 2.5, 2.5*1.25, 2.5*1.5],
-    width=140
+    width=60
 )
 #MakePlot('Output/' + namePath + '/', nameStr + '_process', 'trackAverage',
 #    yDomain=(0, 1),

@@ -186,7 +186,7 @@ to policy_stage [ toStage ]
     set track_R False
   ]
   
-  if End_Day = -1 and casesinperiod14 >= calibrate_stage_switch
+  if End_Day = -1 and casesinperiod7 >= calibrate_stage_switch
   [
     set stage toStage
     set End_Day ticks + 46

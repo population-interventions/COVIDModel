@@ -31,7 +31,12 @@ to scaleup_try_to_maintain_cohort
       set R_agg R_agg + R
       set R_count R_count + 1
     ]
-    set R_average_before R_agg / R_count
+    ifelse R_count > 0 [
+      set R_average_before R_agg / R_count
+    ]
+    [
+      set 0
+    ]
   ]
   
   foreach popDivisionTable_keys [ index ->
@@ -72,11 +77,13 @@ to scaleup_try_to_maintain_cohort
       set R_agg R_agg + R
       set R_count R_count + 1
     ]
-    let R_average_after R_agg / R_count
-    ;;show ( word "Before " R_average_before ", After " R_average_after )
-    let R_scale R_average_before / R_average_after
-    ask simuls with [ color = red ] [
-      set R R * R_scale
+    if R_count > 0 [
+      let R_average_after R_agg / R_count
+      ;;show ( word "Before " R_average_before ", After " R_average_after )
+      let R_scale R_average_before / R_average_after
+      ask simuls with [ color = red ] [
+        set R R * R_scale
+      ]
     ]
   ]
   
@@ -100,6 +107,7 @@ to scaledown_try_to_maintain_cohort
       
       ask n-of (Scale_Factor - 1) eligible [
         set color red
+        set isolating 0
         set timenow my_timenow
         set caseReportTime my_caseReportTime
         set tracked my_tracked
@@ -112,7 +120,7 @@ to scaledown_try_to_maintain_cohort
     ]
   ]
   
-  ;; Reset akk houses so infective people are together.
+  ;; Reset all houses so infective people are together.
   ask simuls [
     ifelse color = red
     [
@@ -136,6 +144,7 @@ to scaledown_no_hatch
 
     ask n-of (Scale_Factor - 1) simuls with [ color != red or color != black ] [
       set color red
+      set isolating 0
       set timenow my_timenow
       set caseReportTime my_caseReportTime
       set tracked my_tracked

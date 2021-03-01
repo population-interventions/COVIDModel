@@ -130,6 +130,7 @@ to createSimulants
       set color cyan
       set householdUnit random 1000
       set timenow 0
+      set noticeOwnInfection 0
       set IncubationPd int ownIncubationPeriod
       set inQuarantine 0
       set vaccineOffered 0

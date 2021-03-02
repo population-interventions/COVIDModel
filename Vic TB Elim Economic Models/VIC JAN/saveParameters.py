@@ -224,7 +224,7 @@ paramValuesTestR_stageTest = {**defaultParams, **{
 }}
 
 paramValuesTestSingleR = {
-    'rand_seed' : listToStr(random.randint(10000000, size=(200))),
+    'rand_seed' : listToStr(random.randint(10000000, size=(1000))),
     'param_policy' : listToStr([
         '"StageCal_1"',
     ]),
@@ -232,4 +232,4 @@ paramValuesTestSingleR = {
     'total_population' : '25000000',
 }
 
-ReadModelFileAndWriteParams('GRAPHICS-WINDOW', '@#$#@#$#@', paramValuesTestR_stageTest, topOfFile=topOfFile)
+ReadModelFileAndWriteParams('GRAPHICS-WINDOW', '@#$#@#$#@', paramValuesTestSingleR, topOfFile=topOfFile)

@@ -27,14 +27,15 @@ def Process(path, name):
     print(df.describe())
 
 
-def AddIfVaryingValue(df, desiredIndex, colName):
+def AddIfVaryingValue(colName, df, desiredIndex, toUnstack):
     inTest = (colName in df.columns and (len(df[colName].unique()) > 1))
     if inTest:
         desiredIndex.append(colName)
+        toUnstack = toUnstack + 1
         #df['testName'] = df['testName'].str.replace('EssWork', 'Ework')
     else:
         df = df.drop(columns=[colName])
-    return df, desiredIndex
+    return df, desiredIndex, toUnstack
 
 
 def ProcessVariableEnd(path, nameList):
@@ -54,20 +55,21 @@ def ProcessVariableEnd(path, nameList):
         df  = df.append(pdf)
     
     desiredIndex = ['rand_seed', 'param_policy', 'global_transmissibility']
+    toUnstack = 1
     
-    df, desiredIndex = AddIfVaryingValue(df, desiredIndex, 'testName')
-    df, desiredIndex = AddIfVaryingValue(df, desiredIndex, 'housetotal')
-    df, desiredIndex = AddIfVaryingValue(df, desiredIndex, 'gather_location_count')
+    df, desiredIndex, toUnstack = AddIfVaryingValue('testName', df, desiredIndex, toUnstack)
+    df, desiredIndex, toUnstack = AddIfVaryingValue('housetotal', df, desiredIndex, toUnstack)
+    df, desiredIndex, toUnstack = AddIfVaryingValue('gather_location_count', df, desiredIndex, toUnstack)
+    
     df = df.set_index(desiredIndex)
     df.to_csv(path + name + '_merge.csv')
     
     # Sometimes the random numbers collide.
     df = df[~df.index.duplicated(keep='first')]
     
-    df = df.unstack(level=-1)
-    df = df.unstack(level=-1)
-    df = df.unstack(level=-1)
-    df = df.unstack(level=-1)
+    for i in range(toUnstack):
+        df = df.unstack(level=-1)
+    
     df.to_csv(path + name + '_process.csv')
     df_desc = df.describe()
     df_desc.to_csv(path + name + '_metric.csv')
@@ -148,7 +150,7 @@ def ProcessToPlot(path, name, varName,
     unwantedTop = list(dict.fromkeys([v[0] for v in df.columns if v[0] != varName]))
     df = df.drop(unwantedTop, axis=1, level=0)
     
-    df.columns = df.columns.set_levels(df.columns.levels[1].astype(int), level=1)
+    #df.columns = df.columns.set_levels(df.columns.levels[1].astype(int), level=1)
                           
     if indexReorder:
         df.columns = df.columns.reorder_levels(indexReorder)
@@ -165,7 +167,7 @@ nameStr = 'headless find_2.5-table' + nameNumber
 #nameStr = 'headless find_2.5 high track-table' + nameNumber
 
 namePath = 'StageTest3'
-nameStr = 'headless stageTest_big4-table_7'
+nameStr = 'headless stageTest_big4-table_15'
 
 #namePath = 'R regress'
 #nameStr = '55566792746ada8e5fd4b6c8efe14d2c736ad9f1_change'
@@ -177,17 +179,27 @@ ProcessVariableEnd('Output/' + namePath + '/', [nameStr])
 #    ymajticks=[i/10 - 0.3 for i in range(7)],
 #    yminticks=[i/50 - 0.3 for i in range(35)]
 #)
+#MakePlot(ProcessToPlot(
+#        'Output/' + namePath + '/', nameStr + '_process',
+#        'average_R',
+#        indexDepth=5,
+#        indexReorder=[0, 2, 1, 3, 4],
+#    ),
+#    'average_R',
+#    yTop=5,
+#    hlines=[1, 2.5, 2.5*1.25, 2.5*1.5],
+#    width=60,
+#    #='1100',
+#)
 MakePlot(ProcessToPlot(
         'Output/' + namePath + '/', nameStr + '_process',
         'average_R',
-        indexDepth=5,
-        indexReorder=[0, 2, 1, 3, 4],
+        indexDepth=4,
     ),
     'average_R',
     yTop=5,
     hlines=[1, 2.5, 2.5*1.25, 2.5*1.5],
     width=60,
-    #='1100',
 )
 #MakePlot('Output/' + namePath + '/', nameStr + '_process', 'trackAverage',
 #    yDomain=(0, 1),

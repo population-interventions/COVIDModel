@@ -402,19 +402,19 @@ to do_stages_test
     set traceMult 1
   ]
   if stage_test_index = 52 [
-    set testName "Iso Nce"
+    set testName "InfNotice"
     set isolate_on_inf_notice true
     set Infect_Iso_Factor 1
     set Household_Iso_Factor 1
   ]
   if stage_test_index = 53 [
-    set testName "Iso Nce0.8"
+    set testName "InfNotice 0.8"
     set isolate_on_inf_notice true
     set Infect_Iso_Factor 0.8
     set Household_Iso_Factor 0.8
   ]
   if stage_test_index = 54 [
-    set testName "Iso Nce0.4"
+    set testName "InfNotice 0.4"
     set isolate_on_inf_notice true
     set Infect_Iso_Factor 0.4
     set Household_Iso_Factor 0.4

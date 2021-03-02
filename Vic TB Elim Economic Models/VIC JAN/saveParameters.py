@@ -215,15 +215,10 @@ paramValuesTestR_stageTest = {**defaultParams, **{
         '"StageCal Test"',
     ]),
     'Global_Transmissibility' : listToStr([
-        0.3,
-        0.33,
         0.36,
-        0.39,
-        0.42,
-        0.45,
-        0.48,
     ]),
-    'Gather_Location_Count' : listToStr([90, 180, 270, 360, 450]),
+    'Gather_Location_Count' : listToStr([200]),
+    'houseTotal' : listToStr([200, 500, 800, 1100, 1400, 1700]),
     'stage_test_index' : listToStr([0, 41, 42, 48, 49, 50, 51, 52, 53, 54]),
     'total_population' : '2500000000',
 }}

@@ -427,7 +427,6 @@ to setGlobals
   set drawRandomSeed 0
   set drawList 0
   
-  set houseTotal 800 ;; Parameter
   set R_measure_time -1
 end
 

@@ -27,12 +27,23 @@ def Process(path, name):
     print(df.describe())
 
 
+def AddIfVaryingValue(df, desiredIndex, colName):
+    inTest = (colName in df.columns and (len(df[colName].unique()) > 1))
+    if inTest:
+        desiredIndex.append(colName)
+        #df['testName'] = df['testName'].str.replace('EssWork', 'Ework')
+    else:
+        df = df.drop(columns=[colName])
+    return df, desiredIndex
+
+
 def ProcessVariableEnd(path, nameList):
     name = nameList[0]
     interestingColumns = [
         'rand_seed', 'average_R', 'param_policy', 
         'global_transmissibility', 'totalEndCount', 'slopeAverage',
         'trackAverage', 'infectedTrackAverage', 'testName',
+        'gather_location_count', 'housetotal',
     ]
     df = pd.DataFrame(columns=interestingColumns)
     for v in nameList:
@@ -43,20 +54,18 @@ def ProcessVariableEnd(path, nameList):
         df  = df.append(pdf)
     
     desiredIndex = ['rand_seed', 'param_policy', 'global_transmissibility']
-    inTest = ('testName' in df.columns and (len(df['testName'].unique()) > 1))
-    if inTest:
-        desiredIndex.append('testName')
-        #df['testName'] = df['testName'].str.replace('EssWork', 'Ework')
-    else:
-        df = df.drop(columns=['testName'])
     
+    df, desiredIndex = AddIfVaryingValue(df, desiredIndex, 'testName')
+    df, desiredIndex = AddIfVaryingValue(df, desiredIndex, 'housetotal')
+    df, desiredIndex = AddIfVaryingValue(df, desiredIndex, 'gather_location_count')
     df = df.set_index(desiredIndex)
-    
     df.to_csv(path + name + '_merge.csv')
     
     # Sometimes the random numbers collide.
     df = df[~df.index.duplicated(keep='first')]
     
+    df = df.unstack(level=-1)
+    df = df.unstack(level=-1)
     df = df.unstack(level=-1)
     df = df.unstack(level=-1)
     df.to_csv(path + name + '_process.csv')
@@ -67,24 +76,20 @@ def ProcessVariableEnd(path, nameList):
     print(df.describe())
     
 
-def MakePlot(path, name, varName,
+def MakePlot(df, varName,
+        topLevelFilter=False,
         yTop=False,
         yDomain=(-0.2, 9.2),
         ymajticks=False,
         yminticks=False,
         hlines=False,
-        width=48.5
+        width=48.5,
         ):
     
     if yTop:
         yDomain = (-0.2, yTop - 0.8)
         ymajticks = range(yTop)
         yminticks = [i/5 for i in range(int(5*yTop))]
-    
-    df = pd.read_csv(path + name + '.csv', index_col=0, header=[0, 1, 2], skipinitialspace=True)
-    
-    unwantedTop = list(dict.fromkeys([v[0] for v in df.columns if v[0] != varName]))
-    df = df.drop(unwantedTop, axis=1, level=0)
     
     xLabel = df.columns.names[1]
     transmit_vals = list(dict.fromkeys([v[1] for v in df.columns]))
@@ -133,6 +138,25 @@ def MakePlot(path, name, varName,
     ax.grid(which='major', alpha=0.7, linewidth=2, zorder=-1)
 
 
+def ProcessToPlot(path, name, varName,
+        indexDepth=3,
+        indexReorder=False
+        ): 
+    df = pd.read_csv(path + name + '.csv', index_col=0,
+                     header=list(range(indexDepth)), skipinitialspace=True)
+    
+    unwantedTop = list(dict.fromkeys([v[0] for v in df.columns if v[0] != varName]))
+    df = df.drop(unwantedTop, axis=1, level=0)
+    
+    df.columns = df.columns.set_levels(df.columns.levels[1].astype(int), level=1)
+                          
+    if indexReorder:
+        df.columns = df.columns.reorder_levels(indexReorder)
+        df.sort_values(['testName', 'housetotal', ],axis=1,inplace=True)
+    
+    df.to_csv(path + name + '_plot.csv')
+    df.describe().to_csv(path + name + '_plot_metric.csv')
+    return df
 
 nameNumber = '16'
 namePath = 'R calc 4'
@@ -141,21 +165,29 @@ nameStr = 'headless find_2.5-table' + nameNumber
 #nameStr = 'headless find_2.5 high track-table' + nameNumber
 
 namePath = 'StageTest3'
-nameStr = 'headless stageTest_big2-table'
+nameStr = 'headless stageTest_big4-table_7'
 
 #namePath = 'R regress'
 #nameStr = '55566792746ada8e5fd4b6c8efe14d2c736ad9f1_change'
 
 ProcessVariableEnd('Output/' + namePath + '/', [nameStr])
+
 #MakePlot('Output/' + namePath + '/', nameStr + '_process', 'slopeAverage',
 #    yDomain=(-0.3, 0.3),
 #    ymajticks=[i/10 - 0.3 for i in range(7)],
 #    yminticks=[i/50 - 0.3 for i in range(35)]
 #)
-MakePlot('Output/' + namePath + '/', nameStr + '_process', 'average_R',
+MakePlot(ProcessToPlot(
+        'Output/' + namePath + '/', nameStr + '_process',
+        'average_R',
+        indexDepth=5,
+        indexReorder=[0, 2, 1, 3, 4],
+    ),
+    'average_R',
     yTop=5,
     hlines=[1, 2.5, 2.5*1.25, 2.5*1.5],
-    width=60
+    width=60,
+    #='1100',
 )
 #MakePlot('Output/' + namePath + '/', nameStr + '_process', 'trackAverage',
 #    yDomain=(0, 1),

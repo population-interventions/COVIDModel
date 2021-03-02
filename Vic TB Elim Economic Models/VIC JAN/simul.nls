@@ -146,7 +146,7 @@ end
 to simul_resampleHouse_infected
   table:put houseStudentMoveCache_lastUpdate householdunit -1
   
-  set householdUnit random 90
+  set householdUnit random floor (houseTotal * 0.1125)
   
   table:put houseStudentMoveCache_lastUpdate householdunit -1
   table:put houseTrackedCaseTimeTable householdunit -1
@@ -157,7 +157,7 @@ end
 to simul_resampleHouse_not_infected
   table:put houseStudentMoveCache_lastUpdate householdunit -1
   
-  set householdUnit 80 + random 720 
+  set householdUnit floor (houseTotal * 0.1) + random floor (houseTotal * 0.9) 
   
   table:put houseStudentMoveCache_lastUpdate householdunit -1
   table:put houseTrackedCaseTimeTable householdunit -1
@@ -358,10 +358,8 @@ end
 
 to simul_avoid
   ;; so, if the social distancing policies are on and you are distancing at this time and you are not part of an age-isolated
-  ;; group and you are not an EssentialWorkerPriority, then if there is anyone near you, move away if you can.
-  ;; isolateCompliant = 1 people avoid people who wander into their home so they don't paradoxically have a higher probability
-  ;; of meeting people.
-  if inQuarantine = 0 [
+  ;; group and you are not an EssentialWorkerPriority, then if there is anyone near you, move away if you can.♦
+  if inQuarantine = 0 and isolateCompliant != 1 [
     ;; if you are an essential worker, you can only reduce your
     ;; contacts when you are not at work assuming 8 hours work, 8 hours rest, 8 hours recreation - rest doesn't count for anyone, hence it is
     ;; set at 50 on the input slider. People don't isolate from others in their household unit

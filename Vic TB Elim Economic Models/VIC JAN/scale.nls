@@ -35,7 +35,7 @@ to scaleup_try_to_maintain_cohort
       set R_average_before R_agg / R_count
     ]
     [
-      set 0
+      set R_average_before 0
     ]
   ]
   

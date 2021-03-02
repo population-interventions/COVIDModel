@@ -61,6 +61,17 @@ def ProcessVariableEnd(path, nameList):
     df, desiredIndex, toUnstack = AddIfVaryingValue('housetotal', df, desiredIndex, toUnstack)
     df, desiredIndex, toUnstack = AddIfVaryingValue('gather_location_count', df, desiredIndex, toUnstack)
     
+    if 'testName' in desiredIndex:
+        df['testName'] = df['testName'].str.replace('Stage1 Is0.8', 'Iso0.8 Stage1 ')  
+        df['testName'] = df['testName'].str.replace('Stage1b Is0.8', 'Iso0.8 Stage1b ') 
+        df['testName'] = df['testName'].str.replace('Stage2 Is0.8', 'Iso0.8 Stage2 ') 
+        df['testName'] = df['testName'].str.replace('Stage3 Is0.8', 'Iso0.8 Stage3 ') 
+        df['testName'] = df['testName'].str.replace('Stage4 Is0.8', 'Iso0.8 Stage4 ') 
+        df['testName'] = df['testName'].str.replace('Iso T0', 'Iso Ef0')       
+        df['testName'] = df['testName'].str.replace('Iso T1', 'Iso Ef1')    
+        df['testName'] = df['testName'].str.replace('Iso T0 F0.8', 'Iso0.8 Ef0') 
+        df['testName'] = df['testName'].str.replace('Iso T1 F0.8', 'Iso0.8 Ef1')   
+    
     df = df.set_index(desiredIndex)
     df.to_csv(path + name + '_merge.csv')
     
@@ -199,7 +210,7 @@ MakePlot(ProcessToPlot(
     'average_R',
     yTop=5,
     hlines=[1, 2.5, 2.5*1.25, 2.5*1.5],
-    width=60,
+    width=120,
 )
 #MakePlot('Output/' + namePath + '/', nameStr + '_process', 'trackAverage',
 #    yDomain=(0, 1),

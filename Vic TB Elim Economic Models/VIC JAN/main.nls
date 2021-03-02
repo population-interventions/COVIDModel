@@ -46,6 +46,7 @@ to go
     set stageHasChanged 0 
   ]
   
+  print draw_isolationCompliance
   ;; Set lockdown stage and easing date, bases mostly on casesinperiod7
   CovidPolicyTriggers
   

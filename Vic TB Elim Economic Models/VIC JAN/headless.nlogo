@@ -591,7 +591,7 @@ Global_Transmissibility
 Global_Transmissibility
 0
 1
-0.55
+0.36
 0.01
 1
 NIL
@@ -852,7 +852,7 @@ RAND_SEED
 RAND_SEED
 0
 10000000
-5242088.0
+3343200.0
 1
 1
 NIL
@@ -1138,7 +1138,7 @@ End_Day
 End_Day
 -1
 365
-78.0
+-1.0
 1
 1
 NIL
@@ -1181,7 +1181,7 @@ SWITCH
 772
 track_R
 track_R
-0
+1
 1
 -1000
 
@@ -1250,7 +1250,7 @@ stage_test_index
 stage_test_index
 0
 60
-0.0
+45.0
 1
 1
 NIL

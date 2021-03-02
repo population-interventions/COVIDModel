@@ -184,7 +184,7 @@ end
 to simul_updateIsolationResponse
   set pace span
   set isolateCompliant 0
-  
+  print draw_isolationCompliance
   if (Case_Isolation and (isolating = 1 or tracked = 1)) or (isolate_on_inf_notice and noticeOwnInfection = 1)[
     ifelse isolating = 1 and color = cyan
     [

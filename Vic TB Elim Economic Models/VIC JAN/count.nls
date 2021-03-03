@@ -166,6 +166,8 @@ to calculateCasesInLastPeriod
   set casesinperiod28 casesinperiod28 + prior18 + prior19 + prior20 + prior21 + prior22
   set casesinperiod28 casesinperiod28 + prior23 + prior24 + prior25 + prior26 + prior27
   
-  ;; Do not run this unless you need to, is probably slow.
-  outputLockdownCalibrate
+  if track_slope [
+    ;; Do not run this unless you need to, is probably slow.
+    outputLockdownCalibrate
+  ]
 end

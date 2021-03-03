@@ -428,6 +428,11 @@ to setGlobals
   set drawList 0
   
   set R_measure_time -1
+  
+  set infectArray_listOut []
+  set recoverArray_listOut []
+  set dieArray_listOut []
+  set stage_listOut []
 end
 
 to setDrawValues

@@ -22,10 +22,11 @@ to setup_DataOut
 end
 
 to calculateDataOut
-  set infectArray_listOut array:to-list infectArray
-  set recoverArray_listOut array:to-list recoverArray
-  set dieArray_listOut array:to-list dieArray
-
+  set infectArray_listOut lput array:to-list infectArray infectArray_listOut
+  set recoverArray_listOut lput array:to-list recoverArray recoverArray_listOut
+  set dieArray_listOut lput array:to-list dieArray dieArray_listOut
+  set stage_listOut lput stage stage_listOut
+  
   set infectArray array:from-list cohortLengthListOfZeros
   set recoverArray array:from-list cohortLengthListOfZeros
   set dieArray array:from-list cohortLengthListOfZeros

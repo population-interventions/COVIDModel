@@ -231,5 +231,21 @@ paramValuesTestSingleR = {
     'Global_Transmissibility' : listToStr([0.26]),
     'total_population' : '25000000',
 }
+  
+paramValuesFullValues = {
+    'rand_seed' : listToStr(random.randint(10000000, size=(20))),
+    'total_population' : '6359000',
+    'param_policy' : listToStr([
+        '"AggressElim"',
+        '"ModerateElim"',
+        '"TightSupress"',
+        '"LooseSupress"',
+    ]),
+    'param_vac_uptake' : listToStr([60, 75, 90]),
+    'param_vac1_tran_reduct' : listToStr([50, 75, 90]),
+    'param_vac2_tran_reduct' : listToStr([50, 75, 90]),
+    'Global_Transmissibility' : listToStr([0.34, 0.45, 0.54]),
+    'param_trigger_loosen' : listToStr(['true', 'false']),
+}
 
-ReadModelFileAndWriteParams('GRAPHICS-WINDOW', '@#$#@#$#@', paramValuesTestSingleR, topOfFile=topOfFile)
+ReadModelFileAndWriteParams('GRAPHICS-WINDOW', '@#$#@#$#@', paramValuesFullValues, topOfFile=topOfFile)

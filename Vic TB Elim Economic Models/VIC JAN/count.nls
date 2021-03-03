@@ -98,7 +98,7 @@ to outputLockdownCalibrate
   set slope_prior1 slope_prior0
   set slope_prior0 (real_prior0 + real_prior1 + real_prior2 + real_prior3 + real_prior4 + real_prior5 + real_prior6) / 7
   
-  if ticks - decisionDate >= 21 and ticks - decisionDate < 42 and
+  if ticks - decisionDate >= 5 and ticks - decisionDate < 41 and
       decisionDate > 0 and (slope_prior0 > 0 and slope_prior1 > 0 and 
       slope_prior2 > 0 and slope_prior3 > 0 and slope_prior4 > 0 and slope_prior5 > 0 and slope_prior6 > 0)  [
     ;show ( word "4: " slope_prior4 ", 3: " slope_prior3 ", 2: " slope_prior2 ", 1: " slope_prior1 ", 0: " slope_prior0 )

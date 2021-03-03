@@ -184,7 +184,7 @@ end
 to simul_updateIsolationResponse
   set pace span
   set isolateCompliant 0
-  print draw_isolationCompliance
+  
   if (Case_Isolation and (isolating = 1 or tracked = 1)) or (isolate_on_inf_notice and noticeOwnInfection = 1)[
     ifelse isolating = 1 and color = cyan
     [
@@ -195,10 +195,21 @@ to simul_updateIsolationResponse
       ]
     ]
     [
-      if draw_isolationCompliance * Infect_Iso_Factor > random-float 1 [
-        move-to homelocation
-        set pace 0
-        set isolateCompliant 1
+      ;; Full strength isolation for reported cases
+      ifelse caseReportTime >= ticks
+      [
+        if draw_isolationCompliance * Infect_Iso_Factor > random-float 1 [
+          move-to homelocation
+          set pace 0
+          set isolateCompliant 1
+        ]
+      ]
+      [
+        if draw_isolationCompliance * Track_Iso_Factor > random-float 1 [
+          move-to homelocation
+          set pace 0
+          set isolateCompliant 1
+        ]
       ]
     ]
   ]
@@ -400,7 +411,7 @@ to simul_settime
   ;; dying this way currently not implemented but done at the end of the illness period, instead
   if color = red [
     set timenow timenow + 1
-    if tracked = 1 and caseReportTime >= ticks [
+    if tracked = 1 and caseReportTime = ticks [
       set casesReportedToday_acc casesReportedToday_acc + 1
     ]
   ]

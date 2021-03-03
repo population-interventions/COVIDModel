@@ -382,7 +382,7 @@ Span
 Span
 0
 30
-2.0
+3.0
 1
 1
 NIL
@@ -494,7 +494,7 @@ superspreaders
 superspreaders
 0
 1
-0.002
+0.005
 0.01
 1
 NIL
@@ -549,7 +549,7 @@ Proportion_People_Avoid
 Proportion_People_Avoid
 0
 100
-85.0
+78.0
 .5
 1
 NIL
@@ -564,7 +564,7 @@ Proportion_Time_Avoid
 Proportion_Time_Avoid
 0
 100
-85.0
+78.0
 .5
 1
 NIL
@@ -645,7 +645,7 @@ INPUTBOX
 313
 525
 total_population
-2.5E9
+6359000.0
 1
 0
 Number
@@ -1025,7 +1025,7 @@ Mask_Wearing
 Mask_Wearing
 0
 100
-80.0
+85.0
 1
 1
 NIL
@@ -1249,7 +1249,7 @@ Visit_Frequency
 Visit_Frequency
 0
 1
-0.11
+0.1428
 0.01
 1
 NIL
@@ -1264,7 +1264,7 @@ Visit_Radius
 Visit_Radius
 0
 16
-1.8
+3.6
 1
 1
 NIL
@@ -1573,7 +1573,7 @@ RAND_SEED
 RAND_SEED
 0
 10000000
-2946860.0
+4734300.0
 1
 1
 NIL
@@ -1760,10 +1760,10 @@ Track_and_Trace_Efficiency
 11
 
 MONITOR
-1538
-619
-1595
-664
+1472
+673
+1529
+718
 NIL
 stage
 17
@@ -1839,7 +1839,7 @@ CHOOSER
 param_policy
 param_policy
 "AggressElim" "ModerateElim" "TightSupress" "LooseSupress" "None" "Stage 1" "Stage 1b" "Stage 2" "Stage 3" "Stage 4" "StageCal None" "StageCal Test" "StageCal_1" "StageCal_1b" "StageCal_2" "StageCal_3" "StageCal_4"
-16
+11
 
 SLIDER
 1589
@@ -2039,7 +2039,7 @@ Complacency_Bound
 Complacency_Bound
 0
 100
-85.0
+78.0
 1
 1
 NIL
@@ -2128,7 +2128,7 @@ End_Day
 End_Day
 -1
 365
-89.0
+98.0
 1
 1
 NIL
@@ -2406,7 +2406,7 @@ stage_test_index
 stage_test_index
 0
 60
-0.0
+59.0
 1
 1
 NIL
@@ -2464,15 +2464,15 @@ SWITCH
 167
 isolate_on_inf_notice
 isolate_on_inf_notice
-0
+1
 1
 -1000
 
 SLIDER
-330
-747
-525
-780
+334
+710
+534
+744
 Household_Iso_Factor
 Household_Iso_Factor
 0
@@ -2486,8 +2486,8 @@ HORIZONTAL
 SLIDER
 334
 787
-528
-820
+531
+821
 Infect_Iso_Factor
 Infect_Iso_Factor
 0
@@ -2499,16 +2499,31 @@ NIL
 HORIZONTAL
 
 SLIDER
-328
-707
-528
-740
+559
+708
+759
+741
 houseTotal
 houseTotal
 100
 2000
 1100.0
 100
+1
+NIL
+HORIZONTAL
+
+SLIDER
+335
+752
+533
+786
+Track_Iso_Factor
+Track_Iso_Factor
+0
+1
+1.0
+0.05
 1
 NIL
 HORIZONTAL

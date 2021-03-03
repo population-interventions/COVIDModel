@@ -264,13 +264,13 @@ patches-own [
 ]
 @#$#@#$#@
 GRAPHICS-WINDOW
-334
-63
-842
-572
+359
+65
+866
+573
 -1
 -1
-8.2
+8.18033
 1
 10
 1
@@ -444,7 +444,7 @@ Proportion_People_Avoid
 Proportion_People_Avoid
 0
 100
-0.0
+9.0
 .5
 1
 NIL
@@ -459,7 +459,7 @@ Proportion_Time_Avoid
 Proportion_Time_Avoid
 0
 100
-0.0
+9.0
 .5
 1
 NIL
@@ -591,7 +591,7 @@ Global_Transmissibility
 Global_Transmissibility
 0
 1
-0.36
+0.46
 0.01
 1
 NIL
@@ -647,7 +647,7 @@ Mask_Wearing
 Mask_Wearing
 0
 100
-0.0
+15.0
 1
 1
 NIL
@@ -671,7 +671,7 @@ SWITCH
 355
 MaskPolicy
 MaskPolicy
-1
+0
 1
 -1000
 
@@ -852,7 +852,7 @@ RAND_SEED
 RAND_SEED
 0
 10000000
-3343200.0
+1076997.0
 1
 1
 NIL
@@ -1078,7 +1078,7 @@ Complacency_Bound
 Complacency_Bound
 0
 100
-0.0
+5.0
 1
 1
 NIL
@@ -1138,7 +1138,7 @@ End_Day
 End_Day
 -1
 365
--1.0
+91.0
 1
 1
 NIL
@@ -1181,7 +1181,7 @@ SWITCH
 772
 track_R
 track_R
-1
+0
 1
 -1000
 
@@ -1250,7 +1250,7 @@ stage_test_index
 stage_test_index
 0
 60
-45.0
+55.0
 1
 1
 NIL
@@ -1313,10 +1313,10 @@ isolate_on_inf_notice
 -1000
 
 SLIDER
-330
-747
-525
-780
+334
+710
+534
+743
 Household_Iso_Factor
 Household_Iso_Factor
 0
@@ -1330,7 +1330,7 @@ HORIZONTAL
 SLIDER
 334
 787
-528
+531
 820
 Infect_Iso_Factor
 Infect_Iso_Factor
@@ -1343,16 +1343,31 @@ NIL
 HORIZONTAL
 
 SLIDER
-328
-707
-528
-740
+559
+708
+759
+741
 houseTotal
 houseTotal
 100
 2000
 1200.0
 100
+1
+NIL
+HORIZONTAL
+
+SLIDER
+335
+752
+533
+785
+Track_Iso_Factor
+Track_Iso_Factor
+0
+1
+1.0
+0.05
 1
 NIL
 HORIZONTAL
@@ -49422,12 +49437,9 @@ NetLogo 6.2.0
       <value value="&quot;StageCal Test&quot;"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="global_transmissibility">
-      <value value="0.35"/>
       <value value="0.36"/>
-      <value value="0.43"/>
-      <value value="0.44"/>
-      <value value="0.55"/>
-      <value value="0.56"/>
+      <value value="0.46"/>
+      <value value="0.6"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="stage_test_index">
       <value value="0"/>

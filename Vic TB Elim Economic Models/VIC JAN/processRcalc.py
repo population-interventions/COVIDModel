@@ -62,15 +62,7 @@ def ProcessVariableEnd(path, nameList):
     df, desiredIndex, toUnstack = AddIfVaryingValue('gather_location_count', df, desiredIndex, toUnstack)
     
     if 'testName' in desiredIndex:
-        df['testName'] = df['testName'].str.replace('Stage1 Is0.8', 'Iso0.8 Stage1 ')  
-        df['testName'] = df['testName'].str.replace('Stage1b Is0.8', 'Iso0.8 Stage1b ') 
-        df['testName'] = df['testName'].str.replace('Stage2 Is0.8', 'Iso0.8 Stage2 ') 
-        df['testName'] = df['testName'].str.replace('Stage3 Is0.8', 'Iso0.8 Stage3 ') 
-        df['testName'] = df['testName'].str.replace('Stage4 Is0.8', 'Iso0.8 Stage4 ') 
-        df['testName'] = df['testName'].str.replace('Iso T0', 'Iso Ef0')       
-        df['testName'] = df['testName'].str.replace('Iso T1', 'Iso Ef1')    
-        df['testName'] = df['testName'].str.replace('Iso T0 F0.8', 'Iso0.8 Ef0') 
-        df['testName'] = df['testName'].str.replace('Iso T1 F0.8', 'Iso0.8 Ef1')   
+        df['testName'] = df['testName'].str.replace('Is0.8 Stage3', 'Is0.75 Stage3')  
     
     df = df.set_index(desiredIndex)
     df.to_csv(path + name + '_merge.csv')
@@ -178,7 +170,7 @@ nameStr = 'headless find_2.5-table' + nameNumber
 #nameStr = 'headless find_2.5 high track-table' + nameNumber
 
 namePath = 'StageTest3'
-nameStr = 'headless stageTest_big5-table_overnight'
+nameStr = 'headless stageTest_big4-table_18'
 
 #namePath = 'R regress'
 #nameStr = '55566792746ada8e5fd4b6c8efe14d2c736ad9f1_change'

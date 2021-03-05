@@ -233,7 +233,7 @@ paramValuesTestSingleR = {
 }
   
 paramValuesFullValues = {
-    'rand_seed' : listToStr(random.randint(10000000, size=(20))),
+    'rand_seed' : listToStr(random.randint(10000000, size=(80))),
     'total_population' : '6359000',
     'param_policy' : listToStr([
         '"AggressElim"',

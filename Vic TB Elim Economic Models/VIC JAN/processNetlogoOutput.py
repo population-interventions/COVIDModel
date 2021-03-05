@@ -6,7 +6,9 @@ Created on Mon Feb 15 10:22:33 2021
 """
 
 import pandas as pd
+import numpy as np
 from tqdm import tqdm
+import time
 
 fileCreated = {}
 
@@ -16,72 +18,123 @@ def SplitNetlogoList(chunk, cohorts, name, outputName):
     chunk = chunk.drop(name, axis=1)
     return chunk
     
+  
+def SplitNetlogoNestedList(chunk, cohorts, days, colName, name):
+    split_names = [(name, j, i) for j in range(0, days) for i in range(0, cohorts)]
+    df = chunk[colName].str.replace('\[', '').str.replace('\]', '').str.split(' ', expand=True)
+    df.columns = pd.MultiIndex.from_tuples(split_names, names=['metric', 'day', 'cohort'])
+    return df
 
-def OutputToFile(chunk, filename):
-    if fileCreated.get(filename):
+
+def OutputToFile(chunk, path, fileAppend):
+    # Called like this. Splits each random seed into its own file.
+    #for value in chunk.index.unique('rand_seed'):
+    #    OutputToFile(chunk.loc[value], filename, value)
+    fullFilePath = path + '_' + fileAppend + '.csv'
+    if fileCreated.get(fileAppend):
         # Append
-        chunk.to_csv('Output/halfDataTest/process/' + str(filename) + '.csv', mode='a', header=False)
+        chunk.to_csv(fullFilePath, mode='a', header=False)
     else:
-        fileCreated[filename] = True
-        chunk.to_csv('Output/halfDataTest/process/' + str(filename) + '.csv')
-    
+        fileCreated[fileAppend] = True
+        chunk.to_csv(fullFilePath) 
 
-def Process(chunk: pd.DataFrame, outputStaticData):
+
+def SplitOutDailyData(chunk, cohorts, days, name, filePath, fileAppend):
+    columnName = name + '_listOut'
+    df = SplitNetlogoNestedList(chunk, cohorts, days, columnName, name)
+    OutputToFile(df, filePath, fileAppend)
+
+
+def Process(chunk: pd.DataFrame, outputStaticData, filename):
     # Drop colums that are probably never useful.
-    chunk = chunk.drop([
-        'age_isolation', 'app_uptake', 'assignappess', 'available_resources', 'basestage', 'bed_capacity', 'care_attitude',
-        'complacency', 'complacency_bound', 'cruise', 'days_of_cash_reserves', 'diffusion_adjustment', 'end_day', 'essential_workers',
-        'ewappuptake', 'feartrigger', 'fourtothree', 'freewheel', 'goldstandard', 'hospital_beds_in_australia', 'household_attack',
-        'icu_beds_in_australia', 'icu_required', 'incursionrate', 'initial', 'initial_cases', 'initialassociationstrength',
-        'initialscale', 'isolate', 'judgeday1', 'judgeday1_d', 'judgeday2', 'judgeday2_d', 'judgeday3', 'judgeday3_d', 'judgeday4',
-        'judgeday4_d', 'link_switch', 'lockdown_off', 'lowerstudentage', 'mask_wearing', 'maskpolicy', 'maxstage', 'maxv',
-        'mean_individual_income', 'media_exposure', 'minv', 'onetotwo', 'onetozero', 'os_import_post_proportion',
-        'os_import_proportion', 'os_import_switch', 'outside', 'outsiderisk', 'phwarnings', 'policytriggeron', 'population',
-        'productionrate', 'profile_on', 'proportion_people_avoid', 'proportion_time_avoid', 'quarantine_spaces','residualcautionppa',
-        'residualcautionpta', 'restrictedmovement', 'saliency_of_experience', 'scale', 'schoolreturndate', 'schoolsopen',
-        'se_illnesspd', 'se_incubation', 'secondary_cases', 'seedticks', 'self_capacity', 'selfgovern', 'severity_of_illness',
-        'span', 'stimulus', 'superspreaders', 'threetofour', 'threetotwo', 'timelockdownoff', 'total_population', 'track_r',
-        'tracking', 'treatment_benefit', 'triggerday', 'twotoone', 'twotothree', 'undetected_proportion', 'upperstudentage',
-        'vaccine_available', 'visit_frequency', 'visit_radius', 'wfh_capacity', 'zerotoone',
-        # TODO: Remove from model
-        'param_transmit_scale',
-        # These may be useful at some point
-        'asymptom_prop', 'asymptom_trace_mult', 'asymptomatic_trans', 'case_reporting_delay', 'ess_w_risk_reduction',
-        'gather_location_count', 'global_transmissibility', 'illness_period', 'incubation_period', 'isolation_transmission',
-        'mask_efficacy_mult', 'non_infective_time', 'reinfectionrate',
-        # Parameters
-        'param_vaceffdays',
-
-    ], axis=1)
+    
+    chunk = chunk[[
+        '[run number]', 'rand_seed', 'param_policy', 'global_transmissibility',
+        'param_vac1_tran_reduct', 'param_vac2_tran_reduct', 'param_vac_uptake',
+        'param_trigger_loosen',
+        'stage_listOut', 'scalephase', 'cumulativeInfected', 'casesReportedToday',
+        'Deathcount', 'totalOverseasIncursions', 'infectArray_listOut', 'recoverArray_listOut',
+        'dieArray_listOut', 'age_listOut', 'atsi_listOut', 'morbid_listOut',
+    ]]
     
     cohorts = len(chunk.iloc[0].age_listOut.split(' '))
+    days = len(chunk.iloc[0].stage_listOut.split(' '))
     
     if outputStaticData:
         staticData = pd.DataFrame(chunk[['age_listOut', 'atsi_listOut', 'morbid_listOut']].transpose()[0])
         staticData = SplitNetlogoList(staticData, cohorts, 0, '').transpose()
         staticData = staticData.rename(columns={'age_listOut': 'age', 'atsi_listOut': 'atsi', 'morbid_listOut': 'morbid'})
-        staticData.to_csv('Output/halfDataTest/cohortLookup.csv')
+        staticData.to_csv(filename + '_static.csv')
         
+    
     chunk = chunk.drop(['age_listOut', 'atsi_listOut', 'morbid_listOut'], axis=1)
+    chunk = chunk.rename(mapper={'[run number]' : 'run'}, axis=1)
+    chunk = chunk.set_index([
+        'run', 'rand_seed', 'param_policy', 'global_transmissibility',
+        'param_vac1_tran_reduct', 'param_vac2_tran_reduct',
+        'param_vac_uptake', 'param_trigger_loosen',
+    ])
+    #chunk.to_csv('Output/runTry1/wip.csv')
     
-    zero_entry = '[' + (' '.join(['0'] * cohorts)) + ']'
-    chunk['infectArray_listOut'] = chunk['infectArray_listOut'].replace('0', zero_entry)
-    chunk['recoverArray_listOut'] = chunk['recoverArray_listOut'].replace('0', zero_entry)
-    chunk['dieArray_listOut'] = chunk['dieArray_listOut'].replace('0', zero_entry)
+    secondaryData = [
+        'scalephase', 'cumulativeInfected', 'casesReportedToday',
+        'Deathcount', 'totalOverseasIncursions'
+    ]
     
-    chunk = SplitNetlogoList(chunk, cohorts, 'infectArray_listOut', 'infect_')
-    chunk = SplitNetlogoList(chunk, cohorts, 'recoverArray_listOut', 'recover_')
-    chunk = SplitNetlogoList(chunk, cohorts, 'dieArray_listOut', 'die_')
+    chunk[secondaryData].to_csv(filename + '_secondary.csv')
+    chunk = chunk.drop(secondaryData, axis=1)
+    
+    index = chunk.index.to_frame()
+    index['R0'] = index['global_transmissibility'].replace({
+        0.34 : 2.5,
+        0.45 : 3.125,
+        0.54 : 3.75,})
+    chunk.index = pd.MultiIndex.from_frame(index)
+    
+    SplitOutDailyData(chunk, 1, days, 'stage', filename, 'stage')
+    SplitOutDailyData(chunk, cohorts, days, 'infectArray', filename, 'infect')
+    SplitOutDailyData(chunk, cohorts, days, 'recoverArray', filename, 'recover')
+    SplitOutDailyData(chunk, cohorts, days, 'dieArray', filename, 'die')
 
-    for value in chunk.rand_seed.unique():
-        OutputToFile(chunk[chunk.rand_seed == value], value)
 
-def ProcessFile(filename):
-    chunksize = 4 ** 8
+def ToVisualisation(chunk, filename):
+    chunk.columns.set_levels(chunk.columns.levels[1].astype(int), level=1, inplace=True)
+    chunk.columns.set_levels(chunk.columns.levels[2].astype(int), level=2, inplace=True)
+    chunk = chunk.groupby(level=[0, 1], axis=1).sum()
+    chunk.sort_values('day', axis=1, inplace=True)
+    
+    index = chunk.columns.to_frame()
+    index['week'] = np.floor(index['day']/7)
+    
+    chunk.columns = index
+    chunk.columns = pd.MultiIndex.from_tuples(chunk.columns, names=['metric', 'day', 'week'])
+    chunk.columns = chunk.columns.droplevel(level=0)
+    chunk = chunk.groupby(level=[1], axis=1).sum()
+    
+    #chunk.to_csv('Output/runTry1/wip.csv')
+    OutputToFile(chunk, filename, 'weeklyAgg')
+    
+    
+def ProcessRawOutput(filename):
+    chunksize = 4 ** 6
     
     firstProcess = True
-    for chunk in tqdm(pd.read_csv(filename, chunksize=chunksize, header=6), total=211):
-        Process(chunk, firstProcess)
+    for chunk in tqdm(pd.read_csv(filename + '.csv', chunksize=chunksize, header=6), total=4):
+        Process(chunk, firstProcess, filename)
         firstProcess = False
-        
-ProcessFile('Output/halfDataTest/headless HalfRunTest-table.csv')        
+
+
+def ProcessFileToVisualisation(filename, append):
+    chunksize = 4 ** 6
+    filename = filename + append
+    for chunk in tqdm(pd.read_csv(filename + '.csv', chunksize=chunksize,
+                                  index_col=list(range(8)),
+                                  header=list(range(3)),
+                                  dtype={'day' : int, 'cohort' : int}),
+                      total=4):
+        ToVisualisation(chunk, filename)
+
+
+#ProcessRawOutput('Output/runTry1/headless MainTest20-table_20')
+ProcessFileToVisualisation('Output/runTry1/headless MainTest20-table_20', '_infect') 
+ProcessFileToVisualisation('Output/runTry1/headless MainTest20-table_20', '_die')

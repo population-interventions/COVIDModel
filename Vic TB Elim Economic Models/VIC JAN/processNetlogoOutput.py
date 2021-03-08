@@ -5,10 +5,12 @@ Created on Mon Feb 15 10:22:33 2021
 @author: wilsonte
 """
 
+import math
 import pandas as pd
 import numpy as np
 from tqdm import tqdm
 import time
+import os
 
 fileCreated = {}
 
@@ -97,14 +99,14 @@ def Process(chunk: pd.DataFrame, outputStaticData, filename):
     SplitOutDailyData(chunk, cohorts, days, 'dieArray', filename, 'die')
 
 
-def ToVisualisation(chunk, filename):
+def ToVisualisation(chunk, filename, append):
     chunk.columns.set_levels(chunk.columns.levels[1].astype(int), level=1, inplace=True)
     chunk.columns.set_levels(chunk.columns.levels[2].astype(int), level=2, inplace=True)
     chunk = chunk.groupby(level=[0, 1], axis=1).sum()
     chunk.sort_values('day', axis=1, inplace=True)
     
     index = chunk.columns.to_frame()
-    index['week'] = np.floor(index['day']/7)
+    index['week'] = np.floor((index['day'] + 6)/7)
     
     chunk.columns = index
     chunk.columns = pd.MultiIndex.from_tuples(chunk.columns, names=['metric', 'day', 'week'])
@@ -112,29 +114,51 @@ def ToVisualisation(chunk, filename):
     chunk = chunk.groupby(level=[1], axis=1).sum()
     
     #chunk.to_csv('Output/runTry1/wip.csv')
-    OutputToFile(chunk, filename, 'weeklyAgg')
+    OutputToFile(chunk, filename, append + '_weeklyAgg')
+    
+
+def ToVisualisationRollingWeekly(chunk, filename, append):
+    chunk.columns.set_levels(chunk.columns.levels[1].astype(int), level=1, inplace=True)
+    chunk.columns.set_levels(chunk.columns.levels[2].astype(int), level=2, inplace=True)
+    chunk = chunk.groupby(level=[0, 1], axis=1).sum()
+    chunk.columns = chunk.columns.droplevel(level=0)
+    
+    leftPad = [-(i+1) for i in range(6)]
+    for v in leftPad:
+        chunk[v] = 0
+    chunk.sort_values('day', axis=1, inplace=True)
+    chunk = chunk.rolling(7, axis=1).mean()
+    chunk = chunk.drop(columns = leftPad)
+    
+    #chunk.to_csv('Output/runTry1/wip.csv')
+    OutputToFile(chunk, filename, append + '_rolling_weekly')
     
     
-def ProcessRawOutput(filename):
+def ProcessRawOutput(outputFile, filelist):
     chunksize = 4 ** 6
     
     firstProcess = True
-    for chunk in tqdm(pd.read_csv(filename + '.csv', chunksize=chunksize, header=6), total=4):
-        Process(chunk, firstProcess, filename)
-        firstProcess = False
+    for filename in filelist:
+        size = os.path.getsize(filename + '.csv')
+        expectedRuns = math.round(4 * size / 1046579370)
+        for chunk in tqdm(pd.read_csv(filename + '.csv', chunksize=chunksize, header=6), total=expectedRuns):
+            Process(chunk, firstProcess, outputFile)
+            firstProcess = False
 
 
 def ProcessFileToVisualisation(filename, append):
     chunksize = 4 ** 6
-    filename = filename + append
-    for chunk in tqdm(pd.read_csv(filename + '.csv', chunksize=chunksize,
-                                  index_col=list(range(8)),
+    for chunk in tqdm(pd.read_csv(filename + '_' + append + '.csv', chunksize=chunksize,
+                                  index_col=list(range(9)),
                                   header=list(range(3)),
                                   dtype={'day' : int, 'cohort' : int}),
-                      total=4):
-        ToVisualisation(chunk, filename)
+                      total=16):
+        ToVisualisationRollingWeekly(chunk, filename, append)
 
 
-#ProcessRawOutput('Output/runTry1/headless MainTest20-table_20')
-ProcessFileToVisualisation('Output/runTry1/headless MainTest20-table_20', '_infect') 
-ProcessFileToVisualisation('Output/runTry1/headless MainTest20-table_20', '_die')
+#ProcessRawOutput('Output/runTry1/processed',
+#    ['Output/runTry1/headless MainTest20-table_20',
+#    'Output/runTry1/headless MainTest-table_80']
+#    )
+ProcessFileToVisualisation('Output/runTry1/processed', 'infect') 
+ProcessFileToVisualisation('Output/runTry1/processed', 'die')

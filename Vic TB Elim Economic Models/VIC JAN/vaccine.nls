@@ -52,6 +52,7 @@ to vaccine_brand_update
   if global_vaccineType = "Other" [
     set global_vaccine_eff (1 - param_vac2_tran_reduct / 100) ^ (1 / 3)
   ]
+  print global_vaccine_eff
 end
 
 to vaccine_update
@@ -96,8 +97,8 @@ to simul_vaccinate_me
       set vaccinated 1
       
       ;; Reduce illness length
-      set ownincubationperiod ( ownincubationperiod * (1 - selfVaccEffectiveness) )
-      set ownillnessperiod (ownillnessperiod * (1 - selfVaccEffectiveness) )
+      set ownincubationperiod ( ownincubationperiod * selfVaccEffMultiplier)
+      set ownillnessperiod (ownillnessperiod * selfVaccEffMultiplier)
     ]
   ]
   
@@ -106,7 +107,7 @@ to simul_vaccinate_me
       ;; TODO for some reason people use up a vaccine even if they refuse it, but if this wasn't the case then param_vac_uptake
       ;; would mean very little. Figure out what is going on here conceptually.
       set vaccineOffered 1
-      set selfVaccEffectiveness global_vaccine_eff
+      set selfVaccEffMultiplier global_vaccine_eff
       set global_vaccineAvailible global_vaccineAvailible - 1
       if sm_vac_uptake < param_vac_uptake [
         set vacWaitDays param_vacEffDays

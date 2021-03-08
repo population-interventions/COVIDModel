@@ -48,7 +48,7 @@ simuls-own [
   vaccinated ;; is the person vaccinated?
   vaccineOffered ;; Has the vaccine been offered?
   vacWaitDays ;; Timer for the delay in vaccine coming into effect.
-  selfVaccEffectiveness ;; Effectiveness of the vaccine I recieved
+  selfVaccEffMultiplier ;; Multiplier for disease effects, (1 - vaccine efficacy)
 
   wearsMask ;; for use in determining if the person wears a face mask
   wearingMask ;; identifies if the person is wearing a mask or not
@@ -258,7 +258,7 @@ to simul_record_patch_infectiveness
       set localInfectiveness (localInfectiveness * Asymptomatic_Trans)
     ]
     if vaccinated = 1 [
-      set localInfectiveness (localInfectiveness * (1 - selfVaccEffectiveness))
+      set localInfectiveness (localInfectiveness * selfVaccEffMultiplier)
     ]
     if isolateCompliant = 1 [
      set localInfectiveness (localInfectiveness * Isolation_Transmission )
@@ -299,7 +299,7 @@ to simul_infect
       set mySucceptibility (mySucceptibility * (1 - draw_maskWearEfficacy)) * Mask_Efficacy_Mult
     ]
     if vaccinated = 1 [
-      set mySucceptibility (mySucceptibility * (1 - selfVaccEffectiveness))
+      set mySucceptibility (mySucceptibility * selfVaccEffMultiplier)
     ]
     let myPatch patch-here
     let localInfectionList 0

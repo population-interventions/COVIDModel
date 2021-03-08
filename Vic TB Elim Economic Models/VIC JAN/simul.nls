@@ -259,6 +259,7 @@ to simul_record_patch_infectiveness
     ]
     if vaccinated = 1 [
       set localInfectiveness (localInfectiveness * selfVaccEffMultiplier)
+      ;show (word "infect " selfVaccEffMultiplier)
     ]
     if isolateCompliant = 1 [
      set localInfectiveness (localInfectiveness * Isolation_Transmission )
@@ -300,6 +301,7 @@ to simul_infect
     ]
     if vaccinated = 1 [
       set mySucceptibility (mySucceptibility * selfVaccEffMultiplier)
+      ;show (word "succ " selfVaccEffMultiplier)
     ]
     let myPatch patch-here
     let localInfectionList 0

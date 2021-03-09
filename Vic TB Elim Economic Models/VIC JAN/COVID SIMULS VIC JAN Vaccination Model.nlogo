@@ -267,11 +267,11 @@ patches-own [
 GRAPHICS-WINDOW
 343
 65
-848
-571
+976
+699
 -1
 -1
-8.15
+8.164
 1
 10
 1
@@ -550,7 +550,7 @@ Proportion_People_Avoid
 Proportion_People_Avoid
 0
 100
-27.0
+5.0
 .5
 1
 NIL
@@ -565,7 +565,7 @@ Proportion_Time_Avoid
 Proportion_Time_Avoid
 0
 100
-27.0
+5.0
 .5
 1
 NIL
@@ -985,7 +985,7 @@ Essential_Workers
 Essential_Workers
 0
 100
-70.0
+100.0
 1
 1
 NIL
@@ -1026,7 +1026,7 @@ Mask_Wearing
 Mask_Wearing
 0
 100
-35.0
+15.0
 1
 1
 NIL
@@ -1574,7 +1574,7 @@ RAND_SEED
 RAND_SEED
 0
 10000000
-3055291.0
+4830918.0
 1
 1
 NIL
@@ -1658,7 +1658,7 @@ param_vac1_tran_reduct
 param_vac1_tran_reduct
 50
 90
-90.0
+75.0
 5
 1
 NIL
@@ -1840,7 +1840,7 @@ CHOOSER
 param_policy
 param_policy
 "AggressElim" "ModerateElim" "TightSupress" "LooseSupress" "None" "Stage 1" "Stage 1b" "Stage 2" "Stage 3" "Stage 4" "StageCal None" "StageCal Test" "StageCal_1" "StageCal_1b" "StageCal_2" "StageCal_3" "StageCal_4"
-0
+2
 
 SLIDER
 1589
@@ -2040,7 +2040,7 @@ Complacency_Bound
 Complacency_Bound
 0
 100
-15.0
+5.0
 1
 1
 NIL
@@ -2300,7 +2300,7 @@ SWITCH
 390
 param_trigger_loosen
 param_trigger_loosen
-0
+1
 1
 -1000
 

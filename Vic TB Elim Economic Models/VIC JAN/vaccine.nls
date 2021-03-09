@@ -96,9 +96,10 @@ to simul_vaccinate_me
       set vaccinated 1
       
       ;; Reduce illness length
+      ;; This creates a similar triangle with its left corner at Non_Infective_Time and base length scaled by selfVaccEffMultiplier.
       ;show (word "incBefore " ownincubationperiod ", " ownillnessperiod)
-      set ownincubationperiod ( ownincubationperiod * selfVaccEffMultiplier)
-      set ownillnessperiod (ownillnessperiod * selfVaccEffMultiplier)
+      set ownincubationperiod ((ownincubationperiod - Non_Infective_Time) * selfVaccEffMultiplier) + Non_Infective_Time
+      set ownillnessperiod ((ownillnessperiod - Non_Infective_Time) * selfVaccEffMultiplier) + Non_Infective_Time
       ;show (word "inc " ownincubationperiod ", " ownillnessperiod)
     ]
   ]

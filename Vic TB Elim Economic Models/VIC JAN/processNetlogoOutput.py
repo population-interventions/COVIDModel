@@ -140,7 +140,7 @@ def ProcessRawOutput(outputFile, filelist):
     firstProcess = True
     for filename in filelist:
         size = os.path.getsize(filename + '.csv')
-        expectedRuns = math.round(4 * size / 1046579370)
+        expectedRuns = math.floor(4 * size / 1046579370)
         for chunk in tqdm(pd.read_csv(filename + '.csv', chunksize=chunksize, header=6), total=expectedRuns):
             Process(chunk, firstProcess, outputFile)
             firstProcess = False
@@ -154,11 +154,22 @@ def ProcessFileToVisualisation(filename, append):
                                   dtype={'day' : int, 'cohort' : int}),
                       total=16):
         ToVisualisationRollingWeekly(chunk, filename, append)
+        ToVisualisation(chunk, filename, append)
 
 
-#ProcessRawOutput('Output/runTry1/processed',
-#    ['Output/runTry1/headless MainTest20-table_20',
-#    'Output/runTry1/headless MainTest-table_80']
+def RemoveDuplicates(filename):
+    df = pd.read_csv(filename + '.csv', index_col=list(range(9)),
+                                  header=list(range(3)),
+                                  dtype={'day' : int, 'cohort' : int})
+    df = df[~df.index.droplevel(level=0).duplicated(keep='first')]
+    df.to_csv(filename + '_unique.csv')
+
+#ProcessRawOutput('Output/runTry2/processed',
+#    ['Output/runTry2/headless MainRun-table',
+#    'Output/runTry2/headless MainRun-table_forwards']
 #    )
-ProcessFileToVisualisation('Output/runTry1/processed', 'infect') 
-ProcessFileToVisualisation('Output/runTry1/processed', 'die')
+#RemoveDuplicates('Output/runTry2/processed_infect')
+#RemoveDuplicates('Output/runTry2/processed_die')
+#RemoveDuplicates('Output/runTry2/processed_stage')
+ProcessFileToVisualisation('Output/runTry2/processed', 'infect_unique') 
+ProcessFileToVisualisation('Output/runTry2/processed', 'die_unique')

@@ -101,7 +101,9 @@ to simul_updatepersonalvirulence
     if timenow > ownIncubationPeriod [
       set currentVirulence personalVirulence * ( ( ownIllnessPeriod - timenow ) / ( ownIllnessPeriod - ownIncubationPeriod ))
     ]
-    ;print currentVirulence
+    ;if vaccinated = 1 [
+    ;  show (word "cine " vaccinated ", time " timenow ", VIR " (currentVirulence / personalVirulence) ", unscale " currentVirulence)
+    ;]
     ;set currentVirulence 0
   ]
 end

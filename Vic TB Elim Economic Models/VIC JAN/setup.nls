@@ -6,47 +6,48 @@ to setdeathrisk
   ;; risk of death associated with ageranges if they contract COVID-19
   (ifelse agerange <= 5
   [
-    set riskofDeath 0
+    set riskofDeath 0.0000068
   ]
   agerange <= 15
   [
-    set riskofDeath .002
+    set riskofDeath 0.0000299
   ]
   agerange <= 25
   [
-    set riskofDeath .002
+    set riskofDeath 0.0001112
   ]
   agerange <= 35
   [
-    set riskofDeath .002
+    set riskofDeath 0.0004172
   ]
   agerange <= 45
   [
-    set riskofDeath .004
+    set riskofDeath 0.0017904
   ]
   agerange <= 55
   [
-    set riskofDeath .01
+    set riskofDeath 0.0071179
   ]
   agerange <= 65
   [
-    set riskofDeath .05
+    set riskofDeath 0.0196950
   ]
   agerange <= 75
   [
-    set riskofDeath .05
+    set riskofDeath 0.1350531
   ]
   agerange <= 85
   [
-    set riskofDeath .151
+    set riskofDeath 0.3466041
   ]
   ;; updated from department of health Report 22 - does not map directly to age deciles here
   agerange <= 95
   [
-    set riskofDeath .151
+    set riskofDeath 0.4354866
   ]
   [
-    set riskofDeath .151
+    set riskofDeath 0.4354866
+
   ])
 end
 

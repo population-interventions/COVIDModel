@@ -450,6 +450,7 @@ to setDrawValues
   ;; SqRoot of above
   set draw_maskWearEfficacy rngs:rnd-beta stream_id 40 60
   
+  set draw_vacc_death_risk_mult (1 - (rngs:rnd-beta stream_id 64 16))
   set draw_borderIncursionRisk ( rngs:rnd-beta stream_id 2 8 ) * 0.02
   
   ;show ( word "draw_ppa_modifier " draw_ppa_modifier )

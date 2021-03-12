@@ -178,6 +178,7 @@ globals [
   draw_isolationCompliance
   draw_maskWearEfficacy
   draw_borderIncursionRisk
+  draw_vacc_death_risk_mult
 
   ; Vaccine phase and subphase, as well as internal index and data table.
   global_vaccinePhase
@@ -550,7 +551,7 @@ Proportion_People_Avoid
 Proportion_People_Avoid
 0
 100
-7.0
+10.0
 .5
 1
 NIL
@@ -565,7 +566,7 @@ Proportion_Time_Avoid
 Proportion_Time_Avoid
 0
 100
-7.0
+10.0
 .5
 1
 NIL
@@ -1574,7 +1575,7 @@ RAND_SEED
 RAND_SEED
 0
 10000000
-3623188.0
+4007634.0
 1
 1
 NIL
@@ -2539,21 +2540,6 @@ track_slope
 1
 1
 -1000
-
-SLIDER
-334
-666
-536
-699
-vacc_death_risk_mult
-vacc_death_risk_mult
-0
-1
-0.25
-0.01
-1
-NIL
-HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?
@@ -53909,9 +53895,6 @@ NetLogo 6.2.0
     </enumeratedValueSet>
     <enumeratedValueSet variable="tracking">
       <value value="true"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="vacc_death_risk_mult">
-      <value value="0.25"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="vaccine_available">
       <value value="true"/>

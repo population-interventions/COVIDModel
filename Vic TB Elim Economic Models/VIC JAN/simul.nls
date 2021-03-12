@@ -432,7 +432,7 @@ to simul_end_infection
     array:set recoverArray cohortIndex (array:item recoverArray cohortIndex) + Scale_Factor ^ scalephase
   ]
   if color = red and timenow > ownillnessperiod [
-    ifelse (vaccinated = 0 and RiskofDeath > random-float 1) or (vaccinated = 1 and RiskofDeath * vacc_death_risk_mult > random-float 1)
+    ifelse (vaccinated = 0 and RiskofDeath > random-float 1) or (vaccinated = 1 and RiskofDeath * draw_vacc_death_risk_mult > random-float 1)
     [
       set deathcount deathcount + Scale_Factor ^ scalephase
       array:set dieArray cohortIndex (array:item dieArray cohortIndex) + Scale_Factor ^ scalephase 

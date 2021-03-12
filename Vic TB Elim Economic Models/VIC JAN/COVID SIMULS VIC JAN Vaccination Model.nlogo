@@ -267,8 +267,8 @@ patches-own [
 GRAPHICS-WINDOW
 343
 65
-980
-703
+852
+575
 -1
 -1
 8.213115
@@ -550,7 +550,7 @@ Proportion_People_Avoid
 Proportion_People_Avoid
 0
 100
-9.0
+7.0
 .5
 1
 NIL
@@ -565,7 +565,7 @@ Proportion_Time_Avoid
 Proportion_Time_Avoid
 0
 100
-9.0
+7.0
 .5
 1
 NIL
@@ -970,7 +970,7 @@ Global_Transmissibility
 Global_Transmissibility
 0
 1
-0.34
+0.54
 0.01
 1
 NIL
@@ -1574,7 +1574,7 @@ RAND_SEED
 RAND_SEED
 0
 10000000
-4830918.0
+3623188.0
 1
 1
 NIL
@@ -1840,7 +1840,7 @@ CHOOSER
 param_policy
 param_policy
 "AggressElim" "ModerateElim" "TightSupress" "LooseSupress" "None" "Stage 1" "Stage 1b" "Stage 2" "Stage 3" "Stage 4" "StageCal None" "StageCal Test" "StageCal_1" "StageCal_1b" "StageCal_2" "StageCal_3" "StageCal_4"
-2
+3
 
 SLIDER
 1589
@@ -2539,6 +2539,21 @@ track_slope
 1
 1
 -1000
+
+SLIDER
+334
+666
+536
+699
+vacc_death_risk_mult
+vacc_death_risk_mult
+0
+1
+0.25
+0.01
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?
@@ -53894,6 +53909,9 @@ NetLogo 6.2.0
     </enumeratedValueSet>
     <enumeratedValueSet variable="tracking">
       <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="vacc_death_risk_mult">
+      <value value="0.25"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="vaccine_available">
       <value value="true"/>

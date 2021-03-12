@@ -267,11 +267,11 @@ patches-own [
 GRAPHICS-WINDOW
 343
 65
-848
-571
+852
+575
 -1
 -1
-8.15
+8.213115
 1
 10
 1
@@ -389,6 +389,7 @@ Span
 NIL
 HORIZONTAL
 
+
 SLIDER
 40
 1202
@@ -421,6 +422,10 @@ NIL
 NIL
 1
 
+
+
+
+
 SLIDER
 1629
 294
@@ -436,6 +441,9 @@ superspreaders
 NIL
 HORIZONTAL
 
+
+
+
 SLIDER
 1625
 54
@@ -445,7 +453,7 @@ Proportion_People_Avoid
 Proportion_People_Avoid
 0
 100
-21.0
+7.0
 .5
 1
 NIL
@@ -460,11 +468,15 @@ Proportion_Time_Avoid
 Proportion_Time_Avoid
 0
 100
-21.0
+7.0
 .5
 1
 NIL
 HORIZONTAL
+
+
+
+
 
 INPUTBOX
 205
@@ -488,6 +500,7 @@ total_population
 0
 Number
 
+
 SLIDER
 40
 1248
@@ -502,6 +515,10 @@ Incubation_Period
 1
 NIL
 HORIZONTAL
+
+
+
+
 
 SLIDER
 1672
@@ -518,6 +535,8 @@ Age_Isolation
 NIL
 HORIZONTAL
 
+
+
 SWITCH
 1594
 959
@@ -528,6 +547,8 @@ scale
 0
 1
 -1000
+
+
 
 SWITCH
 1380
@@ -561,6 +582,11 @@ Leave Freewheel to 'on' to manipulate policy on the fly
 0.0
 1
 
+
+
+
+
+
 INPUTBOX
 2864
 474
@@ -583,6 +609,8 @@ se_incubation
 0
 Number
 
+
+
 SLIDER
 12
 448
@@ -592,7 +620,7 @@ Global_Transmissibility
 Global_Transmissibility
 0
 1
-0.34
+0.54
 0.01
 1
 NIL
@@ -607,7 +635,7 @@ Essential_Workers
 Essential_Workers
 0
 100
-70.0
+100.0
 1
 1
 NIL
@@ -648,7 +676,7 @@ Mask_Wearing
 Mask_Wearing
 0
 100
-35.0
+15.0
 1
 1
 NIL
@@ -664,6 +692,11 @@ schoolsOpen
 0
 1
 -1000
+
+
+
+
+
 
 SWITCH
 1483
@@ -690,6 +723,16 @@ Case_Reporting_Delay
 1
 NIL
 HORIZONTAL
+
+
+
+
+
+
+
+
+
+
 
 SLIDER
 1629
@@ -721,6 +764,8 @@ Visit_Radius
 NIL
 HORIZONTAL
 
+
+
 SLIDER
 332
 907
@@ -751,6 +796,7 @@ OS_Import_Proportion
 NIL
 HORIZONTAL
 
+
 SLIDER
 1629
 219
@@ -766,6 +812,9 @@ OS_Import_Post_Proportion
 NIL
 HORIZONTAL
 
+
+
+
 CHOOSER
 1589
 909
@@ -775,6 +824,7 @@ InitialScale
 InitialScale
 0 1 2 3 4
 0
+
 
 SWITCH
 1379
@@ -786,6 +836,11 @@ SelfGovern
 0
 1
 -1000
+
+
+
+
+
 
 SWITCH
 1528
@@ -834,6 +889,7 @@ BaseStage
 0 1 2 3 4
 0
 
+
 CHOOSER
 1665
 1215
@@ -844,6 +900,7 @@ MaxStage
 0 1 2 3 4
 4
 
+
 SLIDER
 13
 15
@@ -853,11 +910,13 @@ RAND_SEED
 RAND_SEED
 0
 10000000
-3055291.0
+3623188.0
 1
 1
 NIL
 HORIZONTAL
+
+
 
 TEXTBOX
 22
@@ -923,7 +982,7 @@ param_vac2_tran_reduct
 param_vac2_tran_reduct
 50
 90
-75.0
+90.0
 5
 1
 NIL
@@ -943,6 +1002,16 @@ param_vacEffDays
 1
 NIL
 HORIZONTAL
+
+
+
+
+
+
+
+
+
+
 
 TEXTBOX
 1493
@@ -973,7 +1042,7 @@ CHOOSER
 param_policy
 param_policy
 "AggressElim" "ModerateElim" "TightSupress" "LooseSupress" "None" "Stage 1" "Stage 1b" "Stage 2" "Stage 3" "Stage 4" "StageCal None" "StageCal Test" "StageCal_1" "StageCal_1b" "StageCal_2" "StageCal_3" "StageCal_4"
-0
+3
 
 SLIDER
 1589
@@ -1004,6 +1073,9 @@ Scale_Factor
 1
 NIL
 HORIZONTAL
+
+
+
 
 TEXTBOX
 772
@@ -1055,6 +1127,9 @@ Asymptom_Trace_Mult
 NIL
 HORIZONTAL
 
+
+
+
 SLIDER
 557
 785
@@ -1079,11 +1154,13 @@ Complacency_Bound
 Complacency_Bound
 0
 100
-15.0
+5.0
 1
 1
 NIL
 HORIZONTAL
+
+
 
 BUTTON
 14
@@ -1175,6 +1252,8 @@ Non_Infective_Time
 NIL
 HORIZONTAL
 
+
+
 SWITCH
 1469
 739
@@ -1185,6 +1264,11 @@ track_R
 1
 1
 -1000
+
+
+
+
+
 
 SLIDER
 557
@@ -1208,9 +1292,10 @@ SWITCH
 390
 param_trigger_loosen
 param_trigger_loosen
-0
+1
 1
 -1000
+
 
 SLIDER
 1044
@@ -1226,6 +1311,10 @@ End_R_Reported
 1
 NIL
 HORIZONTAL
+
+
+
+
 
 SLIDER
 22
@@ -1383,6 +1472,21 @@ track_slope
 1
 1
 -1000
+
+SLIDER
+334
+666
+536
+699
+vacc_death_risk_mult
+vacc_death_risk_mult
+0
+1
+0.25
+0.01
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?
@@ -52738,6 +52842,9 @@ NetLogo 6.2.0
     </enumeratedValueSet>
     <enumeratedValueSet variable="tracking">
       <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="vacc_death_risk_mult">
+      <value value="0.25"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="vaccine_available">
       <value value="true"/>

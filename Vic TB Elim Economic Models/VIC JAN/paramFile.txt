@@ -63,6 +63,7 @@
 ["track_r" false]
 ["track_slope" false]
 ["tracking" true]
+["vacc_death_risk_mult" 0.25]
 ["vaccine_available" true]
 ["visit_frequency" 0.1428]
 ["visit_radius" 8.8]

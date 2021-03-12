@@ -102,10 +102,11 @@ to simul_updatepersonalvirulence
       set currentVirulence personalVirulence * ( ( ownIllnessPeriod - timenow ) / ( ownIllnessPeriod - ownIncubationPeriod ))
     ]
     ;if vaccinated = 1 [
-    ;  show (word "cine " vaccinated ", time " timenow ", VIR " (currentVirulence / personalVirulence) ", unscale " currentVirulence)
+    ;  show (word "cine " vaccinated ",time " timenow ",VIR " (currentVirulence / personalVirulence) ",unscale " currentVirulence)
     ;]
     ;set currentVirulence 0
   ]
+  ;show (word "personalVirulence " personalVirulence ",ownIncubationPeriod " ownIncubationPeriod ",ownIllnessPeriod " ownIllnessPeriod)
 end
 
 to simul_resetlanding

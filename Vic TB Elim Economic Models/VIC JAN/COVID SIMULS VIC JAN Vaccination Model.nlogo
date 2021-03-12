@@ -267,11 +267,11 @@ patches-own [
 GRAPHICS-WINDOW
 343
 65
-976
-699
+980
+703
 -1
 -1
-8.164
+8.213115
 1
 10
 1
@@ -550,7 +550,7 @@ Proportion_People_Avoid
 Proportion_People_Avoid
 0
 100
-5.0
+9.0
 .5
 1
 NIL
@@ -565,7 +565,7 @@ Proportion_Time_Avoid
 Proportion_Time_Avoid
 0
 100
-5.0
+9.0
 .5
 1
 NIL
@@ -1658,7 +1658,7 @@ param_vac1_tran_reduct
 param_vac1_tran_reduct
 50
 90
-75.0
+90.0
 5
 1
 NIL
@@ -1673,7 +1673,7 @@ param_vac2_tran_reduct
 param_vac2_tran_reduct
 50
 90
-75.0
+90.0
 5
 1
 NIL

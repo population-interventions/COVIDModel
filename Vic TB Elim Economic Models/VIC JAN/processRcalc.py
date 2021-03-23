@@ -163,7 +163,7 @@ def ProcessToPlot(path, name, varName,
     df.describe().to_csv(path + name + '_plot_metric.csv')
     return df
 
-nameNumber = ''
+nameNumber = '_2'
 namePath = 'runCalibrate'
 #nameStr = 'COVID SIMULS VIC JAN Vaccination Model R test 7-table' + str(nameNumber)
 nameStr = 'headless MainCalibrate-table' + nameNumber
@@ -199,7 +199,7 @@ MakePlot(ProcessToPlot(
     'average_R',
     yTop=6,
     hlines=[1, 2.5, 2.5*1.25, 2.5*1.5],
-    width=80,
+    width=70,
 )
 #MakePlot('Output/' + namePath + '/', nameStr + '_process', 'trackAverage',
 #    yDomain=(0, 1),

@@ -332,7 +332,13 @@ to simul_infect
             set timenow 0
             set infectionsToday_acc infectionsToday_acc + 1
             set new_case_real_counter new_case_real_counter + Scale_Factor ^ scalephase
-            array:set infectArray cohortIndex (array:item infectArray cohortIndex) + Scale_Factor ^ scalephase
+            ifelse vaccinated = 1
+            [
+              array:set infectVacArray cohortIndex (array:item infectVacArray cohortIndex) + Scale_Factor ^ scalephase
+            ]
+            [
+              array:set infectNoVacArray cohortIndex (array:item infectNoVacArray cohortIndex) + Scale_Factor ^ scalephase
+            ]
             if track_R [
               ask table:get localInfectionCulprit x [
                 set R R + 1
@@ -428,8 +434,6 @@ to simul_end_infection
     if track_R [
       simul_setEndR 
     ]
-    
-    array:set recoverArray cohortIndex (array:item recoverArray cohortIndex) + Scale_Factor ^ scalephase
   ]
   if color = red and timenow > ownillnessperiod [
     ifelse (vaccinated = 0 and RiskofDeath > random-float 1) or (vaccinated = 1 and RiskofDeath * draw_vacc_death_risk_mult > random-float 1)
@@ -439,7 +443,7 @@ to simul_end_infection
     ]
     [
       set recovercount recovercount + Scale_Factor ^ scalephase
-      array:set recoverArray cohortIndex (array:item recoverArray cohortIndex) + Scale_Factor ^ scalephase
+      array:set infectVacArray cohortIndex (array:item infectVacArray cohortIndex) + Scale_Factor ^ scalephase
     ]
     
     ;; May as well set color to yellow since dead and infected people have a similar effect on the simulation.

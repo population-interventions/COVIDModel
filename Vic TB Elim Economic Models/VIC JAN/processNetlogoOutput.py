@@ -55,8 +55,8 @@ def Process(chunk: pd.DataFrame, outputStaticData, filename):
         'param_vac1_tran_reduct', 'param_vac2_tran_reduct', 'param_vac_uptake',
         'param_trigger_loosen',
         'stage_listOut', 'scalephase', 'cumulativeInfected', 'casesReportedToday',
-        'Deathcount', 'totalOverseasIncursions', 'infectArray_listOut', 'recoverArray_listOut',
-        'dieArray_listOut', 'age_listOut', 'atsi_listOut', 'morbid_listOut',
+        'Deathcount', 'totalOverseasIncursions', 'infectNoVacArray_listOut', 'infectVacArray_listOut',
+        'age_listOut', 'atsi_listOut', 'morbid_listOut',
     ]]
     
     cohorts = len(chunk.iloc[0].age_listOut.split(' '))
@@ -94,9 +94,8 @@ def Process(chunk: pd.DataFrame, outputStaticData, filename):
     chunk.index = pd.MultiIndex.from_frame(index)
     
     SplitOutDailyData(chunk, 1, days, 'stage', filename, 'stage')
-    SplitOutDailyData(chunk, cohorts, days, 'infectArray', filename, 'infect')
-    SplitOutDailyData(chunk, cohorts, days, 'recoverArray', filename, 'recover')
-    SplitOutDailyData(chunk, cohorts, days, 'dieArray', filename, 'die')
+    SplitOutDailyData(chunk, cohorts, days, 'infectNoVacArray', filename, 'infectNoVac')
+    SplitOutDailyData(chunk, cohorts, days, 'infectVacArray', filename, 'infectVac')
 
 
 def ToVisualisation(chunk, filename, append):
@@ -164,12 +163,12 @@ def RemoveDuplicates(filename):
     df = df[~df.index.droplevel(level=0).duplicated(keep='first')]
     df.to_csv(filename + '_unique.csv')
 
-directory = 'Output/runTry3/'
-#ProcessRawOutput(directory + 'processed',
-#    [directory + 'mergedresult']
-#    )
-RemoveDuplicates(directory + 'processed_infect')
-RemoveDuplicates(directory + 'processed_die')
+directory = 'Output/test/'
+ProcessRawOutput(directory + 'processed',
+    [directory + 'test']
+    )
+RemoveDuplicates(directory + 'processed_infectNoVac')
+RemoveDuplicates(directory + 'processed_infectVac')
 RemoveDuplicates(directory + 'processed_stage')
-ProcessFileToVisualisation(directory + 'processed', 'infect_unique') 
-ProcessFileToVisualisation(directory + 'processed', 'die_unique')
+ProcessFileToVisualisation(directory + 'processed', 'infectNoVac_unique') 
+ProcessFileToVisualisation(directory + 'processed', 'infectVac_unique') 

@@ -1,8 +1,8 @@
 
 to setup_DataOut
   set cohortLengthListOfZeros n-values length popDivisionTable_keys [0]
-  set infectArray array:from-list cohortLengthListOfZeros
-  set recoverArray array:from-list cohortLengthListOfZeros
+  set infectNoVacArray array:from-list cohortLengthListOfZeros
+  set infectVacArray array:from-list cohortLengthListOfZeros
   set dieArray array:from-list cohortLengthListOfZeros
   
   set age_listOut []
@@ -22,12 +22,12 @@ to setup_DataOut
 end
 
 to calculateDataOut
-  set infectArray_listOut lput array:to-list infectArray infectArray_listOut
-  set recoverArray_listOut lput array:to-list recoverArray recoverArray_listOut
+  set infectNoVacArray_listOut lput array:to-list infectNoVacArray infectNoVacArray_listOut
+  set infectVacArray_listOut lput array:to-list infectVacArray infectVacArray_listOut
   set dieArray_listOut lput array:to-list dieArray dieArray_listOut
   set stage_listOut lput stage stage_listOut
   
-  set infectArray array:from-list cohortLengthListOfZeros
-  set recoverArray array:from-list cohortLengthListOfZeros
+  set infectNoVacArray array:from-list cohortLengthListOfZeros
+  set infectVacArray array:from-list cohortLengthListOfZeros
   set dieArray array:from-list cohortLengthListOfZeros
 end

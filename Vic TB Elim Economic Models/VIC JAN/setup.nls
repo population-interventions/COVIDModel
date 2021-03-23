@@ -430,8 +430,8 @@ to setGlobals
   
   set R_measure_time -1
   
-  set infectArray_listOut []
-  set recoverArray_listOut []
+  set infectNoVacArray_listOut []
+  set infectVacArray_listOut []
   set dieArray_listOut []
   set stage_listOut []
 end
@@ -531,7 +531,7 @@ to setup
     set timenow random int ownIncubationPeriod
     simul_updatepersonalvirulence
     set infectionsToday_acc infectionsToday_acc + 1
-    array:set infectArray cohortIndex (array:item infectArray cohortIndex) + 1
+    array:set infectNoVacArray cohortIndex (array:item infectNoVacArray cohortIndex) + 1
   ]
 
   ;; spend CalculateIncomePerday
@@ -555,7 +555,7 @@ to setup
       set timenow random int ownIncubationPeriod
       set init_secondry_infect init_secondry_infect - 1
       set infectionsToday_acc infectionsToday_acc + 1
-      array:set infectArray cohortIndex (array:item infectArray cohortIndex) + 1
+      array:set infectNoVacArray cohortIndex (array:item infectNoVacArray cohortIndex) + 1
     ]
   ]
 

@@ -39,7 +39,13 @@ to vaccine_do_incursion_based_on_phase
         set noticeOwnInfection 0
         set new_case_real_counter new_case_real_counter + peoplePerSimul
         set totalOverseasIncursions totalOverseasIncursions + peoplePerSimul
-        array:set infectArray cohortIndex (array:item infectArray cohortIndex) + peoplePerSimul
+        ifelse vaccinated = 1
+        [
+          array:set infectVacArray cohortIndex (array:item infectVacArray cohortIndex) + peoplePerSimul
+        ]
+        [
+          array:set infectNoVacArray cohortIndex (array:item infectNoVacArray cohortIndex) + peoplePerSimul
+        ]
       ]
     ]
   ]

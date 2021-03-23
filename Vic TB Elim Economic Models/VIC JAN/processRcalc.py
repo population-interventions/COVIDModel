@@ -163,14 +163,11 @@ def ProcessToPlot(path, name, varName,
     df.describe().to_csv(path + name + '_plot_metric.csv')
     return df
 
-nameNumber = '16'
-namePath = 'R calc 4'
+nameNumber = ''
+namePath = 'runCalibrate'
 #nameStr = 'COVID SIMULS VIC JAN Vaccination Model R test 7-table' + str(nameNumber)
-nameStr = 'headless find_2.5-table' + nameNumber
+nameStr = 'headless MainCalibrate-table' + nameNumber
 #nameStr = 'headless find_2.5 high track-table' + nameNumber
-
-namePath = 'StageTest3'
-nameStr = 'headless stageTest_big4-table_19'
 
 #namePath = 'R regress'
 #nameStr = '55566792746ada8e5fd4b6c8efe14d2c736ad9f1_change'
@@ -200,9 +197,9 @@ MakePlot(ProcessToPlot(
         indexDepth=4,
     ),
     'average_R',
-    yTop=5,
+    yTop=6,
     hlines=[1, 2.5, 2.5*1.25, 2.5*1.5],
-    width=120,
+    width=80,
 )
 #MakePlot('Output/' + namePath + '/', nameStr + '_process', 'trackAverage',
 #    yDomain=(0, 1),

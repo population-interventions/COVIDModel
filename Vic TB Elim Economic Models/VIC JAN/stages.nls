@@ -21,9 +21,6 @@ to do_stages_test
   set Contact_Radius 0
   set traceMult 1
   set isolate_on_inf_notice false
-  set Household_Iso_Factor 1
-  set Track_Iso_Factor 1
-  set Infect_Iso_Factor 1
   
   if stage_test_index = 1 [
     set testName "Span 5"

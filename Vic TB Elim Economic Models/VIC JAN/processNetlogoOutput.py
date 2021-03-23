@@ -135,25 +135,25 @@ def ToVisualisationRollingWeekly(chunk, filename, append):
     
     
 def ProcessRawOutput(outputFile, filelist):
-    chunksize = 4 ** 6
+    chunksize = 4 ** 7
     
     firstProcess = True
     for filename in filelist:
         size = os.path.getsize(filename + '.csv')
-        expectedRuns = math.floor(4 * size / 1046579370)
+        expectedRuns = math.floor(size / 1046579370)
         for chunk in tqdm(pd.read_csv(filename + '.csv', chunksize=chunksize, header=6), total=expectedRuns):
             Process(chunk, firstProcess, outputFile)
             firstProcess = False
 
 
 def ProcessFileToVisualisation(filename, append):
-    chunksize = 4 ** 6
+    chunksize = 4 ** 7
     for chunk in tqdm(pd.read_csv(filename + '_' + append + '.csv', chunksize=chunksize,
                                   index_col=list(range(9)),
                                   header=list(range(3)),
                                   dtype={'day' : int, 'cohort' : int}),
                       total=16):
-        ToVisualisationRollingWeekly(chunk, filename, append)
+        #ToVisualisationRollingWeekly(chunk, filename, append)
         ToVisualisation(chunk, filename, append)
 
 
@@ -164,12 +164,12 @@ def RemoveDuplicates(filename):
     df = df[~df.index.droplevel(level=0).duplicated(keep='first')]
     df.to_csv(filename + '_unique.csv')
 
-#ProcessRawOutput('Output/runTry2/processed',
-#    ['Output/runTry2/headless MainRun-table',
-#    'Output/runTry2/headless MainRun-table_forwards']
+directory = 'Output/runTry3/'
+#ProcessRawOutput(directory + 'processed',
+#    [directory + 'mergedresult']
 #    )
-#RemoveDuplicates('Output/runTry2/processed_infect')
-#RemoveDuplicates('Output/runTry2/processed_die')
-#RemoveDuplicates('Output/runTry2/processed_stage')
-ProcessFileToVisualisation('Output/runTry2/processed', 'infect_unique') 
-ProcessFileToVisualisation('Output/runTry2/processed', 'die_unique')
+RemoveDuplicates(directory + 'processed_infect')
+RemoveDuplicates(directory + 'processed_die')
+RemoveDuplicates(directory + 'processed_stage')
+ProcessFileToVisualisation(directory + 'processed', 'infect_unique') 
+ProcessFileToVisualisation(directory + 'processed', 'die_unique')

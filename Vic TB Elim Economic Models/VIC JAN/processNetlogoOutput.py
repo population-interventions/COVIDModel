@@ -163,9 +163,9 @@ def RemoveDuplicates(filename):
     df = df[~df.index.droplevel(level=0).duplicated(keep='first')]
     df.to_csv(filename + '_unique.csv')
 
-directory = 'Output/test/'
+directory = 'Output/runTry4/'
 ProcessRawOutput(directory + 'processed',
-    [directory + 'test']
+    [directory + 'mergedresult']
     )
 RemoveDuplicates(directory + 'processed_infectNoVac')
 RemoveDuplicates(directory + 'processed_infectVac')

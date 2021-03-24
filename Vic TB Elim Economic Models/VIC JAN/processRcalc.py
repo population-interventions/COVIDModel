@@ -163,7 +163,7 @@ def ProcessToPlot(path, name, varName,
     df.describe().to_csv(path + name + '_plot_metric.csv')
     return df
 
-nameNumber = '_2'
+nameNumber = '_6'
 namePath = 'runCalibrate'
 #nameStr = 'COVID SIMULS VIC JAN Vaccination Model R test 7-table' + str(nameNumber)
 nameStr = 'headless MainCalibrate-table' + nameNumber

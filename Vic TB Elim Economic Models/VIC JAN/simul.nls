@@ -436,9 +436,13 @@ to simul_end_infection
     ]
   ]
   if color = red and timenow > ownillnessperiod [
-    if (vaccinated = 0 and RiskofDeath > random-float 1) or (vaccinated = 1 and RiskofDeath * draw_vacc_death_risk_mult > random-float 1) [
+    ifelse (vaccinated = 0 and RiskofDeath > random-float 1) or (vaccinated = 1 and RiskofDeath * draw_vacc_death_risk_mult > random-float 1)
+    [
       set deathcount deathcount + Scale_Factor ^ scalephase
       array:set dieArray cohortIndex (array:item dieArray cohortIndex) + Scale_Factor ^ scalephase 
+    ]
+    [
+      set recovercount recovercount + Scale_Factor ^ scalephase
     ]
     
     ;; May as well set color to yellow since dead and infected people have a similar effect on the simulation.

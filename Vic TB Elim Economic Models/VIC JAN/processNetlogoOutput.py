@@ -183,14 +183,14 @@ def AddFiles(directory, file1, file2, outputName, append):
     OutputToFile(new_df - df1, directory + outputName, 'sanity_test')
 
 
-directory = 'Output/runTry4/'
-#ProcessRawOutput(directory + 'processed',
-#    [directory + 'mergedresult']
-#    )
-##RemoveDuplicates(directory + 'processed_infectNoVac')
-##RemoveDuplicates(directory + 'processed_infectVac')
-##RemoveDuplicates(directory + 'processed_stage')
-#ProcessFileToVisualisation(directory + 'processed', 'infectNoVac') 
-#ProcessFileToVisualisation(directory + 'processed', 'infectVac')
+directory = 'Output/runTry5/'
+ProcessRawOutput(directory + 'processed',
+    [directory + 'mergedresult']
+    )
+#RemoveDuplicates(directory + 'processed_infectNoVac')
+#RemoveDuplicates(directory + 'processed_infectVac')
+#RemoveDuplicates(directory + 'processed_stage')
+ProcessFileToVisualisation(directory + 'processed', 'infectNoVac') 
+ProcessFileToVisualisation(directory + 'processed', 'infectVac')
 AddFiles(directory, 'processed_infectNoVac_weeklyAgg', 'processed_infectVac_weeklyAgg',
          'processed_infect_unique', 'weeklyAgg')

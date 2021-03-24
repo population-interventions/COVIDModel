@@ -441,10 +441,6 @@ to simul_end_infection
       set deathcount deathcount + Scale_Factor ^ scalephase
       array:set dieArray cohortIndex (array:item dieArray cohortIndex) + Scale_Factor ^ scalephase 
     ]
-    [
-      set recovercount recovercount + Scale_Factor ^ scalephase
-      array:set infectVacArray cohortIndex (array:item infectVacArray cohortIndex) + Scale_Factor ^ scalephase
-    ]
     
     ;; May as well set color to yellow since dead and infected people have a similar effect on the simulation.
     ;; Very few people die in the low scales as a proportion of the total population.

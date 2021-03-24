@@ -139,7 +139,7 @@ def ProcessRawOutput(outputFile, filelist):
     firstProcess = True
     for filename in filelist:
         size = os.path.getsize(filename + '.csv')
-        expectedRuns = math.floor(size / 1046579370)
+        expectedRuns = math.floor(size / 846579370)
         for chunk in tqdm(pd.read_csv(filename + '.csv', chunksize=chunksize, header=6), total=expectedRuns):
             Process(chunk, firstProcess, outputFile)
             firstProcess = False
@@ -151,7 +151,7 @@ def ProcessFileToVisualisation(filename, append):
                                   index_col=list(range(9)),
                                   header=list(range(3)),
                                   dtype={'day' : int, 'cohort' : int}),
-                      total=16):
+                      total=4):
         #ToVisualisationRollingWeekly(chunk, filename, append)
         ToVisualisation(chunk, filename, append)
 
@@ -163,12 +163,34 @@ def RemoveDuplicates(filename):
     df = df[~df.index.droplevel(level=0).duplicated(keep='first')]
     df.to_csv(filename + '_unique.csv')
 
+
+def AddFiles(directory, file1, file2, outputName, append):
+    df1 = pd.read_csv(directory + file1 + '.csv', index_col=list(range(9)),
+                                  header=list(range(1)))
+    df2 = pd.read_csv(directory + file2 + '.csv', index_col=list(range(9)),
+                                  header=list(range(1)))
+    OutputToFile(df1 + df2, directory + outputName, append)
+    
+    new_df = (df1 + df2)
+    old_df = pd.read_csv('Output/runTry3/processed_infect_unique_weeklyAgg.csv',
+                         index_col=list(range(9)),
+                         header=list(range(1)))
+    print(new_df)
+    print(old_df)
+    print(new_df - old_df)
+    OutputToFile(new_df, directory + outputName, 'NEW')
+    OutputToFile(old_df, directory + outputName, 'OLD')
+    OutputToFile(new_df - df1, directory + outputName, 'sanity_test')
+
+
 directory = 'Output/runTry4/'
-ProcessRawOutput(directory + 'processed',
-    [directory + 'mergedresult']
-    )
-RemoveDuplicates(directory + 'processed_infectNoVac')
-RemoveDuplicates(directory + 'processed_infectVac')
-RemoveDuplicates(directory + 'processed_stage')
-ProcessFileToVisualisation(directory + 'processed', 'infectNoVac_unique') 
-ProcessFileToVisualisation(directory + 'processed', 'infectVac_unique') 
+#ProcessRawOutput(directory + 'processed',
+#    [directory + 'mergedresult']
+#    )
+##RemoveDuplicates(directory + 'processed_infectNoVac')
+##RemoveDuplicates(directory + 'processed_infectVac')
+##RemoveDuplicates(directory + 'processed_stage')
+#ProcessFileToVisualisation(directory + 'processed', 'infectNoVac') 
+#ProcessFileToVisualisation(directory + 'processed', 'infectVac')
+AddFiles(directory, 'processed_infectNoVac_weeklyAgg', 'processed_infectVac_weeklyAgg',
+         'processed_infect_unique', 'weeklyAgg')

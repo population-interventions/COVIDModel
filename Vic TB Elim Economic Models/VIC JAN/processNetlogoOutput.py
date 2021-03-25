@@ -89,7 +89,7 @@ def Process(chunk: pd.DataFrame, outputStaticData, filename):
     index = chunk.index.to_frame()
     index['R0'] = index['global_transmissibility'].replace({
         0.34 : 2.5,
-        0.45 : 3.125,
+        0.43 : 3.125,
         0.54 : 3.75,})
     chunk.index = pd.MultiIndex.from_frame(index)
     

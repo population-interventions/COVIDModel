@@ -183,14 +183,55 @@ def AddFiles(directory, file1, file2, outputName, append):
     OutputToFile(new_df - df1, directory + outputName, 'sanity_test')
 
 
+def AverageRuns(directory, file):
+    df = pd.read_csv(directory + file + '.csv', index_col=list(range(9)),
+                                  header=list(range(1)))
+    df = df.groupby(level=[2, 3, 4, 5, 6, 7, 8], axis=0).mean()
+    
+    OutputToFile(df, directory + file + '_average_runs', 'aa')
+    df = df[[str(i + 14) + '.0' for i in range(26)]]
+    df = df.transpose().describe().transpose()
+    OutputToFile(df, directory + file + '_stage2_means', 'aaa')
+    
+
+def AverageRunsStages(directory, file):
+    df = pd.read_csv(directory + file + '.csv', index_col=list(range(9)),
+                                  header=list(range(3)))
+    df = df.apply(lambda c: [1 if x > 2 else 0 for x in c])
+    df = df.groupby(level=[2, 3, 4, 5, 6, 7, 8], axis=0).mean()
+    
+    df = df.droplevel([0, 2], axis=1)
+    df = df[[str(i + 81) for i in range(181)]]
+    OutputToFile(df, directory + file + '_stage2_stages_mean', 'test')
+    df = df.transpose().describe().transpose()
+    df = df[['mean']]
+    df = df.reset_index()
+    df = df[df['param_vac1_tran_reduct'] == df['param_vac2_tran_reduct']]
+    df = df.drop(columns=['param_vac2_tran_reduct', 'global_transmissibility'])
+    df = df.rename(columns={'param_vac1_tran_reduct' : 'param_vac_tran_reduct'})
+    
+    df['param_vac_uptake'] = df['param_vac_uptake'].replace({
+        60 : '60',
+        75 : '075',
+        90 : '0090',
+    })
+    
+    df = df.set_index(['param_policy', 'param_vac_tran_reduct', 'R0',
+                       'param_trigger_loosen', 'param_vac_uptake'])
+    df = df.unstack(['param_policy', 'param_vac_tran_reduct'])
+    OutputToFile(df, directory + file + '_stage2_stages_mean', 'aaa')
+
+
 directory = 'Output/runTry5/'
 ProcessRawOutput(directory + 'processed',
     [directory + 'mergedresult']
     )
-#RemoveDuplicates(directory + 'processed_infectNoVac')
-#RemoveDuplicates(directory + 'processed_infectVac')
-#RemoveDuplicates(directory + 'processed_stage')
+##RemoveDuplicates(directory + 'processed_infectNoVac')
+##RemoveDuplicates(directory + 'processed_infectVac')
+##RemoveDuplicates(directory + 'processed_stage')
 ProcessFileToVisualisation(directory + 'processed', 'infectNoVac') 
 ProcessFileToVisualisation(directory + 'processed', 'infectVac')
-AddFiles(directory, 'processed_infectNoVac_weeklyAgg', 'processed_infectVac_weeklyAgg',
-         'processed_infect_unique', 'weeklyAgg')
+AddFiles(directory, 'processed_infectNoVac_weeklyAgg',
+    'processed_infectVac_weeklyAgg', 'processed_infect_unique', 'weeklyAgg')
+AverageRuns(directory, 'processed_infect_unique_weeklyAgg')
+AverageRunsStages(directory, 'processed_stage')
